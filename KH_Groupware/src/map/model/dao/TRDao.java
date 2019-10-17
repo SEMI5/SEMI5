@@ -75,7 +75,7 @@ public class TRDao {
 			//pstmt.setString(1, tr.getStId());
 			pstmt.setString(1, tr.getTrName());
 			pstmt.setString(2, tr.getTrMemo());
-			pstmt.setString(3, tr.getTrLatLng()); //�ּ�
+			pstmt.setString(3, tr.getTrLatLng());
 			
 			result = pstmt.executeUpdate();
 			

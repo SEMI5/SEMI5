@@ -3,7 +3,7 @@
 	<%
 		ArrayList<TR_list> list = (ArrayList)request.getAttribute("list");
 		String AD = (String)request.getParameter("AjaxData");
-		out.print(list);
+		//out.print(list);
 	%>
 <!DOCTYPE html>
 <html>
@@ -92,7 +92,7 @@
 										  	 "<td>"+
 											 "    가게 명 : "+ data[index].trName +"<br>"+
 								             "    후기 : "+ data[index].trMemo +"<br>"+
-								            /*  "    별점 : "+ data[index]. + */
+								             "    별점 : "+ data[index].trName + 
 								             "    <input type=hidden id=hiddenAddress value=" + data[index].trLatLng + ">" +
 								             "    <button id=likeBtn value= >dd<button>"+
 								             "</td>" +
@@ -132,7 +132,6 @@
 					}); // ajax 종료
 				}); // function 종료
 	</script>
-	
 	
  	</div>
 </body>
