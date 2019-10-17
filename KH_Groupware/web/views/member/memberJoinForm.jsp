@@ -141,6 +141,10 @@
 					<td><input type = "text" maxlength="5" name="userName" required></td>
 				</tr>
 				<tr>
+				<td> * 주민등록번호 </td>
+					<td><input type = "text" maxlength="5" name="userRRN" required></td>
+				</tr>
+				<tr>
 					<td> * 연락처 </td>
 					<td>
 						<input type="tel" maxlength="11" name="phone" placeholder="(-없이)01012345678">
@@ -160,7 +164,7 @@
 					<td> * 반 </td>
 					<td><select name = "class">
 					<%for(int i = 0 ; i < cList.size(); i++ ){ %>
-						<option value = "<%=cList.get(i).getCID()%>"><%=cList.get(i).getC_NAME() %></option>
+						<option value = "<%=cList.get(i).getcId()%>"><%=cList.get(i).getcName() %></option>
 					<% }%> 
 					</select></td>
 					<td></td>

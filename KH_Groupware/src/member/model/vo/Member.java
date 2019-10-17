@@ -4,305 +4,267 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Member implements Serializable{
-
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4952932019676617041L;
-
-	private int USER_NO;		//학생번호
-	private int CID;			//클래스번호
-	private String USER_ID;		//아이디
-	private String USER_PWD;	//비밀번호
-	private String USER_NAME;	//이름
-	private String PHONE;		//핸드폰
-	private String EMAIL;		//이메일
-	private String ADDRESS;		//주소
-	private Date ENROLL_DATE;	//가입일
-	private Date MODIFY_DATE;	//수정일
-	private String STATUS;		//탈퇴여부
-	private String LEVEL;		//학생의 수준
-	private String MAJOR;		//전공유무
-	private String SMOKING;		//흡연여부
-	private String SEAT;		//자리
-	private String EXP;			//실무경험
-	private String CONSULT;		//상담내용
-	private String APPROVE;		//승인여부
+	private static final long serialVersionUID = -8442194589208953779L;
 	
+	private int userNo;	//학생번호     
+	private int cId;		//클래스번호    
+	private String userId;  //아이디      
+	private String userPwd;  //비밀번호     
+	private String userName;  //이름       
+	private String RRN;  //주민등록번호   
+	private String phone;  //핸드폰      
+	private String eMail;  //이메일      
+	private String address;  //주소       
+	private Date enrollDate;  //가입일      
+	private Date modifyDate;  //수정일      
+	private String status;  //탈퇴여부     
+	private String stdLv;  //학생의 수준   
+	private String major;  //전공유무     
+	private String smoking;  //흡연여부     
+	private String seat;  //자리       
+	private String exp;  //실무경험     
+	private String consult;  //상담내용     
+	private String approve;  //승인여부 
+
 	public Member() {}
 
-	
-	
-	
-	// 로그인시 사용
-	public Member(String uSER_ID, String uSER_PWD) {
+	// 로그인
+	public Member(String userId, String userPwd) {
 		super();
-		USER_ID = uSER_ID;
-		USER_PWD = uSER_PWD;
+		this.userId = userId;
+		this.userPwd = userPwd;
 	}
 
-
-	
-
-	// 정보 수정시 사용
-	public Member(String uSER_ID, String uSER_PWD, String pHONE, String eMAIL, String aDDRESS) {
+	// 회원가입
+	public Member(int cId, String userId, String userPwd, String userName, String rRN, String phone, String eMail,
+			String address) {
 		super();
-		USER_ID = uSER_ID;
-		USER_PWD = uSER_PWD;
-		PHONE = pHONE;
-		EMAIL = eMAIL;
-		ADDRESS = aDDRESS;
+		this.cId = cId;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		RRN = rRN;
+		this.phone = phone;
+		this.eMail = eMail;
+		this.address = address;
 	}
-	
 
-
-
-
-	// 회원가입시 사용
-	public Member(int cID, String uSER_ID, String uSER_PWD, String uSER_NAME, String pHONE, String eMAIL,
-			String aDDRESS) {
+	// 정보 수정
+	public Member(String userId, String userPwd, String phone, String eMail, String address) {
 		super();
-		CID = cID;
-		USER_ID = uSER_ID;
-		USER_PWD = uSER_PWD;
-		USER_NAME = uSER_NAME;
-		PHONE = pHONE;
-		EMAIL = eMAIL;
-		ADDRESS = aDDRESS;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.phone = phone;
+		this.eMail = eMail;
+		this.address = address;
 	}
-
-
-
-
-
-
-	public Member(int uSER_NO, int cID, String uSER_ID, String uSER_PWD, String uSER_NAME, String pHONE, String eMAIL, String aDDRESS,
-			Date eNROLL_DATE, Date mODIFY_DATE, String sTATUS, String lEVEL, String mAJOR, String sMOKING, String sEAT,
-			String eXP, String cONSULT, String aPPROVE) {
+	
+	// 상담일지 기록
+	public Member(int userNo, String stdLv, String major, String smoking, String exp, String consult) {
 		super();
-		USER_NO = uSER_NO;
-		CID = cID;
-		USER_ID = uSER_ID;
-		USER_PWD = uSER_PWD;
-		USER_NAME = uSER_NAME;
-		PHONE = pHONE;
-		EMAIL = eMAIL;
-		ADDRESS = aDDRESS;
-		ENROLL_DATE = eNROLL_DATE;
-		MODIFY_DATE = mODIFY_DATE;
-		STATUS = sTATUS;
-		LEVEL = lEVEL;
-		MAJOR = mAJOR;
-		SMOKING = sMOKING;
-		SEAT = sEAT;
-		EXP = eXP;
-		CONSULT = cONSULT;
-		APPROVE = aPPROVE;
+		this.userNo = userNo;
+		this.stdLv = stdLv;
+		this.major = major;
+		this.smoking = smoking;
+		this.exp = exp;
+		this.consult = consult;
 	}
-
-
 	
-
-	public int getUSER_NO() {
-		return USER_NO;
+	// 모든 정보
+	public Member(int userNo, int cId, String userId, String userPwd, String userName, String rRN, String phone,
+			String eMail, String address, Date enrollDate, Date modifyDate, String status, String stdLv,
+			String major, String smoking, String seat, String exp, String consult, String approve) {
+		super();
+		this.userNo = userNo;
+		this.cId = cId;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		RRN = rRN;
+		this.phone = phone;
+		this.eMail = eMail;
+		this.address = address;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.stdLv = stdLv;
+		this.major = major;
+		this.smoking = smoking;
+		this.seat = seat;
+		this.exp = exp;
+		this.consult = consult;
+		this.approve = approve;
 	}
 
 
-	public void setUSER_NO(int uSER_NO) {
-		USER_NO = uSER_NO;
+
+	public int getUserNo() {
+		return userNo;
 	}
 
-
-	public int getCID() {
-		return CID;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
-
-	public void setCID(int cID) {
-		CID = cID;
+	public int getcId() {
+		return cId;
 	}
 
-
-	public String getUSER_ID() {
-		return USER_ID;
+	public void setcId(int cId) {
+		this.cId = cId;
 	}
 
-
-	public void setUSER_ID(String uSER_ID) {
-		USER_ID = uSER_ID;
+	public String getUserId() {
+		return userId;
 	}
 
-
-	public String getUSER_PWD() {
-		return USER_PWD;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-
-	public void setUSER_PWD(String uSER_PWD) {
-		USER_PWD = uSER_PWD;
+	public String getUserPwd() {
+		return userPwd;
 	}
 
-
-	public String getUSER_NAME() {
-		return USER_NAME;
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
 
-
-	public void setUSER_NAME(String uSER_NAME) {
-		USER_NAME = uSER_NAME;
+	public String getUserName() {
+		return userName;
 	}
 
-
-	public String getPHONE() {
-		return PHONE;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-
-	public void setPHONE(String pHONE) {
-		PHONE = pHONE;
+	public String getRRN() {
+		return RRN;
 	}
 
-
-	public String getEMAIL() {
-		return EMAIL;
+	public void setRRN(String rRN) {
+		RRN = rRN;
 	}
 
-
-	public void setEMAIL(String eMAIL) {
-		EMAIL = eMAIL;
+	public String getPhone() {
+		return phone;
 	}
 
-	
-
-	public String getADDRESS() {
-		return ADDRESS;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-
-	public void setADDRESS(String aDDRESS) {
-		ADDRESS = aDDRESS;
+	public String geteMail() {
+		return eMail;
 	}
 
-
-	public Date getENROLL_DATE() {
-		return ENROLL_DATE;
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
 	}
 
-
-	public void setENROLL_DATE(Date eNROLL_DATE) {
-		ENROLL_DATE = eNROLL_DATE;
+	public String getAddress() {
+		return address;
 	}
 
-
-	public Date getMODIFY_DATE() {
-		return MODIFY_DATE;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-
-	public void setMODIFY_DATE(Date mODIFY_DATE) {
-		MODIFY_DATE = mODIFY_DATE;
+	public Date getEnrollDate() {
+		return enrollDate;
 	}
 
-
-	public String getSTATUS() {
-		return STATUS;
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
 	}
 
-
-	public void setSTATUS(String sTATUS) {
-		STATUS = sTATUS;
+	public Date getModifyDate() {
+		return modifyDate;
 	}
 
-
-	public String getLEVEL() {
-		return LEVEL;
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
-
-	public void setLEVEL(String lEVEL) {
-		LEVEL = lEVEL;
+	public String getStatus() {
+		return status;
 	}
 
-
-	public String getMAJOR() {
-		return MAJOR;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-
-	public void setMAJOR(String mAJOR) {
-		MAJOR = mAJOR;
+	public String getStdLv() {
+		return stdLv;
 	}
 
-
-	public String getSMOKING() {
-		return SMOKING;
+	public void setStdLv(String stdLv) {
+		this.stdLv = stdLv;
 	}
 
-
-	public void setSMOKING(String sMOKING) {
-		SMOKING = sMOKING;
+	public String getMajor() {
+		return major;
 	}
 
-
-	public String getSEAT() {
-		return SEAT;
+	public void setMajor(String major) {
+		this.major = major;
 	}
 
-
-	public void setSEAT(String sEAT) {
-		SEAT = sEAT;
+	public String getSmoking() {
+		return smoking;
 	}
 
-
-	public String getEXP() {
-		return EXP;
+	public void setSmoking(String smoking) {
+		this.smoking = smoking;
 	}
 
-
-	public void setEXP(String eXP) {
-		EXP = eXP;
+	public String getSeat() {
+		return seat;
 	}
 
-
-	public String getCONSULT() {
-		return CONSULT;
+	public void setSeat(String seat) {
+		this.seat = seat;
 	}
 
-
-	public void setCONSULT(String cONSULT) {
-		CONSULT = cONSULT;
+	public String getExp() {
+		return exp;
 	}
 
-
-	public String getAPPROVE() {
-		return APPROVE;
+	public void setExp(String exp) {
+		this.exp = exp;
 	}
 
-
-	public void setAPPROVE(String aPPROVE) {
-		APPROVE = aPPROVE;
+	public String getConsult() {
+		return consult;
 	}
 
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setConsult(String consult) {
+		this.consult = consult;
 	}
 
+	public String getApprove() {
+		return approve;
+	}
+
+	public void setApprove(String approve) {
+		this.approve = approve;
+	}
 
 	@Override
 	public String toString() {
-		return "Member [USER_NO=" + USER_NO + ", CID=" + CID + ", USER_ID=" + USER_ID + ", USER_PWD=" + USER_PWD
-				+ ", USER_NAME=" + USER_NAME + ", PHONE=" + PHONE + ", EMAIL=" + EMAIL + ", ADDRESS=" + ADDRESS
-				+ ", ENROLL_DATE=" + ENROLL_DATE + ", MODIFY_DATE=" + MODIFY_DATE + ", STATUS=" + STATUS + ", LEVEL="
-				+ LEVEL + ", MAJOR=" + MAJOR + ", SMOKING=" + SMOKING + ", SEAT=" + SEAT + ", EXP=" + EXP + ", CONSULT="
-				+ CONSULT + ", APPROVE=" + APPROVE + "]";
+		return "Member [userNo=" + userNo + ", cId=" + cId + ", userId=" + userId + ", userPwd=" + userPwd
+				+ ", userName=" + userName + ", RRN=" + RRN + ", phone=" + phone + ", eMail=" + eMail + ", address="
+				+ address + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status
+				+ ", stdLv=" + stdLv + ", major=" + major + ", smoking=" + smoking + ", seat=" + seat + ", exp=" + exp
+				+ ", consult=" + consult + ", approve=" + approve + "]";
 	}
-
-
 	
 	
 	
 	
-
 	
 }

@@ -4,96 +4,115 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class khClass implements Serializable{
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 5009403046305692786L;
+	private static final long serialVersionUID = -5853584211723792332L;
 	
-	private int CID;		// 반번호
-	private String C_NAME;	// 반이름
-	private int TID;		// 담당강사
-	private int PERSONNEL;	// 인원수
-	private Date STR_DATE;	// 개강일
-	private Date END_DATE;	// 수료일
-	private String STATUS;	// 삭제여부
+	private int cId;		// 반번호 
+	private String cName;	// 반이름 
+	private int tId;		// 담당강사
+	private int personnel;	// 인원수 
+	private Date strDate;	// 개강일 
+	private Date endDate;	// 수료일 
+	private String status;	// 삭제여부
 	
-	public khClass () {}
-
+	public khClass() {}
 	
-	public khClass(int cID, String c_NAME, int tID, int pERSONNEL, Date sTR_DATE, Date eND_DATE, String sTATUS) {
+	
+	public khClass(int cId, String cName, int tId, int personnel, Date strDate, Date endDate, String status) {
 		super();
-		CID = cID;
-		C_NAME = c_NAME;
-		TID = tID;
-		PERSONNEL = pERSONNEL;
-		STR_DATE = sTR_DATE;
-		END_DATE = eND_DATE;
-		STATUS = sTATUS;
+		this.cId = cId;
+		this.cName = cName;
+		this.tId = tId;
+		this.personnel = personnel;
+		this.strDate = strDate;
+		this.endDate = endDate;
+		this.status = status;
 	}
 
 
-
-
-	public int getCID() {
-		return CID;
+	public int getcId() {
+		return cId;
 	}
 
-	public void setCID(int cID) {
-		CID = cID;
+
+	public void setcId(int cId) {
+		this.cId = cId;
 	}
 
-	public String getC_NAME() {
-		return C_NAME;
+
+	public String getcName() {
+		return cName;
 	}
 
-	public void setC_NAME(String c_NAME) {
-		C_NAME = c_NAME;
+
+	public void setcName(String cName) {
+		this.cName = cName;
 	}
 
-	public int getTID() {
-		return TID;
+
+	public int gettId() {
+		return tId;
 	}
 
-	public void setTID(int tID) {
-		TID = tID;
+
+	public void settId(int tId) {
+		this.tId = tId;
 	}
 
-	public int getPERSONNEL() {
-		return PERSONNEL;
+
+	public int getPersonnel() {
+		return personnel;
 	}
 
-	public void setPERSONNEL(int pERSONNEL) {
-		PERSONNEL = pERSONNEL;
+
+	public void setPersonnel(int personnel) {
+		this.personnel = personnel;
 	}
 
-	public Date getSTR_DATE() {
-		return STR_DATE;
+
+	public Date getStrDate() {
+		return strDate;
 	}
 
-	public void setSTR_DATE(Date sTR_DATE) {
-		STR_DATE = sTR_DATE;
+
+	public void setStrDate(Date strDate) {
+		this.strDate = strDate;
 	}
 
-	public Date getEND_DATE() {
-		return END_DATE;
+
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEND_DATE(Date eND_DATE) {
-		END_DATE = eND_DATE;
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
-	public String getSTATUS() {
-		return STATUS;
+
+	public String getStatus() {
+		return status;
 	}
 
-	public void setSTATUS(String sTATUS) {
-		STATUS = sTATUS;
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
+
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
+
+	@Override
+	public String toString() {
+		return "khClass [cId=" + cId + ", cName=" + cName + ", tId=" + tId + ", personnel=" + personnel + ", strDate="
+				+ strDate + ", endDate=" + endDate + ", status=" + status + "]";
+	}
 	
 	
 }

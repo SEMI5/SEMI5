@@ -112,7 +112,7 @@ public class InsertThumbnailServlet extends HttpServlet {
 					// 3_1. 파일 외에 게시판 제목, 내용, 작성자 회원 번호 받아오기
 					String title = multiRequest.getParameter("title");
 					String content = multiRequest.getParameter("content");
-					String bwriter = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUSER_NO());
+					String bwriter = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
 										// 로그인한User에서 UserNo(int형)을 뽑아서 String형으로 변환
 					
 					// 3_2. DB에 보낼 thumbnail 객체와 Attachment 리스트 생성

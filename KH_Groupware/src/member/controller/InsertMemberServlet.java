@@ -38,6 +38,7 @@ public class InsertMemberServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		String userName = request.getParameter("userName");
+		String userRRN = request.getParameter("userRRN");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
@@ -45,7 +46,7 @@ public class InsertMemberServlet extends HttpServlet {
 		
 
 			
-			Member member = new Member(cid, userId, userPwd, userName, phone, email, address);
+			Member member = new Member(cid, userId, userPwd, userName, userRRN, phone, email, address);
 			
 			
 			// 3. 비지니스 로직을 수행할 서비스 메소드로 전달하고 그결과 값 받기
