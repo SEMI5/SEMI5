@@ -405,7 +405,7 @@
 				itemStr += '    <span>' + places.address_name + '</span>';
 			}
 
-			itemStr += '  <span class="tel">' + places.phone + '</span>'
+			itemStr += '  <span class="tel" id="tel">' + places.phone + '</span>'
 					+ '</div>';
 
 			el.innerHTML = itemStr;
