@@ -90,7 +90,7 @@ table td {
 						<input type="text" size ="90	" name ="title"><br><br>
 						
 						<div id ="t_writer_label">작성자 </div>
-						<input type = "text" size = "90" value = "<%=loginUser.getUSER_NAME() %>" readonly><br><br>
+						<input type = "text" size = "90" value = "<%=loginUser.getUserName() %>" readonly><br><br>
 						
 						<div id ="t_mainthum_label">대표이미지 </div>	
 							<div id = "titleImgArea">
