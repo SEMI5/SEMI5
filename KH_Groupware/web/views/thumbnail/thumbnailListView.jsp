@@ -172,7 +172,7 @@
 				<div>
 				<p>No. <%= b.getbId() %><br> 
 				제목 : <%=b.getbTitle() %><br>
-					조회수 : <%= b.getbCount() %><br>
+					조회수 !!!aaa: <%= b.getbCount() %><br>
 					<button id = "like_btn">
 						<img src="<%=request.getContextPath() %>/images/icon/like.png" width="50px">
 					</button>
