@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src = "../js/jquery-3.2.1.min.js" type = "text/javascript"></script>
 
 
@@ -284,7 +284,7 @@ h3{
    <button class= navBtn1 id="navBtn2" data-value="0" onclick="showSubnav2();">게시판</button>
    <button class= navBtn1 id="navBtn3" data-value="0" onclick="showSubnav3();">커뮤니티</button>
    <button class= navBtn1 id="navBtn4" data-value="0" onclick="showSubnav4();">마이페이지</button>
-   <button class= navBtn1 id="navBtn5" data-value="0" onclick="showSubnav5();">강사페이지</button>
+   <button class= navBtn1 id="teacherPage" data-value="0" onclick="showSubnav5();">강사페이지</button>
    <button class="navBtn1" id= myPageBtn data-value = "0" onclick= "showLoginDiv();"><img src ="<%=request.getContextPath() %>/images/icon/myPage.png" style= width:30px; id=myPageBtnImg></button>
    <button class="navBtn1" id= searchBtn data-value = "0" onclick= "showSearchBar();"><img src ="<%=request.getContextPath() %>/images/icon/readingGlasses.png" style= width:30px; id=serachBtnImg></button>
 </div>
@@ -309,7 +309,7 @@ h3{
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;>게시판</h3>
          <ul>
-            <li> 공지사항 </li>
+            <li onclick= "goNBoard();"> 공지사항 </li>
             <li onclick = "goShareFile();"> 공유자료 </li>
             <li> 퀴즈 </li>
             <li> 자유게시판 </li>
@@ -353,8 +353,9 @@ h3{
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;>강사페이지</h3>
          <ul>
-            <li> 학생관리 </li>
-            <li> 자리배치 </li>
+           <li onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/approvalJoin.jsp'"> 가입승인 </li>
+            <li onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/managementStd.jsp'"> 학생관리 </li>
+            <li onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/seatView.jsp'"> 자리배치 </li>
          </ul>
       </div>
       <div class = "btnImg">
@@ -402,11 +403,11 @@ h3{
 		<!-- 로그인시 null값이 아닌경우 -->
 			<div id = "userInfo" align = "center">
 				
-				<h3><label><%=loginUser.getUSER_NAME() %>님의 방문을 환영합니다.</label></h3><br><br>
+				<h3><label><%=loginUser.getUserName() %>님의 방문을 환영합니다.</label></h3><br><br>
 				<div class ="btns" align="right">		<!--절대경로 : 프로젝트명(context root명) jspProject = request.getContextPath() / userId=loginUser.getUserId()  form태그의 get방식과 똑같다(url에 ?)  -->						
 					<%-- <div id = "myPage" onclick = "location.href='<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>'">정보수정</div> --%>	 <!-- mypage.me는 web-> web-INF-> classes-> MyPageServlet.class을 불러오는것임 -->
 					<button id = "myPage" class = "btn myPageBtn" 
-					onclick = "location.href='<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUSER_ID() %>'">
+					onclick = "location.href='<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>'">
 					정보수정</button>
 					
 					<br><br>
@@ -617,15 +618,15 @@ h3{
     	// 상단 메뉴바 [강사페이지] 클릭 이벤트 show
             function showSubnav5(){
                removeSearchBar();
-               if($('#navBtn5').data("value") == "0"){
-                  $('#navBtn5').addClass("hoverStay");
+               if($('#teacherPage').data("value") == "0"){
+                  $('#teacherPage').addClass("hoverStay");
                   
                   $("#boardMenu5").children().addClass("stay");
                   $("#boardMenu5").children().children().addClass("stay");
                   $("#boardMenu5").children().children().children().addClass("stay");
                   
                    if($("#boardMenu5").css('display')=='none'){ 
-                      $("#navBtn5").data("value", "1")
+                      $("#teacherPage").data("value", "1")
                      $("#blackOpacity1").fadeIn('fast');
                      $("#boardMenu5").slideDown();     
                   }
@@ -635,11 +636,11 @@ h3{
             }
             // 상단 메뉴바 [강사페이지] 클릭 이벤트 close
                function removeSubnav5(){
-                  $("#navBtn5").data("value", "0")
+                  $("#teacherPage").data("value", "0")
                   if($("#boardMenu5").css('display') !='none'){
                      $("#boardMenu5").slideUp();
                       $("#blackOpacity1").fadeOut('fast');
-                     $("#navBtn5").removeClass("hoverStay");
+                     $("#teacherPage").removeClass("hoverStay");
                      $("#boardMenu5").children().removeClass("stay");
                      $("#boardMenu5").children().children().removeClass("stay");
                      $("#boardMenu5").children().children().children().removeClass("stay");
@@ -775,6 +776,11 @@ h3{
    			location.href="<%=request.getContextPath()%>/list.sh";
    			// ShareFileListServlet 만들러가기
    	}
+   	
+   		function goNBoard(){
+  			location.href="<%=request.getContextPath()%>/Nlist.bo";
+  			// NBoardListServlet 만들러가기 
+   		}
    	
 </script>
 

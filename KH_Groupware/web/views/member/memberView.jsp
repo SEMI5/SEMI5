@@ -6,14 +6,14 @@
  	Member member = (Member)request.getAttribute("member");	
  	khClass clss = (khClass)request.getAttribute("khClass");
  
- 	String userId = member.getUSER_ID();
-	String userPwd = member.getUSER_PWD();
-	String userName = member.getUSER_NAME();
-	String phone = 	member.getPHONE();
-	String email = member.getEMAIL();
-	String address = member.getADDRESS();
+ 	String userId = member.getUserId();
+	String userPwd = member.getUserPwd();
+	String userName = member.getUserName();
+	String phone = 	member.getPhone();
+	String email = member.geteMail();
+	String address = member.getAddress();
 	
-	String className = clss.getC_NAME();
+	String className = clss.getcName();
  %>
 <!DOCTYPE html>
 <html>
