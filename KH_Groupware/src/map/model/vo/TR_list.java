@@ -12,26 +12,25 @@ public class TR_list implements Serializable {
 	private String trName;
 	private String trMemo;
 	private String trLatLng;
-	private String trStarPoint;
-	private String stId;
+	private String status;
+	private int userNo;
 
 	public TR_list() {
 	}
 
-	public TR_list(int trNo, String trName, String trMemo, String trLatLng, String trStarPoint, String stId) {
+	public TR_list(int trNo, String trName, String trMemo, String trLatLng, String status, int userNo) {
 		this.trNo = trNo;
 		this.trName = trName;
 		this.trMemo = trMemo;
 		this.trLatLng = trLatLng;
-		this.trStarPoint = trStarPoint;
-		this.stId = stId;
+		this.status = status;
+		this.userNo = userNo;
 	}
 
-	public TR_list(String trName, String trMemo, String trLatLng) {
-	this.trName = trName;
-	this.trMemo = trMemo;
-	this.trLatLng = trLatLng;
-}
+	
+	public TR_list(String trName2, String trMemo2, String trLatLng2) {
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getTrNo() {
 		return trNo;
@@ -65,31 +64,30 @@ public class TR_list implements Serializable {
 		this.trLatLng = trLatLng;
 	}
 
-	public String getTrStarPoint() {
-		return trStarPoint;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setTrStarPoint(String trStarPoint) {
-		this.trStarPoint = trStarPoint;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getStId() {
-		return stId;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setStId(String stId) {
-		this.stId = stId;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "TR_list [trNo=" + trNo + ", trName=" + trName + ", trMemo=" + trMemo + ", trLatLng=" + trLatLng
-				+ ", trStarPoint=" + trStarPoint + ", stId=" + stId + "]";
+				+ ", status=" + status + ", userNo=" + userNo + "]";
 	}
-
-	
 }

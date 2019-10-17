@@ -35,12 +35,13 @@ public class TRinsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//String stId = request.getParameter("ST_id");
+
 		String trName = request.getParameter("TR_name");
 		String trMemo = request.getParameter("TR_memo");
 		String trLatLng = request.getParameter("TR_LatLng");
 		
 		TR_list tr = new TR_list(trName, trMemo, trLatLng);
+		
 		System.out.println(tr);
 		
 		int result = new TRService().insertTR(tr);

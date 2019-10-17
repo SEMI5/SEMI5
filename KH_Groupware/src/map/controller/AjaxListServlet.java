@@ -35,7 +35,6 @@ public class AjaxListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<TR_list> list = new TRService().showlist();
 		
-		
 		response.setContentType("application/json;charset=utf-8");
 		new Gson().toJson(list, response.getWriter());
 	}

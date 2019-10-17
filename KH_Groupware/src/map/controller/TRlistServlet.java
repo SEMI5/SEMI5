@@ -36,6 +36,8 @@ public class TRlistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<TR_list> list = new TRService().showlist();
 
+		System.out.println(list);
+		
 		RequestDispatcher view = null;
 		if(list != null) {
 			view = request.getRequestDispatcher("views/map2/mapForm.jsp");
@@ -43,7 +45,7 @@ public class TRlistServlet extends HttpServlet {
 			request.setAttribute("list", list);
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg", "¸ÀÁý ¸®½ºÆ® Á¶È¸ ½ÇÆÐ");
+			request.setAttribute("msg", "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¸ ï¿½ï¿½ï¿½ï¿½");
 		}
 		view.forward(request, response);
 		

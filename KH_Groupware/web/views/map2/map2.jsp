@@ -226,7 +226,6 @@
 		</div>
 	</div>
 
-
     <!-- 팝업 로드 -->
 	<script>
 		function popupOpen(){

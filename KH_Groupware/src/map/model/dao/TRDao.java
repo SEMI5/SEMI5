@@ -1,6 +1,6 @@
 package map.model.dao;
 
-import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -30,7 +30,7 @@ public class TRDao {
 		}
 	}
 	
-	// ¸ÀÁý ¸®½ºÆ®
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	public ArrayList<TR_list> showlist(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -43,15 +43,14 @@ public class TRDao {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
 			
-			
 			list = new ArrayList<TR_list>();
 			while (rset.next()) {
 				TR_list tl = new TR_list(rset.getInt("trNo"),
 						                 rset.getString("tr_Name"),
 						                 rset.getString("tr_Memo"),
 						                 rset.getString("tr_LatLng"),
-						                 rset.getString("tr_StarPoint"),
-						                 rset.getString("stId")
+						                 rset.getString("status"),
+						                 rset.getInt("user_no")
 										 );
 				list.add(tl);
 			}
@@ -64,20 +63,19 @@ public class TRDao {
 		return list;
 	}
 	
-	// ¸ÀÁý µî·Ï 
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
 	public int insertTR(Connection conn, TR_list tr) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertTR");
-		//String query = "INSERT INTO TR VALUES(2 ,'±Ô¹Î', '«S»ê', 'Â«»ÍÀÌ ¸ÀÀÖÀ½', '2p', '34.412, 123.123')";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			//pstmt.setString(1, tr.getStId());
 			pstmt.setString(1, tr.getTrName());
 			pstmt.setString(2, tr.getTrMemo());
-			pstmt.setString(3, tr.getTrLatLng()); //ÁÖ¼Ò
+			pstmt.setString(3, tr.getTrLatLng()); //ï¿½Ö¼ï¿½
 			
 			result = pstmt.executeUpdate();
 			
