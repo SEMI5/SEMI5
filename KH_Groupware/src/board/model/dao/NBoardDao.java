@@ -169,19 +169,28 @@ public class NBoardDao {
 		int startRow = (currentPage-1)*limit +1;	
 		// ex) 2page면 시작 번호가 11번일 것이다.
 		int endRow = startRow + limit -1;
-		
+		String query = null;
+		String searchWord2= null;
+		Statement stmt = null;
+		searchWord2= "%"+searchWord+"%";
 		try {
 				if(type.equals("all")) { 
-				String query = prop.getProperty("selectSearchAll");
-				pstmt = conn.prepareStatement(query);
-				String searchWord2= "%"+searchWord+"%";
-				pstmt.setString(1, searchWord2);
-				pstmt.setString(2, searchWord2);
-				pstmt.setString(3, searchWord2);
-				pstmt.setInt(4, startRow);
-				pstmt.setInt(5, endRow);
-				rs=pstmt.executeQuery();
-			}
+					query = prop.getProperty("selectSearchAll");
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, searchWord2);
+					pstmt.setString(2, searchWord2);
+					pstmt.setString(3, searchWord2);
+					pstmt.setInt(4, startRow);
+					pstmt.setInt(5, endRow);
+					rs=pstmt.executeQuery();
+				}else {
+					 query = "select * FROM (SELECT ROWNUM RNUM,BID,CID,BTITLE,BCONTENT,BTYPE,USER_NAME,BCOUNT,CREATE_DATE,MODIFY_DATE,STATUS "  
+						    + "FROM N_BLIST " 
+						    + "WHERE "+type+" LIKE ('"+searchWord2 +"')) "
+							+ "WHERE RNUM BETWEEN "+ currentPage+ " AND " + limit ;
+					stmt= conn.createStatement();
+					rs=stmt.executeQuery(query);
+				}
 			list = new ArrayList<Board>();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
 			while(rs.next()) {
 				Board b = new Board(rs.getInt("BID"),

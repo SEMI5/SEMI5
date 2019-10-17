@@ -82,8 +82,8 @@ public class NBoardSearchListServlet extends HttpServlet {
 		maxPage=(int)((double)listCount/limit+0.9); 
 		
 		
-		//* startPage - 현재 페이지에 시작 페이지수 
-		// 아래쪽에 페이지수가 10개씩 보여지게 할 경우 
+		//* startPage - 현재 페이지에 시작 페이지수  
+		// 아래쪽에 페이지수가 10개씩 보여지게 할 경우   1
 					
 		startPage=(((int)((double)currentPage/limit+0.9))-1)*limit+1; 
 	
@@ -107,7 +107,7 @@ public class NBoardSearchListServlet extends HttpServlet {
 		
 		ArrayList<Board> list= bService.selectList(type, searchWord,currentPage,limit); 
 		
-		System.out.println(" 서블릭 searchlist: "+list);
+		System.out.println(" 서블릿 searchlist: "+list);
 		
 		RequestDispatcher view = null;
 		if(list!=null) {
