@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import member.model.dao.MemberDao;
 import member.model.vo.Member;
 import teacherPage.model.dao.tPageDao;
+import teacherPage.model.vo.Schedule;
 
 public class tPageService {
 
@@ -47,6 +48,20 @@ public class tPageService {
 		
 		int result = new tPageDao().updateSeat(conn, csList);
 
+		if(result != 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int insertSchedule(Schedule scd) {
+		Connection conn = getConnection();
+		
+		int result = new tPageDao().insertSchedule(conn, scd);
+		
 		if(result != 0) {
 			commit(conn);
 		}else {

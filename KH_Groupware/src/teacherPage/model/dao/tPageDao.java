@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import member.model.vo.Member;
+import teacherPage.model.vo.Schedule;
 
 public class tPageDao {
 
@@ -113,6 +114,35 @@ public class tPageDao {
 
 		}
 		
+		return result;
+	}
+
+
+
+	public int insertSchedule(Connection conn, Schedule scd) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("insertSchedule");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, scd.getCalssNum());
+			pstmt.setInt(2, scd.getUserNum());
+			pstmt.setString(3, scd.getScdName());
+			pstmt.setDate(4, scd.getStrDate());
+			pstmt.setDate(5, scd.getEndDate());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
 		return result;
 	}
 	
