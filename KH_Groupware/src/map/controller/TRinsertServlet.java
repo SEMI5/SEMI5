@@ -52,7 +52,7 @@ public class TRinsertServlet extends HttpServlet {
 			
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
-			request.setAttribute("msg", "¸ÀÁý µî·Ï ½ÇÆÐ!");
+			//request.setAttribute("msg", "ì‹¤íŒ¨í•¨!");
 			
 			view.forward(request, response);
 		}
