@@ -309,7 +309,7 @@ h3{
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;>게시판</h3>
          <ul>
-            <li> 공지사항 </li>
+            <li onclick= "goNBoard();"> 공지사항 </li>
             <li onclick = "goShareFile();"> 공유자료 </li>
             <li> 퀴즈 </li>
             <li> 자유게시판 </li>
@@ -775,6 +775,11 @@ h3{
    			location.href="<%=request.getContextPath()%>/list.sh";
    			// ShareFileListServlet 만들러가기
    	}
+   	
+   		function goNBoard(){
+  			location.href="<%=request.getContextPath()%>/Nlist.bo";
+  			// NBoardListServlet 만들러가기 
+   		}
    	
 </script>
 
