@@ -46,7 +46,7 @@ public class MyPageServlet extends HttpServlet {
 		
 		
 		for(int i = 0 ; i < classList.size() ; i++) {
-			if(classList.get(i).getCID() == member.getCID()){
+			if(classList.get(i).getcId() == member.getcId()){
 				khClass = classList.get(i);
 				break;
 			}

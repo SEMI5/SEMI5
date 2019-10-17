@@ -52,8 +52,8 @@ public class MemberDao {
 			
 			
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, member.getUSER_ID());
-			pstmt.setString(2, member.getUSER_PWD());
+			pstmt.setString(1, member.getUserId());
+			pstmt.setString(2, member.getUserPwd());
 			
 				 // select 구문이라서 executeQuery() / insert,update,delete 구문은 - executeUpdate()
 			rs = pstmt.executeQuery();
@@ -64,7 +64,8 @@ public class MemberDao {
 						rs.getInt("CID"),               
 						rs.getString("USER_ID"),        
 						rs.getString("USER_PWD"),       
-						rs.getString("USER_NAME"),      
+						rs.getString("USER_NAME"),  
+						rs.getString("RRN"),
 						rs.getString("PHONE"),          
 						rs.getString("EMAIL"),          
 						rs.getString("ADDRESS"),       			       
@@ -111,13 +112,14 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setInt(1, member.getCID());
-			pstmt.setString(2, member.getUSER_ID());
-			pstmt.setString(3, member.getUSER_PWD());
-			pstmt.setString(4, member.getUSER_NAME());
-			pstmt.setString(5, member.getPHONE());
-			pstmt.setString(6, member.getEMAIL());
-			pstmt.setString(7, member.getADDRESS());
+			pstmt.setInt(1, member.getcId());
+			pstmt.setString(2, member.getUserId());
+			pstmt.setString(3, member.getUserPwd());
+			pstmt.setString(4, member.getUserName());
+			pstmt.setString(5, member.getRRN());
+			pstmt.setString(6, member.getPhone());
+			pstmt.setString(7, member.geteMail());
+			pstmt.setString(8, member.getAddress());
 			
 			
 			// result 결과는 int형(성공한 행의 갯수)
@@ -156,7 +158,8 @@ public class MemberDao {
 						rs.getInt("CID"),               
 						rs.getString("USER_ID"),        
 						rs.getString("USER_PWD"),       
-						rs.getString("USER_NAME"),      
+						rs.getString("USER_NAME"), 
+						rs.getString("RRN"),
 						rs.getString("PHONE"),          
 						rs.getString("EMAIL"),          
 						rs.getString("ADDRESS"),       			       
@@ -197,11 +200,11 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setString(1, member.getPHONE());
-			pstmt.setString(2, member.getEMAIL());
-			pstmt.setString(3, member.getADDRESS());
-			pstmt.setString(4, member.getUSER_PWD());
-			pstmt.setString(5, member.getUSER_ID());
+			pstmt.setString(1, member.getPhone());
+			pstmt.setString(2, member.geteMail());
+			pstmt.setString(3, member.getAddress());
+			pstmt.setString(4, member.getUserPwd());
+			pstmt.setString(5, member.getUserId());
 
 			
 			result = pstmt.executeUpdate();
@@ -278,6 +281,52 @@ public class MemberDao {
 		
 		
 		return cList;
+	}
+
+	public ArrayList<Member> selectAllStd(Connection conn) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<Member> memberList = new ArrayList<Member>();
+		
+		String query = prop.getProperty("selectAllStd");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				
+				memberList.add(new Member(rs.getInt("USER_NO"),           
+											rs.getInt("CID"),               
+											rs.getString("USER_ID"),        
+											rs.getString("USER_PWD"),       
+											rs.getString("USER_NAME"), 
+											rs.getString("RRN"),
+											rs.getString("PHONE"),          
+											rs.getString("EMAIL"),          
+											rs.getString("ADDRESS"),       			       
+											rs.getDate("ENROLL_DATE"),      
+											rs.getDate("MODIFY_DATE"),      
+											rs.getString("STATUS"),
+											rs.getString("LEVEL"),
+											rs.getString("MAJOR"),
+											rs.getString("SMOKING"),
+											rs.getString("SEAT"),
+											rs.getString("EXP"),
+											rs.getString("CONSULT"),
+											rs.getString("APPROVE")
+											));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rs);
+		}
+
+		return memberList;
 	}
 	
 	

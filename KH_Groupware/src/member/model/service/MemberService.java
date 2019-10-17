@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import member.model.dao.MemberDao;
 import member.model.vo.Member;
 import member.model.vo.khClass;
+import teacherPage.model.dao.tPageDao;
 
 public class MemberService {
 	public static int LOGIN_OK = 1;
@@ -108,6 +109,23 @@ public class MemberService {
 		}
 		
 		return cList;
+	}
+
+	public ArrayList<Member> selectAllStd() {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> memberList = new MemberDao().selectAllStd(conn);
+		
+		if(memberList != null) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		
+		return memberList;
 	}
 
 }

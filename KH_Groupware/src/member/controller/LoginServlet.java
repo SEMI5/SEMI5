@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
+import teacherPage.model.service.tPageService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -49,6 +51,8 @@ public class LoginServlet extends HttpServlet {
 				// 지금 내보내는 내용을 html문으로 해석해라
 				
 				
+				
+				RequestDispatcher view = null;
 				// 5. 서비스요청에 해당하는 결과를 가지고 성공/실패에 대한 뷰 페이지(파일)을 선택해서 내보냄
 				if(loginUser != null) {	//성공일 경우(객체가 있으면)
 					// 해당 클라이언트에 대한 세션 객체를 생성함 (Servlet단에서 요청이 있어야 세션객체를 생성할수있다)
@@ -58,10 +62,37 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("loginUser",loginUser);
 					// session은 브라우져를 닫지않으면 객체가 사라지지않아서 페이지만 넘겨주면됨
 					
+					// 로그인한 회원이 강사일 경우 학생들의 목록을 가져옵니다.
+					if(loginUser.getUserNo() > 10000) {
+						ArrayList<Member> memberList = new MemberService().selectAllStd();
+						
+						
+						// 강사 자신을 제외한 학생들 리스트를 다시 만듭니다.
+						ArrayList<Member> stdList = new ArrayList();
+						// 아직 가입승인을 받지 못한 학생들 리스트를 만듭니다.
+						ArrayList<Member> appYet = new ArrayList();
+						for(int i = 0 ; i<memberList.size() ; i++){
+							if(memberList.get(i).getUserNo() <= 1000 && memberList.get(i).getApprove().equals("N") && memberList.get(i).getcId() == loginUser.getcId()){
+								appYet.add(memberList.get(i));
+							} else if(memberList.get(i).getUserNo() <= 1000 && memberList.get(i).getStatus().equals("Y") && memberList.get(i).getcId() == loginUser.getcId()) {
+								stdList.add(memberList.get(i));
+								
+							}
+						}
+						
+						session = request.getSession();
+						
+						session.setAttribute("appYet", appYet);
+						session.setAttribute("stdList", stdList);
+						
+					}
+					
+					response.sendRedirect("index.jsp");
+					
+					
 					// session객체 유지 시간 조절하기
 					// session.setMaxInactiveInterval(10);		// 초단위로 session객체 유지시간 설정가능
 					
-					response.sendRedirect("index.jsp");
 					// location.href와 같은의미 (페이지 이동) = sendRedirect(Servlet에서)
 				
 				} else {
@@ -70,7 +101,7 @@ public class LoginServlet extends HttpServlet {
 					// request는 요청처리를 처리하면 정보가 사라지므로 객체와 페이지정보를 같이넘겨줌(request, response)
 					
 											 // ("views/common/errorPage.jsp")대한 정보를 객체로 가져와서 view에  담는다.
-					RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+					view = request.getRequestDispatcher("views/common/errorPage.jsp");
 					view.forward(request, response);
 					// 객체와 view에대한 정보가 같이 날라감 (forwarding방식)
 				}
