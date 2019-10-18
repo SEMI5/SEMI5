@@ -147,14 +147,9 @@
 							alert("실패");
 						}// error 종료
 					}); // ajax 종료
+					
+					
 				}); // function 종료
-				
-
-			
-				
-				
-				
-				
 	</script>
 	
  	</div>
