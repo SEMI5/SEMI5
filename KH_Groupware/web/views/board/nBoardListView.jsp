@@ -383,6 +383,13 @@ input{
          <!-- 맨 끝으로(>>) -->
          <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=maxPage %>'"> >> </button>
       </div>
+      
+      <form id= "formTag" action="<%=request.getContextPath()%>/Ndetail.bo" method="post">
+      	
+      	<input id= "bid" type= hidden value="" name = bid >
+      	<input id= "nextBid" type=hidden value="" name="nextBid">
+      	<input id= "prevBid" type=hidden value="" name="prevBid"> 	
+      </form>
 </div>
 </div>
 <script> 
@@ -403,7 +410,14 @@ $(function(){
     $("td").mouseenter(function(){
     $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
            var bid = $(this).parent().children().eq(0).text(); // 게시글의  글번호 
-           location.href="<%=request.getContextPath()%>/Ndetail.bo?bid=" + bid;
+           var nextBid = $(this).parent().prev().children().eq(0).text();
+           var prevBid = $(this).parent().next().children().eq(0).text();
+  
+           $("#bid").val(bid); 
+           $("#nextBid").val(nextBid); 
+           $("#prevBid").val(prevBid); 
+           prevBid2= $("#prevBid").val()
+           $("#formTag").submit(); 
        }) 
     });
  });

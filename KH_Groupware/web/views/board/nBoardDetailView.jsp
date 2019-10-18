@@ -15,6 +15,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -233,7 +241,7 @@ text-decoration: underline;
                		</td>
 				</tr>
 				<tr>
-					<td style=padding-top:0px;margin-top:0px;"><p id="content"><%=b.getbContent() %></p></td>
+					<td style=padding-top:0px;margin-top:0px;"><%=b.getbContent() %></td>
 				</tr>
 				<tr style="font-size:16px">
 					<%if(bPrev != null){%>
@@ -362,6 +370,7 @@ $(function(){
  function goBoardDetail(bid){
 	location.href="<%=request.getContextPath()%>/Ndetail.bo?bid=" + bid;
 } 
+
 
 
 </script>

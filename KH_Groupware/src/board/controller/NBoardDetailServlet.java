@@ -33,10 +33,21 @@ public class NBoardDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int bid=Integer.parseInt(request.getParameter("bid"));
+		int bid = Integer.valueOf(request.getParameter("bid"));
+		int prevBid = 0; 
+		int nextBid = 0;
+		
+		if(!((request.getParameter("prevBid").equals("")))&&(request.getParameter("prevBid") != null)) {
+			prevBid = Integer.valueOf(request.getParameter("prevBid"));
+		}
+	
+		if(!((request.getParameter("nextBid").equals("")))&&(request.getParameter("nextBid") != null)) {
+			 nextBid = Integer.valueOf(request.getParameter("nextBid"));
+		}
+
 		Board board = new NBoardService().selectBoard(bid);
-		Board boardPrev = new NBoardService().selectBoard2(bid-1);  // 조회수 올리지 않는 메소드를 새로 작성해서 가져와야함. 
-		Board boardNext= new NBoardService().selectBoard2(bid+1);
+		Board boardPrev = new NBoardService().selectBoard2(prevBid);  // 조회수 올리지 않는 메소드를 새로 작성해서 가져와야함. 
+		Board boardNext= new NBoardService().selectBoard2(nextBid);
 		
 		  System.out.println("서블릿단 board: "+ board);
 		  System.out.println("서블릿단 boardPrv: "+ boardPrev);
@@ -65,6 +76,7 @@ public class NBoardDetailServlet extends HttpServlet {
 			  request.setAttribute("msg", "게사판 상세조회 실패!");
 			  request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response); 
 		  }
+		
 		 
 		
 	}
