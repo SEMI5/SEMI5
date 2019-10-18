@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.*, java.util.ArrayList" %>
+    pageEncoding="UTF-8" import="board.model.vo.*, java.util.ArrayList, member.model.vo.Member" %>
     
     <%
+    /* Member loginUser = (Member)session.getAttribute("loginUser"); */
    ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    
@@ -10,6 +11,7 @@
    int maxPage = pi.getMaxPage();
    int startPage = pi.getStartPage();
    int endPage = pi.getEndPage();
+
 %>    
     
 <!DOCTYPE html>
@@ -44,7 +46,7 @@
    }
 
    thead{
-      background: #EAEAEA;
+      background: #f3f3f3 ;
       
    }
    
@@ -235,7 +237,7 @@ input{
 
 .titleDiv1{
 	border:none;
-	border-bottom: 1px solid darkgray;
+	border-bottom: 1px solid #dbdbdb;
 	position: relative;	
 	width:1230px;
 	height:100px;
@@ -344,8 +346,9 @@ input{
 <br>
 
 <br>
-<button id = writerBtn onclick = "goBoardInsertForm();"><b>글쓰기</b></button>
-
+	<%if(loginUser != null && loginUser.getUserId().equals("admin")){%>
+	   			<button id = writerBtn onclick = "goBoardInsertForm();"><b>글쓰기</b></button>
+ 	<%}%>
 
 
    <!-- 페이징 처리 시작 -->
