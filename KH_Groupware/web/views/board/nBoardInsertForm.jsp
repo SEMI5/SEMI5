@@ -10,6 +10,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+
+
 <meta charset="UTF-8">
 <style>
    #outer{
@@ -73,7 +84,7 @@
     	margin-left: 10px;
     }
     
-    textarea{
+    textrea{
     	border-left: 1px solid  #dbdbdb;
     	overflow-y:scroll;
 		resize:none;
@@ -165,13 +176,7 @@
 </style>
    
 <title>Insert title here</title>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 </head>
 
 
@@ -182,6 +187,7 @@
 </header>
 <body>
 <br><br>
+<form id= insertForm action = "<%=request.getContextPath()%>/insert.Nbo" method="post" encType="multipart/form-data">
 <div id="outer">
 	<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
 	<br>
@@ -189,7 +195,7 @@
 		<table align="center" id="listArea">
 			<tr>
 				<td class= "titleTd tableTd"><b>제목</b></td>
-				<td class ="tableTd"><input type="text" class="inputTd"></td>
+				<td class ="tableTd"><input type="text" name= "btitle" class="inputTd"></td>
 			</tr>
 				<td class= "titleTd tableTd"><b>작성자</b></td>
 				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
@@ -198,7 +204,7 @@
 				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=today%></span></td>
 			</tr>
 		</table>
-		<div id="textareaDiv"><textarea name= content id= summernote rows=30> 내용을 입력하세요. </textarea><div>
+		<div id="textareaDiv"><textArea id= summernote rows=30 name = "bcontent" placeholder="내용을 입력해주세요"></textArea><div>
 		<table id = "attachTable">
 			<tr>
 				<td rowspan=9 class= "titleTd" style= "border-right: 1px solid #dbdbdb">
@@ -221,15 +227,15 @@
 			<tr class= attachTr>
 				<td class= attachTd style="border-bottom: 1px solid #dbdbdb">
 					<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요">&nbsp;
-					<button id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>
+					<button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>
 				</td>
 			</tr>
 				
 		</table>
 		<br><br>
 		<div class= btnDiv>
-				<button id=listBtn onclick=><b>목록</b></button>&nbsp;&nbsp;
-				<button id=insertBtn><b>등록</b></button>
+				<button type='button'id=listBtn onclick=><b>목록</b></button>&nbsp;&nbsp;
+				<button id=insertBtn onclick="insertSubmit();"><b>등록</b></button>
 		</div>
 	</div>
 <div style="display:none">
@@ -242,6 +248,7 @@
 	<input type="file" id="fileInput7" name = "file7" onchange="loadAttachName(this,7);">
 	<input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
 </div>
+</form>
 </body>
 
 
@@ -272,8 +279,16 @@
 	}
 
 	function changeSelect(){
-		
+		 $("#fileInput1").val("");
+		 $("#fileInput2").val("");
+		 $("#fileInput3").val("");
+		 $("#fileInput4").val("");
+		 $("#fileInput5").val("");
+		 $("#fileInput6").val("");
+		 $("#fileInput7").val("");
+		 $("#fileInput8").val("");
 		$(".attachTr").remove();
+		
 		
 		var number = $("#attachCount").val();
 	 	for(var i=0; i< number; i++){
@@ -282,12 +297,12 @@
 	 			$("#attachTable").append("<tr class= attachTr>"
 	 										+" <td class= attachTd style=\"border-bottom: 1px solid #dbdbdb\">"
 	 										+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
-	 								        +" <button id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
+	 								        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 	 		}else{
 	 			$("#attachTable").append("<tr class= attachTr>"
 								+" <td class= attachTd>"
 								+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
-						        +" <button id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
+						        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 	 		}
 		}  
 	}
@@ -308,6 +323,10 @@ function loadAttachName(attach,num){
 	}
 }
 
+
+ function insertSubmit(){
+	$("#insertForm").submit();	
+} 
 
 
 </script>

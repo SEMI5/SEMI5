@@ -2,8 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*, map.model.vo.*"%>
 	<%
 		ArrayList<TR_list> list = (ArrayList)request.getAttribute("list");
-		String AD = (String)request.getParameter("AjaxData");
-		out.print(list);
+		//out.print(list);
 	%>
 <!DOCTYPE html>
 <html>
@@ -48,6 +47,7 @@
 			width: 500px;
 			height: 120px;
 		}
+		
 		::-webkit-scrollbar {  /* 스크롤은 되지만, 스크롤바 안보이게.(크롬용) */
 		display:none;
 		} 
@@ -79,9 +79,6 @@
 		
 	<!-- 자동실행 -->
 	<script type="text/javascript">
-
-	var toss = null;
-	
 	var AjaxData= $(function(){
 					 $.ajax({
 						 url:"/KH_Groupware/ajaxlist.tr",
@@ -89,17 +86,23 @@
 						 success: function(data) {
 								$.each(data, function(index, value) {  // 데이터 만큼의 포문을 돌리는것.
 								var str = "<tr id=kan"+index+" style='border: 1px solid white'>"+
-										  	 "<td>"+
+										  	 "<td id=onelist>"+
 											 "    가게 명 : "+ data[index].trName +"<br>"+
 								             "    후기 : "+ data[index].trMemo +"<br>"+
-								            /*  "    별점 : "+ data[index]. + */
+								             "    별점 : "+ data[index].trName + 
 								             "    <input type=hidden id=hiddenAddress value=" + data[index].trLatLng + ">" +
-								             "    <button id=likeBtn value= >dd<button>"+
 								             "</td>" +
-								          "</tr>"; 
+								             "<td>"+
+								             "    <div id=likeTd"+index+">" +
+								             "    	 <img src=../../images/like30px.png>"+				
+								             "   	 <a>like <span id=ctnSpan"+index+">0<span></a>  "+
+								             "    </div>  "+
+								             "</td>"+
+								          "</tr>";
 								        $("#AJlist").append(str);					
 										console.log(data);
 										
+							
 										$("#kan" + index).click(function () {
 											str2 = data[index].trName;
 										 	$("#keyword").val(str2); // 다시 검색창에
@@ -124,15 +127,40 @@
 												});    
 										 	/* ------------------------------------------------------------------------------------------------------------------- */
 										});
-								}); // each문 종료
+										        /* like----------------------------------------------------------------------------------------------------------- */
+												var ctn = 0;
+											var likes = $("#likeTd"+index).on('click', function () {
+															alert(ctn);
+															ctn++;
+															$("#ctnSpan"+index).text(ctn);
+														});
+											
+												function AjaxData2() {
+													$.ajax({
+														 url:"/KH_Groupware/ajaxLikeInsert.tr",
+														 type:"get",
+														 data:{"likeCnt":"#ctnSpan"+index},
+														 success: function() {
+															
+														 },
+														 error: function() {
+															alert("실패했습니다.");
+													 	 }
+													});
+												}
+										        /* --------------------------------------------------------------------------------------------------------------- */
+												
+								}); // each(for)문 종료
 						},  // success 종료
 						error: function(data) {
 							alert("실패");
 						}// error 종료
 					}); // ajax 종료
+					
+					
+					
 				}); // function 종료
 	</script>
-	
 	
  	</div>
 </body>

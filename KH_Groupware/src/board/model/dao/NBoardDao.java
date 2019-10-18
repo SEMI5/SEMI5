@@ -223,14 +223,15 @@ public class NBoardDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertBoard");
+		String query = prop.getProperty("insertNBoard");
 		
 		try {
 			pstmt= conn.prepareStatement(query);
-			pstmt.setInt(1, Integer.valueOf(b.getcId()));
+			pstmt.setInt(1, b.getcId());
 			pstmt.setString(2,  b.getbTitle());
-			pstmt.setString(3, b.getbContent());
-			pstmt.setString(4, b.getbWriter());
+			pstmt.setString(3,  b.getBtype());
+			pstmt.setString(4, b.getbContent());
+			pstmt.setString(5,  b.getbWriter());
 			
 			result = pstmt.executeUpdate();
 			
@@ -385,11 +386,12 @@ public class NBoardDao {
 		return result;
 	}
 
+	
 	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertAttachment");
+		String query = prop.getProperty("insertNAttachment");
 		
 		try {
 			for(int i=0; i<fileList.size();i++) {
@@ -569,6 +571,8 @@ public class NBoardDao {
 		
 		return result;
 	}
+
+
 
 
 

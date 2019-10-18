@@ -9,6 +9,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<!-- 지워야함 쓰려면 메인홈에서 제이쿼리 적용해서 써야함. -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src = "../js/jquery-3.2.1.min.js" type = "text/javascript"></script> -->
 

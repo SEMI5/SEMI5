@@ -43,26 +43,23 @@ public class ApproveJoin extends HttpServlet {
 		
 		Member member = new MemberService().selectMember(request.getParameter("userId"));
 		
-		System.out.println(result);
 		
 		HttpSession session = request.getSession();
 		
-		System.out.println(session.getAttribute("stdList"));
 		
-		ArrayList<Member> newList = (ArrayList)session.getAttribute("stdList");
-		
-		for(int i  = 0 ; i<newList.size() ; i++) {
-			if(newList.get(i).getUserNo() == userNo) {
-				newList.set(i, member);
-				System.out.println(newList.get(i).getApprove());
+		ArrayList<Member> stdList = new MemberService().selectAllStd();
+
+		ArrayList<Member> newList = new ArrayList<Member>();
+		for(int i = 0 ; i < stdList.size() ; i++) {
+			if(stdList.get(i).getUserNo()<=100000 && 
+					stdList.get(i).getcId() == member.getcId()) {
+				newList.add(stdList.get(i));
 			}
 		}
-		
+	
 		session.setAttribute("stdList", newList);
 
-		System.out.println(session.getAttribute("stdList"));
-		
-		new Gson().toJson(newList, response.getWriter());
+		new Gson().toJson(result, response.getWriter());
 		
 	}
 

@@ -84,6 +84,31 @@ public class NBoardService {
 		return result;
 	}
 
+	
+	public int insertNBoard(Board b, ArrayList<Attachment> fileList) {
+		Connection conn = getConnection();
+		
+		NBoardDao bDao = new NBoardDao();
+		
+		int result1 = bDao.insertBoard(conn, b);
+		int result2 = bDao.insertAttachment(conn, fileList);
+		
+		int result = 0;
+		
+		if(result1>0 && result2>0) {
+			commit(conn);
+			result =1;
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	
 	public Board selectBoard(int bid) {
 		Connection conn = getConnection();
 		
@@ -228,6 +253,10 @@ public class NBoardService {
 		
 		return rlist;
 	}
+
+
+
+	
 
 
 
