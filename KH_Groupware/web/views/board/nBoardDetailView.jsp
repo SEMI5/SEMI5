@@ -66,7 +66,7 @@
       width: 1300px;
       padding:10px;
       margin: auto;
-   }
+}
 
 
  table{
