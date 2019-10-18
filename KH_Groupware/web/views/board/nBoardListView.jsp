@@ -290,7 +290,7 @@ input{
    
 <br><br>
 
-
+<!--  공지사항 리스트 -->
 
 <table align="center" id="listArea">
    <thead>
