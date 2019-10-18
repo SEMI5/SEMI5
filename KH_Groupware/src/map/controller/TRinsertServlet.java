@@ -49,7 +49,8 @@ public class TRinsertServlet extends HttpServlet {
 		System.out.println(result);
 		
 		if(result > 0) {
-			response.sendRedirect("mainHome.jsp");
+			//response.sendRedirect("mainHome.jsp");
+			response.sendRedirect("views/common/mapSuccess.jsp");
 			
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 

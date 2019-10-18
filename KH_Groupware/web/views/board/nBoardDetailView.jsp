@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "board.model.vo.*, java.util.ArrayList" %>
-    
+    pageEncoding="UTF-8" import = "board.model.vo.*, java.util.ArrayList"%>
     
 <%
 	Board b = (Board)request.getAttribute("board");
 	Board bPrev	= (Board)request.getAttribute("boardPrev");
 	Board bNext = (Board)request.getAttribute("boardNext");
 	
-	 
-	 
+
 	/* Ajax이후 */
 /* 	ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist"); */
 %>
@@ -30,7 +28,7 @@
    #outer{
        width: 100%;
        position: absolute;
-       border:none;
+       border:1px solid black;
        padding: 10px;
    }
    td {
@@ -89,13 +87,13 @@
    
 
    td{
-    border-bottom: 1px solid  #dbdbdb;
+    border-bottom: 1px solid lightgray;
     padding-left: 25px;
      padding-right: 25px;
    }
 
    thead{
-      background: #f3f3f3;
+      background: #EAEAEA;
       
    }
    
@@ -166,7 +164,7 @@ text-decoration: underline;
 	cursor:pointer;
 }
 
-#listBtn{
+#writeBtn{
    border:none;
    outline: none;
    background-color: black; 
@@ -193,7 +191,7 @@ text-decoration: underline;
 }
 
 
-#listBtn:hover{
+#writeBtn:hover{
    background-color: #f53f29; 
    color: white;
 }
@@ -211,7 +209,7 @@ text-decoration: underline;
 <br><br>
 	<div id="outer">
 		<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
-		<br>
+	
 		<div id="tableDiv" align>
 			<table align="center" width="1230px">
 				<thead>
@@ -261,7 +259,7 @@ text-decoration: underline;
 			</table>
 			<br><br><br><br>
 				<button id = reWriteBtn onclick = "" style="display:inline-block"><b>수정</b></button>
-				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
+				<button id = writeBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
 					
 		</div>
 		

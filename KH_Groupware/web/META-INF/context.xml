@@ -16,7 +16,16 @@
   limitations under the License.
 --><!-- The contents of this file will be loaded for each web application -->
 
+<<<<<<< HEAD
 <Context workDir= "C:\Users\user2\git\SEMI5\SEMI5\KH_Groupware\web\META-INF">
+=======
+<<<<<<< HEAD
+<Context workDir= "C:\Users\user2\git\SEMI5\KH_Groupware\web\META-INF">
+=======
+<!-- <Context workDir= "C:\Users\user2\git\SEMI5\KH_Groupware\web\META-INF"> -->
+<Context workDir= "C:\Users\user2\Desktop\Glenn">
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master
 
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->

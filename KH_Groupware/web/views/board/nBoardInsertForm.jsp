@@ -1,24 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"  import="java.util.*, java.text.*, member.model.vo.Member"%>
-    
-<%
-	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");
-	 String today = formatter.format(new java.util.Date());
-	
-
-%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <style>
-   #outer{
-       width: 100%;
-       position: absolute;
-       padding: 10px;
-   	   border:none;
-  	} 
-   
+
     #tableDiv{
       position: relative;
       width: 1300px;
@@ -162,19 +149,19 @@
 		text-align: center;
 		padding-top: 30px;
 	}
+
 </style>
-   
 <title>Insert title here</title>
+<<<<<<< HEAD
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 
 
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+</head>
 
 
 
@@ -182,12 +169,18 @@
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+
 <br><br>
 <form id= insertForm action = "<%=request.getContextPath()%>/insert.Nbo" method="post" encType="multipart/form-data">
 <div id="outer">
+
+
+<div class="outer">
+
 	<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
-	<br>
+	<br><br>
 	<div id = "tableDiv">
+
 		<table align="center" id="listArea">
 			<tr>
 				<td class= "titleTd tableTd"><b>제목</b></td>
@@ -197,7 +190,7 @@
 				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
 			<tr>
 				<td class= "titleTd tableTd"><b>작성일</b></td>
-				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=today%></span></td>
+			<%-- 	<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=today%></span></td> --%>
 			</tr>
 		</table>
 		<div id="textareaDiv"><textArea id= summernote rows=30 name = "bcontent" placeholder="내용을 입력해주세요"></textArea><div>
@@ -233,19 +226,26 @@
 				<button type='button'id=listBtn onclick=><b>목록</b></button>&nbsp;&nbsp;
 				<button id=insertBtn onclick="insertSubmit();"><b>등록</b></button>
 		</div>
+
 	</div>
-<div style="display:none">
-	<input type="file" id="fileInput1" name = "file1" onchange="loadAttachName(this,1);">
-	<input type="file" id="fileInput2" name = "file2" onchange="loadAttachName(this,2);">
-	<input type="file" id="fileInput3" name = "file3" onchange="loadAttachName(this,3);">
-	<input type="file" id="fileInput4" name = "file4" onchange="loadAttachName(this,4);">
-	<input type="file" id="fileInput5" name = "file5" onchange="loadAttachName(this,5);">
-	<input type="file" id="fileInput6" name = "file6" onchange="loadAttachName(this,6);">
-	<input type="file" id="fileInput7" name = "file7" onchange="loadAttachName(this,7);">
-	<input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
 </div>
+
 </form>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 </body>
+
 
 
 <script>

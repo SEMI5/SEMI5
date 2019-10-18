@@ -6,7 +6,7 @@
 <%@ include file="/views/common/footer.jsp"%>
 
 <%
-ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
+	ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
 
 %>
 
@@ -48,14 +48,63 @@ ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
 			navLinks : true, // can click day/week names to navigate views
 			editable : true,
 			eventLimit : true, // allow "more" link when too many events
-			events : []
+			events : {
+				url: "/KH_Groupware/showCalendar.te",
+				error:function(){
+					alert("불러오기 실패");
+				}
+			},
+			eventDrop : function(event, delta, revertFunc){
+				var start = event.start;
+				var end = event.end;
+				if(end == null){
+					end = start;
+				}
+				if(!confirm("일정을 변경하시겠습니까?")){
+					alert(end);
+					 $("#calendar").fullCalendar("refetchEvents");
+					 return false;
+				}
+					$.ajax({
+						type:"post",
+						url: "/KH_Groupware/updateSchedule.te",
+						cache: false,
+						async: false,
+						data: {scdNo:event.id, strDate:event.start.format(), endDate:end.format(), type:"modify"}
+						
+					})
+					.done(function(data){
+						if(data > 0){
+							alert("일정이 변경되었습니다.");
+							$("#calendar").fullCalendar("refetchEvents");
+						}
+					});
+			},
+			eventClick : function(calEvent, jsEvent, view){
+				if(!confirm("일정을 삭제하시겠습니까?")){
+					 return false;
+				}
+				$.ajax({
+					type:"post",
+					url: "/KH_Groupware/updateSchedule.te",
+					data: {scdNo:calEvent.id, type:"delete"},
+					cache: false,
+					async: false
+				})
+				.done(function(data){
+					if(data > 0){
+						alert("일정이 삭제되었습니다.");
+						$("#calendar").fullCalendar("refetchEvents");
+					}
+				});
+			}
 		});
 	});
 	
 
 	function addSchedule(){
 		var scInfo = "";
-		scInfo += "<div style='width:100%; height:30px;'><div style= 'width:30%; float:left; paddin-left:30px;'>일정내용</div><div style= 'width:60%; float:right;'><input id = 'scName' type = 'text' value =''></div></div>" 
+		scInfo += "<div style='width:100%; height:30px;'><div style= 'width:30%; float:left; paddin-left:30px;'>일정내용</div><div style= 'width:60%; float:right;'><input id = 'scdName' type = 'text' value =''></div></div>" 
 		scInfo += "<div style='width:100%; height:30px;'><div style= 'width:30%; float:left; paddin-left:30px;'>시작일</div><div style= 'width:60%; float:right;'><input id = 'strDate' type = 'date' style= 'width:150px;'  value =''></div></div>"
 		scInfo += "<div style='width:100%; height:30px;'><div style= 'width:30%; float:left; paddin-left:30px;''>마감일</div><div style= 'width:60%; float:right;'><input id = 'endDate' type = 'date' style= 'width:150px;'  value =''></div></div>"
 		scInfo += "<div style='width:100%; text-align:center; height:10px; margin-bottom:15px; margin-top:10px'><button onclick = 'saveSchedule();'>저장하기</</button></div> "
@@ -73,9 +122,48 @@ ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
 		$("#"+baId).bPopup();
 	}
 	
-	function closeMsg(baId, widths){
+	function closeMsg(baId){
 		
 		$("#"+baId).bPopup().close();
+	}
+	
+	function saveSchedule(){
+		var scdName = $("#scdName").val();
+		var strDate = $("#strDate").val();
+		var endDate = $("#endDate").val();
+		console.log(scdName);
+		console.log(strDate);
+		console.log(endDate);
+		if(!scdName){
+			alert("일정 내용을 입력하세요.");
+			return false;
+		}
+		if(!strDate){
+			alert("시작일을 입력하세요.");
+			return false;
+		}
+		if(!endDate){
+			alert("마감일을 입력하세요.");
+			return false;
+		}
+		$.ajax({
+			type:"post",
+			url:"/KH_Groupware/insertSchedule.te",
+			cache:false,
+			async:false,
+			data:{scdName:scdName,
+				  strDate:strDate,
+				  endDate:endDate	
+			},
+			success:function(data){	
+ 				if(data>0){
+					closeMsg("boxAlert");
+					alert("정상으로 저장되었습니다.");
+					$("#calendar").fullCalendar("addEventSource",data);
+					$("#calendar").fullCalendar("refetchEvents");
+				} 
+			}
+		});
 	}
 	
 </script>

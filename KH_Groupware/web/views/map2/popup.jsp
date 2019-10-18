@@ -13,7 +13,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	
+	likeBtn{
+		width: 20px;
+		height: 20px;
+	}
 </style>
 </head>
 <body>
@@ -35,9 +38,15 @@
 				<%-- <input type="hidden" name="TR_LatLng" value="<%=Address%>"> --%> <!-- 주소-->
 				<input type="hidden" name="ST_id" value="0">
 			</table>
-			<button type="submit">등록 완료</button>
+			<button type="submit" id="completeBtn" onclick="complete">등록 완료</button>
 		</form>
-		 
+		
+		
+	<!-- 	 <a id=likeBtn"><img src="../../images/like2.png">like </a> -->
+		
+		<!--  <div>
+		 	 <a id=likeBtn ><img alt=사진없음 src="../../images/icon/like2.png">like </a>
+		 </div> -->
 
 </body>
 </html> 
