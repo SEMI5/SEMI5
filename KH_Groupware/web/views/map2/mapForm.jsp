@@ -80,7 +80,6 @@
 		
 	<!-- 자동실행 -->
 	<script type="text/javascript">
-	
 	var toss = null;
 	
 	var AjaxData= $(function(){
@@ -90,20 +89,23 @@
 						 success: function(data) {
 								$.each(data, function(index, value) {  // 데이터 만큼의 포문을 돌리는것.
 								var str = "<tr id=kan"+index+" style='border: 1px solid white'>"+
-										  	 "<td>"+
+										  	 "<td id=onelist>"+
 											 "    가게 명 : "+ data[index].trName +"<br>"+
 								             "    후기 : "+ data[index].trMemo +"<br>"+
 								             "    별점 : "+ data[index].trName + 
 								             "    <input type=hidden id=hiddenAddress value=" + data[index].trLatLng + ">" +
 								             "</td>" +
-								             "<td id=likeTd>"+
-								             "    별점  "+
-								             "    <button id=likeBtn value=1>like "+				
+								             "<td>"+
+								             "    <div id=likeTd"+index+">" +
+								             "    	 <img src=../../images/like30px.png>"+				
+								             "   	 <a>like <span id=ctnSpan"+index+">0<span></a>  "+
+								             "    </div>  "+
 								             "</td>"+
 								          "</tr>";
 								        $("#AJlist").append(str);					
 										console.log(data);
 										
+							
 										$("#kan" + index).click(function () {
 											str2 = data[index].trName;
 										 	$("#keyword").val(str2); // 다시 검색창에
@@ -128,6 +130,17 @@
 												});    
 										 	/* ------------------------------------------------------------------------------------------------------------------- */
 										});
+										        /* like----------------------------------------------------------------------------------------------------------- */
+												var ctn = 0;
+												$("#likeTd"+index).on('click', function () {
+													alert(ctn);
+													ctn++;
+													$("#ctnSpan"+index).text(ctn);
+												});
+												
+												
+										        /* --------------------------------------------------------------------------------------------------------------- */
+												
 								}); // each문 종료
 						},  // success 종료
 						error: function(data) {
@@ -136,9 +149,8 @@
 					}); // ajax 종료
 				}); // function 종료
 				
-				
-				/* ---------------------------like---------------------------------------------- */
-				
+
+			
 				
 				
 				
