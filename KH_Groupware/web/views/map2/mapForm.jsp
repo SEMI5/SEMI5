@@ -97,7 +97,7 @@
 								             "    <input type=hidden id=hiddenAddress value=" + data[index].trLatLng + ">" +
 								             "</td>" +
 								             "<td id=likeTd>"+
-								             "    별점 : "+
+								             "    별점  "+
 								             "    <button id=likeBtn value=1>like "+				
 								             "</td>"+
 								          "</tr>";
