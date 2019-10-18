@@ -277,6 +277,6 @@
 		$("#consulting"+stdNum).css("display","table");
 		$("#std"+stdNum).css({"background":"whitesmoke"});	
 	};
-	/* sdff */
+
 </script>
 
