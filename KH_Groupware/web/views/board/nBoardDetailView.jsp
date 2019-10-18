@@ -164,8 +164,22 @@ text-decoration: underline;
 	cursor:pointer;
 }
 
-#writeBtn{
+#listBtn{
    border:none;
+   outline: none;
+   background-color: black; 
+   color: white;
+   font-size: 16px;
+   height: 40px;
+   width: 70px;
+   position: absolute; 
+   right: 615px;
+   bottom: 35px;
+   z-index:1;
+}
+
+#reWriteBtn{
+	 border:none;
    outline: none;
    background-color: black; 
    color: white;
@@ -174,12 +188,12 @@ text-decoration: underline;
    width: 70px;
    position: absolute;
    right: 35px;
-   bottom: 37px;
+   bottom: 35px;
    z-index:1;
 }
 
-#reWriteBtn{
-   border:none;
+#deleteBtn{
+    border:none;
    outline: none;
    background-color: black; 
    color: white;
@@ -187,19 +201,25 @@ text-decoration: underline;
    height: 40px;
    width: 70px;
    position: absolute;
-   right: 130px;
-   bottom: 37px;
+   right: 120px;
+   bottom: 35px;
    z-index:1;
 }
 
+#deleteBtn:hover{
+   background-color: darkgray; 
+   color: white;
+   
+}
 
-#writeBtn:hover{
+#listBtn:hover{
    background-color: #f53f29; 
    color: white;
 }
 
 #reWriteBtn:hover{
-   background-color: darkgray; 
+
+   background-color: #f53f29; 
    color: white;
 }
 </style>
@@ -260,8 +280,9 @@ text-decoration: underline;
 				</tbody>
 			</table>
 			<br><br><br><br>
+				<button id = deleteBtn onclick =""><b>삭제</b></button>
 				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/NupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
-				<button id = writeBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
+				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
 					
 		</div>
 		

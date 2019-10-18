@@ -118,7 +118,7 @@
 		height: 40px;
 		padding-left:10px;
 		font-size: 15px;
-		width: 300px;
+		width: 400px;
 	} 
 	
 	.attachBtn{
@@ -173,6 +173,11 @@
 		text-align: center;
 		padding-top: 30px;
 	}
+	
+	#resetBtn{
+		margin-left:159px; 
+	}
+	
 </style>
    
 <title>Insert title here</title>
@@ -222,13 +227,13 @@
 						 <option>8</option>
 					</select>
 					&nbsp;<span style="font-size: 15px">파일 갯수를 지정해주십시오</span>
+					<button type="button" id= "resetBtn" class="attachBtn" onclick="selectReset();"><b>리셋</b></button>
 				</td>
 			</tr> 
 			<tr class= attachTr>
 				<td class= attachTd style="border-bottom: 1px solid #dbdbdb">
 					<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요">&nbsp;
 					<button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>
-				</td>
 			</tr>
 				
 		</table>
@@ -328,7 +333,26 @@ function loadAttachName(attach,num){
 	$("#insertForm").submit();	
 } 
 
+function selectReset(){
+	$("#attachCount").val(1);
+	 $("#fileInput1").val("");
+	 $("#fileInput2").val("");
+	 $("#fileInput3").val("");
+	 $("#fileInput4").val("");
+	 $("#fileInput5").val("");
+	 $("#fileInput6").val("");
+	 $("#fileInput7").val("");
+	 $("#fileInput8").val("");
+	$(".attachTr").remove();
+	var i=0;
+	$("#attachTable").append("<tr class= attachTr>"
+				+" <td class= attachTd style=\"border-bottom: 1px solid #dbdbdb\">"
+				+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
+		        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 
+}
+ 
+ 
 </script>
 
 
