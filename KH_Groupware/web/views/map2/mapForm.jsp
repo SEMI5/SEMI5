@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.*, map.model.vo.*"%>
 	<%
 		ArrayList<TR_list> list = (ArrayList)request.getAttribute("list");
-		String AD = (String)request.getParameter("AjaxData");
 		//out.print(list);
 	%>
 <!DOCTYPE html>
@@ -80,8 +79,6 @@
 		
 	<!-- 자동실행 -->
 	<script type="text/javascript">
-	var toss = null;
-	
 	var AjaxData= $(function(){
 					 $.ajax({
 						 url:"/KH_Groupware/ajaxlist.tr",
@@ -132,21 +129,34 @@
 										});
 										        /* like----------------------------------------------------------------------------------------------------------- */
 												var ctn = 0;
-												$("#likeTd"+index).on('click', function () {
-													alert(ctn);
-													ctn++;
-													$("#ctnSpan"+index).text(ctn);
-												});
-												
-												
+											var likes = $("#likeTd"+index).on('click', function () {
+															alert(ctn);
+															ctn++;
+															$("#ctnSpan"+index).text(ctn);
+														});
+											
+												function AjaxData2() {
+													$.ajax({
+														 url:"/KH_Groupware/ajaxLikeInsert.tr",
+														 type:"get",
+														 data:{"likeCnt":"#ctnSpan"+index},
+														 success: function() {
+															
+														 },
+														 error: function() {
+															alert("실패했습니다.");
+													 	 }
+													});
+												}
 										        /* --------------------------------------------------------------------------------------------------------------- */
 												
-								}); // each문 종료
+								}); // each(for)문 종료
 						},  // success 종료
 						error: function(data) {
 							alert("실패");
 						}// error 종료
 					}); // ajax 종료
+					
 					
 					
 				}); // function 종료
