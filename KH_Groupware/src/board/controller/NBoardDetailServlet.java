@@ -34,27 +34,20 @@ public class NBoardDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int bid = Integer.valueOf(request.getParameter("bid"));
-		int prevBid = 0; 
-		int nextBid = 0;
-		
-		if(!((request.getParameter("prevBid").equals("")))&&(request.getParameter("prevBid") != null)) {
-			prevBid = Integer.valueOf(request.getParameter("prevBid"));
-		}
-	
-		if(!((request.getParameter("nextBid").equals("")))&&(request.getParameter("nextBid") != null)) {
-			 nextBid = Integer.valueOf(request.getParameter("nextBid"));
-		}
 
-		Board board = new NBoardService().selectBoard(bid);
-		Board boardPrev = new NBoardService().selectBoard2(prevBid);  // 조회수 올리지 않는 메소드를 새로 작성해서 가져와야함. 
-		Board boardNext= new NBoardService().selectBoard2(nextBid);
+		NBoardService nBoardService= new NBoardService( ); 
+		int nowRnum = nBoardService.selectRnum(bid);
+		Board board = nBoardService.selectBoard(bid); // 현재글은 조회수를 올려야 하니 rnum으로 조회x
+		Board prevBoard = nBoardService.selectBoardAsRnum(nowRnum+1); 
+		Board nextBoard = nBoardService.selectBoardAsRnum(nowRnum-1);
 		
-		  System.out.println("서블릿단 board: "+ board);
-		  System.out.println("서블릿단 boardPrv: "+ boardPrev);
-		  System.out.println("서블릿단 boardNext: "+ boardNext);
-		 
 		
-		// --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분 ------------------- 
+		System.out.println("디테일써블릿 nowRnum: " + nowRnum);
+		System.out.println("현재글: " + board);
+		System.out.println("이전글: " + prevBoard);
+		System.out.println("다음글: " + nextBoard);
+		
+				// --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분 ------------------- 
 		// 우선 댓글 달기 기능을 위해서 Reply vo 클래스를 만들어 주고 오자.
 		/*
 		 * ArrayList<Reply> rlist = new NBoardService().selectReplyList(bid);
@@ -65,13 +58,13 @@ public class NBoardDetailServlet extends HttpServlet {
 		 
 		 if(board != null) { 
 			 request.setAttribute("board", board);
-			 request.setAttribute("boardPrev", boardPrev);
-			 request.setAttribute("boardNext", boardNext);
+			 request.setAttribute("prevBoard", prevBoard);
+			 request.setAttribute("nextBoard", nextBoard);
 		
-		  // --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분
-		  //------------------- request.setAttribute("rlist", rlist); //
-		  //boardDetailView.jsp로 가서 댓글리스트가 보여지도록 화면단 작성하자
-		  request.getRequestDispatcher("views/board/nBoardDetailView.jsp").forward(request, response); 
+			  // --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분
+			  //------------------- request.setAttribute("rlist", rlist); //
+			  //boardDetailView.jsp로 가서 댓글리스트가 보여지도록 화면단 작성하자
+			 request.getRequestDispatcher("views/board/nBoardDetailView.jsp").forward(request, response); 
 		  }else { 
 			  request.setAttribute("msg", "게사판 상세조회 실패!");
 			  request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response); 

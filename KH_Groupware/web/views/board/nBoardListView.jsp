@@ -407,13 +407,16 @@ $(function(){
     $("td").mouseenter(function(){
     $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
            var bid = $(this).parent().children().eq(0).text(); // 게시글의  글번호 
-           var nextBid = $(this).parent().prev().children().eq(0).text();
-           var prevBid = $(this).parent().next().children().eq(0).text();
-  
            $("#bid").val(bid); 
+           
+           
+           // 이전 게시판 정보 , 다음 게시판 정보를 가져오려면 bid로 접근할게 아니라 rnum으로 접근해야함. 
+         /*   var nextBid = $(this).parent().prev().children().eq(0).text();
+           var prevBid = $(this).parent().next().children().eq(0).text();
            $("#nextBid").val(nextBid); 
-           $("#prevBid").val(prevBid); 
-           prevBid2= $("#prevBid").val()
+           $("#prevBid").val(prevBid);  */
+           
+           
            $("#formTag").submit(); 
        }) 
     });

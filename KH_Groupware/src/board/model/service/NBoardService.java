@@ -132,7 +132,7 @@ public class NBoardService {
 		return b;
 	}
 
-	public Board selectBoard2(int bid) { // 조회수 올리지 않고 보드 객체 가져옴 ( 이전글, 다음글 보여줄때 쓰려고) 
+	public Board selectBoard2(int bid) { // 조회수 올리지 않고 보드 객체 가져옴 ( 이전글, 다음글 보여줄때 쓰려고).... 근데 망함 rnum 으로 가져올거임  
 	
 		Connection conn = getConnection();
 			
@@ -252,6 +252,29 @@ public class NBoardService {
 		}
 		
 		return rlist;
+	}
+
+
+	public int selectRnum(int bid) {
+		Connection conn = getConnection();
+		
+		int nowRnum = new NBoardDao().selectRnum(conn, bid);
+		
+		close(conn);
+		
+		return nowRnum;
+
+	}
+
+
+	public Board selectBoardAsRnum(int rnum) {
+		
+		Connection conn = getConnection();
+		Board board = new NBoardDao().selectBoardAsRnum(conn, rnum);
+	
+		close(conn);
+		
+		return board;
 	}
 
 

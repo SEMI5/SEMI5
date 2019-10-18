@@ -572,14 +572,69 @@ public class NBoardDao {
 		return result;
 	}
 
+	public int selectRnum(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int nowRnum = 0;
+		
+		String query = prop.getProperty("selectRnum");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				nowRnum=rs.getInt(1);	// 쿼리에서의 resultSet 컬럼 값(count(*))을 뽑아내서 int listCount에 담음
+			}
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return nowRnum;
+	}
 
+	public Board selectBoardAsRnum(Connection conn, int rnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = null;
+		
+		String query = prop.getProperty("selectBoardAsRnum");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rnum);
+			
+		
+			rs = pstmt.executeQuery();
+		
+			while(rs.next()) {
+				b = new Board(rs.getInt("BID"),
+						rs.getInt("CID"),
+						rs.getString("BTITLE"),
+						rs.getString("BTYPE"),
+						rs.getString("BCONTENT"),
+						rs.getString("USER_NAME"),
+						rs.getInt("bcount"),
+						rs.getDate("create_date"),
+						rs.getDate("modify_date"),
+						rs.getString("status"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return b;
 
+	}
 
-	
-	
-	
-	
-	
 	
 }

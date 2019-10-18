@@ -3,8 +3,8 @@
     
 <%
 	Board b = (Board)request.getAttribute("board");
-	Board bPrev	= (Board)request.getAttribute("boardPrev");
-	Board bNext = (Board)request.getAttribute("boardNext");
+	Board bPrev	= (Board)request.getAttribute("prevBoard");
+	Board bNext = (Board)request.getAttribute("nextBoard");
 	
 
 	/* Ajax이후 */
@@ -351,7 +351,7 @@ text-decoration: underline;
 $(function(){
     $(".clipDiv").click(function(){
        
-          var balloon = $(this).parent().find(".balloon");   
+         var balloon = $(this).parent().find(".balloon");   
          if(balloon.css("display")== "none"){
             balloon.css({"display":"block"})   
          }else{
