@@ -344,7 +344,7 @@ input{
 <br>
 <br>
 
-<%if(loginUser !=null && loginUser.getUserId().equals("admin")) {%>
+<%if(loginUser !=null && loginUser.getUserNo() > 10000) {%>
 <button id = writerBtn onclick = "goBoardInsertForm();"><b>글쓰기</b></button>
 <%}%>
 

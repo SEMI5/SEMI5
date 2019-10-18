@@ -636,5 +636,7 @@ public class NBoardDao {
 
 	}
 
+
+
 	
 }

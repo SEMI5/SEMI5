@@ -163,10 +163,9 @@ public class InsertNBoardServlet extends HttpServlet {
 					// 이렇게 하면 DB를 다녀올 준비가 끝남 
 					int result = 0; 
 					
-					if(saveFiles.isEmpty()) {
-						System.out.println("첨부파일 하나밖에없음 ");
-						result = 1; 
-					}else{
+					if(saveFiles.isEmpty()) { // 첨부파일이 하나도 없다면, 
+						result = new NBoardService().insertBoard(b);
+					}else{ // 첨부파일 있다면 
 					    result = new NBoardService().insertNBoard(b,fileList);
 					}
 					

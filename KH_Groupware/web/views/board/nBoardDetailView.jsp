@@ -21,7 +21,6 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -109,6 +108,7 @@
     padding: 10px;
     text-align: left; 
     display:none;
+    z-index:5;
 }
  .balloon:after {
     content: '';
@@ -175,6 +175,7 @@ text-decoration: underline;
    position: absolute;
    right: 35px;
    bottom: 37px;
+   z-index:1;
 }
 
 #reWriteBtn{
@@ -188,6 +189,7 @@ text-decoration: underline;
    position: absolute;
    right: 130px;
    bottom: 37px;
+   z-index:1;
 }
 
 
@@ -258,7 +260,7 @@ text-decoration: underline;
 				</tbody>
 			</table>
 			<br><br><br><br>
-				<button id = reWriteBtn onclick = "" style="display:inline-block"><b>수정</b></button>
+				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/NupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
 				<button id = writeBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
 					
 		</div>
