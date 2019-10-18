@@ -139,7 +139,7 @@
 													$.ajax({
 														 url:"/KH_Groupware/ajaxLikeInsert.tr",
 														 type:"get",
-														 data:{"likeCnt":"#ctnSpan"+index}
+														 data:{"likeCnt":"#ctnSpan"+index},
 														 success: function() {
 															
 														 },
