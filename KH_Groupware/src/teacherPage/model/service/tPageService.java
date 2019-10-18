@@ -71,4 +71,46 @@ public class tPageService {
 		return result;
 	}
 
+	public ArrayList<Schedule> showCalendar(int cid) {
+		Connection conn  = getConnection();
+		
+		ArrayList<Schedule> scdList = new tPageDao().showCalendar(conn, cid);
+		
+		if(scdList != null) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return scdList;
+	}
+
+	public int modifySchedule(Schedule scd) {
+		Connection conn = getConnection();
+		
+		int result = new tPageDao().modifySchedule(scd, conn);
+		
+		if(result != 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int deleteSchedule(int scdNo) {
+		Connection conn = getConnection();
+		
+		int result = new tPageDao().deleteSchedule(conn, scdNo);
+		
+		if(result != 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 }

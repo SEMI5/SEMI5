@@ -36,7 +36,7 @@ public class UpdateSeatSurvlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		response.setContentType("application/json; charset=utf-8");
 		
 		String type = request.getParameter("type");
 		
@@ -52,14 +52,12 @@ public class UpdateSeatSurvlet extends HttpServlet {
 
 			String seatNo = request.getParameter("seatNo");
 
-			System.out.println(csList);
 			
 			csList.get(stdNo-1).setSeat(seatNo);
 			session.setAttribute("changeSeatList", csList);
 			
 			csList = (ArrayList)session.getAttribute("changeSeatList");
 
-			System.out.println(csList);
 			
 			break;
 			

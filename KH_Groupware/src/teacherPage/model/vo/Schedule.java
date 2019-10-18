@@ -9,9 +9,9 @@ public class Schedule implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 6262860156673558263L;
-	private int userNum;
-	private int calssNum;
 	private int scdNum;
+	private int calssNum;
+	private int userNum;
 	private String scdName;
 	private Date strDate;
 	private Date endDate;
@@ -21,11 +21,11 @@ public class Schedule implements Serializable{
 	public Schedule () {}
 
 
-	public Schedule(int userNum, int calssNum, int scdNum, String scdName, Date strDate, Date endDate, String status) {
+	public Schedule( int scdNum, int calssNum, int userNum, String scdName, Date strDate, Date endDate, String status) {
 		super();
-		this.userNum = userNum;
-		this.calssNum = calssNum;
 		this.scdNum = scdNum;
+		this.calssNum = calssNum;
+		this.userNum = userNum;
 		this.scdName = scdName;
 		this.strDate = strDate;
 		this.endDate = endDate;
@@ -34,11 +34,21 @@ public class Schedule implements Serializable{
 
 
 	
-	public Schedule(int userNum, int calssNum, String scdName, Date strDate, Date endDate) {
+	public Schedule(int calssNum, int userNum, String scdName, Date strDate, Date endDate) {
 		super();
-		this.userNum = userNum;
 		this.calssNum = calssNum;
+		this.userNum = userNum;
 		this.scdName = scdName;
+		this.strDate = strDate;
+		this.endDate = endDate;
+	}
+
+	
+	
+
+	public Schedule(int scdNum, Date strDate, Date endDate) {
+		super();
+		this.scdNum = scdNum;
 		this.strDate = strDate;
 		this.endDate = endDate;
 	}

@@ -5,7 +5,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="member.model.vo.Member" %>
 <%
-	ArrayList<Member> stdList = (ArrayList)session.getAttribute("appYet");
+	ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
+
 	int i;
 %>
 
@@ -86,6 +87,7 @@
 					<th width="400px"></th>
 				</tr>
 				<%for(i = 0; i < stdList.size() ; i++){ %>
+				<%if(stdList.get(i).getApprove().equals("N")){%>
 				<tr id="std<%=i%>" class="std">
 					<td><%=stdList.get(i).getUserName()%></td>
 					<td><%=stdList.get(i).getRRN() %></td>
@@ -94,12 +96,10 @@
 					<td id = "appInfo<%=i%>"></td>
 				</tr>
 				
-					<%if(stdList.get(i).getApprove().equals("Y")){ %>
+
+					
 						<script>
-							$("#std<%=i%>").css({"background":"rgb(180,180,180)","color":"white"});
-						</script>
-					<%}else{ %>
-						<script>
+						
 							$("#std<%=i%>").css({"background":"white"});
 							$("#appInfo<%=i%>").text("'승인 대기 중입니다.'").css({"font-style":"italic","font-weight":"10"});
 							$(".std").hover(function() {
@@ -120,17 +120,16 @@
 									$('#popUp<%=i%>').bPopup().close();
 								});
 							});
+						<%}%>
 						</script>
-						
-						
-						
-					<%} %>
+
+				
 				<div id = "popUp<%=i%>">
 							<div id ="app<%=i%>" onclick = "appJoin(<%=stdList.get(i).getUserNo()%>, <%=stdList.get(i).getUserId()%>, <%=i %>);" style = "background:whitesmoke; color:grey"><div><p>가입승인<p></div></div>
 							<div id ="hol<%=i%>" style = "background:grey; color:white"><div><p>보류<p></div></div>
 							<div id ="msg" style = " background-color: none; color:white; 
 								font-size:35px; display:block; width:700px; height:100px;" >
-							<em>더블클릭으로 승인을 <br>취소할 수 있습니다.</em>
+							<!-- <em>더블클릭으로 승인을 <br>취소할 수 있습니다.</em> -->
 							</div>
 				</div>
 				<%}%>
@@ -150,6 +149,7 @@
 			});
 		});
 		
+		$("[id*=appInfo]").unbind('mouseenter mouseleave');
 		
 		function appJoin(userNo, userId, i) {
 			console.log("ddd");
@@ -162,15 +162,15 @@
 					i : i
 				},
 				success : function(data) {
-					<%
-						stdList = (ArrayList)session.getAttribute("stdList");
-					%>
 					console.log("성공입니다 !");
-					$("#std"+i).css({"background":"rgb(180,180,180)","color":"white"});
-					alert("<%=(ArrayList)session.getAttribute("stdList")%>");
+					/* $("#std"+i).css({"background":"rgb(180,180,180)","color":"white"}).unbind('mouseenter mouseleave'); */
+					/* $("#appInfo"+i).text("승인되었습니다."); */
+					 $("#std"+i).css({"display":"none"});
+					$("#popUp"+i).bPopup().close();
 				}
 			});
 		}
+		
 		
 
 	</script>

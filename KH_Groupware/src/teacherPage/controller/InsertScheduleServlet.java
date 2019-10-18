@@ -43,22 +43,19 @@ public class InsertScheduleServlet extends HttpServlet {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		String scdName = request.getParameter("scdName");
-		Date strDate = null, endDate = null;
 		
+		Date strDate = null, endDate = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String sdate = request.getParameter("strDate");
-		
 		strDate = Date.valueOf(sdate);
 		String ndate = request.getParameter("endDate");
 		endDate = Date.valueOf(ndate);
 		
 		
 		
-		Schedule scd = new Schedule(loginUser.getUserNo(), loginUser.getcId(),scdName,strDate,endDate);
-		System.out.println(scd);
+		Schedule scd = new Schedule(loginUser.getcId(), loginUser.getUserNo(), scdName, strDate, endDate);
 		int result = new tPageService().insertSchedule(scd);
 	
-		System.out.println(result);
 		new Gson().toJson(result, response.getWriter());
 	
 	}

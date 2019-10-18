@@ -6,7 +6,7 @@
 <%@ include file="/views/common/footer.jsp"%>
 
 <%
-ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
+	ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
 
 %>
 
@@ -48,7 +48,56 @@ ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
 			navLinks : true, // can click day/week names to navigate views
 			editable : true,
 			eventLimit : true, // allow "more" link when too many events
-			events : []
+			events : {
+				url: "/KH_Groupware/showCalendar.te",
+				error:function(){
+					alert("불러오기 실패");
+				}
+			},
+			eventDrop : function(event, delta, revertFunc){
+				var start = event.start;
+				var end = event.end;
+				if(end == null){
+					end = start;
+				}
+				if(!confirm("일정을 변경하시겠습니까?")){
+					alert(end);
+					 $("#calendar").fullCalendar("refetchEvents");
+					 return false;
+				}
+					$.ajax({
+						type:"post",
+						url: "/KH_Groupware/updateSchedule.te",
+						cache: false,
+						async: false,
+						data: {scdNo:event.id, strDate:event.start.format(), endDate:end.format(), type:"modify"}
+						
+					})
+					.done(function(data){
+						if(data > 0){
+							alert("일정이 변경되었습니다.");
+							$("#calendar").fullCalendar("refetchEvents");
+						}
+					});
+			},
+			eventClick : function(calEvent, jsEvent, view){
+				if(!confirm("일정을 삭제하시겠습니까?")){
+					 return false;
+				}
+				$.ajax({
+					type:"post",
+					url: "/KH_Groupware/updateSchedule.te",
+					data: {scdNo:calEvent.id, type:"delete"},
+					cache: false,
+					async: false
+				})
+				.done(function(data){
+					if(data > 0){
+						alert("일정이 삭제되었습니다.");
+						$("#calendar").fullCalendar("refetchEvents");
+					}
+				});
+			}
 		});
 	});
 	
@@ -73,7 +122,7 @@ ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
 		$("#"+baId).bPopup();
 	}
 	
-	function closeMsg(baId, widths){
+	function closeMsg(baId){
 		
 		$("#"+baId).bPopup().close();
 	}
@@ -98,23 +147,24 @@ ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
 			return false;
 		}
 		$.ajax({
-			type:"get",
+			type:"post",
 			url:"/KH_Groupware/insertSchedule.te",
+			cache:false,
+			async:false,
 			data:{scdName:scdName,
 				  strDate:strDate,
 				  endDate:endDate	
 			},
 			success:function(data){	
  				if(data>0){
-					/* closeMsg(boxAlert); */
+					closeMsg("boxAlert");
 					alert("정상으로 저장되었습니다.");
-					/* $("#calendar").fullCalendar("refetchEvents"); */
+					$("#calendar").fullCalendar("addEventSource",data);
+					$("#calendar").fullCalendar("refetchEvents");
 				} 
 			}
 		});
-		
 	}
-	
 	
 </script>
 

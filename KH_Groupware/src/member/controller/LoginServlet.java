@@ -63,26 +63,25 @@ public class LoginServlet extends HttpServlet {
 					// session은 브라우져를 닫지않으면 객체가 사라지지않아서 페이지만 넘겨주면됨
 					
 					// 로그인한 회원이 강사일 경우 학생들의 목록을 가져옵니다.
-					if(loginUser.getUserNo() > 10000) {
+					if(loginUser.getUserNo() > 100000) {
+
 						ArrayList<Member> memberList = new MemberService().selectAllStd();
 						
 						
 						// 강사 자신을 제외한 학생들 리스트를 다시 만듭니다.
 						ArrayList<Member> stdList = new ArrayList();
-						// 아직 가입승인을 받지 못한 학생들 리스트를 만듭니다.
-						ArrayList<Member> appYet = new ArrayList();
+						
 						for(int i = 0 ; i<memberList.size() ; i++){
-							if(memberList.get(i).getUserNo() <= 1000 && memberList.get(i).getApprove().equals("N") && memberList.get(i).getcId() == loginUser.getcId()){
-								appYet.add(memberList.get(i));
-							} else if(memberList.get(i).getUserNo() <= 1000 && memberList.get(i).getStatus().equals("Y") && memberList.get(i).getcId() == loginUser.getcId()) {
+							if(memberList.get(i).getUserNo()<100000 && memberList.get(i).getcId() == loginUser.getcId()){
 								stdList.add(memberList.get(i));
-								
-							}
+							}		
+							
 						}
+						System.out.println("시이발~");
 						
 						session = request.getSession();
 						
-						session.setAttribute("appYet", appYet);
+
 						session.setAttribute("stdList", stdList);
 						
 					}
