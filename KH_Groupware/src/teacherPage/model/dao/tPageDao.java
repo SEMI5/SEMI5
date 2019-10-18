@@ -52,7 +52,7 @@ public class tPageDao {
 			pstmt.setInt(6, member.getUserNo());
 			
 			result = pstmt.executeUpdate();
-			
+			System.out.println(result);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally {

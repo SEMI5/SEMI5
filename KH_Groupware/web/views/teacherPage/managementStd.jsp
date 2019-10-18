@@ -127,14 +127,16 @@
 				<div class = "stdInfo">
 					<h2><%=stdList.get(i).getUserName() %> 상담일지</h2>
 					<h4><%=stdList.get(i).getAddress() %></h4>
-					<textarea rows="25" cols="150" style="resize: none" name = "consult"><%=stdList.get(i).getConsult() %></textarea>
+					<textarea rows="25" cols="150" style="resize: none" name = "consult<%=i%>"><%=stdList.get(i).getConsult() %></textarea>
 					<br><br><br>
 					<table id = "stdInfoCheck">
 						<tr>
 							<td>
 								<%
 								String smkY = null, smkN = null;
-								if(stdList.get(i).getSmoking().equals("Y")){
+								if(stdList.get(i).getSmoking() == null){
+									/*  */
+								}else if(stdList.get(i).getSmoking().equals("Y")){
 									smkY = "checked";
 								}else{
 									smkN = "checked";
@@ -149,7 +151,11 @@
 							<td style="width:350px;height:80px;text-align: left;">
 								<%
 								String mjrY = null, mjrN = null;
-								if(stdList.get(i).getExp().equals("Y")){
+								
+								
+								if(stdList.get(i).getMajor() == null){
+									/*  */
+								}else if(stdList.get(i).getMajor().equals("Y")){
 									mjrY = "checked";
 								}else{
 									mjrN = "checked";
@@ -167,11 +173,14 @@
 							<td>
 								<%
 								String[] level = new String[3];
+								if(stdList.get(i).getStdLv() != null){
+								
 								switch(stdList.get(i).getStdLv()){
 								case "3": level[0] = "checked"; break;
 								case "2": level[1] = "checked"; break;
 								case "1": level[2] = "checked"; break;	
-								 } 
+								 }
+								}
 								 %>
 								<label style="font-size:20px">학생Level</label>
 								<input type="radio" id="beginningLv" name="stdLevel<%=i%>" value="3" <%= level[0]%>> 
@@ -185,7 +194,9 @@
 
 								<%
 								String expY = null, expN = null;
-								if(stdList.get(i).getExp().equals("Y")){
+								if(stdList.get(i).getExp() == null){
+									/*  */
+								}else if(stdList.get(i).getExp().equals("Y")){
 									expY = "checked";
 								}else{
 									expN = "checked";
@@ -207,11 +218,11 @@
 									 $.ajax({
 										url:"/KH_Groupware/updateD.te",
 										data:{stdNo:stdNo,
-											consult:$("textarea[name=consult]").val(),
-											smoking:$("input[name=smokingYN]:checked").val(),
-											major:$("input[name=majorYN]:checked").val(),
-											level:$("input[name=stdLevel]:checked").val(),
-											exp:$("input[name=PracticalExp]:checked").val(),
+											consult:$("textarea[name=consult<%=i%>]").val(),
+											smoking:$("input[name=smokingYN<%=i%>]:checked").val(),
+											major:$("input[name=majorYN<%=i%>]:checked").val(),
+											level:$("input[name=stdLevel<%=i%>]:checked").val(),
+											exp:$("input[name=PracticalExp<%=i%>]:checked").val(),
 											userId:userId},
 										success:function(data){	
 											$(".consultingForm").css("display","none");

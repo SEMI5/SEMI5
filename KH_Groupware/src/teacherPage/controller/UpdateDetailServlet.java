@@ -38,8 +38,7 @@ public class UpdateDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
 		
-		
-		
+
 		int stdNo = Integer.valueOf(request.getParameter("stdNo"));
 		String consult = request.getParameter("consult");
 		String smoking = request.getParameter("smoking");
@@ -51,9 +50,7 @@ public class UpdateDetailServlet extends HttpServlet {
 		
 		
 		int result = new tPageService().updateDetailStd(member);
-		
-		
-		member = new MemberService().selectMember(request.getParameter("userId"));
+
 		
 		HttpSession session = request.getSession();
 		
