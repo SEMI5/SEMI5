@@ -15,48 +15,62 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-   .outer {
+.outer {
       width:1000px;
       height:650px;
-      background:black;
-      color:white;
+      boader : 1px solid black;
+      color:black;
       margin-left:auto;
       margin-right:auto;
       margin-top:50px;
-   }
-   .detail td{
-      text-align:center;
-      width:1000px;
-      border:1px solid white;
-   }
-   #titleImgArea {
+}
+.detail{
+     width:1000px;
+     border:1px solid black;
+} 
+   
+.detail_other{
+   	border:1px solid black;
+}
+#titleImgArea {
       width:500px;
       height:300px;
       margin-left:auto;
       margin-right:auto;
-   }
-   #contentArea {
-      height:30px;
-   }
-   .detailImgArea {
-      width:250px;
+      boader : 1px solid black;
+}
+#contentArea {
+      height:60px;
+      boader : 1px solid red;
+}
+
+.detailImgArea {
+      width:235px;
       height:210px;
       margin-left:auto;
       margin-right:auto;
-   }
-   #titleImg {
+      boader : 1px solid black;
+      display : inline-block;
+      
+}
+#titleImg {
       width:500px;
       height:300px;
-   }
-   .detailImg {
+}
+.detailImg {
       width:250px;
       height:180px;
-   }
-   
-.btns{
-	
+      margin : 15px;
 }
-
+.down-btn{
+		margin-left : 100px;
+}
+tr{
+	border: 1px solid darkgray;
+}
+td{
+	border: 1px solid darkgray;
+}
 </style>
 
 
@@ -68,18 +82,52 @@
 
 
 <div class = "outer">
+
+			
+		<div class = "detail">
+						
+			<%-- 			<div id ="t_title_label">제목 </div>
+						<label><%=b.getbTitle() %></label><br><br>
+						
+						<div id ="t_writer_label">작성자 </div>
+						<label><%=b.getbWriter() %></label><br><br>
+						
+						<div id ="t_count_label">조회수 </div>
+						<label><%=b.getbCount() %></label><br><br>
+						
+						<div id ="t_date_label">작성일 </div>
+						<label><%=b.getModifyDate() %></label><br><br>
+						
+						<div id ="t_mainthum_label">대표이미지 </div>	
+							<div id="titleImgArea" align="center">
+								<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
+							</div><br><br>
+					
+					<button onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">다운로드</button>
+					<br><br>
+					
+				<div id ="t_conetent_label">사진메모 </div>	
+					<p id = "contentArea"><%=b.getbContent() %></p>
+		</div><br><br> --%>			
+						
+						
+						
 		<table class = "detail" align="center">
 			<tr>
-				<td width = "50px">제목</td>
+				<td width = "90px" height = "40px">제목</td>
 				<td colspan = "5"><label><%=b.getbTitle() %></label></td>
 			</tr>
 			<tr>
-				<td> 작성자 </td>
-				<td><lable><%=b.getbWriter() %></lable></td>
-				<td> 조회수 </td>
-				<td><label><%=b.getbCount() %></label></td>
-				<td> 작성일 </td>
-				<td><label><%=b.getModifyDate() %></label></td>
+				<td height = "40px"> 작성자 </td>
+				<td colspan = "5"><label><%=b.getbWriter() %></label></td>
+			</tr>
+			<tr>
+				<td height = "40px"> 조회수 </td>
+				<td colspan = "5"><label><%=b.getbCount() %></label></td>
+			</tr>	
+			<tr>
+				<td height = "40px"> 작성일 </td>
+				<td colspan = "5"><label><%=b.getModifyDate() %></label></td>
 			</tr>		
 			<tr>
 				<td> 대표사진 </td>
@@ -91,7 +139,7 @@
 				<td>
 					<button onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">다운로드</button>
 				</td>
-			</tr>		
+			</tr>
 			<tr>
 				<td> 사진메모 </td>
 				<td colspan = "6">
@@ -100,29 +148,29 @@
 			</tr>
 		</table>
 	
-		<table class = "detail">
-			<tr>
+		<div class = "detail_other" style="align:center">
+			<P align = "center"> 추가 이미지 </P>
 				<% for(int i=1; i<fileList.size(); i++){ %>
-				<td>
 					<div class = "detailImgArea">
 						<img id ="detailImg" class="detailImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=fileList.get(i).getChangeName() %>">
-						<button onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'">
+						<div class ="down-btn" style="align:center">
+						<button onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
 							다운로드
 						</button>				
+						</div>
 					</div>
-				</td>
 				<%} %>
-				
-			</tr>
-			
-		</table>	
+				<br><br>
+		</div>	
+		<br><br><br>
 		<!-- 이제 파일을 다운로드 할 수 있도록 ThumbnailDownloadServlet 만들러 !!  -->
 		
 		<div class = "btns" align ="center">
 			<button id = "goMain" onclick ="goMain();">메인으로</button>
-			<button id  = "updateBtn" onclick ="updateMember();">수정하기</button>
-			<button id  = "deleteBtn" onclick = "deleteMember();">탈퇴하기</button>
+			<button id  = "updateBtn" onclick ="updateTthumbnail();">수정하기</button>
+			<button id  = "deleteBtn" onclick = "deleteThumbnail();">삭제하기</button>
 		</div>
+	</div>
 </div>
 </body>
 </html>

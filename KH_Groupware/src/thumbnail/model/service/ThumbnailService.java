@@ -24,7 +24,7 @@ public class ThumbnailService {
 		if(flag == 1) {
 			// 우선 사진 게시판 리스트 정보를 불러오자
 			list = tDao.selectBList(conn);
-			System.out.println("service : " + list );
+			
 		}else {
 			// 사진 리스트도 불러오자
 			list = tDao.selectFList(conn);
@@ -58,9 +58,10 @@ public class ThumbnailService {
 		} else {
 			rollback(conn);
 		}
+
+
 		
 		close(conn);
-		
 		
 		return result;
 

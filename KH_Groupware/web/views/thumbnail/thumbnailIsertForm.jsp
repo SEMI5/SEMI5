@@ -6,149 +6,100 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.outer {
-    width:100%;
-    height:100%;
-  /*     background: red; */
-    coclor:black;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:50px;
-  
-}
-table {
-      border:2px solid black;
-}
-table td {
-      border:1px solid gray;
-}
-
-
-.insertArea {
-	/* background : red; */
-	width:850px;
-	height:100%;
-	margin-left:auto;
-	margin-right:auto;
-    border : 1px solid black;
-}
-
-.btnArea {
-   width:150px;
-   margin-left:auto;
-   margin-right:auto;
+   .outer {
+      width:1500px;
+      height:950px;
       
-}
-   
-#titleImgArea {
-  	display: inline-block;
-  	/* width:350px;
-  	height:200px; */
-	border: 1px solid darkgray;
-    text-align:center;
-    /* display:table-cell; */
-    vertical-align:middle;    
-}
-
-#titleImgArea:hover, #contentImgArea1:hover, 
-#contentImgArea2:hover, #contentImgArea3:hover , #contentImgArea4:hover {
+      color:black;
+      margin-left:auto;
+      margin-right:auto;
+      margin-top:50px;
+   }
+   table {
+      width:800px;
+       border:1px solid black;
+   }
+   .insertArea {
+   	  /* background:beige; */
+      width:900px;
+      height:750px;
+      margin-left:auto;
+      margin-right:auto;
+   }
+   .btnArea {
+      width:150px;
+      margin-left:auto;
+      margin-right:auto;
+   }
+   #titleImgArea {
+      width:350px;
+      height:200px;
+      border:1px solid black;
+      text-align:center;
+      display:table-cell;
+      vertical-align:middle;
+   }
+   #titleImgArea:hover, #contentImgArea1:hover, 
+   #contentImgArea2:hover, #contentImgArea3:hover {
       cursor:pointer;
-}
-   
- #contentImgArea1, #contentImgArea2, #contentImgArea3, #contentImgArea4 {
-    display: inline-block;
-  /*   width:150px;
-	height:100px; */
-    border: 1px solid darkgray;
-    text-align:center;
-    /* display:table-cell; */
-    vertical-align:middle;
-}
-#contentImgArea3{
-	margin-left:106px;
-}
-#t_title_label, #t_writer_label, #t_mainthum_label, #t_conetentthum_label, #t_conetent_label{
-	display: inline-block;
-	width : 100px;
-	background : yellow;
-}
+   }
+   #contentImgArea1, #contentImgArea2, #contentImgArea3 {
+      width:150px;
+      height:100px;
+      border:1px solid black;
+      text-align:center;
+      display:table-cell;
+      vertical-align:middle;
+   }
 </style>
-</head>
-<header>
-	<%@ include file = "../common/header.jsp" %>
-</header>
-<body>
 
-<!-- 사진 게시판 작성은 두개의 테이블에 저장되게 한다 (게시판의 타입 2번, Attachment테이블  -->
+</head>
+<body>
+	<%@ include file = "../common/header.jsp" %>
+	<!-- 사진 게시판 작성은 두개의 테이블에 저장되게 한다 (게시판의 타입 2번, Attachment테이블  -->
 	<div class = "outer">
 		<br>
 		<h2 align = "center"> 사진 게시판 작성 </h2>
-		<form action = "<%=request.getContextPath()%>/insert.th" method="post" encType="multipart/form-data">		<!-- ***form태그를 가지고 encType=인코딩 타입 /multipart/form-data(파일업로드) 보냄-->
-			<div class = "insertArea" style="align:center">
-						
-						<div id ="t_title_label">제목 </div>
-						<input type="text" size ="90	" name ="title"><br><br>
-						
-						<div id ="t_writer_label">작성자 </div>
-						<input type = "text" size = "90" value = "<%=loginUser.getUSER_NAME() %>" readonly><br><br>
-						
-						<div id ="t_mainthum_label">대표이미지 </div>	
-							<div id = "titleImgArea">
-								<img id ="titleImg" width ="608" height ="400">
-							</div><br><br>
-						<div id ="t_conetentthum_label">내용사진 </div>	
-							<div id="contentImgArea1">
-								<img id ="contentImg1" width ="300" height ="200">
-							</div>						
-							<div id="contentImgArea2">
-								<img id ="contentImg2" width ="300" height ="200">
-							</div><br><br>		
-							<div id="contentImgArea3">
-								<img id ="contentImg3" width ="300" height ="200">
-							</div>
-							<div id="contentImgArea4">
-								<img id ="contentImg4" width ="300" height ="200">
-							</div>
-							<br><br>
-						<div id ="t_conetent_label">사진메모 </div>	
-						<textarea name="content" rows="10" cols ="82" size ="resize:none"></textarea>
-					
-				<%-- <table align="center">	
+			
+		<form action = "<%=request.getContextPath()%>/insert.th" method="post"
+			encType="multipart/form-data">		<!-- ***form태그를 가지고 encType=인코딩 타입 /multipart/form-data(파일업로드) 보냄-->
+			<div class = "insertArea">
+				<table align="center">
 					<tr>
-						<td style="background:red;">제목</td>
-						<td><input type="text" size ="99" name ="title"></td>
+						<td width = "120px">제목</td>
+						<td colspan="3"><input type="text" size ="99" name ="title"></td>
 					</tr>
 					<tr>
-						<td style="background:red;">작성자</td>
-						<td><label><%=loginUser.getUSER_NAME() %></label></td>
-					</tr>
-					<tr>
-						<td style="background:red;"> 대표이미지 </td>
-						<td>
+						<td> 대표이미지 </td>
+						<td colspan ="3">
 							<div id = "titleImgArea">
-								<img id ="titleImg" width ="449" height ="300">
+								<img id ="titleImg" width ="658" height ="400">
 							</div>
 						</td>					
 					</tr>
 					<tr>
-						<td style="background:red;"> 내용사진 </td>
+						<td> 내용사진 </td>
 						<td>
 							<div id="contentImgArea1">
-								<img id ="contentImg1" width ="100" height ="150">
+								<img id ="contentImg1" width ="200" height ="150">
 							</div>						
+						</td>
+						<td>
 							<div id="contentImgArea2">
-								<img id ="contentImg2" width ="100" height ="150">
-							</div>		
+								<img id ="contentImg2" width ="200" height ="150">
+							</div>						
+						</td>
+						<td>
 							<div id="contentImgArea3">
-								<img id ="contentImg3" width ="100" height ="150">
-							</div>		
+								<img id ="contentImg3" width ="200" height ="150">
+							</div>						
 						</td>
 					</tr>
 					<tr>
-						<td width="100px" style="background:red;">사진 메모 </td>
-						<td><textarea name="content" rows="10" cols ="90" size ="resize:none"></textarea></td>
+						<td width="100px">사진 메모 </td>
+						<td colspan ="3"><textarea name="content" rows="8" cols ="91" size ="resize:none"></textarea></td>
 					</tr>
-				</table> --%>
+				</table>
 
 			<!-- 파일 업로드 하는 부분(file 타입형 input태그들) -->
 				<div id ="fileArea">							   <!-- input태그가 눌리면 this(객체)와1을 매개변수로 LoadImg함수발동 -->	
@@ -156,7 +107,6 @@ table td {
 					<input type="file" id ="thumbnailImg2" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,2)">
 					<input type="file" id ="thumbnailImg3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)">
 					<input type="file" id ="thumbnailImg4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)">
-					<input type="file" id ="thumbnailImg5" multiple="multiple" name="thumbnailImg5" onchange="LoadImg(this,5)">
 				</div>
 			
 			<script>
@@ -177,9 +127,7 @@ table td {
 					$("#contentImgArea3").click(function(){
 						$("#thumbnailImg4").click();
 					});
-					$("#contentImgArea4").click(function(){
-						$("#thumbnailImg5").click();
-					});
+					
 				});
 				
 				// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 부분(함수 - onchange="LoadImg(this,1)")
@@ -203,9 +151,6 @@ table td {
 							case 4:
 								$("#contentImg3").attr("src",e.target.result);
 								break;
-							case 5:
-								$("#contentImg4").attr("src",e.target.result);
-								break;
 							}
 						}
 						reader.readAsDataURL(value.files[0]);	// 파일의 url까지 스트림에 넘겨준다
@@ -222,10 +167,10 @@ table td {
 			</div>
 			<!-- InsertThumbnailServlet 만들러 ㄱㄱ!!!! -->
 		</form>
+	
 	</div>
-	
-	<br><br><br><br><br>
-	
+
+
 
 
 </body>

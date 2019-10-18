@@ -18,6 +18,7 @@ public class Board implements Serializable{
 	private Date modifyDate; 	//게시판 수정일
 	private String status; 		//게시판 상태(Y,N)
 	
+	
 	public Board() {
 	}
 

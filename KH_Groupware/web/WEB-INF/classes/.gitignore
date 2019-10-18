@@ -1,9 +1,9 @@
-<<<<<<< HEAD
 /board/
-/sql/
-=======
+/common/
+/filter/
 /member/
-/thumbnail/
+/share/
 /sql/
 /teacherPage/
->>>>>>> refs/remotes/origin/master
+/thumbnail/
+/wrapper/

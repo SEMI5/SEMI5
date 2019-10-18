@@ -149,7 +149,7 @@
 			<button type ="submit" id = "submit-btn">검색하기 </button>
 		</div>
 		<div class = "thumbnailArea">
-			 
+		<%if(loginUser != null) {%>	 
 			 <% if(list.isEmpty())	{%>
 				<p>조회된 결과가 없습니다.</p>
 
@@ -172,7 +172,7 @@
 				<div>
 				<p>No. <%= b.getbId() %><br> 
 				제목 : <%=b.getbTitle() %><br>
-					조회수 !!!aaa: <%= b.getbCount() %><br>
+					조회수: <%= b.getbCount() %><br>
 					<button id = "like_btn">
 						<img src="<%=request.getContextPath() %>/images/icon/like.png" width="50px">
 					</button>
@@ -183,6 +183,7 @@
 			</div>
 			<% } %>
 		<% } %>
+	<%} %>
 			<!-- 로그인 아닐시 안보임  -->
 			<div class = "writeArea">
 			<%if(loginUser != null) {%>

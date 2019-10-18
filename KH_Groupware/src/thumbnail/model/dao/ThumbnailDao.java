@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +44,7 @@ public class ThumbnailDao {
 		ResultSet rs = null;
 		
 		ArrayList list = null;
-		String qeury = prop.getProperty("selectBList");	// (BLIST는 3개를 join한 view에서) Btype이 2인것만 select 
+		String qeury = prop.getProperty("selectTBLIST");	// (BLIST는 3개를 join한 view에서) Btype이 2인것만 select 
 		
 		try {
 			stmt = conn.createStatement();
@@ -53,18 +54,18 @@ public class ThumbnailDao {
 			
 			
 			while(rs.next()) {
-				list.add(new Thumbnail(
-									rs.getInt("bid"),		//list에 바로 값넣음
-									rs.getInt("btype"),
-									rs.getString("cname"),
-									rs.getString("btitle"),
-									rs.getString("bcontent"),
-									rs.getString("user_name"),
-									rs.getInt("bcount"),
-									rs.getDate("create_date"),
-									rs.getDate("modify_date"),
-									rs.getString("status")));
-				/* rs.getInt("LIKECOUNT") */
+				list.add(new Thumbnail(rs.getInt("BID"),		//list에 바로 값넣음 
+						rs.getInt("CID"),
+						rs.getString("BTITLE"),
+						rs.getString("BTYPE"),
+						rs.getString("BCONTENT"),
+						rs.getInt("BCOUNT"),
+						rs.getString("USER_NAME"),
+						rs.getDate("CREATE_DATE"),
+						rs.getDate("MODIFY_DATE"),
+						rs.getString("STATUS")));
+									
+
 			}
 		
 		} catch (SQLException e) {
@@ -75,7 +76,6 @@ public class ThumbnailDao {
 			close(rs);
 		}
 
-		System.out.println("dAO : " + list );
 		return list;
 
 	}
@@ -88,7 +88,7 @@ public class ThumbnailDao {
 		ArrayList list = null;
 		
 		
-		String query = prop.getProperty("selectFList");
+		String query = prop.getProperty("selectTFList");
 									// FILE_LEVEL 우리가 올린사진중에 대표사진
 		try {
 			stmt = conn.createStatement();
@@ -118,7 +118,7 @@ public class ThumbnailDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertThumbnail");		//카테고리는 10(공통)
+		String query = prop.getProperty("insertThumbnail");	
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -126,7 +126,7 @@ public class ThumbnailDao {
 			pstmt.setString(1, b.getbTitle());
 			pstmt.setString(2, b.getbContent());
 			pstmt.setInt(3, Integer.valueOf(b.getbWriter()));
-		
+			
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -134,7 +134,7 @@ public class ThumbnailDao {
 		} finally {
 			close(pstmt);
 		}
-
+		
 		return result;
 	}
 
@@ -144,7 +144,7 @@ public class ThumbnailDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertAttachment");	
+		String query = prop.getProperty("insertTATTACH");	
 		
 		try {
 			
@@ -207,7 +207,7 @@ public class ThumbnailDao {
 			
 			Attachment at = null;
 			
-			String query = prop.getProperty("selectAttachment");
+			String query = prop.getProperty("selectTATTACH");
 			
 			try {
 				pstmt = conn.prepareStatement(query);
@@ -252,17 +252,18 @@ public class ThumbnailDao {
 			rs= pstmt.executeQuery();
 			
 			while(rs.next()) {
-				b = new Thumbnail(rs.getInt("bid"),			// vo클래스의 변수명과 꼭 같아야함
-								rs.getInt("btype"),			
-								rs.getString("cname"),		// vo클래스에서 int->Stirng으로 바꿈
-								rs.getString("btitle"),
-								rs.getString("bcontent"),
-								rs.getString("user_name"),	// vo클래스에서 int->Stirng으로 바꿈
-								rs.getInt("bcount"),
-								rs.getDate("create_date"),
-								rs.getDate("modify_date"),
-								rs.getString("status"));
-				/* rs.getInt("LIKECOUNT") */
+				b = new Thumbnail(rs.getInt("BID"),		//list에 바로 값넣음 
+								rs.getInt("CID"),
+								rs.getString("BTITLE"),
+								rs.getString("BTYPE"),
+								rs.getString("BCONTENT"),
+								rs.getInt("BCOUNT"),
+								rs.getString("USER_NAME"),
+								rs.getDate("CREATE_DATE"),
+								rs.getDate("MODIFY_DATE"),
+								rs.getString("STATUS"));
+				
+				
 				
 			}
 		} catch (SQLException e) {
@@ -306,7 +307,6 @@ public class ThumbnailDao {
 				at.setUploadDate(rs.getDate("upload_date"));
 				
 				list.add(at);
-				
 				
 			}
 			
@@ -383,18 +383,17 @@ public class ThumbnailDao {
 			list = new ArrayList<Thumbnail>();	// 컬렉션(ArrayList)는 반드시 기본 생성자로 초기화 해놓고 활용하자!!! 안하면 nullpointerror 남
 			
 			while(rs.next()) {
-				Thumbnail b = new Thumbnail(rs.getInt("bid"),			// vo클래스의 변수명과 꼭 같아야함
-									rs.getInt("btype"),			
-									rs.getString("cname"),		// vo클래스에서 int->Stirng으로 바꿈
-									rs.getString("btitle"),
-									rs.getString("bcontent"),
-									rs.getString("user_name"),	// vo클래스에서 int->Stirng으로 바꿈
-									rs.getInt("bcount"),
-									rs.getDate("create_date"),
-									rs.getDate("modify_date"),
-									rs.getString("status"));
-				/* rs.getInt("LIKECOUNT") */
-				
+				Thumbnail b = new Thumbnail(rs.getInt("BID"),		//list에 바로 값넣음 
+						rs.getInt("CID"),
+						rs.getString("BTITLE"),
+						rs.getString("BTYPE"),
+						rs.getString("BCONTENT"),
+						rs.getInt("BCOUNT"),
+						rs.getString("USER_NAME"),
+						rs.getDate("CREATE_DATE"),
+						rs.getDate("MODIFY_DATE"),
+						rs.getString("STATUS"));
+						
 				list.add(b);	//리스트 객체에 담아줌
 				
 			}
