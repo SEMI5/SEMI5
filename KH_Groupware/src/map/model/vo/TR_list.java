@@ -27,9 +27,12 @@ public class TR_list implements Serializable {
 		this.userNo = userNo;
 	}
 
-	
-	public TR_list(String trName2, String trMemo2, String trLatLng2) {
-		// TODO Auto-generated constructor stub
+
+
+	public TR_list(String trName, String trMemo, String trLatLng) {
+		this.trName = trName;
+		this.trMemo = trMemo;
+		this.trLatLng = trLatLng;
 	}
 
 	public int getTrNo() {

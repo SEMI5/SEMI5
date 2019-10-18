@@ -3,7 +3,7 @@
 	<%
 		ArrayList<TR_list> list = (ArrayList)request.getAttribute("list");
 		String AD = (String)request.getParameter("AjaxData");
-		out.print(list);
+		//out.print(list);
 	%>
 <!DOCTYPE html>
 <html>
@@ -48,6 +48,7 @@
 			width: 500px;
 			height: 120px;
 		}
+		
 		::-webkit-scrollbar {  /* 스크롤은 되지만, 스크롤바 안보이게.(크롬용) */
 		display:none;
 		} 
@@ -79,7 +80,7 @@
 		
 	<!-- 자동실행 -->
 	<script type="text/javascript">
-
+	
 	var toss = null;
 	
 	var AjaxData= $(function(){
@@ -92,11 +93,14 @@
 										  	 "<td>"+
 											 "    가게 명 : "+ data[index].trName +"<br>"+
 								             "    후기 : "+ data[index].trMemo +"<br>"+
-								            /*  "    별점 : "+ data[index]. + */
+								             "    별점 : "+ data[index].trName + 
 								             "    <input type=hidden id=hiddenAddress value=" + data[index].trLatLng + ">" +
-								             "    <button id=likeBtn value= >dd<button>"+
 								             "</td>" +
-								          "</tr>"; 
+								             "<td id=likeTd>"+
+								             "    별점  "+
+								             "    <button id=likeBtn value=1>like "+				
+								             "</td>"+
+								          "</tr>";
 								        $("#AJlist").append(str);					
 										console.log(data);
 										
@@ -131,8 +135,15 @@
 						}// error 종료
 					}); // ajax 종료
 				}); // function 종료
+				
+				
+				/* ---------------------------like---------------------------------------------- */
+				
+				
+				
+				
+				
 	</script>
-	
 	
  	</div>
 </body>
