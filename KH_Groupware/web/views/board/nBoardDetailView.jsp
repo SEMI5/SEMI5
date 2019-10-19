@@ -31,7 +31,7 @@
    #outer{
        width: 100%;
        position: absolute;
-       border:1px solid black;
+       border:none;
        padding: 10px;
    }
    td {
@@ -175,6 +175,8 @@ text-decoration: underline;
 	top: 120px;
 }
 
+
+
 .clipDiv:hover{
 	cursor:pointer;
 }
@@ -245,6 +247,7 @@ text-decoration: underline;
 
 .attachmentCount{
 	color:#f53f29; 
+	font-size:15px
 }
 
 </style>
@@ -267,11 +270,12 @@ text-decoration: underline;
 					<td style="font-size: 16px"><b>등록일:</b>&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;|&nbsp;&nbsp;<b>조회수:</b> <%=b.getbCount()%></td>
 				</tr>
 				<tr>
-               		 <% if(b.getBtype().equals("2")){ %>
-                   	 	<td style="border:none" id="clipTd">
+				<td>
+				 <% if(b.getBtype().equals("2")){ %>
+                   	 
                    		<div class= "clipDiv">
                   			<span id= "clip" ><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=24px style="padding-bottom:3px">
-                  			&nbsp;<b style="font-size:14px">첨부파일(<span class= attachmentCount><%=attachments.size()%></span>)</b></span>
+                  			&nbsp;<b style="font-size:14px">첨부파일(<font class= attachmentCount><%=attachments.size()%></font>)</b></span>
                			</div>
 						<div class="balloon">
 							<%for(int i = 0;  i<attachments.size(); i++){ %>
@@ -280,17 +284,12 @@ text-decoration: underline;
 			                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
                              	 	<%}%>                     
                             <%}%> 
-                       
-                         
-                         
                          <br>
                          <div class= "balloonClose">닫기</div>
                         </div>
-               			</td>
+               			<br>
 					 <%} %>
-				</tr>
-				<tr>
-					<td style=padding-top:0px;margin-top:0px;"><%=b.getbContent() %></td>
+					<%=b.getbContent() %></td>
 				</tr>
 				<tr style="font-size:16px">
 					<%if(bPrev != null){%>
@@ -310,8 +309,8 @@ text-decoration: underline;
 				</tbody>
 			</table>
 			<br><br><br><br>
-				<button id = deleteBtn onclick =""><b>삭제</b></button>
-				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/NupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
+				<button id = deleteBtn onclick = "deleteBoard();"><b>삭제</b></button>
+				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/Nupdate.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
 				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
 					
 		</div>
@@ -427,6 +426,13 @@ $(function(){
 	 
  }
 
+ function deleteBoard() {
+	 confirm("정말로 삭제하시겠습니까?")
+	 location.href="<%=request.getContextPath() %>/Ndelete.bo?bid=<%=b.getbId()%>";
+	 
+ }
+ 
+ 
 </script>
 
 </html>

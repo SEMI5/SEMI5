@@ -8,11 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.service.NBoardService;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.Reply;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardDetailServlet
@@ -33,14 +35,18 @@ public class NBoardDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int cid= loginUser.getcId();
+		
 		
 		int bid = Integer.valueOf(request.getParameter("bid"));
 
 		NBoardService nBoardService= new NBoardService( ); 
-		int nowRnum = nBoardService.selectRnum(bid);
+		int nowRnum = nBoardService.selectRnum(cid, bid);
 		Board board = nBoardService.selectBoard(bid); // 현재글은 조회수를 올려야 하니 rnum으로 조회x
-		Board prevBoard = nBoardService.selectBoardAsRnum(nowRnum+1); 
-		Board nextBoard = nBoardService.selectBoardAsRnum(nowRnum-1);
+		Board prevBoard = nBoardService.selectBoardAsRnum(cid, nowRnum+1); 
+		Board nextBoard = nBoardService.selectBoardAsRnum(cid, nowRnum-1);
 		
 		ArrayList<Attachment> attachments=null;
 		
@@ -70,7 +76,7 @@ public class NBoardDetailServlet extends HttpServlet {
 			  //boardDetailView.jsp로 가서 댓글리스트가 보여지도록 화면단 작성하자
 			 request.getRequestDispatcher("views/board/nBoardDetailView.jsp").forward(request, response); 
 		  }else { 
-			  request.setAttribute("msg", "게사판 상세조회 실패!");
+			  request.setAttribute("msg", "게시판 상세조회 실패!");
 			  request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response); 
 		  }
 		

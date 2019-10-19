@@ -6,7 +6,6 @@
    ArrayList<Attachment> flist = (ArrayList<Attachment>)request.getAttribute("flist");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    
- /*   Attachment f = null; */ 
    
    int listCount = pi.getListCount();
    int currentPage = pi.getCurrentPage();
@@ -308,7 +307,7 @@ input{
     
       <% if(list.isEmpty()){ %>
             <tr>
-               <td colspan="6">조회된 리스트가 없습니다.</td>
+               <td colspan="6" align="center" style="cursor:default">조회된 리스트가 없습니다.</td>
             </tr>
             <%}else{ %>
                <% for(Board b : list){ %>

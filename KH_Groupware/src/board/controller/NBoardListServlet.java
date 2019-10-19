@@ -9,11 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.service.NBoardService;
 import board.model.vo.PageInfo;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardListServlet
@@ -34,7 +36,9 @@ public class NBoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int cid= loginUser.getcId();
 		
 		//Servlet을 만들면 vo 클래스가 필요하다는 생각을 하자! ((request에 담긴 값으로 생성된)  vo클래스의 객체를 dao까지 넘길꺼니깐) 
 
@@ -43,7 +47,7 @@ public class NBoardListServlet extends HttpServlet {
 		NBoardService bService= new NBoardService(); 
 		
 		// 게시판 리스트 갯수 구하기
-		int listCount = bService.getListCount();
+		int listCount = bService.getListCount(cid);
 		System.out.println("게시글 수: "+ listCount);
 		
 
@@ -105,9 +109,9 @@ public class NBoardListServlet extends HttpServlet {
 		
 		int flag1= 1; // 게시판 글 리스트 불러오라는 flag 
 		int flag2= 2;  // 첨부파일 리스트 불러오라는 flag 
-		ArrayList list  = bService.selectList(flag1,currentPage,limit); //게시글 리스트 view에 뿌려줌 
+		ArrayList list  = bService.selectList(cid,flag1,currentPage,limit); //게시글 리스트 view에 뿌려줌 
 	
-		ArrayList flist = bService.selectList(flag2,currentPage,limit);
+		ArrayList flist = bService.selectList(cid,flag2,currentPage,limit);
 		System.out.println(flist);
 		
 		RequestDispatcher view = null;
@@ -116,7 +120,7 @@ public class NBoardListServlet extends HttpServlet {
 				request.setAttribute("list", list); // 현재 페이지 화면에 뿌려질 게시글이 담긴 객체 
 				request.setAttribute("flist", flist);// 현재 페이지 기준 게시글의 첨부파일이 담긴 객체 
 				request.setAttribute("pi", pi);		// 페이지관련된 정보가 담긴객체 
-				
+				System.out.println("서블릿: pi" + pi);
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			request.setAttribute("msg", "게시판 리스트 조회 실패!");

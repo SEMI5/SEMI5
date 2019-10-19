@@ -175,7 +175,7 @@
 	}
 	
 	#resetBtn{
-		margin-left:159px; 
+		margin-left:158px; 
 	}
 	
 </style>
@@ -232,7 +232,7 @@
 			</tr> 
 			<tr class= attachTr>
 				<td class= attachTd style="border-bottom: 1px solid #dbdbdb">
-					<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요">&nbsp;
+					<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요" readonly>&nbsp;
 					<button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>
 			</tr>
 				
@@ -301,12 +301,12 @@
 	 		if( i == number-1){
 	 			$("#attachTable").append("<tr class= attachTr>"
 	 										+" <td class= attachTd style=\"border-bottom: 1px solid #dbdbdb\">"
-	 										+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
+	 										+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요' readonly>&nbsp;"
 	 								        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 	 		}else{
 	 			$("#attachTable").append("<tr class= attachTr>"
 								+" <td class= attachTd>"
-								+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
+								+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요' readonly>&nbsp;"
 						        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 	 		}
 		}  

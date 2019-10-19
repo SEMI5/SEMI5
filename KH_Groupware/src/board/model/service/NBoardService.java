@@ -19,10 +19,10 @@ public class NBoardService {
 	/*
 	 * 게시판 리스트 갯수 조회용
 	 */
-	public int getListCount() {
+	public int getListCount(int cid) {
 		Connection conn = getConnection();
 		
-		int listCount = new NBoardDao().getListCount(conn);
+		int listCount = new NBoardDao().getListCount(cid, conn);
 		
 		close(conn);
 		
@@ -30,10 +30,10 @@ public class NBoardService {
 	}
 
 	
-	public int getListCount(String type, String searchWord) {
+	public int getListCount(int cid, String type, String searchWord) {
 		Connection conn = getConnection();
 		
-		int listCount = new NBoardDao().getListCount(conn, type, searchWord);
+		int listCount = new NBoardDao().getListCount(cid, conn, type, searchWord);
 		
 		close(conn);
 		
@@ -46,16 +46,16 @@ public class NBoardService {
 	/*
 	 * 게시판 리스트 조회용
 	 */
-	public ArrayList selectList(int flag, int currentPage, int limit) {
+	public ArrayList selectList(int cid, int flag, int currentPage, int limit) {
 		Connection conn = getConnection();
 		ArrayList list = null;
 		
 		NBoardDao NbDao = new NBoardDao();
 		
 		if(flag ==1) {
-			list = NbDao.selectBList(conn, currentPage, limit);
+			list = NbDao.selectBList(cid, conn, currentPage, limit);
 		}else {
-			list = NbDao.selectAttachList(conn, currentPage, limit);
+			list = NbDao.selectAttachList(cid, conn, currentPage, limit);
 		}
 		
 		
@@ -64,10 +64,10 @@ public class NBoardService {
 		return list;
 	}
 	
-	public ArrayList<Board> selectList(String type, String searchWord, int currentPage, int limit) {
+	public ArrayList<Board> selectList(int cid, String type, String searchWord, int currentPage, int limit) {
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new NBoardDao().selectList(type, searchWord, conn, currentPage, limit);
+		ArrayList<Board> list = new NBoardDao().selectList(cid, type, searchWord, conn, currentPage, limit);
 		
 		close(conn);
 		
@@ -211,6 +211,17 @@ public class NBoardService {
 		return attachments; 
 	}
 	
+	public ArrayList<Attachment> selectAttachments(ArrayList<Board> list) {
+		Connection conn = getConnection();		
+		ArrayList<Attachment> attachments = new NBoardDao().selectAttachments(conn,list);
+		
+		close(conn);
+		
+		return attachments; 
+	}
+
+	
+	
 
 	public ArrayList<Reply> selectReplyList(int bid) {
 		Connection conn = getConnection();
@@ -246,10 +257,10 @@ public class NBoardService {
 	}
 
 
-	public int selectRnum(int bid) {
+	public int selectRnum(int cid, int bid) {
 		Connection conn = getConnection();
 		
-		int nowRnum = new NBoardDao().selectRnum(conn, bid);
+		int nowRnum = new NBoardDao().selectRnum(cid, conn, bid);
 		
 		close(conn);
 		
@@ -258,16 +269,47 @@ public class NBoardService {
 	}
 
 
-	public Board selectBoardAsRnum(int rnum) {
+	public Board selectBoardAsRnum(int cid, int rnum) {
 		
 		Connection conn = getConnection();
-		Board board = new NBoardDao().selectBoardAsRnum(conn, rnum);
+		Board board = new NBoardDao().selectBoardAsRnum(cid, conn, rnum);
 	
 		close(conn);
 		
 		return board;
 	}
 
+
+	public int deleteNBoard(int flag, int bid) {
+		Connection conn = getConnection();
+		
+		int result = 0; 
+		if(flag == 2) { // 첨부파일이 있다면 
+		
+		   int result1 = new NBoardDao().deleteNBoard(conn, bid);
+ 		   int result2 = new  NBoardDao().deleteNAttach(conn, bid);
+
+ 		   if( result1>0 && result2>0) {
+ 			  result =1; 
+ 		   }
+ 		   
+		}else { //첨부파일이 없다면 
+			result = new NBoardDao().deleteNBoard(conn, bid);
+		}
+		
+
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+
+	
 
 	
 
