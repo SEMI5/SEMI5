@@ -222,6 +222,12 @@ text-decoration: underline;
    background-color: #f53f29; 
    color: white;
 }
+
+#preNextBoard:hover{
+	cusrsor:pointer; 
+	color: darkgray;
+}
+
 </style>
 </head>
 <header>
@@ -265,14 +271,14 @@ text-decoration: underline;
 				</tr>
 				<tr style="font-size:16px">
 					<%if(bPrev != null){%>
-						<td><b style="margin-right:30px;">이전글</b><span onclick = "goBoardDetail('<%=bPrev.getbId()%>');" style="cursor:pointer"><%=bPrev.getbTitle()%></span></td>
+						<td><b style="margin-right:30px;">이전글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bPrev.getbId()%>');"><%=bPrev.getbTitle()%></span></td>
 					<%}else{%>
 						<td><b style="margin-right:30px">이전글</b>이전글이 없습니다.</td>
 					<%}%>
 				</tr>
 				<tr style="font-size:16px">
 					<%if(bNext != null){%>
-						<td><b style="margin-right:30px">다음글</b><span onclick = "goBoardDetail('<%=bNext.getbId()%>');" style="cursor:pointer"><%=bNext.getbTitle()%></span></td>
+						<td><b style="margin-right:30px">다음글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bNext.getbId()%>');"><%=bNext.getbTitle()%></span></td>
 					<%}else{%>
 						<td><b style="margin-right:30px">다음글</b>다음글이 없습니다.
 					<%}%>
