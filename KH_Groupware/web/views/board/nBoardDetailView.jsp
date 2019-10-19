@@ -6,6 +6,10 @@
 	Board bPrev	= (Board)request.getAttribute("prevBoard");
 	Board bNext = (Board)request.getAttribute("nextBoard");
 	
+	ArrayList<Attachment> attachments= new ArrayList<Attachment>();
+	if(b.getBtype().equals("2")){
+		attachments = (ArrayList<Attachment>)request.getAttribute("attachments");
+	}			
 
 	/* Ajax이후 */
 /* 	ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist"); */
@@ -147,6 +151,17 @@
 
 }
 
+
+.attachmentP{
+   position: relative;
+   margin: auto;
+   padding: auto;
+   padding-bottom:5px;
+   word-wrap: break-word;
+		
+}
+
+
 .attachmentP:hover{
 cursor:pointer;
 text-decoration: underline;
@@ -228,6 +243,10 @@ text-decoration: underline;
 	color: darkgray;
 }
 
+.attachmentCount{
+	color:#f53f29; 
+}
+
 </style>
 </head>
 <header>
@@ -248,23 +267,27 @@ text-decoration: underline;
 					<td style="font-size: 16px"><b>등록일:</b>&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;|&nbsp;&nbsp;<b>조회수:</b> <%=b.getbCount()%></td>
 				</tr>
 				<tr>
-                    
-                         
-                      <td style="border:none" id="clipTd">
-                      
-                      	<div class= "clipDiv">
-                    	<span id= "clip" ><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=24px style="padding-bottom:3px">&nbsp;첨부파일(5)</span>
-                   		</div>
+               		 <% if(b.getBtype().equals("2")){ %>
+                   	 	<td style="border:none" id="clipTd">
+                   		<div class= "clipDiv">
+                  			<span id= "clip" ><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=24px style="padding-bottom:3px">
+                  			&nbsp;<b style="font-size:14px">첨부파일(<span class= attachmentCount><%=attachments.size()%></span>)</b></span>
+               			</div>
 						<div class="balloon">
-                         <p class="attachmentP">테이블 정의서.hwp</p>
-                         <p class="attachmentP">유스케이스 다이어그램.pdf</p>
-                         <p class="attachmentP">semi_workspace.zip</p>
-                         <p class="attachmentP">혼돈의 카오스.jpg</p>
-                         <p class="attachmentP">얄리얄리얄라성.pdf</p>
+							<%for(int i = 0;  i<attachments.size(); i++){ %>
+                           			<%Attachment f = attachments.get(i);%>
+                            		<%if(f.getbId() == b.getbId()){%> 
+			                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
+                             	 	<%}%>                     
+                            <%}%> 
+                       
+                         
+                         
                          <br>
                          <div class= "balloonClose">닫기</div>
                         </div>
-               		</td>
+               			</td>
+					 <%} %>
 				</tr>
 				<tr>
 					<td style=padding-top:0px;margin-top:0px;"><%=b.getbContent() %></td>
@@ -275,6 +298,7 @@ text-decoration: underline;
 					<%}else{%>
 						<td><b style="margin-right:30px">이전글</b>이전글이 없습니다.</td>
 					<%}%>
+					
 				</tr>
 				<tr style="font-size:16px">
 					<%if(bNext != null){%>
@@ -398,7 +422,10 @@ $(function(){
 	location.href="<%=request.getContextPath()%>/Ndetail.bo?bid=" + bid;
 } 
 
-
+ function downloadAttach(thing){
+	 location.href="<%=request.getContextPath() %>/Ndownload.at?fid="+thing;
+	 
+ }
 
 </script>
 

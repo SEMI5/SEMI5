@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.NBoardService;
+import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.Reply;
 
@@ -41,13 +42,15 @@ public class NBoardDetailServlet extends HttpServlet {
 		Board prevBoard = nBoardService.selectBoardAsRnum(nowRnum+1); 
 		Board nextBoard = nBoardService.selectBoardAsRnum(nowRnum-1);
 		
+		ArrayList<Attachment> attachments=null;
 		
-		System.out.println("디테일써블릿 nowRnum: " + nowRnum);
-		System.out.println("현재글: " + board);
-		System.out.println("이전글: " + prevBoard);
-		System.out.println("다음글: " + nextBoard);
+		if( board.getBtype().equals("2")){
+			attachments= nBoardService.selectAttachments(bid);
+			 request.setAttribute("attachments", attachments);
+		}
 		
-				// --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분 ------------------- 
+		
+		// --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분 ------------------- 
 		// 우선 댓글 달기 기능을 위해서 Reply vo 클래스를 만들어 주고 오자.
 		/*
 		 * ArrayList<Reply> rlist = new NBoardService().selectReplyList(bid);
@@ -60,6 +63,7 @@ public class NBoardDetailServlet extends HttpServlet {
 			 request.setAttribute("board", board);
 			 request.setAttribute("prevBoard", prevBoard);
 			 request.setAttribute("nextBoard", nextBoard);
+			
 		
 			  // --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분
 			  //------------------- request.setAttribute("rlist", rlist); //

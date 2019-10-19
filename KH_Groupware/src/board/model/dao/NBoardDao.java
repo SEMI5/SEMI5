@@ -110,11 +110,11 @@ public class NBoardDao {
 	
 	
 
-	public ArrayList<Board> selectList(Connection conn, int currentPage, int limit) {
+	public ArrayList selectBList(Connection conn, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		ArrayList<Board>list = null;
+		ArrayList list = null;
 		
 		String query = prop.getProperty("selectNList");
 		
@@ -131,7 +131,7 @@ public class NBoardDao {
 			
 			rs=pstmt.executeQuery();
 			
-			list = new ArrayList<Board>();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
+			list = new ArrayList();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
 			
 			while(rs.next()) {
 				Board b = new Board(rs.getInt("BID"),
@@ -157,14 +157,54 @@ public class NBoardDao {
 		return list;
 	}
 	
+	public ArrayList selectAttachList(Connection conn, int currentPage, int limit) {
+		
+
+		int startRow = (currentPage-1)*limit +1;	
+		int endRow = startRow + limit -1;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList list = null;
+		String query = prop.getProperty("selectAttachList");
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+		
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs=pstmt.executeQuery();
+		
+			list = new ArrayList<Board>();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
+			while(rs.next()) {
+				Attachment a= new Attachment(rs.getInt("FID"),
+									rs.getInt("BID"),
+									rs.getString("ORIGIN_NAME"),
+									rs.getString("CHANGE_NAME"),
+									rs.getString("FILE_PATH"));
+				list.add(a);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		
+		return list; 
+	}
+	
+	
+	
+	
 	public ArrayList<Board> selectList(String type, String searchWord, Connection conn, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		ArrayList<Board>list = null;
-		
-		
-		
+
 		// 쿼리문 실행시 조건절에 넣을 변수들(rownum에 대한 조건 시 필요)
 		int startRow = (currentPage-1)*limit +1;	
 		// ex) 2page면 시작 번호가 11번일 것이다.
@@ -338,10 +378,9 @@ public class NBoardDao {
 		return list;
 	}
 
-	public ArrayList selectFList(Connection conn) {
+	public ArrayList selectFList(Connection conn, int currentPage, int limit) {
 		Statement stmt = null;
 		ResultSet rs = null;
-		
 		ArrayList list = null;
 		
 		String query = prop.getProperty("selectFList");
@@ -489,6 +528,47 @@ public class NBoardDao {
 		
 		return at;
 	}
+	
+	public ArrayList<Attachment> selectAttachments(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Attachment at = null;
+		ArrayList<Attachment> attachments = new ArrayList<Attachment>();
+		
+		String query = prop.getProperty("selectAttachments");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+		
+			rs = pstmt.executeQuery();
+			
+			
+				
+					// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
+				while(rs.next()) {
+					at= new Attachment(rs.getInt("FID"),
+										rs.getInt("BID"),
+										rs.getString("ORIGIN_NAME"),
+										rs.getString("CHANGE_NAME"),
+										rs.getString("FILE_PATH"));
+					attachments.add(at);
+				}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return attachments;
+	}
+	
+	
+	
 
 	public int updateDownloadCount(Connection conn, int fid) {
 		PreparedStatement pstmt = null;
@@ -635,6 +715,10 @@ public class NBoardDao {
 		return b;
 
 	}
+
+	
+
+
 
 
 

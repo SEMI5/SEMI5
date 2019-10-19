@@ -46,10 +46,18 @@ public class NBoardService {
 	/*
 	 * 게시판 리스트 조회용
 	 */
-	public ArrayList<Board> selectList(int currentPage, int limit) {
+	public ArrayList selectList(int flag, int currentPage, int limit) {
 		Connection conn = getConnection();
+		ArrayList list = null;
 		
-		ArrayList<Board> list = new NBoardDao().selectList(conn, currentPage, limit);
+		NBoardDao NbDao = new NBoardDao();
+		
+		if(flag ==1) {
+			list = NbDao.selectBList(conn, currentPage, limit);
+		}else {
+			list = NbDao.selectAttachList(conn, currentPage, limit);
+		}
+		
 		
 		close(conn);
 		
@@ -144,24 +152,6 @@ public class NBoardService {
 	}
 
 	
-	public ArrayList selectList(int flag) {
-		Connection conn = getConnection();
-		ArrayList list = null;
-		
-		
-		// BoardDao 메소드 두개를 호출할꺼라 참조변수로 선언하자.
-		NBoardDao bDao = new NBoardDao();
-		
-		if(flag ==1) {
-			list = bDao.selectBList(conn);
-		}else {
-			list = bDao.selectFList(conn);
-		}
-		
-		close(conn);
-		
-		return list;
-	}
 
 	public int insertThumbnail(Board b, ArrayList<Attachment> fileList) {
 		Connection conn = getConnection();
@@ -186,15 +176,6 @@ public class NBoardService {
 		return result;
 	}
 
-	public ArrayList<Attachment> selectThumbnail(int bid) {
-		Connection conn = getConnection();
-		
-		ArrayList<Attachment> list = new NBoardDao().selectThumbnail(conn,bid);
-		
-		close(conn);
-		
-		return list;
-	}
 
 	public Attachment selectAttachment(int fid) {
 		Connection conn = getConnection();
@@ -220,6 +201,16 @@ public class NBoardService {
 
 		return at;
 	}
+	
+	public ArrayList<Attachment> selectAttachments(int bid) {
+		Connection conn = getConnection();		
+		ArrayList<Attachment> attachments = new NBoardDao().selectAttachments(conn,bid);
+		
+		close(conn);
+		
+		return attachments; 
+	}
+	
 
 	public ArrayList<Reply> selectReplyList(int bid) {
 		Connection conn = getConnection();
@@ -276,6 +267,9 @@ public class NBoardService {
 		
 		return board;
 	}
+
+
+	
 
 
 }

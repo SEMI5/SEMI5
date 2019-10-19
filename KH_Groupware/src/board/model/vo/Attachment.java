@@ -19,6 +19,17 @@ public class Attachment implements Serializable{
 	
 	public Attachment() {}
 	
+	
+
+	public Attachment(int fId, int bId, String originName, String changeName, String filePath) {
+		this.fId = fId;
+		this.bId = bId;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+	}
+
+
 
 	public Attachment(int bId, String changeName) {
 		this.bId = bId;

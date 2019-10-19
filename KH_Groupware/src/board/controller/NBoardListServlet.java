@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.service.NBoardService;
 import board.model.vo.PageInfo;
@@ -100,16 +101,22 @@ public class NBoardListServlet extends HttpServlet {
 		
 		// 게시판 리스트 조회해 오기 
 		
-		ArrayList<Board> list= bService.selectList(currentPage,limit); 
 		
 		
+		int flag1= 1; // 게시판 글 리스트 불러오라는 flag 
+		int flag2= 2;  // 첨부파일 리스트 불러오라는 flag 
+		ArrayList list  = bService.selectList(flag1,currentPage,limit); //게시글 리스트 view에 뿌려줌 
+	
+		ArrayList flist = bService.selectList(flag2,currentPage,limit);
+		System.out.println(flist);
 		
 		RequestDispatcher view = null;
 		if(list!=null) {
 				view = request.getRequestDispatcher("views/board/nBoardListView.jsp");
 				request.setAttribute("list", list); // 현재 페이지 화면에 뿌려질 게시글이 담긴 객체 
+				request.setAttribute("flist", flist);// 현재 페이지 기준 게시글의 첨부파일이 담긴 객체 
 				request.setAttribute("pi", pi);		// 페이지관련된 정보가 담긴객체 
-			
+				
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			request.setAttribute("msg", "게시판 리스트 조회 실패!");

@@ -3,7 +3,10 @@
     
     <%
    ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+   ArrayList<Attachment> flist = (ArrayList<Attachment>)request.getAttribute("flist");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
+   
+ /*   Attachment f = null; */ 
    
    int listCount = pi.getListCount();
    int currentPage = pi.getCurrentPage();
@@ -103,7 +106,7 @@
 }
 
 .balloon {
-    display: inline-block;
+    display: none;
     position: absolute;
     background: white;
     width: 250px;
@@ -113,7 +116,7 @@
     font-size: 14px; 
     padding: 10px;
     text-align: left; 
-    display:none;
+
 }
  .balloon:after {
     content: '';
@@ -148,12 +151,12 @@
 }
 
 .attachmentP{
-   margin: 0px;
-   margin-bottom:1px;
-   padding: 1px;
-
-
-
+   position: relative;
+   margin: auto;
+   padding: auto;
+   padding-bottom:5px;
+   word-wrap: break-word;
+		
 }
 
     
@@ -315,20 +318,20 @@ input{
                      <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
                      <td align="center"><%=b.getbWriter()%></td>
                       <% if(b.getBtype().equals("2")){ %>
-                         
-                         <td align="center" class = "attachment">
-                             <div class="balloon">
-                              <p class="attachmentP">테이블 정의서.hwp</p>
-                              <p class="attachmentP">유스케이스 다이어그램.pdf</p>
-                              <p class="attachmentP">semi_workspace.zip</p>
-                              <p class="attachmentP">혼돈의 카오스.jpg</p>
-                              <p class="attachmentP">얄리얄리얄라성.pdf</p>
-                              <br>
-                                 <div class= "balloonClose">닫기</div>
-                             </div>
-                             <div class= "clip clipDiv"><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=18px></div>
-                         </td>
-                        
+                         	
+                         	<td align="center" class = "attachment">
+                           	<div class="balloon">
+                           		<%for(int i = flist.size()-1; i>-1 ; i--){ %>
+                           			<%Attachment f = flist.get(i);%>
+                            		<%if(f.getbId() == b.getbId()){%> 
+			                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
+                             	 	<%}%>                     
+                            <%}%> 
+   	 						<br>
+                            <div class= "balloonClose">닫기</div>
+                            </div>
+                            <div class= "clip clipDiv"><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=18px></div>
+                         	</td>
                       <%}else{%>
                          <td align="center"></td>
                       <%}%>
@@ -450,6 +453,14 @@ $(function(){
  function searchList(){
 	 $("#searchForm").submit();
  }
+ 
+ 
+ function downloadAttach(thing){
+	 location.href="<%=request.getContextPath() %>/Ndownload.at?fid="+thing;
+	 
+ }
+ 
+ 
  
  
 </script>
