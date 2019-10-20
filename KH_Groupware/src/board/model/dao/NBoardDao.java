@@ -150,7 +150,8 @@ public class NBoardDao {
 									rs.getInt("bcount"),
 									rs.getDate("create_date"),
 									rs.getDate("modify_date"),
-									rs.getString("status"));
+									rs.getString("status"),
+									rs.getInt("BLEVEL"));
 				list.add(b);
 			}
 			System.out.println("다오 보드리스트" +list);
@@ -179,9 +180,9 @@ public class NBoardDao {
 			
 			pstmt = conn.prepareStatement(query);
 		
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, cid);
+			pstmt.setInt(1, cid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs=pstmt.executeQuery();
 		
 			list = new ArrayList<Board>();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
@@ -255,7 +256,8 @@ public class NBoardDao {
 									rs.getInt("bcount"),
 									rs.getDate("create_date"),
 									rs.getDate("modify_date"),
-									rs.getString("status"));
+									rs.getString("status"),
+									rs.getInt("BLEVEL"));
 				list.add(b);
 			}
 			
@@ -322,7 +324,8 @@ public class NBoardDao {
 						rs.getInt("bcount"),
 						rs.getDate("create_date"),
 						rs.getDate("modify_date"),
-						rs.getString("status"));
+						rs.getString("status"),
+						rs.getInt("BLEVEL"));
 			}
 			
 		} catch (SQLException e) {
@@ -378,7 +381,8 @@ public class NBoardDao {
 									rs.getInt("bcount"),
 									rs.getDate("create_date"),
 									rs.getDate("modify_date"),
-									rs.getString("status")));
+									rs.getString("status"),
+									rs.getInt("BLEVEL")));
 			}
 			
 		} catch (SQLException e) {
@@ -438,6 +442,41 @@ public class NBoardDao {
 		return result;
 	}
 
+	public int updateAttachment(int bid, Connection conn, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateNAttachment");
+		
+		try {
+			for(int i=0; i<fileList.size();i++) {
+				Attachment at = fileList.get(i);
+				
+				pstmt=conn.prepareStatement(query);
+				pstmt.setInt(1, bid);
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				pstmt.setInt(5, at.getFileLevel());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		// fileList가 가진 파일 갯수만큼의 행이 모두 insert가 되었다면
+		if(result == fileList.size())
+			return result;
+		else
+			return 0;
+
+	}
+	
+	
+	
 	
 	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
 		PreparedStatement pstmt = null;
@@ -758,7 +797,8 @@ public class NBoardDao {
 						rs.getInt("bcount"),
 						rs.getDate("create_date"),
 						rs.getDate("modify_date"),
-						rs.getString("status"));
+						rs.getString("status"),
+						rs.getInt("BLEVEL"));
 			}
 			
 		} catch (SQLException e) {
@@ -817,6 +857,56 @@ public class NBoardDao {
 		}
 		
 		return result; 
+	}
+
+	public int deleteAttachAsFid(Connection conn, int fid) {
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;  
+		int result =0; 
+		
+		String query = prop.getProperty("deleteAttachAsFid");
+	
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, fid);
+			result =pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public int updateBoard(Connection conn, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateNBoard");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1,  b.getbTitle());
+			pstmt.setString(2,  b.getBtype());
+			pstmt.setString(3, b.getbContent());
+			pstmt.setInt(4,  b.getbId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 	

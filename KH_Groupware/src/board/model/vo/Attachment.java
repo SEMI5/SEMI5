@@ -20,6 +20,7 @@ public class Attachment implements Serializable{
 	public Attachment() {
 		
 		this.originName = "";	
+		this.fId = 0;
 	}
 	
 	

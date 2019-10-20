@@ -289,7 +289,7 @@ public class NBoardService {
 		   int result1 = new NBoardDao().deleteNBoard(conn, bid);
  		   int result2 = new  NBoardDao().deleteNAttach(conn, bid);
 
- 		   if( result1>0 && result2>0) {
+ 		   if( result1>0 && result2>=0) {
  			  result =1; 
  		   }
  		   
@@ -309,11 +309,58 @@ public class NBoardService {
 	}
 
 
-	
+	public int deleteAttachAsFid(int fid) {
+		Connection conn = getConnection();
+		int result = new NBoardDao().deleteAttachAsFid(conn, fid);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result; 
+	}
 
-	
+
+	public int updateBoard(Board b) {
+		Connection conn = getConnection();
+		
+		int result = new NBoardDao().updateBoard(conn, b);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 
 
+	public int updateNBoard(Board b, ArrayList<Attachment> fileList) {
+		Connection conn = getConnection();
+		
+		NBoardDao bDao = new NBoardDao();
+		
+		int result1 = bDao.updateBoard(conn, b);
+		int result2 = bDao.updateAttachment(b.getbId(), conn, fileList);
+		
+		int result = 0;
+		
+		if(result1>0 && result2>0) {
+			commit(conn);
+			result =1;
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 }
 
 

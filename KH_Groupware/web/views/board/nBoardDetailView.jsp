@@ -309,8 +309,10 @@ text-decoration: underline;
 				</tbody>
 			</table>
 			<br><br><br><br>
+				<%if(loginUser != null && loginUser.getUserNo() > 10000){ %>
 				<button id = deleteBtn onclick = "deleteBoard();"><b>삭제</b></button>
 				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/NupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
+				<%}%>
 				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
 					
 		</div>
@@ -427,9 +429,13 @@ $(function(){
  }
 
  function deleteBoard() {
-	 confirm("정말로 삭제하시겠습니까?")
-	 location.href="<%=request.getContextPath() %>/Ndelete.bo?bid=<%=b.getbId()%>";
 	 
+	   if(confirm("정말로 삭제하시겠습니까?")) {
+           $(this).parent().click();
+      	 location.href="<%=request.getContextPath() %>/Ndelete.bo?bid=<%=b.getbId()%>";
+       } else {
+           return false;
+       }
  }
  
  

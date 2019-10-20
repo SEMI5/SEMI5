@@ -177,6 +177,20 @@
 		margin-left:158px; 
 	}
 	
+	#superCheck{
+		width: 23px; 
+		height: 23px;
+		position: absolute; 
+		background-color: white;
+		border: 1px solid black;
+		outline: none;
+	}
+	
+	#checkLabel{
+		font-size: 16px;
+		margin-left: 30px;
+	}
+	
 </style>
    
 <title>Insert title here</title>
@@ -199,7 +213,9 @@
 		<table align="center" id="listArea">
 			<tr>
 				<td class= "titleTd tableTd"><b>제목</b></td>
-				<td class ="tableTd"><input type="text" name= "btitle" class="inputTd"></td>
+				<td class ="tableTd"><input type="text" name= "btitle" class="inputTd">&nbsp;&nbsp;
+				<input id = superCheck type="checkbox" name="blevel" value="4"><label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+				</td> 
 			</tr>
 				<td class= "titleTd tableTd"><b>작성자</b></td>
 				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
@@ -225,7 +241,7 @@
 						 <option>7</option>
 						 <option>8</option>
 					</select>
-					&nbsp;<span style="font-size: 15px">파일 갯수를 지정해주십시오</span>
+					&nbsp;<span style="font-size: 15px">파일 갯수를 지정해주세요</span>
 					<button type="button" id= "resetBtn" class="attachBtn" onclick="selectReset();"><b>리셋</b></button>
 				</td>
 			</tr> 

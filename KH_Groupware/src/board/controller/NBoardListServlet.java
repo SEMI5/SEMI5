@@ -31,14 +31,19 @@ public class NBoardListServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+  
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		int cid= loginUser.getcId();
+		
+		int cid = 0; 
+		
+		if(loginUser != null) {
+			cid= loginUser.getcId();
+		}
 		
 		//Servlet을 만들면 vo 클래스가 필요하다는 생각을 하자! ((request에 담긴 값으로 생성된)  vo클래스의 객체를 dao까지 넘길꺼니깐) 
 
@@ -112,7 +117,9 @@ public class NBoardListServlet extends HttpServlet {
 		ArrayList list  = bService.selectList(cid,flag1,currentPage,limit); //게시글 리스트 view에 뿌려줌 
 	
 		ArrayList flist = bService.selectList(cid,flag2,currentPage,limit);
-		System.out.println(flist);
+	
+		System.out.println(flist+"\n");
+		
 		
 		RequestDispatcher view = null;
 		if(list!=null) {

@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.*, java.util.ArrayList" %>
+    pageEncoding="UTF-8" import="board.model.vo.*, java.util.*" %>
     
     <%
    ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
    ArrayList<Attachment> flist = (ArrayList<Attachment>)request.getAttribute("flist");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    
+/* 	 java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");
+	 String today = formatter.format(new java.util.Date());
    
+		Date day1 = formatter.parse((list.get(0).getModifyDate());  */
+	 
+	 
    int listCount = pi.getListCount();
    int currentPage = pi.getCurrentPage();
    int maxPage = pi.getMaxPage();
@@ -260,6 +265,7 @@ input{
 
 }
 
+
 </style>
 
 </head>
@@ -311,7 +317,7 @@ input{
             </tr>
             <%}else{ %>
                <% for(Board b : list){ %>
-                  <tr>
+                  <tr class= blevel style="background: #F2FFED">
                      <td align="center"><%=b.getbId() %></td>
                      <input type="hidden" value="<%=b.getbId() %>">
                      <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
@@ -372,7 +378,6 @@ input{
             <%} %>
          <%} %>
          
-         <!-- 다음 페이지로(>) -->
          <%if(currentPage >= maxPage){ %>
             <button disabled> > </button>
          <%}else{ %>
@@ -392,13 +397,15 @@ input{
 </div>
 </div>
 <script> 
-$(function(){
+ $(function(){
       $("td").mouseenter(function(){
          $(this).parent().css({"background":"#F2FFED"});
       }).mouseout(function(){
          $(this).parent().css({"background":"white"});
       })
-   });
+   }); 
+
+
 
 </script>
     
