@@ -17,7 +17,10 @@ public class Attachment implements Serializable{
 	private int downloadCount; 
 	private String status;
 	
-	public Attachment() {}
+	public Attachment() {
+		
+		this.originName = "";	
+	}
 	
 	
 

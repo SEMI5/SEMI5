@@ -310,7 +310,7 @@ text-decoration: underline;
 			</table>
 			<br><br><br><br>
 				<button id = deleteBtn onclick = "deleteBoard();"><b>삭제</b></button>
-				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/Nupdate.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
+				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/NupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
 				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
 					
 		</div>

@@ -1,6 +1,7 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.NBoardService;
+import board.model.vo.Attachment;
 import board.model.vo.Board;
 
 /**
@@ -33,12 +35,17 @@ public class NBoardUpdateViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int bid= Integer.valueOf(request.getParameter("bid"));
-		Board board = new NBoardService().selectBoard(bid);
+		
+		NBoardService NboardService = new NBoardService();
+		
+		Board board = NboardService.selectBoard(bid);
+		ArrayList<Attachment> flist = NboardService.selectAttachments(bid);
 		
 		RequestDispatcher view= null; 
 		if(board != null) {
 			view=request.getRequestDispatcher("views/board/nBoardUpdateView.jsp");
 			request.setAttribute("board", board);
+			request.setAttribute("flist", flist);
 		}else {
 			view=request.getRequestDispatcher("views/common/errorPage.jsp");
 			request.setAttribute("msg", "공지사항 수정조회를 실패하였습니다.");

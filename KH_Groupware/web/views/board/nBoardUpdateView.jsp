@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"  import="java.util.*, java.text.*, member.model.vo.Member, board.model.vo.Board"%>
+    pageEncoding="UTF-8"  import="java.util.*, java.text.*, member.model.vo.*, board.model.vo.*"%>
     
-<%
-Board b = (Board)request.getAttribute("board");
-SimpleDateFormat sdf   = new SimpleDateFormat("yyyy.MM.dd");
 
-String date = sdf.format(b.getCreateDate());
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,12 +9,46 @@ String date = sdf.format(b.getCreateDate());
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
 <!-- include summernote css/js-->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
 
+<%
+Board b = (Board)request.getAttribute("board");
+java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");
+String today = formatter.format(new java.util.Date());
+
+ArrayList<Attachment> flist= new ArrayList<Attachment>();
+
+String[] nameList = new String[8]; 
+int flistSize= 1; 
+
+if(b.getBtype().equals("2")){ //첨부파일 있다면 
+	flist = (ArrayList<Attachment>)request.getAttribute("flist");
+	flistSize= flist.size();
+	flist.add(new Attachment());
+	flist.add(new Attachment());
+	flist.add(new Attachment());
+	flist.add(new Attachment());
+	flist.add(new Attachment());
+	flist.add(new Attachment());
+	flist.add(new Attachment());
+	flist.add(new Attachment());
+
+	
+}
+
+String originName1= flist.get(0).getOriginName();
+String originName2= flist.get(1).getOriginName();
+String originName3= flist.get(2).getOriginName();
+String originName4= flist.get(3).getOriginName();
+String originName5= flist.get(4).getOriginName();
+String originName6= flist.get(5).getOriginName();
+String originName7= flist.get(6).getOriginName();
+String originName8= flist.get(7).getOriginName();
+
+%>
 
 <meta charset="UTF-8">
 <style>
@@ -138,6 +166,22 @@ String date = sdf.format(b.getCreateDate());
 	}
 	
 	
+	.delAttachBtn{
+		outline: none;
+		border: none; 
+		background: black;
+		color: white;
+		font-size: 15px;
+		width: 100px;
+		height: 40px;		
+	}
+	
+	.delAttachBtn:hover{
+	   background-color: #f53f29;
+	   color: white;
+	}
+	
+	
 	#listBtn{
 	   border:none;
 	   outline: none;
@@ -206,7 +250,7 @@ String date = sdf.format(b.getCreateDate());
 				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
 			<tr>
 				<td class= "titleTd tableTd"><b>작성일</b></td>
-				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=date%></span></td>
+				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=today%></span></td>
 			</tr>
 		</table>
 		<div id="textareaDiv"><textArea id= summernote rows=30 name = "bcontent" placeholder="내용을 입력해주세요"><%=b.getbContent()%></textArea><div>
@@ -216,27 +260,75 @@ String date = sdf.format(b.getCreateDate());
 					<b>첨부파일</b>
 				</td>
 				<td  style= "border:none; height:30px; color:gray; padding:12px;padding-left:15px">
-					<select id= attachCount onchange="changeSelect();" style="color:black">
-						 <option>1</option>
-						 <option>2</option>
-						 <option>3</option>
-						 <option>4</option>
-						 <option>5</option>
-						 <option>6</option>
-						 <option>7</option>
-						 <option>8</option>
+					<select id= attachCount onchange="changeSelect();" style="color:darkgray" disabled>
+						 <option name= aCount value=1>1</option>
+						 <option name= aCount value=2>2</option>
+						 <option name= aCount value=3>3</option>
+						 <option name= aCount value=4>4</option>
+						 <option name= aCount value=5>5</option>
+						 <option name= aCount value=6>6</option>
+						 <option name= aCount value=7>7</option>
+						 <option name= aCount value=8 selected>8</option>
 					</select>
 					&nbsp;<span style="font-size: 15px">파일 갯수를 지정해주십시오</span>
-					<button type="button" id= "resetBtn" class="attachBtn" onclick="selectReset();"><b>리셋</b></button>
+					<button type="button" id= "resetBtn" class="delAttachBtn" onclick="selectReset();"><b>리셋</b></button>
 				</td>
 			</tr> 
 			<tr class= attachTr>
-				<td class= attachTd style="border-bottom: 1px solid #dbdbdb">
-					<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요">&nbsp;
-					<button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>
+				<td class= attachTd>
+					<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName1%>" >&nbsp;
+					<button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>&nbsp;
+					<button type="button" id= "delAttachBtn1" class="delAttachBtn" onclick="delAttach1();"><b>삭제</b></button>
 				</td>
 			</tr>
-				
+				<tr class= attachTr>
+				<td class= attachTd>
+					<input id = "attachInput2" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName2%>" >&nbsp;
+					<button type="button" id= "attachBtn2" class="attachBtn" onclick="fileInputClick2();"><b>찾아보기</b></button>&nbsp;
+					<button type="button" id= "delAttachBtn2" class="delAttachBtn" onclick="delAttach2();"><b>삭제</b></button>
+				</td>
+			</tr>
+				<tr class= attachTr>
+				<td class= attachTd>
+					<input id = "attachInput3" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName3%>" >&nbsp;
+					<button type="button" id= "attachBtn3" class="attachBtn" onclick="fileInputClick3();"><b>찾아보기</b></button>&nbsp;
+					<button type="button" id= "delAttachBtn3" class="delAttachBtn" onclick="delAttach3();"><b>삭제</b></button>
+				</td>
+			</tr>
+				<tr class= attachTr>
+				<td class= attachTd>
+					<input id = "attachInput4" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName4%>" >&nbsp;
+					<button type="button" id= "attachBtn4" class="attachBtn" onclick="fileInputClick4();"><b>찾아보기</b></button>&nbsp;
+					<button type="button" id= "delAttachBtn4" class="delAttachBtn" onclick="delAttach4();"><b>삭제</b></button>
+				</td>
+			</tr>
+				<tr class= attachTr>
+				<td class= attachTd>
+					<input id = "attachInput5" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName5%>" >&nbsp;
+					<button type="button" id= "attachBtn5" class="attachBtn" onclick="fileInputClick5();"><b>찾아보기</b></button>&nbsp;
+					<button type="button" id= "delAttachBtn5" class="delAttachBtn" onclick="delAttach5();"><b>삭제</b></button>
+				</td>
+			</tr>
+				<tr class= attachTr>
+				<td class= attachTd>
+					<input id = "attachInput6" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName6%>" >&nbsp;
+					<button type="button" id= "attachBtn6" class="attachBtn" onclick="fileInputClick6();"><b>찾아보기</b></button>&nbsp;
+					<button type="button" id= "delAttachBtn6" class="delAttachBtn" onclick="delAttach6();"><b>삭제</b></button>
+				</td>
+			</tr>
+				<tr class= attachTr>
+				<td class= attachTd >
+					<input id = "attachInput7" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName7%>" >&nbsp;
+					<button type="button" id= "attachBtn7" class="attachBtn" onclick="fileInputClick7();"><b>찾아보기</b></button>&nbsp;
+					<button type="button" id= "delAttachBtn7" class="delAttachBtn" onclick="delAttach7();"><b>삭제</b></button>
+				</td>
+				<tr class= attachTr style="border-bottom: 1px solid #dbdbdb">
+				<td class= attachTd>
+					<input id = "attachInput8" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName8%>" >&nbsp;
+					<button type="button" id= "attachBtn8" class="attachBtn" onclick="fileInputClick8();"><b>찾아보기</b></button>&nbsp;
+					<button type="button" id= "delAttachBtn8" class="delAttachBtn" onclick="delAttach8();"><b>삭제</b></button>
+				</td>
+			</tr>
 		</table>
 		<br><br>
 		<div class= btnDiv>
@@ -244,7 +336,7 @@ String date = sdf.format(b.getCreateDate());
 				<button id=insertBtn onclick="insertSubmit();"><b>등록</b></button>
 		</div>
 	</div>
-<div style="display:none">
+<div style="display:display">
 	<input type="file" id="fileInput1" name = "file1" onchange="loadAttachName(this,1);">
 	<input type="file" id="fileInput2" name = "file2" onchange="loadAttachName(this,2);">
 	<input type="file" id="fileInput3" name = "file3" onchange="loadAttachName(this,3);">
@@ -254,11 +346,37 @@ String date = sdf.format(b.getCreateDate());
 	<input type="file" id="fileInput7" name = "file7" onchange="loadAttachName(this,7);">
 	<input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
 </div>
+
+<div style="display:display;width:100%">
+	<input  id="delInput" name = "del1" style="width:100%">
+</div>
+
 </form>
 </body>
 
+<!--  summernote 동작 -->
+<script> 
+$(document).ready(function() {
+	
+	
+    $('#summernote').summernote({
+            height: 300,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true                  // set focus to editable area after initializing summernote
+    });
+});
+
+$(document).ready(function() {
+	$('#summernote').summernote();
+});
+
+</script>
 
 <script>
+
+
+
 	function fileInputClick1(){
 	 	$("#fileInput1").click(); 
 	}
@@ -293,7 +411,8 @@ String date = sdf.format(b.getCreateDate());
 		 $("#fileInput6").val("");
 		 $("#fileInput7").val("");
 		 $("#fileInput8").val("");
-		$(".attachTr").remove();
+		
+		 $(".attachTr").remove();
 		
 		
 		var number = $("#attachCount").val();
@@ -302,23 +421,24 @@ String date = sdf.format(b.getCreateDate());
 	 		if( i == number-1){
 	 			$("#attachTable").append("<tr class= attachTr>"
 	 										+" <td class= attachTd style=\"border-bottom: 1px solid #dbdbdb\">"
-	 										+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
+	 										+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요' >&nbsp;"
 	 								        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 	 		}else{
 	 			$("#attachTable").append("<tr class= attachTr>"
 								+" <td class= attachTd>"
-								+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
+								+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요' readonly>&nbsp;"
 						        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 	 		}
 		}  
 	}
 	
 
- 
-
 </script> 
 
 <script>
+
+
+
 
 function loadAttachName(attach,num){
 	
@@ -327,6 +447,7 @@ function loadAttachName(attach,num){
 			var fileName = fileValue[fileValue.length-1]; // 파일명
 			$("#attachInput"+num).val(fileName); 
 	}
+		
 }
 
 
@@ -335,44 +456,52 @@ function loadAttachName(attach,num){
 } 
 
  function selectReset(){
-		$("#attachCount").val(1);
-		 $("#fileInput1").val("");
-		 $("#fileInput2").val("");
-		 $("#fileInput3").val("");
-		 $("#fileInput4").val("");
-		 $("#fileInput5").val("");
-		 $("#fileInput6").val("");
-		 $("#fileInput7").val("");
-		 $("#fileInput8").val("");
-		$(".attachTr").remove();
-		var i=0;
-		$("#attachTable").append("<tr class= attachTr>"
-					+" <td class= attachTd style=\"border-bottom: 1px solid #dbdbdb\">"
-					+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
-			        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
+	 
+	 for(var i=1; i<9;i++){
+		 $("#fileInput"+i).val("");
+		$("#attachInput"+i).val(""); 
+	 }
+		// 안에 있던 모든 삭제 파일들 ->  삭제리스트에 추가 
+}
+ 
+function delAttach1(){
+	
 
-	}
+	var split = ",";
+	 var delValue = $("#attachInput1").val(); 
+	var delValues = document.getElementById("delInput").value += delValue+split;
+
+
+	$("#attachInput1").val(""); 
+	
+ } 
  
- 
+function delAttach2(){
+	$("#attachInput2").val(""); 
+ } 
+function delAttach3(){
+	$("#attachInput3").val(""); 
+ } 
+function delAttach4(){
+	$("#attachInput4").val(""); 
+ } 
+function delAttach5(){
+	$("#attachInput5").val(""); 
+ } 
+function delAttach6(){
+	$("#attachInput6").val(""); 
+ } 
+function delAttach7(){
+	$("#attachInput7").val(""); 
+ } 
+function delAttach8(){
+	$("#attachInput8").val(""); 
+ } 
 </script>
 
 
 
-<!--  summernote 동작 -->
-<script> 
-$(document).ready(function() {
-    $('#summernote').summernote({
-            height: 300,                 // set editor height
-            minHeight: null,             // set minimum height of editor
-            maxHeight: null,             // set maximum height of editor
-            focus: true                  // set focus to editable area after initializing summernote
-    });
-});
 
-$(document).ready(function() {
-     $('#summernote').summernote();
-});
-</script>
 
 
 </html>
