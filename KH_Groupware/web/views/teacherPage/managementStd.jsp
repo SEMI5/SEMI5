@@ -5,7 +5,15 @@
 	pageEncoding="UTF-8"%>
 	
 <%
-	ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
+	ArrayList<Member> List = (ArrayList)session.getAttribute("stdList");
+	
+	ArrayList<Member> stdList = new ArrayList();
+	
+	for(int i = 0 ; i < List.size() ; i++){
+		if(List.get(i).getApprove().equals("Y")){
+			stdList.add(List.get(i));
+		}
+	}
 
 %>
 	
@@ -127,7 +135,11 @@
 				<div class = "stdInfo">
 					<h2><%=stdList.get(i).getUserName() %> 상담일지</h2>
 					<h4><%=stdList.get(i).getAddress() %></h4>
-					<textarea rows="25" cols="150" style="resize: none" name = "consult<%=i%>"><%=stdList.get(i).getConsult() %></textarea>
+					<%if(stdList.get(i).getConsult() == null){ %>
+						<textarea rows="25" cols="150" style="resize: none" name = "consult<%=i%>" placeholder = "내용을 입력하세요."></textarea>
+					<%}else{ %>
+						<textarea rows="25" cols="150" style="resize: none" name = "consult<%=i%>"><%=stdList.get(i).getConsult() %></textarea>
+					<%} %>
 					<br><br><br>
 					<table id = "stdInfoCheck">
 						<tr>
@@ -149,10 +161,9 @@
 								<label for="smokingN">N</label>
 							</td>
 							<td style="width:350px;height:80px;text-align: left;">
+								
 								<%
 								String mjrY = null, mjrN = null;
-								
-								
 								if(stdList.get(i).getMajor() == null){
 									/*  */
 								}else if(stdList.get(i).getMajor().equals("Y")){
@@ -167,14 +178,12 @@
 								<input type="radio" id="majorN" name="majorYN<%=i%>" value="N" <%=mjrN%>>
 								<label for="majorN">N</label>
 							</td>
-							
 						</tr>
 						<tr>
 							<td>
 								<%
 								String[] level = new String[3];
 								if(stdList.get(i).getStdLv() != null){
-								
 								switch(stdList.get(i).getStdLv()){
 								case "3": level[0] = "checked"; break;
 								case "2": level[1] = "checked"; break;
@@ -209,22 +218,24 @@
 								<label for="pExpN">N</label>
 							</td>
 							<td style="width:350px;height:80px;text-align: right;">
-								<button id = "submitInfo" style="width:250px;height:50px; font-size:30px;" onclick = "updateStd(<%=stdList.get(i).getUserNo()%>, <%=stdList.get(i).getUserId()%>);">
+								<button id = "submitInfo" style="width:250px;height:50px; font-size:30px;" onclick = "updateStd(<%=stdList.get(i).getUserNo()%>, <%=i%>);">
 								저장하기
 								</button>
 								<script type="text/javascript">
 
-								function updateStd (stdNo, userId){
+								function updateStd (stdNo, i){
 									 $.ajax({
 										url:"/KH_Groupware/updateD.te",
-										data:{stdNo:stdNo,
-											consult:$("textarea[name=consult<%=i%>]").val(),
-											smoking:$("input[name=smokingYN<%=i%>]:checked").val(),
-											major:$("input[name=majorYN<%=i%>]:checked").val(),
-											level:$("input[name=stdLevel<%=i%>]:checked").val(),
-											exp:$("input[name=PracticalExp<%=i%>]:checked").val(),
-											userId:userId},
+										data:{
+											stdNo : stdNo,
+											consult : $("textarea[name=consult"+i+"]").val(),
+											smoking : $("input[name=smokingYN"+i+"]:checked").val(),
+											major : $("input[name=majorYN"+i+"]:checked").val(),
+											level : $("input[name=stdLevel"+i+"]:checked").val(),
+											exp : $("input[name=PracticalExp"+i+"]:checked").val()
+											},
 										success:function(data){	
+											$alert("정상적으로 저장되었습니다.");
 											$(".consultingForm").css("display","none");
 											}
 										}

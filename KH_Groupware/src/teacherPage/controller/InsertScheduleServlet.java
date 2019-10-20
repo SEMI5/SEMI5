@@ -53,7 +53,14 @@ public class InsertScheduleServlet extends HttpServlet {
 		
 		
 		
-		Schedule scd = new Schedule(loginUser.getcId(), loginUser.getUserNo(), scdName, strDate, endDate);
+		Schedule scd;
+		if(loginUser.getUserNo() > 100000) {
+			scd = new Schedule(loginUser.getcId(), loginUser.getUserNo(), scdName, strDate, endDate, "SCD");
+		}else {
+			scd = new Schedule(loginUser.getcId(), loginUser.getUserNo(), scdName, strDate, endDate, "V_W");
+		}
+		
+		
 		int result = new tPageService().insertSchedule(scd);
 	
 		new Gson().toJson(result, response.getWriter());

@@ -341,7 +341,7 @@ h3{
          <h3 style=margin:20px;>마이페이지</h3>
          <ul>
             <li> 내정보수정 </li>
-            <li> 휴가관리 </li>
+            <li onclick= "location.href = '<%=request.getContextPath()%>/views/studentPage/stdCalendar.jsp'"> 일정 및 휴가관리 </li>
          </ul>
       </div>
       <div class = "btnImg">

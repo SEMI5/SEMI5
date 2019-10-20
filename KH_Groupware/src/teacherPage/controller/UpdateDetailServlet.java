@@ -45,27 +45,30 @@ public class UpdateDetailServlet extends HttpServlet {
 		String major = request.getParameter("major");
 		String level = request.getParameter("level");
 		String exp = request.getParameter("exp");
-		
-		Member member = new Member(stdNo, level, major, smoking, exp, consult);
-		
-		
-		int result = new tPageService().updateDetailStd(member);
 
-		
+
 		HttpSession session = request.getSession();
-		
-		ArrayList<Member> newList = (ArrayList)session.getAttribute("stdList");
 	
+		ArrayList<Member> newList = (ArrayList)session.getAttribute("stdList");
 		
-		for(int i = 0 ; i < newList.size() ; i++) {
+		Member std = new Member();
+		
+		for(int i = 0; i < newList.size() ; i++) {
 			if(stdNo == newList.get(i).getUserNo()) {
-				newList.set(i, member);
+				newList.get(i).setConsult(consult);
+				newList.get(i).setSmoking(smoking);
+				newList.get(i).setMajor(major);
+				newList.get(i).setStdLv(level);
+				newList.get(i).setExp(exp);
+				std = newList.get(i);
 			}
 		}
 		
+		int result = new tPageService().updateDetailStd(std);
+		
 		session.setAttribute("stdList", newList);
 
-		new Gson().toJson(member, response.getWriter());
+		new Gson().toJson(result, response.getWriter());
 		
 		
 	}

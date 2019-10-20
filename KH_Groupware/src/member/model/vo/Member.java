@@ -63,16 +63,6 @@ public class Member implements Serializable{
 		this.address = address;
 	}
 	
-	// 상담일지 기록
-	public Member(int userNo, String stdLv, String major, String smoking, String exp, String consult) {
-		super();
-		this.userNo = userNo;
-		this.stdLv = stdLv;
-		this.major = major;
-		this.smoking = smoking;
-		this.exp = exp;
-		this.consult = consult;
-	}
 	
 	// 모든 정보
 	public Member(int userNo, int cId, String userId, String userPwd, String userName, String rRN, String phone,
