@@ -5,7 +5,6 @@
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");
 	 String today = formatter.format(new java.util.Date());
 	
-
 %>
 <!DOCTYPE html>
 <html>
@@ -118,7 +117,7 @@
 		height: 40px;
 		padding-left:10px;
 		font-size: 15px;
-		width: 300px;
+		width: 400px;
 	} 
 	
 	.attachBtn{
@@ -173,6 +172,25 @@
 		text-align: center;
 		padding-top: 30px;
 	}
+	
+	#resetBtn{
+		margin-left:158px; 
+	}
+	
+	#superCheck{
+		width: 23px; 
+		height: 23px;
+		position: absolute; 
+		background-color: white;
+		border: 1px solid black;
+		outline: none;
+	}
+	
+	#checkLabel{
+		font-size: 16px;
+		margin-left: 30px;
+	}
+	
 </style>
    
 <title>Insert title here</title>
@@ -195,7 +213,9 @@
 		<table align="center" id="listArea">
 			<tr>
 				<td class= "titleTd tableTd"><b>제목</b></td>
-				<td class ="tableTd"><input type="text" name= "btitle" class="inputTd"></td>
+				<td class ="tableTd"><input type="text" name= "btitle" class="inputTd">&nbsp;&nbsp;
+				<input id = superCheck type="checkbox" name="blevel" value="4"><label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+				</td> 
 			</tr>
 				<td class= "titleTd tableTd"><b>작성자</b></td>
 				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
@@ -221,14 +241,14 @@
 						 <option>7</option>
 						 <option>8</option>
 					</select>
-					&nbsp;<span style="font-size: 15px">파일 갯수를 지정해주십시오</span>
+					&nbsp;<span style="font-size: 15px">파일 갯수를 지정해주세요</span>
+					<button type="button" id= "resetBtn" class="attachBtn" onclick="selectReset();"><b>리셋</b></button>
 				</td>
 			</tr> 
 			<tr class= attachTr>
 				<td class= attachTd style="border-bottom: 1px solid #dbdbdb">
-					<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요">&nbsp;
+					<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요" readonly>&nbsp;
 					<button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>
-				</td>
 			</tr>
 				
 		</table>
@@ -296,12 +316,12 @@
 	 		if( i == number-1){
 	 			$("#attachTable").append("<tr class= attachTr>"
 	 										+" <td class= attachTd style=\"border-bottom: 1px solid #dbdbdb\">"
-	 										+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
+	 										+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요' readonly>&nbsp;"
 	 								        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 	 		}else{
 	 			$("#attachTable").append("<tr class= attachTr>"
 								+" <td class= attachTd>"
-								+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
+								+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요' readonly>&nbsp;"
 						        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 	 		}
 		}  
@@ -328,7 +348,26 @@ function loadAttachName(attach,num){
 	$("#insertForm").submit();	
 } 
 
+function selectReset(){
+	$("#attachCount").val(1);
+	 $("#fileInput1").val("");
+	 $("#fileInput2").val("");
+	 $("#fileInput3").val("");
+	 $("#fileInput4").val("");
+	 $("#fileInput5").val("");
+	 $("#fileInput6").val("");
+	 $("#fileInput7").val("");
+	 $("#fileInput8").val("");
+	$(".attachTr").remove();
+	var i=0;
+	$("#attachTable").append("<tr class= attachTr>"
+				+" <td class= attachTd style=\"border-bottom: 1px solid #dbdbdb\">"
+				+" <input id= 'attachInput"+(i+1)+"' type='text' placeholder='첨부파일을 등록하세요'>&nbsp;"
+		        +" <button type='button' id= 'attachBtn"+(i+1)+"' class='attachBtn' onclick='fileInputClick"+(i+1)+"();'><b>찾아보기</b></button></td></tr>");
 
+}
+ 
+ 
 </script>
 
 

@@ -161,6 +161,7 @@ li:hover{
    border: 1px solid lightgray;
    position:absolute; right:-610px;
    z-index:10;
+   display:none;
 }
 
 .login{
@@ -691,6 +692,8 @@ h3{
             if($('#myPageBtn').data("value") == "0"){
                $('#myPageBtn').addClass("hoverStay");      
                
+               $(".loginDiv").css("display","block")
+               
                $(".loginDiv").children().addClass("stay");
                $(".loginDiv").children().children().addClass("stay");
                $(".loginDiv").children().children().children().addClass("stay");
@@ -706,6 +709,7 @@ h3{
    
       //로그인 div 제거 
       function removeLoginDiv(){
+    	  $(".loginDiv").css("display","none")
          $("#blackOpacity2").fadeOut('2000');
          $(".loginDiv").animate({"right":"-605px"},'2000',function(){
             $("#myPageBtn").data("value","0");

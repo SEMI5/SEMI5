@@ -9,10 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.service.NBoardService;
 import board.model.vo.PageInfo;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardListServlet
@@ -34,6 +37,11 @@ public class NBoardSearchListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int cid= loginUser.getcId();
+		System.out.println("서치서블릿cid: " +cid);
+		
 		String type= "";
 		String searchWord="";
 		if((request.getParameter("type")!=null)&&(request.getParameter("searchWord")!=null)) {
@@ -47,7 +55,7 @@ public class NBoardSearchListServlet extends HttpServlet {
 		NBoardService bService= new NBoardService(); 
 		
 		// 게시판 리스트 갯수 구하기
-		int listCount = bService.getListCount(type, searchWord);
+		int listCount = bService.getListCount(cid,type, searchWord);
 		System.out.println("써치 게시글 수: "+ listCount);
 		
 
@@ -104,16 +112,25 @@ public class NBoardSearchListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 		
 		// 게시판 리스트 조회해 오기 
+		System.out.println("서블릿 함수 파라미터: "+ cid + " " +type +" "+  searchWord + " " + currentPage+ " " + limit);
+		ArrayList<Board> list= bService.selectList(cid, type, searchWord,currentPage,limit); 
 		
-		ArrayList<Board> list= bService.selectList(type, searchWord,currentPage,limit); 
+		System.out.println("서블릿 searchlist: "+list);
 		
-		System.out.println(" 서블릿 searchlist: "+list);
+		
+		ArrayList<Attachment>flist = bService.selectAttachments(list);
+		
+		
+		
+		
+		
 		
 		RequestDispatcher view = null;
 		if(list!=null) {
 				view = request.getRequestDispatcher("views/board/nBoardListView.jsp");
 				request.setAttribute("list", list); // 현재 페이지 화면에 뿌려질 게시글이 담긴 객체 
 				request.setAttribute("pi", pi);		// 페이지관련된 정보가 담긴객체 
+				request.setAttribute("flist",flist);
 			
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");

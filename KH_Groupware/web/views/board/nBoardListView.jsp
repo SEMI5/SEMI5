@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.*, java.util.ArrayList" %>
+    pageEncoding="UTF-8" import="board.model.vo.*, java.util.*" %>
     
     <%
    ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+   ArrayList<Attachment> flist = (ArrayList<Attachment>)request.getAttribute("flist");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    
+/* 	 java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");
+	 String today = formatter.format(new java.util.Date());
+   
+		Date day1 = formatter.parse((list.get(0).getModifyDate());  */
+	 
+	 
    int listCount = pi.getListCount();
    int currentPage = pi.getCurrentPage();
    int maxPage = pi.getMaxPage();
@@ -103,7 +110,7 @@
 }
 
 .balloon {
-    display: inline-block;
+    display: none;
     position: absolute;
     background: white;
     width: 250px;
@@ -113,7 +120,7 @@
     font-size: 14px; 
     padding: 10px;
     text-align: left; 
-    display:none;
+
 }
  .balloon:after {
     content: '';
@@ -148,12 +155,12 @@
 }
 
 .attachmentP{
-   margin: 0px;
-   margin-bottom:1px;
-   padding: 1px;
-
-
-
+   position: relative;
+   margin: auto;
+   padding: auto;
+   padding-bottom:5px;
+   word-wrap: break-word;
+		
 }
 
     
@@ -258,6 +265,7 @@ input{
 
 }
 
+
 </style>
 
 </head>
@@ -305,30 +313,30 @@ input{
     
       <% if(list.isEmpty()){ %>
             <tr>
-               <td colspan="6">조회된 리스트가 없습니다.</td>
+               <td colspan="6" align="center" style="cursor:default">조회된 리스트가 없습니다.</td>
             </tr>
             <%}else{ %>
                <% for(Board b : list){ %>
-                  <tr>
+                  <tr class= blevel style="background: #F2FFED">
                      <td align="center"><%=b.getbId() %></td>
                      <input type="hidden" value="<%=b.getbId() %>">
                      <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
                      <td align="center"><%=b.getbWriter()%></td>
                       <% if(b.getBtype().equals("2")){ %>
-                         
-                         <td align="center" class = "attachment">
-                             <div class="balloon">
-                              <p class="attachmentP">테이블 정의서.hwp</p>
-                              <p class="attachmentP">유스케이스 다이어그램.pdf</p>
-                              <p class="attachmentP">semi_workspace.zip</p>
-                              <p class="attachmentP">혼돈의 카오스.jpg</p>
-                              <p class="attachmentP">얄리얄리얄라성.pdf</p>
-                              <br>
-                                 <div class= "balloonClose">닫기</div>
-                             </div>
-                             <div class= "clip clipDiv"><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=18px></div>
-                         </td>
-                        
+                         	
+                         	<td align="center" class = "attachment">
+                           	<div class="balloon">
+                           		<%for(int i = flist.size()-1; i>-1 ; i--){ %>
+                           			<%Attachment f = flist.get(i);%>
+                            		<%if(f.getbId() == b.getbId()){%> 
+			                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
+                             	 	<%}%>                     
+                            <%}%> 
+   	 						<br>
+                            <div class= "balloonClose">닫기</div>
+                            </div>
+                            <div class= "clip clipDiv"><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=18px></div>
+                         	</td>
                       <%}else{%>
                          <td align="center"></td>
                       <%}%>
@@ -344,7 +352,7 @@ input{
 <br>
 <br>
 
-<%if(loginUser !=null && loginUser.getUserId().equals("admin")) {%>
+<%if(loginUser !=null && loginUser.getUserNo() > 10000) {%>
 <button id = writerBtn onclick = "goBoardInsertForm();"><b>글쓰기</b></button>
 <%}%>
 
@@ -370,7 +378,6 @@ input{
             <%} %>
          <%} %>
          
-         <!-- 다음 페이지로(>) -->
          <%if(currentPage >= maxPage){ %>
             <button disabled> > </button>
          <%}else{ %>
@@ -390,13 +397,15 @@ input{
 </div>
 </div>
 <script> 
-$(function(){
+ $(function(){
       $("td").mouseenter(function(){
          $(this).parent().css({"background":"#F2FFED"});
       }).mouseout(function(){
          $(this).parent().css({"background":"white"});
       })
-   });
+   }); 
+
+
 
 </script>
     
@@ -407,13 +416,16 @@ $(function(){
     $("td").mouseenter(function(){
     $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
            var bid = $(this).parent().children().eq(0).text(); // 게시글의  글번호 
-           var nextBid = $(this).parent().prev().children().eq(0).text();
-           var prevBid = $(this).parent().next().children().eq(0).text();
-  
            $("#bid").val(bid); 
+           
+           
+           // 이전 게시판 정보 , 다음 게시판 정보를 가져오려면 bid로 접근할게 아니라 rnum으로 접근해야함. 
+         /*   var nextBid = $(this).parent().prev().children().eq(0).text();
+           var prevBid = $(this).parent().next().children().eq(0).text();
            $("#nextBid").val(nextBid); 
-           $("#prevBid").val(prevBid); 
-           prevBid2= $("#prevBid").val()
+           $("#prevBid").val(prevBid);  */
+           
+           
            $("#formTag").submit(); 
        }) 
     });
@@ -447,6 +459,14 @@ $(function(){
  function searchList(){
 	 $("#searchForm").submit();
  }
+ 
+ 
+ function downloadAttach(thing){
+	 location.href="<%=request.getContextPath() %>/Ndownload.at?fid="+thing;
+	 
+ }
+ 
+ 
  
  
 </script>

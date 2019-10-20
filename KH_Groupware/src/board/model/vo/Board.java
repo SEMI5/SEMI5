@@ -17,12 +17,14 @@ public class Board implements Serializable{
 	private Date createDate; 	//게시판 작성일
 	private Date modifyDate; 	//게시판 수정일
 	private String status; 		//게시판 상태(Y,N)
+	private int blevl; 			// 게시판 상단위치 우선순위
 	
 	public Board() {
+		
 	}
 
 	public Board(int bId, int cId, String bTitle, String btype, String bContent, String bWriter, int bCount,
-			Date createDate, Date modifyDate, String status) {
+			Date createDate, Date modifyDate, String status, int blevl) {
 		this.bId = bId;
 		this.cId = cId;
 		this.bTitle = bTitle;
@@ -33,7 +35,9 @@ public class Board implements Serializable{
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
+		this.blevl = blevl;
 	}
+
 
 	public int getbId() {
 		return bId;
@@ -119,12 +123,22 @@ public class Board implements Serializable{
 		return serialVersionUID;
 	}
 
+	public int getBlevl() {
+		return blevl;
+	}
+
+	public void setBlevl(int blevl) {
+		this.blevl = blevl;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bId=" + bId + ", cId=" + cId + ", bTitle=" + bTitle + ", btype=" + btype + ", bContent="
 				+ bContent + ", bWriter=" + bWriter + ", bCount=" + bCount + ", createDate=" + createDate
-				+ ", modifyDate=" + modifyDate + ", status=" + status + "]";
+				+ ", modifyDate=" + modifyDate + ", status=" + status + ", blevl=" + blevl + "]";
 	}
+
+
 
 }
 
