@@ -1,4 +1,4 @@
-package board.controller;
+package board.nController;
 
 import java.io.BufferedInputStream;
 import java.io.File;

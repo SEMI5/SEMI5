@@ -1,4 +1,4 @@
-package board.controller;
+package board.fController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,14 +20,14 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class BoardListServlet
  */
-@WebServlet("/NSlist.bo")
-public class NBoardSearchListServlet extends HttpServlet {
+@WebServlet("/FSlist.bo")
+public class FBoardSearchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NBoardSearchListServlet() {
+    public FBoardSearchListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

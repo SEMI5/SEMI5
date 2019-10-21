@@ -11,10 +11,8 @@
    
 		Date day1 = formatter.parse((list.get(0).getModifyDate());  */
 	 
-		
 		Calendar today  = Calendar.getInstance();
 		long todaySec = today.getTimeInMillis(); 
-	
 		
    int listCount = pi.getListCount();
    int currentPage = pi.getCurrentPage();
@@ -245,7 +243,6 @@ input{
 }
 
 .titleDiv1{
-	border:none;
 	border-bottom: 1px solid darkgray;
 	position: relative;	
 	width:1230px;
@@ -257,7 +254,7 @@ input{
 
 .titleDiv2{
 	position: relative;
-	width: 240px;	
+	width: 290px;	
 	font-size: 45px;
 	margin-left:auto;
 	margin-right:auto;
@@ -294,7 +291,7 @@ input{
 <br><br>
 
 <div id ="outer">
-	<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
+	<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
 	<br><br>
 	<div id = "tableDiv">
 	<div id = listcountDiv><b>총 <span class=lisCountSpan><%=listCount%></span>건,(<span class=lisCountSpan><%=currentPage%></span>/<%=maxPage%>)</b></div>
@@ -379,9 +376,9 @@ input{
 <br>
 <br>
 
-<%if(loginUser !=null && loginUser.getUserNo() > 10000) {%>
+
 <button id = writerBtn onclick = "goBoardInsertForm();"><b>글쓰기</b></button>
-<%}%>
+
 
    <!-- 페이징 처리 시작 -->
    <br>
@@ -487,7 +484,7 @@ $(function(){
  
  
  function goBoardInsertForm(){
-    location.href="<%=request.getContextPath()%>/views/board/nBoardInsertForm.jsp"
+    location.href="<%=request.getContextPath()%>/views/board/fBoardInsertForm.jsp"
     
  };
  
@@ -497,7 +494,7 @@ $(function(){
  
  
  function downloadAttach(thing){
-	 location.href="<%=request.getContextPath() %>/Ndownload.at?fid="+thing;
+	 location.href="<%=request.getContextPath() %>/Fdownload.at?fid="+thing;
 	 
  }
  

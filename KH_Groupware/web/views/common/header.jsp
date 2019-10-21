@@ -4,6 +4,11 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 
+	int userNo = 0; 
+	if(loginUser != null){
+		userNo = loginUser.getUserNo();
+	} 
+
 %>    
 <!DOCTYPE html>
 <html>
@@ -312,10 +317,11 @@ h3{
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;>게시판</h3>
          <ul>
+         	<input id= userNo type= hidden value= <%=userNo%>> 
             <li onclick= "goNBoard();"> 공지사항 </li>
             <li onclick = "goShareFile();"> 공유자료 </li>
-            <li> 퀴즈 </li>
-            <li> 자유게시판 </li>
+            <li > 퀴즈 </li>
+            <li onclick = "goFBoard();"> 자유게시판 </li>
             <li onclick = "goThumbnail();"> 사진게시판 </li>
          </ul>
       </div>
@@ -773,18 +779,30 @@ h3{
    	// 4. 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
 		function goThumbnail(){
 			location.href="<%=request.getContextPath()%>/list.th";
-			//ThumbanailListServlet 만들러가기
 		}
    	
    	// 공유자료 작업시작
    		function goShareFile(){
    			location.href="<%=request.getContextPath()%>/list.sh";
-   			// ShareFileListServlet 만들러가기
    	}
+   	
+   	
    	
    		function goNBoard(){
   			location.href="<%=request.getContextPath()%>/Nlist.bo";
-  			// NBoardListServlet 만들러가기 
+   		}
+   		
+   		function goFBoard(){
+   			
+   			var userNo = $("#userNo").val()
+   		
+   			
+   		  if( userNo == 0 ){
+   				alert("로그인을 해야만 사용가능합니다.");
+   			}else{
+   				location.href="<%=request.getContextPath()%>/Flist.bo";	
+   			}  
+  			  
    		}
    	
 </script>

@@ -50,7 +50,7 @@
 
 	.titleDiv2{
 		position: relative;
-		width: 240px;	
+		width: 290px;	
 		font-size: 45px;
 		margin-left:auto;
 		margin-right:auto;
@@ -222,7 +222,7 @@
 <br><br>
 <form id= insertForm action = "<%=request.getContextPath()%>/insert.Nbo" method="post" encType="multipart/form-data">
 <div id="outer">
-	<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
+	<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
 	<br>
 	<div id = "tableDiv">
 		<table align="center" id="listArea">
@@ -241,6 +241,8 @@
 			</tr>
 		</table>
 		<div id="textareaDiv"><textArea id= summernote rows=30 col=100 name = "bcontent" placeholder="내용을 입력해주세요"></textArea><div>
+		
+		<% if (loginUser!= null && loginUser.getUserNo() > 10000){ %>
 		<table id = "attachTable">
 			<tr>
 				<td rowspan=9 class= "titleTd" style= "border-right: 1px solid #dbdbdb">
@@ -268,6 +270,7 @@
 			</tr>
 				
 		</table>
+		<% }%>
 		<br><br>
 		<div class= btnDiv>
 				<button type='button'id=listBtn onclick="goBoardListView();"><b>목록</b></button>&nbsp;&nbsp;

@@ -1,9 +1,8 @@
-package board.controller;
+package board.nController;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.NBoardService;
-import board.model.vo.Attachment;
 import board.model.vo.Board;
 
 /**
- * Servlet implementation class NoticeUpdateViewServlet
+ * Servlet implementation class DeleteNBoardServlet
  */
-@WebServlet("/NupdateView.bo")
-public class NBoardUpdateViewServlet extends HttpServlet {
+@WebServlet("/Ndelete.bo")
+public class DeleteNBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NBoardUpdateViewServlet() {
+    public DeleteNBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,24 +31,30 @@ public class NBoardUpdateViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int bid= Integer.valueOf(request.getParameter("bid"));
+	
+		int bid = Integer.valueOf(request.getParameter("bid"));
 		
-		NBoardService NboardService = new NBoardService();
 		
-		Board board = NboardService.selectBoard(bid);
-		ArrayList<Attachment> flist = NboardService.selectAttachments(bid);
+		NBoardService Nbservice = new NBoardService();
 		
-		RequestDispatcher view= null; 
-		if(board != null) {
-			view=request.getRequestDispatcher("views/board/nBoardUpdateView.jsp");
-			request.setAttribute("board", board);
-			request.setAttribute("flist", flist);
+		Board b= Nbservice.selectBoard(bid);
+		
+		int result = 0; 
+		if (b.getBtype().equals("2")){
+			result = Nbservice.deleteNBoard(2, bid); // FLAG  첨부파일 있을때
 		}else {
-			view=request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg", "공지사항 수정조회를 실패하였습니다.");
+			result = Nbservice.deleteNBoard(1, bid); // FLAG  첨부파일 없을때
 		}
-		view.forward(request, response);
+		
+
+	 	if( result > 0) {
+			 response.sendRedirect("Nlist.bo?currentPage=1");
+	 	}else { 
+			 
+			 request.setAttribute("msg", "게시판 삭제 실패!");
+			 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response); 
+	 	}
+
 	}
 
 	/**

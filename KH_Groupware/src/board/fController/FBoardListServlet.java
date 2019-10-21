@@ -1,4 +1,4 @@
-package board.controller;
+package board.fController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.service.FBoardService;
 import board.model.service.NBoardService;
 import board.model.vo.PageInfo;
 import member.model.vo.Member;
@@ -20,14 +21,14 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class BoardListServlet
  */
-@WebServlet("/Nlist.bo")
-public class NBoardListServlet extends HttpServlet {
+@WebServlet("/Flist.bo")
+public class FBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NBoardListServlet() {
+    public FBoardListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,6 +37,8 @@ public class NBoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("서비스단 왔니?");
+		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
@@ -49,7 +52,7 @@ public class NBoardListServlet extends HttpServlet {
 
 		//두 개의 서비스를 호출것이기 때문에 서비스 객체를 참조형 자료형 변수로 담아주자  
 
-		NBoardService bService= new NBoardService(); 
+		FBoardService bService= new FBoardService(); 
 		
 		// 게시판 리스트 갯수 구하기
 		int listCount = bService.getListCount(cid);
@@ -118,24 +121,21 @@ public class NBoardListServlet extends HttpServlet {
 	
 		ArrayList flist = bService.selectList(cid,flag2,currentPage,limit);
 	
-		System.out.println(flist+"\n");
 		
 		
 		RequestDispatcher view = null;
 		if(list!=null) {
-				view = request.getRequestDispatcher("views/board/nBoardListView.jsp");
+				view = request.getRequestDispatcher("views/board/fBoardListView.jsp");
 				request.setAttribute("list", list); // 현재 페이지 화면에 뿌려질 게시글이 담긴 객체 
 				request.setAttribute("flist", flist);// 현재 페이지 기준 게시글의 첨부파일이 담긴 객체 
 				request.setAttribute("pi", pi);		// 페이지관련된 정보가 담긴객체 
-				System.out.println("서블릿: pi" + pi);
+				System.out.println("서블릿: pi: + " + pi);
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			request.setAttribute("msg", "게시판 리스트 조회 실패!");
 		}
 		
 		view.forward(request, response);
-		
-		//boardListView.jsp페이지 만들러 ㄱㄱ씽 
 	}
 
 	/**
