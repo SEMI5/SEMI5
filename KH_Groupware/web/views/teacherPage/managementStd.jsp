@@ -98,6 +98,8 @@
 
 
 <body>
+
+
 <div id = "outer">
 	<div id="content">
 		<div id="stdList">
@@ -139,9 +141,9 @@
 								}
 								%>
 								<label style="font-size:20px">흡연여부</label>
-								<input type="radio" id="smokingY" name="smokingYN" value="Y" <%=smkY%>> 
+								<input type="radio" id="smokingY" name="smokingYN<%=i%>" value="Y" <%=smkY%>> 
 								<label for="smokingY">Y</label> 
-								<input type="radio" id="smokingN" name="smokingYN" value="N" <%=smkN%>>
+								<input type="radio" id="smokingN" name="smokingYN<%=i%>" value="N" <%=smkN%>>
 								<label for="smokingN">N</label>
 							</td>
 							<td style="width:350px;height:80px;text-align: left;">
@@ -154,9 +156,9 @@
 								}
 								%>
 								<label style="font-size:20px">전공유무</label>
-								<input type="radio" id="majorY" name="majorYN" value="Y" <%=mjrY%>> 
+								<input type="radio" id="majorY" name="majorYN<%=i%>" value="Y" <%=mjrY%>> 
 								<label for="majorY">Y</label> 
-								<input type="radio" id="majorN" name="majorYN" value="N" <%=mjrN%>>
+								<input type="radio" id="majorN" name="majorYN<%=i%>" value="N" <%=mjrN%>>
 								<label for="majorN">N</label>
 							</td>
 							
@@ -172,14 +174,15 @@
 								 } 
 								 %>
 								<label style="font-size:20px">학생Level</label>
-								<input type="radio" id="beginningLv" name="stdLevel" value="3" <%= level[0]%>> 
+								<input type="radio" id="beginningLv" name="stdLevel<%=i%>" value="3" <%= level[0]%>> 
 								<label for="beginningLv">초급</label> 
-								<input type="radio" id="intermediateLv" name="stdLevel" value="2" <%= level[1]%>>
+								<input type="radio" id="intermediateLv" name="stdLevel<%=i%>" value="2" <%= level[1]%>>
 								<label for="intermediateLv">중급</label>
-								<input type="radio" id="advancedLv" name="stdLevel" value="1" <%= level[2]%>>
+								<input type="radio" id="advancedLv" name="stdLevel<%=i%>" value="1" <%= level[2]%>>
 								<label for="advancedLv">고급</label>
 							</td>
 							<td style="width:350px;height:80px;text-align: left;">
+
 								<%
 								String expY = null, expN = null;
 								if(stdList.get(i).getExp().equals("Y")){
@@ -189,9 +192,9 @@
 								}
 								%>
 								<label style="font-size:20px">실무경험</label>
-								<input type="radio" id="pExpY" name="PracticalExp" value="Y" <%=expY%>> 
+								<input type="radio" id="pExpY" name="PracticalExp<%=i%>" value="Y" <%=expY%>> 
 								<label for="pExpY">Y</label> 
-								<input type="radio" id="pExpN" name="PracticalExp" value="N" <%=expN%>>
+								<input type="radio" id="pExpN" name="PracticalExp<%=i%>" value="N" <%=expN%>>
 								<label for="pExpN">N</label>
 							</td>
 							<td style="width:350px;height:80px;text-align: right;">
@@ -199,6 +202,7 @@
 								저장하기
 								</button>
 								<script type="text/javascript">
+
 								function updateStd (stdNo, userId){
 									 $.ajax({
 										url:"/KH_Groupware/updateD.te",
@@ -210,12 +214,17 @@
 											exp:$("input[name=PracticalExp]:checked").val(),
 											userId:userId},
 										success:function(data){	
-
 											$(".consultingForm").css("display","none");
 											}
 										}
 									); 
 								};
+								
+								$(function(){
+									$("#c")
+									
+								});
+								
 								
 								</script>
 							</td>

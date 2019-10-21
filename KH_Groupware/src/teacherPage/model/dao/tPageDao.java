@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import member.model.vo.Member;
+import teacherPage.model.vo.Schedule;
 
 public class tPageDao {
 
@@ -70,6 +71,7 @@ public class tPageDao {
 		String query = prop.getProperty("approvalJoin");
 		
 		try {
+
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setInt(1, userNo);
@@ -111,6 +113,117 @@ public class tPageDao {
 		} finally {
 			close(conn);
 
+		}
+		
+		return result;
+	}
+
+
+
+	public int insertSchedule(Connection conn, Schedule scd) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("insertSchedule");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, scd.getCalssNum());
+			pstmt.setInt(2, scd.getUserNum());
+			pstmt.setString(3, scd.getScdName());
+			pstmt.setDate(4, scd.getStrDate());
+			pstmt.setDate(5, scd.getEndDate());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
+
+	public ArrayList<Schedule> showCalendar(Connection conn, int cid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<Schedule> scdList = new ArrayList<Schedule>();
+		
+		String query = prop.getProperty("selectAllSchedule");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, cid);
+			pstmt.setString(2, "Y");
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				scdList.add(new Schedule(rs.getInt("sid"),
+										rs.getInt("cid"),
+										rs.getInt("stid"),
+										rs.getString("sc_name"),
+										rs.getDate("str_date"),
+										rs.getDate("end_date"),
+										rs.getString("status")));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+
+		return scdList;
+	}
+
+
+
+	public int modifySchedule(Schedule scd, Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+
+		
+		String query = prop.getProperty("modifySchedule");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setDate(1, scd.getStrDate());
+			pstmt.setDate(2, scd.getEndDate());
+			pstmt.setInt(3, scd.getScdNum());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+	public int deleteSchedule(Connection conn, int scdNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteSchedule");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, scdNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
 		}
 		
 		return result;

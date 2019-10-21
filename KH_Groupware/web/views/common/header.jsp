@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src = "../js/jquery-3.2.1.min.js" type = "text/javascript"></script>
+<!-- <script src = "../js/jquery-3.2.1.min.js" type = "text/javascript"></script> -->
 
 
 
@@ -282,9 +282,9 @@ h3{
    <img src ="<%=request.getContextPath() %>/images/khGroupware3.png" onclick= "location.href = '<%=request.getContextPath()%>/views/common/mainHome.jsp'"style=height:50px;cursor:pointer;margin-right:20px;margin-left:20px;padding:0px;>
    <button class= navBtn1 id="navBtn1" data-value="0" onclick="showSubnav1();">소개</button>
    <button class= navBtn1 id="navBtn2" data-value="0" onclick="showSubnav2();">게시판</button>
-   <button class= navBtn1 id="navBtn3" data-value="0" onclick="showSubnav3();">커뮤니티</button>
    <button class= navBtn1 id="navBtn4" data-value="0" onclick="showSubnav4();">마이페이지</button>
    <button class= navBtn1 id="teacherPage" data-value="0" onclick="showSubnav5();">강사페이지</button>
+   <button class= navBtn1 id="navBtn3" data-value="0" onclick="showSubnav3();">맛집</button>
    <button class="navBtn1" id= myPageBtn data-value = "0" onclick= "showLoginDiv();"><img src ="<%=request.getContextPath() %>/images/icon/myPage.png" style= width:30px; id=myPageBtnImg></button>
    <button class="navBtn1" id= searchBtn data-value = "0" onclick= "showSearchBar();"><img src ="<%=request.getContextPath() %>/images/icon/readingGlasses.png" style= width:30px; id=serachBtnImg></button>
 </div>
@@ -296,7 +296,7 @@ h3{
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;> 소개 </h3>
          <ul>
-            <li> 소개글 </li>
+            <li onclick= "goInfo();"> 소개글 </li>
          </ul>
       </div>
       <div class = "btnImg">
@@ -325,8 +325,7 @@ h3{
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;>커뮤니티</h3>
          <ul>
-            <li> 채팅 </li>
-            <li> 근처맛집 </li>
+            <li id="ahn" onclick="location.href = '<%=request.getContextPath()%>/views/map2/mapForm.jsp'"> 근처맛집 </li> 
          </ul>
       </div>
       <div class = "btnImg">
@@ -764,8 +763,14 @@ h3{
              } 
       }); 
    	
+     // 소개글 이동
+     	function goInfo(){
+    	 location.href="infoPage.jsp"
+    	 
+     }
       
-   	// 4. 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
+      
+   	// 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
 		function goThumbnail(){
 			location.href="<%=request.getContextPath()%>/list.th";
 			//ThumbanailListServlet 만들러가기

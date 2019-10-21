@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import thumbnail.model.vo.Thumbnail;
 import thumbnail.model.dao.ThumbnailDao;
 import thumbnail.model.vo.Attachment;
-import thumbnail.model.vo.Thumbnail;
 
 public class ThumbnailService {
 	
@@ -59,14 +58,12 @@ public class ThumbnailService {
 			rollback(conn);
 		}
 
-
-		
 		close(conn);
 		
 		return result;
 
 	}
-
+	
 	public ArrayList<Attachment> selectThumbnail(int bid) {
 		Connection conn = getConnection();
 		
@@ -157,6 +154,23 @@ public class ThumbnailService {
 		close(conn);
 		
 		return at;
+	}
+	
+	//수정하기
+	public int updateThumbnail(Thumbnail t) {
+		Connection conn = getConnection();
+		
+		int result = new ThumbnailDao().updateThumbnail(conn, t);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 
 	/*

@@ -13,7 +13,7 @@ public class Share implements Serializable{
 	private int bId;			//NUMBER 
 	private int cId;  		 	// 해당 게시판 소속 
 	private String bTitle; 		//게시판 제목 
-	private String btype; 		//게시판 타입(1.  일반게시판, 2. 사진게시판) 
+	private String btype; 		//게시판 타입(1.일반게시판, 2.사진게시판 .3자료실) 
 	private String bContent; 	//게시판 내용 
 	private int bCount; 		//게시판 조회수
 	private String bWriter; 	//게시판 작성자    // 조인 view 에서 멤버 이름을 받아올거라서 STRING 
@@ -23,6 +23,14 @@ public class Share implements Serializable{
 	
 	
 	public Share() {
+	}
+	
+
+	public Share(String bTitle, String bWriter, Date createDate, String bContent) {
+		this.bTitle = bTitle;
+		this.bWriter = bWriter;
+		this.createDate = createDate;
+		this.bContent = bContent;
 	}
 
 

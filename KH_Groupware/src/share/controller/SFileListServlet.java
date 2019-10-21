@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import share.model.service.SFileService;
 import share.model.vo.PageInfo;
 import share.model.vo.Share;
+import thumbnail.model.service.ThumbnailService;
 
 /**
  * Servlet implementation class ShareFileListServlet
@@ -34,11 +35,23 @@ public class SFileListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		//Servlet을 만들면 vo 클래스가 필요하다는 생각을 하자! ((request에 담긴 값으로 생성된)  vo클래스의 객체를 dao까지 넘길꺼니깐) 
+				// 파일 관련 즉 사진게시판을 위해 Attachment라는 테이블을 활용할 것이다.
+				// 따라서 Attachment(올라간 사진의 정보) vo클래스 만들러 ㄱㄱ
+						
+				// vo클래스 만들었으면, BoardService로 두개의 서비스를 요청할 것이다!
+				// 사진게시판은 일반게시판과 달리 페이징 처리를 안할거지만 하고 싶으면 board관련 코드 참고해서 완성해보자
+						
+				SFileService sService = new SFileService();
+						
+				// 1. 우선 사진 게시판 리스트 정보를 불러오자
+				ArrayList blist = sService.selectList(1);
+				
+				// 2. 사진 리스트도 불러오자 
+				ArrayList flist = sService.selectList(2);
 
-				//두 개의 서비스를 호출것이기 때문에 서비스 객체를 참조형 자료형 변수로 담아주자  
-
-				SFileService sService= new SFileService(); 
+				// thumbnail 폴더만들고 그안에 thumbnailListView.jsp 만들러 ㄱㄱ!!!
+				
+				
 				
 				// 게시판 리스트 갯수 구하기
 				int listCount = sService.getListCount();
@@ -98,15 +111,16 @@ public class SFileListServlet extends HttpServlet {
 				PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 				
 				// 게시판 리스트 조회해 오기 
-				
 				ArrayList<Share> list= sService.selectList(currentPage,limit); 
 				
 				
 				RequestDispatcher view = null;
 				if(list!=null) {
-						view = request.getRequestDispatcher("views/share/shareFileListView.jsp");
+						request.setAttribute("blist", blist);
+						request.setAttribute("flist", flist);
 						request.setAttribute("list", list); // 현재 페이지 화면에 뿌려질 게시글이 담긴 객체 
 						request.setAttribute("pi", pi);		// 페이지관련된 정보가 담긴객체 
+						view = request.getRequestDispatcher("views/share/shareFileListView.jsp");
 					
 				}else {
 					view = request.getRequestDispatcher("views/common/errorPage.jsp");

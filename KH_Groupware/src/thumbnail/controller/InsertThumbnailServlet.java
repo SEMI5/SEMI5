@@ -54,7 +54,6 @@ public class InsertThumbnailServlet extends HttpServlet {
 					// 1_3. 파일들 저장 경로(web/"thumbnail_uploadFiles/)
 					String savePath = root + "thumbnail_uploadFiles/";
 					
-					System.out.println(savePath);
 					// 2. 파일명 변환 및 저장 작업
 					/*
 					 *  객체 생성시 파일을 저장하고 그에 대한 정보를 가져오는 형태인데 

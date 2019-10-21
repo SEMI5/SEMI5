@@ -52,14 +52,12 @@ public class UpdateSeatSurvlet extends HttpServlet {
 
 			String seatNo = request.getParameter("seatNo");
 
-			System.out.println(csList);
 			
 			csList.get(stdNo-1).setSeat(seatNo);
 			session.setAttribute("changeSeatList", csList);
 			
 			csList = (ArrayList)session.getAttribute("changeSeatList");
 
-			System.out.println(csList);
 			
 			break;
 			

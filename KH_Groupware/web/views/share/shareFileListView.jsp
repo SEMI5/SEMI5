@@ -262,7 +262,20 @@ input{
 	top:10px;
 
 }
+/* 페이징 처리 버튼 css */
+.pagingArea button {
+	  border: none;
+	  outline: none;
+	  padding: 10px 16px;
+	  background-color: #f1f1f1;
+	  cursor: pointer;
+	  font-size: 10px;
+}
 
+.pagingArea button:hover {
+	  background-color: #666;
+	  color: white;
+}
 </style>
 
 </head>
@@ -356,13 +369,13 @@ input{
    <br>
       <div class="pagingArea" align="center">
          <!-- 맨 처음으로(<<) -->
-         <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=1'"> << </button>
+         <button onclick="location.href='<%=request.getContextPath() %>/list.sh?currentPage=1'"> << </button>
          
          <!-- 이전 페이지로(<) -->
          <%if(currentPage <= 1) {%>
             <button disabled> < </button>
          <%} else{ %>
-            <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=currentPage-1 %>'"> < </button>
+            <button onclick="location.href='<%=request.getContextPath() %>/list.sh?currentPage=<%=currentPage-1 %>'"> < </button>
          <%} %>
          
          <!-- 10개의 페이지 목록 -->
@@ -370,7 +383,7 @@ input{
             <% if(p == currentPage){ %>
                <button disabled><%=p %></button>
             <%} else{%>
-               <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=p %>'"><%=p %></button>
+               <button onclick="location.href='<%=request.getContextPath() %>/list.sh?currentPage=<%=p %>'"><%=p %></button>
             <%} %>
          <%} %>
          
@@ -378,11 +391,11 @@ input{
          <%if(currentPage >= maxPage){ %>
             <button disabled> > </button>
          <%}else{ %>
-            <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=currentPage+1 %>'"> > </button>
+            <button onclick="location.href='<%=request.getContextPath() %>/list.sh?currentPage=<%=currentPage+1 %>'"> > </button>
          <%} %>
          
          <!-- 맨 끝으로(>>) -->
-         <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=maxPage %>'"> >> </button>
+         <button onclick="location.href='<%=request.getContextPath() %>/list.sh?currentPage=<%=maxPage %>'"> >> </button>
       </div>
 </div>
 </div>
@@ -404,7 +417,7 @@ $(function(){
     $("td").mouseenter(function(){
     $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
            var bid = $(this).parent().children().eq(0).text(); // 게시글의  글번호 
-           location.href="<%=request.getContextPath()%>/Ndetail.bo?bid=" + bid;
+           location.href="<%=request.getContextPath()%>/Sdetail.sh?bid=" + bid;
        }) 
     });
  });

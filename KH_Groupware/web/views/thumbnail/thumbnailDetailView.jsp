@@ -18,7 +18,6 @@
 .outer {
       width:1000px;
       height:650px;
-      boader : 1px solid black;
       color:black;
       margin-left:auto;
       margin-right:auto;
@@ -26,11 +25,12 @@
 }
 .detail{
      width:1000px;
-     border:1px solid black;
 } 
    
 .detail_other{
+	width : 100%;
    	border:1px solid black;
+   	margin-left : 9px;
 }
 #titleImgArea {
       width:500px;
@@ -62,15 +62,68 @@
       height:180px;
       margin : 15px;
 }
-.down-btn{
-		margin-left : 100px;
+
+
+table.detail {
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+  margin : 20px 10px;
 }
-tr{
+table.detail th {
+    width: 500px;
+    padding: px;
+    font-weight: bold;
+    text-align : center;
+    vertical-align: center;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    background: #eee;
+}
+table.detail td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+
+/* tr{
 	border: 1px solid darkgray;
 }
 td{
 	border: 1px solid darkgray;
+} */
+
+
+/* 다운로드 버튼 */
+
+.down-btn1, .down-btn2 {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 15px;
 }
+
+
+/* Darker background on mouse-over */
+.down-btn:hover {
+  background-color: RoyalBlue;
+}
+
+
+.down-btn2{
+	margin-left : 60px;
+}
+
 </style>
 
 
@@ -86,76 +139,56 @@ td{
 			
 		<div class = "detail">
 						
-			<%-- 			<div id ="t_title_label">제목 </div>
-						<label><%=b.getbTitle() %></label><br><br>
-						
-						<div id ="t_writer_label">작성자 </div>
-						<label><%=b.getbWriter() %></label><br><br>
-						
-						<div id ="t_count_label">조회수 </div>
-						<label><%=b.getbCount() %></label><br><br>
-						
-						<div id ="t_date_label">작성일 </div>
-						<label><%=b.getModifyDate() %></label><br><br>
-						
-						<div id ="t_mainthum_label">대표이미지 </div>	
-							<div id="titleImgArea" align="center">
-								<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
-							</div><br><br>
-					
-					<button onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">다운로드</button>
-					<br><br>
-					
-				<div id ="t_conetent_label">사진메모 </div>	
-					<p id = "contentArea"><%=b.getbContent() %></p>
-		</div><br><br> --%>			
-						
-						
-						
 		<table class = "detail" align="center">
 			<tr>
-				<td width = "90px" height = "40px">제목</td>
-				<td colspan = "5"><label><%=b.getbTitle() %></label></td>
+				<th width = "90px" height = "40px">제목</th>
+				<td colspan = "5"> <%-- <label><%=b.getbTitle() %></label></td> --%>
+				<input type="text" size="50" name="title" value="<%= b.getbTitle() %>" readonly></td>
+				
 			</tr>
 			<tr>
-				<td height = "40px"> 작성자 </td>
-				<td colspan = "5"><label><%=b.getbWriter() %></label></td>
+				<th height = "40px"> 작성자 </th>
+				<td colspan = "5">	<%-- <label><%=b.getbWriter() %></label></td> --%>
+				<input type="text" name="writer" value="<%= b.getbWriter() %>" readonly></td>
 			</tr>
 			<tr>
-				<td height = "40px"> 조회수 </td>
+				<th height = "40px"> 조회수 </th>
 				<td colspan = "5"><label><%=b.getbCount() %></label></td>
 			</tr>	
 			<tr>
-				<td height = "40px"> 작성일 </td>
+				<th height = "40px"> 작성일 </th>
 				<td colspan = "5"><label><%=b.getModifyDate() %></label></td>
 			</tr>		
 			<tr>
-				<td> 대표사진 </td>
+				<th> 대표사진 </th>
 				<td colspan="4">
 					<div id="titleImgArea" align="center">
 						<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
 					</div>
 				</td>
 				<td>
-					<button onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">다운로드</button>
+					<button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
+						<i class="fa fa-download"></i> Download
+					</button>
 				</td>
 			</tr>
 			<tr>
-				<td> 사진메모 </td>
+				<th> 사진메모 </th>
 				<td colspan = "6">
-					<p id = "contentArea"><%=b.getbContent() %></p>
+					<textarea name="content" cols="60" rows="15" style="resize:none" readonly><%= b.getbContent() %></textarea>
 				</td>
 			</tr>
 		</table>
 	
 		<div class = "detail_other" style="align:center">
 			<P align = "center"> 추가 이미지 </P>
+			<hr>
 				<% for(int i=1; i<fileList.size(); i++){ %>
 					<div class = "detailImgArea">
 						<img id ="detailImg" class="detailImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=fileList.get(i).getChangeName() %>">
-						<div class ="down-btn" style="align:center">
-						<button onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
-							다운로드
+						<div class ="down-area" style="align:center">
+						<button  class="down-btn2" onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
+							<i class="fa fa-download"></i> Download
 						</button>				
 						</div>
 					</div>
@@ -166,10 +199,15 @@ td{
 		<!-- 이제 파일을 다운로드 할 수 있도록 ThumbnailDownloadServlet 만들러 !!  -->
 		
 		<div class = "btns" align ="center">
-			<button id = "goMain" onclick ="goMain();">메인으로</button>
-			<button id  = "updateBtn" onclick ="updateTthumbnail();">수정하기</button>
+			<button id = "goList" onclick="location.href='<%=request.getContextPath()%>/list.th'">목록으로</button>	
+			<%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
+					<button type="submit" onclick="location.href='<%=request.getContextPath()%>/updateView.th?bid=<%=b.getbId()%>'">수정하기</button>				
+			<%} %>
+					
+		<!-- 	<button id  = "updateBtn" onclick ="updateTthumbnail();">수정하기</button> -->
 			<button id  = "deleteBtn" onclick = "deleteThumbnail();">삭제하기</button>
 		</div>
+		<br><br><br>
 	</div>
 </div>
 </body>

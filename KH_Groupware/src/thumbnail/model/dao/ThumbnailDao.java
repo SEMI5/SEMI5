@@ -349,7 +349,7 @@ public class ThumbnailDao {
 				close(rs);
 			}
 			
-				
+
 			return listCount;		
 
 	}
@@ -429,6 +429,33 @@ public class ThumbnailDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	// 수정하기
+	public int updateThumbnail(Connection conn, Thumbnail t) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("updateThumbnail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, t.getbTitle());
+			pstmt.setString(2, t.getbContent());
+			pstmt.setInt(3, t.getbId());
+			
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
 		return result;
 	}
 
