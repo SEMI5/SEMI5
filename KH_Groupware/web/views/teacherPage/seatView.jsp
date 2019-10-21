@@ -4,106 +4,106 @@
 <%@ include file="/views/common/header.jsp"%>
 <%@ include file="/views/common/footer.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%
-	ArrayList<Member> List = (ArrayList)session.getAttribute("stdList");
+   ArrayList<Member> List = (ArrayList)session.getAttribute("stdList");
 
-	ArrayList<Member> stdList = new ArrayList();
-	
-	for(int i = 0 ; i < List.size() ; i++){
-		if(List.get(i).getApprove().equals("Y")){
-			stdList.add(List.get(i));
-		}
-	}
+   ArrayList<Member> stdList = new ArrayList();
+   
+   for(int i = 0 ; i < List.size() ; i++){
+      if(List.get(i).getApprove().equals("Y")){
+         stdList.add(List.get(i));
+      }
+   }
 
-	
-	int count = 1;
-	int countSize = stdList.size();
+   
+   int count = 1;
+   int countSize = stdList.size();
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style>
 #outer {
-	width: 100%;
-	height: 100%;
-	border: 3px solid red;
-	padding-left: 30px;
+   width: 100%;
+   height: 100%;
+   border: 3px solid red;
+   padding-left: 30px;
 }
 
 
 
 #content {
-	display: inline-block;
-	border: 5px solid black;
-	margin: 10%;
-	margin-top: 0%;
+   display: inline-block;
+   border: 5px solid black;
+   margin: 10%;
+   margin-top: 0%;
 }
 
 #seatTableArea {
-	border: 5px solid black;
-	margin: 1%;
-	width: 66%;
-	display: inline-block;
+   border: 5px solid black;
+   margin: 1%;
+   width: 66%;
+   display: inline-block;
 }
 
 
 #seatTableArea table .seat {
-	border: 2px solid blue;
-	height: 120px;
+   border: 2px solid blue;
+   height: 120px;
 }
 
 
 
 #seatTableArea table #hallway {
-	border: 2px solid blue;
-	height: 120px;
+   border: 2px solid blue;
+   height: 120px;
 }
 
 
 .seat {
-	width: 15%;
-	height: 120px;
+   width: 15%;
+   height: 120px;
 }
 
 #hallway {
-	width: 300px;
-	height: 100%;
-	text-align: center;
+   width: 300px;
+   height: 100%;
+   text-align: center;
 }
 
 #front {
-	width: 1000px;
-	text-align: center;
+   width: 1000px;
+   text-align: center;
 }
 
 #front td {
-	border: 2px solid blue;
-	height: 120px;
+   border: 2px solid blue;
+   height: 120px;
 }
 
 #stdListArea {
-	width: 30%;
-	border: 5px solid black;
-	display: inline-block;
+   width: 30%;
+   border: 5px solid black;
+   display: inline-block;
 }
 
 #std {
-	width: 20%;
-	height: 30px;
-	border: 1px solid red;
-	position: relative;
-	cursor: pointer;
+   width: 20%;
+   height: 30px;
+   border: 1px solid red;
+   position: relative;
+   cursor: pointer;
 }
 
 .list {
-	border: 1px solid green;
-	width: 1000px;
-	height: 71.5px;
+   border: 1px solid green;
+   width: 1000px;
+   height: 71.5px;
 }
 
 .list table[id^=stdInfo] td {
