@@ -8,7 +8,35 @@
 	ArrayList<khClass> cList = (ArrayList)request.getAttribute("class");
 
 %>
+    <!-- https://coding-factory.tistory.com/196 
+    https://m.blog.naver.com/PostView.nhn?blogId=vnemftnsska2&logNo=221407559074&proxyReferer=https%3A%2F%2Fwww.google.com%2F
     
+   .keyup() 
+    
+    
+    아이디			.keyup() 유효성검사 + 중복검사
+    4~12->a-z,A-Z,0-9
+    
+    비밀번호		.keyup() 유효성검사 
+    
+    비밀번호 일치		.keyup() 일치여부
+    
+    이름			.blur() + 유효성검사
+    
+    주민등록번호		.blur() + 유효성검사
+    
+    연락처			.blur() + 유효성검사
+
+    이메일			select,option + 직접입력/api사용하기
+    
+    주소			우체국api + 상세주소
+    
+	반   => 처리했음 
+    
+    
+    
+    
+    -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,176 +44,154 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/bPopup/0.11.0/jquery.bpopup.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/bPopup/0.11.0/jquery.bpopup.min.js'></script>
-<%@ include file = "../common/header.jsp" %>
 <title>Insert title here</title>
 <style>
-body {
-  width : 90%;
-  margin: 0;
-  font-size: 28px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.header {
-  position: fixed;
-  top: 0;
-  z-index: 1;
-  width: 100%;
-  background-color: #f1f1f1;
-}
-
-.header h2 {
-  text-align: center;
-}
-
-.progress-container {
-  width: 100%;
-  height: 8px;
-  background: #ccc;
-}
-
-.progress-bar {
-  height: 8px;
-  background: #4caf50;
-  width: 0%;
-}
-
-.content {
-  padding: 100px 0;
-  margin: 50px auto 0 auto;
-  width: 80%;
-}
-
-
-table{
-	border : 1px solid black;
-	width : 800px;
-	height : 300px;
+	.outer{
+		/* border: 2px solid black; */ 
+		width : 90%;
+		height : 500px;
+		background : white;
+		color : black;
+		margin-left : 5%;
+		margin-right : 5%;
+		margin-top : 3%;
+	}
+	.outer label, .outer td{
+		color : black;
+	}
 	
-}
-tr{
-	height : 50px;
-}
+	#joinForm{
+		margin-top: 40px;
 	
-td input ,td select{
-	margin-left : 30px;
-}
+	}
+	
+	
+	input{
+		font-size: 20px;
+		margin-top : 2px;
+		width: 600px;
+		height: 40px;
+		margin-left: 200px;
+		margin-right: 25px;
+	}
+	
+	#idCheck, #joinBtn{
+	margin-top: 2px;
+		background : black;
+		color : white;
+		border-radius : 5px;
+		width : 150px;
+		height : 40px;
+		text-align : center;
+	}
+	
+	td{
+		font-size: 22px;
+		text-align : right;
+		height: 70px;
+	}
+	
+	select{
+		font-size: 20px;
+		height: 40px;
+		width: 600px;
+		margin-left: 200px;
+		margin-right: 25px;
+	}
 
-.tablink {
-  background-color: #555;
-  color: white;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  font-size: 17px;
-  width: 15%;
-}
+	#joinForm tr{
+		margin-bottom: 40px;
+	
+	}
+	
 
-.tablink:hover {
-  background-color: #777;
-}
-
-#member_tab{
-	border : 1px solid black;
-	width : 800px;
-	height : 300px;
-	margin-left : 283px;
-	margin-top : 50px;
-}
-
-.btn {
-  border: none;
-  color: white;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.idCheck {background-color: #f44336;} /* Red */ 
-.idCheck:hover {background: #da190b;}
-
-.joinBtn {background-color: #f44336;} /* Gray */ 
-.joinBtn:hover {background: #da190b;}
-
-.mainBtn {background-color: #f44336;} /* Gray */ 
-.mainBtn:hover {background: #da190b;}
-
+	#goMain{
+		background : white;
+		color : black;
+		border-radius : 5px;
+		width : 150px;
+		height : 40px;
+		text-align : center;
+		border: 1px solid black;
+	}
+	
+	#joinBtn, #goMain{
+		display : inline-block;
+	}
+	
+	.btns{
+		font-size: 20px;
+		padding: auto;
+	}
+	
+	#idCheckPop{
+		width:	500px;
+		height: 200px; 
+		display: none;
+		background: white;
+		padding: 20px;
+	}
+	
+	
 
 </style>
-	
-
 </head>
+<header>
 	
+</header>
 <body>
-	<div>
-		<img src="<%=request.getContextPath() %>/images/hello.jpg" style="width:1550px; height:300px;">
-	</div>
-<div class = "outer">
-<%-- <%=cList %> --%>
-		<br>
-		<div class="header">
-		<h1 align="left" style="font-size : 50px;"><em>회원가입</em></h1>
-		 	 <div class="progress-container">
-		    	<div class="progress-bar" id="myBar"></div>
-		  	</div>  
-		</div>
-		<form id = "joinForm" action = "<%=request.getContextPath() %>/insert.me" method ="post" >
+<%-- <%@ include file = "/views/common/header.jsp" %>--%>
+<!-- menubar.jsp를 찾아서 그 페이지를 내 페이지에 include(포함)시켜라 // 페이지에서 사용한 스크립트,css 모두다 가져옴-->
 
-	<div id = "member_tab">
-	<button class="tablink" onclick="openCity('London', this, 'red')" id="defaultOpen"> 주요기능1 </button>
-	<button class="tablink" onclick="openCity('Paris', this, 'green')" id="defaultClose" > 주요기능2 </button>
-		<br><br><br><br>
-		<div id="London" class="tabcontent">
-			<div id = >
-					텍스트 1
-			</div>
+<div class = "outer">
+<%=cList %>
+		<br>
+		<h1 align="left" style="font-size : 50px;"><em>회원가입</em></h1>
 		
-		</div>
-	
-		<div id="Paris" class="tabcontent">
-			<div>
-					텍스트 222222
-			</div>
-		</div>
-	</div>
-		<table align = "center">
+		<form id = "joinForm" action = "<%=request.getContextPath() %>/insert.me" method ="post" >
+			<table align = "center">
 				<tr>
-					<td> * 는 필수 입력 정보입니다.</td>
+					<td width ="200px"> * 아이디 </td>
+					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" required></td>  <!--required 미입력시 값을 입력하세요 문구뜸  -->
+					<td><div id = "checkId" class = "checkInfo"></div></td>
+					<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
 				</tr>
 				<tr>
-					<td><input type = "text" maxlength ="13" name = "userId" required placeholder="아이디" style="width:600px; height : 50px;"></td>  
-					<td width ="150px"><button class="btn idCheck" class = "btns">중복확인</button></td>
+					<td> * 비밀번호 </td>
+					<td><input type ="password" maxlength="13" name ="userPwd" required></td>
 				</tr>
 				<tr>
-					<td><input type ="password" maxlength="13" name ="userPwd" required placeholder="비밀번호" style="width:600px; height : 50px;"></td>
-				</tr>
-                 <tr>   
-					<td><input type="password" maxlength="13" name="userPwd2" required placeholder="비밀번호 확인" style="width:600px; height : 50px;"></td>
+					<td>* 비밀번호 확인</td>
+					<td><input type="password" maxlength="13" name="userPwd2" required></td>
 					<td><label id ="pwdResult"></label></td>
 				</tr>
 				<tr>
-					<td><input type = "text" maxlength="5" name="userName" required placeholder="이름" style="width:600px; height : 50px;"></td>
+					<td> * 이름 </td>
+					<td><input type = "text" maxlength="5" name="userName" required></td>
 				</tr>
 				<tr>
-					<td><input type = "text" maxlength="5" name="userRRN" required placeholder="주민번호" style="width:600px; height : 50px;"></td>
+				<td> * 주민등록번호 </td>
+					<td><input type = "text" maxlength="5" name="userRRN" required></td>
 				</tr>
 				<tr>
+					<td> * 연락처 </td>
 					<td>
-						<input type="tel" maxlength="11" name="phone" placeholder="(-없이)01012345678" style="width:600px; height : 50px;">
+						<input type="tel" maxlength="11" name="phone" placeholder="(-없이)01012345678">
 					</td>
 				</tr>
 				<tr>
-					<td><input type = "email" name = "email" placeholder="이메일" style="width:600px; height : 50px;"></td>
+					<td> * 이메일 </td>
+					<td><input type = "email" name = "email"></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td><input type="text" name = "address" placeholder="주소" style="width:600px; height : 50px;"></td>
+					<td> * 주소 </td>
+					<td><input type="text" name = "address"></td>
 					<td></td>
 				</tr>
 				<tr>
-					<td><select name = "class" style="width:600px; height : 30px;">
+					<td> * 반 </td>
+					<td><select name = "class">
 					<%for(int i = 0 ; i < cList.size(); i++ ){ %>
 						<option value = "<%=cList.get(i).getcId()%>"><%=cList.get(i).getcName() %></option>
 					<% }%> 
@@ -194,18 +200,17 @@ td input ,td select{
 				</tr>
 	
 			</table>
-		
-			<br>
-			<div  align = "center">
+			
+			<div  align = "right">
 				
 				<!-- submit 방법 1 (함수활용해서 submit하기 )(required동작 안함) -->
-				<button class = "btn joinBtn" id = "joinBtn" onclick = "insertMember();">가입하기</button> <!--함수방식은 required 적용이안됨-->
+				<div class = "btns" id = "joinBtn" onclick = "insertMember();">가입하기</div> <!--함수방식은 required 적용이안됨-->
 				
 				<!-- submit 방법 2 -->
 				<!-- <input id = "joinBtn" type="submit" value ="가입하기">	 -->			<!-- submit버튼으로 만들어서 실행해야 input태그들의 required이 발동함 -->
 				
 				<!-- InsertMemberServlet 만들러 감 -->
-				<button class = "btn mainBtn" id = "goMain" onclick = "goMain();">메인으로</button>
+				<div class = "btns" id = "goMain" onclick = "goMain();">메인으로</div>
 				
 			</div>
 		</form>
@@ -223,6 +228,71 @@ td input ,td select{
 	
 	
 	<script>
+	
+	
+		$("#userId").keyup(function(){
+			
+			var userId = $("#userId").val();
+			var idRe = /^[a-z,A-z,0-9]{4,12}$/;
+			
+			$.ajax({
+				url : "/KH_Groupware/checkId.me",
+				data : {userId : userId},
+				success : function(data){
+					if(userId == null){
+						$("#checkId").text("아이디를 입력하세요.");
+					}
+					if(!idRe.test(userId)){
+						$("#checkId").css("color","red");
+						$("#userId").css("border","3px solid red");
+						$("#checkId").text("4-12의 영문자,숫자만 입력가능합니다.");
+					}else if(data > 0){
+						$("#checkId").text("중복된 아이디입니다.");
+					}else{
+						$("#checkId").text("사용가능한 아이디입니다.");
+						$("#checkId").css("color","blue");
+						$("#userId").css("border","3px solid blue");
+						}
+					}	
+				});		
+		});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		// 메인으로 이동 함수
 		function goMain(){
 			location.href ="<%=request.getContextPath()%>/index.jsp";
@@ -243,52 +313,16 @@ td input ,td select{
 			});
 
 		
-/* 		$(function() {
-			var BPOPUP = ''; */
-		
+		$(function() {
+			var BPOPUP = '';
 			$('#idCheck').on('click', function(e) {
-				
 				e.preventDefault();
 				BPOPUP = $('#idCheckPop').bPopup({
-	
+
 				});
 			});
-	/* 	}); */
-		
-
-		// When the user scrolls the page, execute myFunction 
-		window.onscroll = function() {myFunction()};
-
-		function myFunction() {
-		  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-		  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-		  var scrolled = (winScroll / height) * 100;
-		  document.getElementById("myBar").style.width = scrolled + "%";
-		}
-		
-		
-		
-		function openCity(cityName,elmnt,color) {
-			  var i, tabcontent, tablinks;
-			  tabcontent = document.getElementsByClassName("tabcontent");
-			  for (i = 0; i < tabcontent.length; i++) {
-			    tabcontent[i].style.display = "none";
-			  }
-			  tablinks = document.getElementsByClassName("tablink");
-			  for (i = 0; i < tablinks.length; i++) {
-			    tablinks[i].style.backgroundColor = "";
-			  }
-			  document.getElementById(cityName).style.display = "block";
-			  elmnt.style.backgroundColor = color;
-			
-			}
-			// Get the element with id="defaultOpen" and click on it
-			document.getElementById("defaultOpen").click();
-			
-		</script>
-			
-			
-	
+		});
+	</script>
 	
 		
 </body>

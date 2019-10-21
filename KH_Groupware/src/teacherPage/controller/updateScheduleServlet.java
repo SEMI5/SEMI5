@@ -56,16 +56,6 @@ public class updateScheduleServlet extends HttpServlet {
 			result = new tPageService().modifySchedule(scd);
 
 		}
-		if(type.equals("modifyOneday")) {
-			Date strDate = null;
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String sdate = request.getParameter("strDate");
-			strDate = Date.valueOf(sdate);
-
-			Schedule scd = new Schedule(scdNo, strDate, null);
-			result = new tPageService().modifySchedule(scd);
-
-		}
 		if(type.equals("delete")) {
 			result = new tPageService().deleteSchedule(scdNo);
 		}

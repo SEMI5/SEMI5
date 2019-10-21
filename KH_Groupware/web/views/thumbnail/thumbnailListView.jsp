@@ -19,6 +19,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 .outer{
       width:100%;
@@ -151,17 +152,7 @@
 		<hr>
 		<br>
 		<div id = listcountDiv><b>총 <span class=lisCountSpan><%=listCount%></span>건,(<span class=lisCountSpan><%=currentPage%></span>/<%=maxPage%>)</b></div>
-				<!-- 여기도 마찬가지로 검색 창을 만들어 주자, 역시 구현은 pass  -->
-		<div class="searchArea">
-			<select id ="searchCondition" name = "searchCondition">
-				<option> --------- </option>
-				<option value="writer"> 작성자 </option>
-				<option value="title"> 제목 </option>
-				<option value="content"> 내용 </option>
-			</select>
-			<input type ="search" id = "serach-bar">
-			<button type ="submit" id = "submit-btn">검색하기 </button>
-		</div>
+
 		<div class = "thumbnailArea">
 		<%if(loginUser != null) {%>	 
 			 <% if(list.isEmpty())	{%>

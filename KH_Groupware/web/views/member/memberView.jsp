@@ -102,8 +102,8 @@
 
 </style>
 </head>
-	<%@ include file = "../common/header.jsp" %>
 <body>
+<%@ include file = "/views/common/header.jsp" %>	
 	<div class = "outer">
 	<!-- memberJoinForm.jsp에 있는 table을 복사해서 쓰자 -->
 																	<!-- update.me 라는 클래스파일 실행-->

@@ -9,8 +9,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- <script src = "../js/jquery-3.2.1.min.js" type = "text/javascript"></script> -->
+
+<!-- 지워야함 쓰려면 메인홈에서 제이쿼리 적용해서 써야함. -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src = "../js/jquery-3.2.1.min.js" type = "text/javascript"></script> -->
 
 
 
@@ -159,6 +161,7 @@ li:hover{
    border: 1px solid lightgray;
    position:absolute; right:-610px;
    z-index:10;
+   display:none;
 }
 
 .login{
@@ -339,7 +342,7 @@ h3{
          <h3 style=margin:20px;>마이페이지</h3>
          <ul>
             <li> 내정보수정 </li>
-            <li> 휴가관리 </li>
+            <li onclick= "location.href = '<%=request.getContextPath()%>/views/studentPage/stdCalendar.jsp'"> 일정 및 휴가관리 </li>
          </ul>
       </div>
       <div class = "btnImg">
@@ -689,6 +692,8 @@ h3{
             if($('#myPageBtn').data("value") == "0"){
                $('#myPageBtn').addClass("hoverStay");      
                
+               $(".loginDiv").css("display","block")
+               
                $(".loginDiv").children().addClass("stay");
                $(".loginDiv").children().children().addClass("stay");
                $(".loginDiv").children().children().children().addClass("stay");
@@ -704,6 +709,7 @@ h3{
    
       //로그인 div 제거 
       function removeLoginDiv(){
+    	  $(".loginDiv").css("display","none")
          $("#blackOpacity2").fadeOut('2000');
          $(".loginDiv").animate({"right":"-605px"},'2000',function(){
             $("#myPageBtn").data("value","0");

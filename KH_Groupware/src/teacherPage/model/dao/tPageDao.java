@@ -52,7 +52,7 @@ public class tPageDao {
 			pstmt.setInt(6, member.getUserNo());
 			
 			result = pstmt.executeUpdate();
-			
+			System.out.println(result+"개 행 업데이트");
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally {
@@ -89,7 +89,7 @@ public class tPageDao {
 
 
 
-	public int updateSeat(Connection conn, ArrayList<Member> csList) {
+	public int updateSeat(Connection conn, String[] seatMapping) {
 		PreparedStatement pstmt = null;
 		
 		ResultSet rs = null;
@@ -99,15 +99,16 @@ public class tPageDao {
 		String query = prop.getProperty("updateSeat");
 		
 		try {
-			
-			for(int i = 0 ; i < csList.size() ; i++ ) {
+			for(int i = 0 ; i < seatMapping.length ; i++) {
+				String[] seatMap = seatMapping[i].split(":");
+
+				
 				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1, csList.get(i).getSeat());
-				pstmt.setInt(2, csList.get(i).getUserNo());
+				pstmt.setString(1, seatMap[1]);
+				pstmt.setInt(2, Integer.valueOf(seatMap[0]));
+				
+				result = pstmt.executeUpdate();
 			}
-			
-			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -135,6 +136,7 @@ public class tPageDao {
 			pstmt.setString(3, scd.getScdName());
 			pstmt.setDate(4, scd.getStrDate());
 			pstmt.setDate(5, scd.getEndDate());
+			pstmt.setString(6, scd.getScdType());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -170,6 +172,7 @@ public class tPageDao {
 										rs.getString("sc_name"),
 										rs.getDate("str_date"),
 										rs.getDate("end_date"),
+										rs.getString("sc_type"),
 										rs.getString("status")));
 
 			}
@@ -223,6 +226,66 @@ public class tPageDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+	public ArrayList<Schedule> showSchedule(Connection conn, int stdNum) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<Schedule> scdList = new ArrayList<Schedule>();
+		
+		String query = prop.getProperty("selectSchedule");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, stdNum);
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				scdList.add(new Schedule(rs.getInt("sid"),
+						rs.getInt("cid"),
+						rs.getInt("stid"),
+						rs.getString("sc_name"),
+						rs.getDate("str_date"),
+						rs.getDate("end_date"),
+						rs.getString("sc_type"),
+						rs.getString("status")));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return scdList;
+	}
+
+
+
+	public int approveVacation(Connection conn, int scdId, String type) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("approveVacation");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, type);
+			pstmt.setInt(2, scdId);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
 			close(pstmt);
 		}
 		

@@ -202,7 +202,7 @@ td{
 			<button id = "goList" onclick="location.href='<%=request.getContextPath()%>/list.th'">목록으로</button>	
 			<%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
 					<button type="submit" onclick="location.href='<%=request.getContextPath()%>/updateView.th?bid=<%=b.getbId()%>'">수정하기</button>				
-			<%} %>
+			<%} %>	
 					
 		<!-- 	<button id  = "updateBtn" onclick ="updateTthumbnail();">수정하기</button> -->
 			<button id  = "deleteBtn" onclick = "deleteThumbnail();">삭제하기</button>

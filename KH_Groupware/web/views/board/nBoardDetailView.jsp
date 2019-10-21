@@ -3,9 +3,13 @@
     
 <%
 	Board b = (Board)request.getAttribute("board");
-	Board bPrev	= (Board)request.getAttribute("boardPrev");
-	Board bNext = (Board)request.getAttribute("boardNext");
+	Board bPrev	= (Board)request.getAttribute("prevBoard");
+	Board bNext = (Board)request.getAttribute("nextBoard");
 	
+	ArrayList<Attachment> attachments= new ArrayList<Attachment>();
+	if(b.getBtype().equals("2")){
+		attachments = (ArrayList<Attachment>)request.getAttribute("attachments");
+	}			
 
 	/* Ajax이후 */
 /* 	ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist"); */
@@ -13,14 +17,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
    #outer{
        width: 100%;
        position: absolute;
-       border:1px solid black;
+       border:none;
        padding: 10px;
    }
    td {
@@ -58,7 +69,7 @@
       width: 1300px;
       padding:10px;
       margin: auto;
-   }
+}
 
 
  table{
@@ -101,6 +112,7 @@
     padding: 10px;
     text-align: left; 
     display:none;
+    z-index:5;
 }
  .balloon:after {
     content: '';
@@ -139,6 +151,17 @@
 
 }
 
+
+.attachmentP{
+   position: relative;
+   margin: auto;
+   padding: auto;
+   padding-bottom:5px;
+   word-wrap: break-word;
+		
+}
+
+
 .attachmentP:hover{
 cursor:pointer;
 text-decoration: underline;
@@ -152,12 +175,28 @@ text-decoration: underline;
 	top: 120px;
 }
 
+
+
 .clipDiv:hover{
 	cursor:pointer;
 }
 
-#writeBtn{
+#listBtn{
    border:none;
+   outline: none;
+   background-color: black; 
+   color: white;
+   font-size: 16px;
+   height: 40px;
+   width: 70px;
+   position: absolute; 
+   right: 615px;
+   bottom: 35px;
+   z-index:1;
+}
+
+#reWriteBtn{
+	 border:none;
    outline: none;
    background-color: black; 
    color: white;
@@ -166,11 +205,12 @@ text-decoration: underline;
    width: 70px;
    position: absolute;
    right: 35px;
-   bottom: 37px;
+   bottom: 35px;
+   z-index:1;
 }
 
-#reWriteBtn{
-   border:none;
+#deleteBtn{
+    border:none;
    outline: none;
    background-color: black; 
    color: white;
@@ -178,20 +218,38 @@ text-decoration: underline;
    height: 40px;
    width: 70px;
    position: absolute;
-   right: 130px;
-   bottom: 37px;
+   right: 120px;
+   bottom: 35px;
+   z-index:1;
 }
 
+#deleteBtn:hover{
+   background-color: darkgray; 
+   color: white;
+   
+}
 
-#writeBtn:hover{
+#listBtn:hover{
    background-color: #f53f29; 
    color: white;
 }
 
 #reWriteBtn:hover{
-   background-color: darkgray; 
+
+   background-color: #f53f29; 
    color: white;
 }
+
+#preNextBoard:hover{
+	cusrsor:pointer; 
+	color: darkgray;
+}
+
+.attachmentCount{
+	color:#f53f29; 
+	font-size:15px
+}
+
 </style>
 </head>
 <header>
@@ -212,37 +270,38 @@ text-decoration: underline;
 					<td style="font-size: 16px"><b>등록일:</b>&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;|&nbsp;&nbsp;<b>조회수:</b> <%=b.getbCount()%></td>
 				</tr>
 				<tr>
-                    
-                         
-                      <td style="border:none" id="clipTd">
-                      
-                      	<div class= "clipDiv">
-                    	<span id= "clip" ><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=24px style="padding-bottom:3px">&nbsp;첨부파일(5)</span>
-                   		</div>
+				<td>
+				 <% if(b.getBtype().equals("2")){ %>
+                   	 
+                   		<div class= "clipDiv">
+                  			<span id= "clip" ><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=24px style="padding-bottom:3px">
+                  			&nbsp;<b style="font-size:14px">첨부파일(<font class= attachmentCount><%=attachments.size()%></font>)</b></span>
+               			</div>
 						<div class="balloon">
-                         <p class="attachmentP">테이블 정의서.hwp</p>
-                         <p class="attachmentP">유스케이스 다이어그램.pdf</p>
-                         <p class="attachmentP">semi_workspace.zip</p>
-                         <p class="attachmentP">혼돈의 카오스.jpg</p>
-                         <p class="attachmentP">얄리얄리얄라성.pdf</p>
+							<%for(int i = 0;  i<attachments.size(); i++){ %>
+                           			<%Attachment f = attachments.get(i);%>
+                            		<%if(f.getbId() == b.getbId()){%> 
+			                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
+                             	 	<%}%>                     
+                            <%}%> 
                          <br>
                          <div class= "balloonClose">닫기</div>
                         </div>
-               		</td>
-				</tr>
-				<tr>
-					<td style=padding-top:0px;margin-top:0px;"><p id="content"><%=b.getbContent() %></p></td>
+               			<br>
+					 <%} %>
+					<%=b.getbContent() %></td>
 				</tr>
 				<tr style="font-size:16px">
 					<%if(bPrev != null){%>
-						<td><b style="margin-right:30px;">이전글</b><span onclick = "goBoardDetail('<%=bPrev.getbId()%>');" style="cursor:pointer"><%=bPrev.getbTitle()%></span></td>
+						<td><b style="margin-right:30px;">이전글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bPrev.getbId()%>');"><%=bPrev.getbTitle()%></span></td>
 					<%}else{%>
 						<td><b style="margin-right:30px">이전글</b>이전글이 없습니다.</td>
 					<%}%>
+					
 				</tr>
 				<tr style="font-size:16px">
 					<%if(bNext != null){%>
-						<td><b style="margin-right:30px">다음글</b><span onclick = "goBoardDetail('<%=bNext.getbId()%>');" style="cursor:pointer"><%=bNext.getbTitle()%></span></td>
+						<td><b style="margin-right:30px">다음글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bNext.getbId()%>');"><%=bNext.getbTitle()%></span></td>
 					<%}else{%>
 						<td><b style="margin-right:30px">다음글</b>다음글이 없습니다.
 					<%}%>
@@ -250,8 +309,11 @@ text-decoration: underline;
 				</tbody>
 			</table>
 			<br><br><br><br>
-				<button id = reWriteBtn onclick = "" style="display:inline-block"><b>수정</b></button>
-				<button id = writeBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
+				<%if(loginUser != null && loginUser.getUserNo() > 10000){ %>
+				<button id = deleteBtn onclick = "deleteBoard();"><b>삭제</b></button>
+				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/NupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
+				<%}%>
+				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
 					
 		</div>
 		
@@ -343,7 +405,7 @@ text-decoration: underline;
 $(function(){
     $(".clipDiv").click(function(){
        
-          var balloon = $(this).parent().find(".balloon");   
+         var balloon = $(this).parent().find(".balloon");   
          if(balloon.css("display")== "none"){
             balloon.css({"display":"block"})   
          }else{
@@ -361,7 +423,22 @@ $(function(){
 	location.href="<%=request.getContextPath()%>/Ndetail.bo?bid=" + bid;
 } 
 
+ function downloadAttach(thing){
+	 location.href="<%=request.getContextPath() %>/Ndownload.at?fid="+thing;
+	 
+ }
 
+ function deleteBoard() {
+	 
+	   if(confirm("정말로 삭제하시겠습니까?")) {
+           $(this).parent().click();
+      	 location.href="<%=request.getContextPath() %>/Ndelete.bo?bid=<%=b.getbId()%>";
+       } else {
+           return false;
+       }
+ }
+ 
+ 
 </script>
 
 </html>

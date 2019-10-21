@@ -1,16 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.*, java.util.ArrayList" %>
+    pageEncoding="UTF-8" import="board.model.vo.*, java.util.*" %>
     
     <%
    ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+   ArrayList<Attachment> flist = (ArrayList<Attachment>)request.getAttribute("flist");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    
+/* 	 java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");
+	 String today = formatter.format(new java.util.Date());
+   
+		Date day1 = formatter.parse((list.get(0).getModifyDate());  */
+	 
+	 
    int listCount = pi.getListCount();
    int currentPage = pi.getCurrentPage();
    int maxPage = pi.getMaxPage();
    int startPage = pi.getStartPage();
    int endPage = pi.getEndPage();
-%>    
+ %>    
     
 <!DOCTYPE html>
 <html>
@@ -103,7 +110,7 @@
 }
 
 .balloon {
-    display: inline-block;
+    display: none;
     position: absolute;
     background: white;
     width: 250px;
@@ -113,7 +120,7 @@
     font-size: 14px; 
     padding: 10px;
     text-align: left; 
-    display:none;
+
 }
  .balloon:after {
     content: '';
@@ -148,12 +155,12 @@
 }
 
 .attachmentP{
-   margin: 0px;
-   margin-bottom:1px;
-   padding: 1px;
-
-
-
+   position: relative;
+   margin: auto;
+   padding: auto;
+   padding-bottom:5px;
+   word-wrap: break-word;
+		
 }
 
     
@@ -257,6 +264,11 @@ input{
 	top:10px;
 
 }
+.superTr:hover{
+	font-weight: bold;
+}
+
+
 
 </style>
 
@@ -305,30 +317,34 @@ input{
     
       <% if(list.isEmpty()){ %>
             <tr>
-               <td colspan="6">조회된 리스트가 없습니다.</td>
+               <td colspan="6" align="center" style="cursor:default">조회된 리스트가 없습니다.</td>
             </tr>
             <%}else{ %>
                <% for(Board b : list){ %>
-                  <tr>
+               		<% if(b.getBlevl() == 4){%>
+                  	<tr class= superTr style="background: #F2FFED">
+                 	<%}else{%>
+                    <tr class= normalTr>
+                    <%}%>
                      <td align="center"><%=b.getbId() %></td>
                      <input type="hidden" value="<%=b.getbId() %>">
                      <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
                      <td align="center"><%=b.getbWriter()%></td>
                       <% if(b.getBtype().equals("2")){ %>
-                         
-                         <td align="center" class = "attachment">
-                             <div class="balloon">
-                              <p class="attachmentP">테이블 정의서.hwp</p>
-                              <p class="attachmentP">유스케이스 다이어그램.pdf</p>
-                              <p class="attachmentP">semi_workspace.zip</p>
-                              <p class="attachmentP">혼돈의 카오스.jpg</p>
-                              <p class="attachmentP">얄리얄리얄라성.pdf</p>
-                              <br>
-                                 <div class= "balloonClose">닫기</div>
-                             </div>
-                             <div class= "clip clipDiv"><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=18px></div>
-                         </td>
-                        
+                         	
+                         	<td align="center" class = "attachment">
+                           	<div class="balloon" style="font-weight:normal">
+                           		<%for(int i = flist.size()-1; i>-1 ; i--){ %>
+                           			<%Attachment f = flist.get(i);%>
+                            		<%if(f.getbId() == b.getbId()){%> 
+			                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
+                             	 	<%}%>                     
+                            <%}%> 
+   	 						<br>
+                            <div class= "balloonClose">닫기</div>
+                            </div>
+                            <div class= "clip clipDiv"><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=18px></div>
+                         	</td>
                       <%}else{%>
                          <td align="center"></td>
                       <%}%>
@@ -342,11 +358,11 @@ input{
 </table>
 
 <br>
-
 <br>
+
+<%if(loginUser !=null && loginUser.getUserNo() > 10000) {%>
 <button id = writerBtn onclick = "goBoardInsertForm();"><b>글쓰기</b></button>
-
-
+<%}%>
 
    <!-- 페이징 처리 시작 -->
    <br>
@@ -370,7 +386,6 @@ input{
             <%} %>
          <%} %>
          
-         <!-- 다음 페이지로(>) -->
          <%if(currentPage >= maxPage){ %>
             <button disabled> > </button>
          <%}else{ %>
@@ -380,30 +395,57 @@ input{
          <!-- 맨 끝으로(>>) -->
          <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=maxPage %>'"> >> </button>
       </div>
+      
+      <form id= "formTag" action="<%=request.getContextPath()%>/Ndetail.bo" method="post">
+      	
+      	<input id= "bid" type= hidden value="" name = bid >
+      	<input id= "nextBid" type=hidden value="" name="nextBid">
+      	<input id= "prevBid" type=hidden value="" name="prevBid"> 	
+      </form>
 </div>
 </div>
 <script> 
-$(function(){
-      $("td").mouseenter(function(){
+  $(function(){
+      $(".normalTr td").mouseenter(function(){
          $(this).parent().css({"background":"#F2FFED"});
       }).mouseout(function(){
          $(this).parent().css({"background":"white"});
       })
-   });
+   }); 
+
+
 
 </script>
     
 <script> 
 
-// 게시글 제목클릭시 detailView를 위한 서블릿으로 이동  
+ 
 $(function(){
-    $("td").mouseenter(function(){
-    $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
+	
+    $(".superTr td").mouseenter(function(){
+   		   $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
            var bid = $(this).parent().children().eq(0).text(); // 게시글의  글번호 
-           location.href="<%=request.getContextPath()%>/Ndetail.bo?bid=" + bid;
-       }) 
+           $("#bid").val(bid);            
+           $("#formTag").submit(); 
+       });
+    }).mouseout(function(){
+    	$(this).parent().css({"background":"#F2FFED"});
     });
  });
+ 
+$(function(){
+	
+    $(".normalTr td").mouseenter(function(){
+   		   $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
+           var bid = $(this).parent().children().eq(0).text(); // 게시글의  글번호 
+           $("#bid").val(bid);            
+           $("#formTag").submit(); 
+       });
+    }).mouseout(function(){
+    	$(this).parent().css({"background":"white"});
+    });
+ });
+ 
   
 // 첨부파일 아이콘 클릭시 
 $(function(){
@@ -433,6 +475,14 @@ $(function(){
  function searchList(){
 	 $("#searchForm").submit();
  }
+ 
+ 
+ function downloadAttach(thing){
+	 location.href="<%=request.getContextPath() %>/Ndownload.at?fid="+thing;
+	 
+ }
+ 
+ 
  
  
 </script>

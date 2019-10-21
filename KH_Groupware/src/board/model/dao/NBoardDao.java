@@ -33,8 +33,8 @@ public class NBoardDao {
 		}
 	}
 
-	public int getListCount(Connection conn) {
-		Statement stmt = null;
+	public int getListCount(int cid, Connection conn) {
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		int listCount = 0;
@@ -42,23 +42,25 @@ public class NBoardDao {
 		String query = prop.getProperty("getNBoardListCount");
 		
 		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, cid);
+			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				listCount=rs.getInt(1);	// 쿼리에서의 resultSet 컬럼 값(count(*))을 뽑아내서 int listCount에 담음
+				System.out.println("다오 리스트 카운트:" +listCount);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(stmt);
+			close(pstmt);
 			close(rs);
 		}
 		return listCount;
 	}
 	
-	public int getListCount(Connection conn, String type, String searchWord) {
+	public int getListCount(int cid, Connection conn, String type, String searchWord) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int listCount = 0;
@@ -72,6 +74,7 @@ public class NBoardDao {
 				pstmt.setString(1, searchWord2);
 				pstmt.setString(2, searchWord2);
 				pstmt.setString(3, searchWord2);
+				pstmt.setInt(4, cid);
 				rs = pstmt.executeQuery();
 			}else if(type.equals("btitle")) {
 				
@@ -79,6 +82,7 @@ public class NBoardDao {
 				pstmt = conn.prepareStatement(query);
 				String searchWord2= "%"+searchWord+"%";
 				pstmt.setString(1, searchWord2);
+				pstmt.setInt(2, cid);
 				rs = pstmt.executeQuery();
 				
 			}else if(type.equals("bcontent")) {
@@ -86,12 +90,14 @@ public class NBoardDao {
 				pstmt = conn.prepareStatement(query);
 				String searchWord2= "%"+searchWord+"%";
 				pstmt.setString(1, searchWord2);
+				pstmt.setInt(2, cid);
 				rs = pstmt.executeQuery();
 			}else if(type.equals("user_name")) {
 				query = prop.getProperty("bwriterListCount");
 				pstmt = conn.prepareStatement(query);
 				String searchWord2= "%"+searchWord+"%";
 				pstmt.setString(1, searchWord2);
+				pstmt.setInt(2, cid);
 				rs = pstmt.executeQuery();	
 			}
 			
@@ -110,11 +116,11 @@ public class NBoardDao {
 	
 	
 
-	public ArrayList<Board> selectList(Connection conn, int currentPage, int limit) {
+	public ArrayList selectBList(int cid, Connection conn, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		ArrayList<Board>list = null;
+		ArrayList list = null;
 		
 		String query = prop.getProperty("selectNList");
 		
@@ -125,13 +131,14 @@ public class NBoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, cid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
 			
 			rs=pstmt.executeQuery();
 			
-			list = new ArrayList<Board>();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
+			list = new ArrayList();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
 			
 			while(rs.next()) {
 				Board b = new Board(rs.getInt("BID"),
@@ -143,9 +150,11 @@ public class NBoardDao {
 									rs.getInt("bcount"),
 									rs.getDate("create_date"),
 									rs.getDate("modify_date"),
-									rs.getString("status"));
+									rs.getString("status"),
+									rs.getInt("BLEVEL"));
 				list.add(b);
 			}
+			System.out.println("다오 보드리스트" +list);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -157,14 +166,55 @@ public class NBoardDao {
 		return list;
 	}
 	
-	public ArrayList<Board> selectList(String type, String searchWord, Connection conn, int currentPage, int limit) {
+	public ArrayList selectAttachList(int cid, Connection conn, int currentPage, int limit) {
+		
+
+		int startRow = (currentPage-1)*limit +1;	
+		int endRow = startRow + limit -1;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList list = null;
+		String query = prop.getProperty("selectAttachList");
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+		
+			pstmt.setInt(1, cid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs=pstmt.executeQuery();
+		
+			list = new ArrayList<Board>();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
+			while(rs.next()) {
+				Attachment a= new Attachment(rs.getInt("FID"),
+									rs.getInt("BID"),
+									rs.getString("ORIGIN_NAME"),
+									rs.getString("CHANGE_NAME"),
+									rs.getString("FILE_PATH"));
+				list.add(a);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		
+		return list; 
+	}
+	
+	
+	
+	
+	public ArrayList<Board> selectList(int cid, String type, String searchWord, Connection conn, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		ArrayList<Board>list = null;
-		
-		
-		
+
 		// 쿼리문 실행시 조건절에 넣을 변수들(rownum에 대한 조건 시 필요)
 		int startRow = (currentPage-1)*limit +1;	
 		// ex) 2page면 시작 번호가 11번일 것이다.
@@ -172,6 +222,7 @@ public class NBoardDao {
 		String query = null;
 		String searchWord2= null;
 		Statement stmt = null;
+		
 		searchWord2= "%"+searchWord+"%";
 		try {
 				if(type.equals("all")) { 
@@ -180,14 +231,17 @@ public class NBoardDao {
 					pstmt.setString(1, searchWord2);
 					pstmt.setString(2, searchWord2);
 					pstmt.setString(3, searchWord2);
-					pstmt.setInt(4, startRow);
-					pstmt.setInt(5, endRow);
+					pstmt.setInt(4, cid);
+					pstmt.setInt(5, startRow);
+					pstmt.setInt(6, endRow);
+
 					rs=pstmt.executeQuery();
 				}else {
-					 query = "select * FROM (SELECT ROWNUM RNUM,BID,CID,BTITLE,BCONTENT,BTYPE,USER_NAME,BCOUNT,CREATE_DATE,MODIFY_DATE,STATUS "  
-						    + "FROM N_BLIST " 
-						    + "WHERE "+type+" LIKE ('"+searchWord2 +"')) "
-							+ "WHERE RNUM BETWEEN "+ currentPage+ " AND " + limit ;
+					 query = "select * "
+					 		+ "FROM (SELECT ROWNUM RNUM,BID,CID,BTITLE,BCONTENT,BTYPE,USER_NAME,BCOUNT,CREATE_DATE,MODIFY_DATE,STATUS "  
+					 			   + "FROM N_BLIST " 
+					 			   + "WHERE ("+type+" LIKE '"+searchWord2 +"') AND (CID=" +cid +")) "
+							+ "WHERE RNUM BETWEEN "+ currentPage+ " AND " + limit;
 					stmt= conn.createStatement();
 					rs=stmt.executeQuery(query);
 				}
@@ -202,7 +256,8 @@ public class NBoardDao {
 									rs.getInt("bcount"),
 									rs.getDate("create_date"),
 									rs.getDate("modify_date"),
-									rs.getString("status"));
+									rs.getString("status"),
+									rs.getInt("BLEVEL"));
 				list.add(b);
 			}
 			
@@ -223,15 +278,16 @@ public class NBoardDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertBoard");
+		String query = prop.getProperty("insertNBoard");
 		
 		try {
 			pstmt= conn.prepareStatement(query);
-			pstmt.setInt(1, Integer.valueOf(b.getcId()));
+			pstmt.setInt(1, b.getcId());
 			pstmt.setString(2,  b.getbTitle());
-			pstmt.setString(3, b.getbContent());
-			pstmt.setString(4, b.getbWriter());
-			
+			pstmt.setString(3,  b.getBtype());
+			pstmt.setString(4, b.getbContent());
+			pstmt.setString(5,  b.getbWriter());
+			pstmt.setInt(6,  b.getBlevl());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -268,7 +324,8 @@ public class NBoardDao {
 						rs.getInt("bcount"),
 						rs.getDate("create_date"),
 						rs.getDate("modify_date"),
-						rs.getString("status"));
+						rs.getString("status"),
+						rs.getInt("BLEVEL"));
 			}
 			
 		} catch (SQLException e) {
@@ -324,7 +381,8 @@ public class NBoardDao {
 									rs.getInt("bcount"),
 									rs.getDate("create_date"),
 									rs.getDate("modify_date"),
-									rs.getString("status")));
+									rs.getString("status"),
+									rs.getInt("BLEVEL")));
 			}
 			
 		} catch (SQLException e) {
@@ -337,10 +395,9 @@ public class NBoardDao {
 		return list;
 	}
 
-	public ArrayList selectFList(Connection conn) {
+	public ArrayList selectFList(Connection conn, int currentPage, int limit) {
 		Statement stmt = null;
 		ResultSet rs = null;
-		
 		ArrayList list = null;
 		
 		String query = prop.getProperty("selectFList");
@@ -385,11 +442,47 @@ public class NBoardDao {
 		return result;
 	}
 
+	public int updateAttachment(int bid, Connection conn, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateNAttachment");
+		
+		try {
+			for(int i=0; i<fileList.size();i++) {
+				Attachment at = fileList.get(i);
+				
+				pstmt=conn.prepareStatement(query);
+				pstmt.setInt(1, bid);
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				pstmt.setInt(5, at.getFileLevel());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		// fileList가 가진 파일 갯수만큼의 행이 모두 insert가 되었다면
+		if(result == fileList.size())
+			return result;
+		else
+			return 0;
+
+	}
+	
+	
+	
+	
 	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertAttachment");
+		String query = prop.getProperty("insertNAttachment");
 		
 		try {
 			for(int i=0; i<fileList.size();i++) {
@@ -487,6 +580,88 @@ public class NBoardDao {
 		
 		return at;
 	}
+	
+	public ArrayList<Attachment> selectAttachments(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Attachment at = null;
+		ArrayList<Attachment> attachments = new ArrayList<Attachment>();
+		
+		String query = prop.getProperty("selectAttachments");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+		
+			rs = pstmt.executeQuery();
+			
+			
+				
+					// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
+				while(rs.next()) {
+					at= new Attachment(rs.getInt("FID"),
+										rs.getInt("BID"),
+										rs.getString("ORIGIN_NAME"),
+										rs.getString("CHANGE_NAME"),
+										rs.getString("FILE_PATH"));
+					attachments.add(at);
+				}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return attachments;
+	}
+	
+	public ArrayList<Attachment> selectAttachments(Connection conn, ArrayList<Board> list) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Attachment at = null;
+		ArrayList<Attachment> attachments = new ArrayList<Attachment>();
+		
+		String query = prop.getProperty("selectAttachments");
+		
+		try {
+			for(Board b:list) {
+				
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, b.getbId());
+				
+			
+				rs = pstmt.executeQuery();
+					
+						// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
+					while(rs.next()) {
+						at= new Attachment(rs.getInt("FID"),
+											rs.getInt("BID"),
+											rs.getString("ORIGIN_NAME"),
+											rs.getString("CHANGE_NAME"),
+											rs.getString("FILE_PATH"));
+						attachments.add(at);
+					}
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return attachments;
+	}
+	
+	
+	
+	
 
 	public int updateDownloadCount(Connection conn, int fid) {
 		PreparedStatement pstmt = null;
@@ -570,12 +745,170 @@ public class NBoardDao {
 		return result;
 	}
 
+	public int selectRnum(int cid, Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int nowRnum = 0;
+		
+		String query = prop.getProperty("selectRnum");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, cid);
+			pstmt.setInt(2, bid);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				nowRnum=rs.getInt(1);	// 쿼리에서의 resultSet 컬럼 값(count(*))을 뽑아내서 int listCount에 담음
+			}
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return nowRnum;
+	}
 
+	public Board selectBoardAsRnum(int cid, Connection conn, int rnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = null;
+		
+		String query = prop.getProperty("selectBoardAsRnum");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, cid);
+			pstmt.setInt(2, rnum);
+			
+		
+			rs = pstmt.executeQuery();
+		
+			while(rs.next()) {
+				b = new Board(rs.getInt("BID"),
+						rs.getInt("CID"),
+						rs.getString("BTITLE"),
+						rs.getString("BTYPE"),
+						rs.getString("BCONTENT"),
+						rs.getString("USER_NAME"),
+						rs.getInt("bcount"),
+						rs.getDate("create_date"),
+						rs.getDate("modify_date"),
+						rs.getString("status"),
+						rs.getInt("BLEVEL"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return b;
+
+	}
+
+	public int deleteNBoard(Connection conn, int bid) {
+
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;  
+		int result =0; 
+		
+		String query = prop.getProperty("deleteNBoard");
 	
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			result =pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result; 
+	}
+
+	public int deleteNAttach(Connection conn, int bid) {
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;  
+		int result =0; 
+		
+		String query = prop.getProperty("deleteNAttach");
 	
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			result =pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result; 
+	}
+
+	public int deleteAttachAsFid(Connection conn, int fid) {
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;  
+		int result =0; 
+		
+		String query = prop.getProperty("deleteAttachAsFid");
 	
-	
-	
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, fid);
+			result =pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public int updateBoard(Connection conn, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateNBoard");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1,  b.getbTitle());
+			pstmt.setString(2,  b.getBtype());
+			pstmt.setString(3, b.getbContent());
+			pstmt.setInt(4, b.getBlevl());
+			pstmt.setInt(5,  b.getbId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 }

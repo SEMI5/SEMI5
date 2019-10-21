@@ -8,10 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.service.NBoardService;
+import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.Reply;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardDetailServlet
@@ -32,16 +35,26 @@ public class NBoardDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		int cid= loginUser.getcId();
 		
-		int bid=Integer.parseInt(request.getParameter("bid"));
-		Board board = new NBoardService().selectBoard(bid);
-		Board boardPrev = new NBoardService().selectBoard2(bid-1);  // 조회수 올리지 않는 메소드를 새로 작성해서 가져와야함. 
-		Board boardNext= new NBoardService().selectBoard2(bid+1);
 		
-		  System.out.println("서블릿단 board: "+ board);
-		  System.out.println("서블릿단 boardPrv: "+ boardPrev);
-		  System.out.println("서블릿단 boardNext: "+ boardNext);
-		 
+		int bid = Integer.valueOf(request.getParameter("bid"));
+
+		NBoardService nBoardService= new NBoardService( ); 
+		int nowRnum = nBoardService.selectRnum(cid, bid);
+		Board board = nBoardService.selectBoard(bid); // 현재글은 조회수를 올려야 하니 rnum으로 조회x
+		Board prevBoard = nBoardService.selectBoardAsRnum(cid, nowRnum+1); 
+		Board nextBoard = nBoardService.selectBoardAsRnum(cid, nowRnum-1);
+		
+		ArrayList<Attachment> attachments=null;
+		
+		if( board.getBtype().equals("2")){
+			attachments= nBoardService.selectAttachments(bid);
+			 request.setAttribute("attachments", attachments);
+		}
+		
 		
 		// --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분 ------------------- 
 		// 우선 댓글 달기 기능을 위해서 Reply vo 클래스를 만들어 주고 오자.
@@ -54,17 +67,19 @@ public class NBoardDetailServlet extends HttpServlet {
 		 
 		 if(board != null) { 
 			 request.setAttribute("board", board);
-			 request.setAttribute("boardPrev", boardPrev);
-			 request.setAttribute("boardNext", boardNext);
+			 request.setAttribute("prevBoard", prevBoard);
+			 request.setAttribute("nextBoard", nextBoard);
+			
 		
-		  // --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분
-		  //------------------- request.setAttribute("rlist", rlist); //
-		  //boardDetailView.jsp로 가서 댓글리스트가 보여지도록 화면단 작성하자
-		  request.getRequestDispatcher("views/board/nBoardDetailView.jsp").forward(request, response); 
+			  // --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분
+			  //------------------- request.setAttribute("rlist", rlist); //
+			  //boardDetailView.jsp로 가서 댓글리스트가 보여지도록 화면단 작성하자
+			 request.getRequestDispatcher("views/board/nBoardDetailView.jsp").forward(request, response); 
 		  }else { 
-			  request.setAttribute("msg", "게사판 상세조회 실패!");
+			  request.setAttribute("msg", "게시판 상세조회 실패!");
 			  request.getRequestDispatcher("views/common/errorPage.jsp").forward(request,response); 
 		  }
+		
 		 
 		
 	}
