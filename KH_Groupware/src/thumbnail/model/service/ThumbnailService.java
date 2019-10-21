@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import thumbnail.model.vo.Thumbnail;
 import thumbnail.model.dao.ThumbnailDao;
 import thumbnail.model.vo.Attachment;
-import thumbnail.model.vo.Thumbnail;
 
 public class ThumbnailService {
 	
@@ -24,7 +23,7 @@ public class ThumbnailService {
 		if(flag == 1) {
 			// 우선 사진 게시판 리스트 정보를 불러오자
 			list = tDao.selectBList(conn);
-			System.out.println("service : " + list );
+			
 		}else {
 			// 사진 리스트도 불러오자
 			list = tDao.selectFList(conn);
@@ -58,14 +57,13 @@ public class ThumbnailService {
 		} else {
 			rollback(conn);
 		}
-		
+
 		close(conn);
-		
 		
 		return result;
 
 	}
-
+	
 	public ArrayList<Attachment> selectThumbnail(int bid) {
 		Connection conn = getConnection();
 		
@@ -156,6 +154,23 @@ public class ThumbnailService {
 		close(conn);
 		
 		return at;
+	}
+	
+	//수정하기
+	public int updateThumbnail(Thumbnail t) {
+		Connection conn = getConnection();
+		
+		int result = new ThumbnailDao().updateThumbnail(conn, t);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 
 	/*

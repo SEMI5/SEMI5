@@ -351,7 +351,7 @@ function showSlides(n) {
 	<div id="London" class="tabcontent">
   	<div class = "block block-test2 area1"><img src="../../images/icon/iconmonstr-clipboard-1-240.png" style="width:100%">자유게시판</div>
     <div class = "block block-test2 area2" onclick = "goThumbnail();"><img src="../../images/icon/iconmonstr-picture-1-240.png" style="width:100%">사진게시판</a></div>
-    <div class = "block block-test2 area3"><img src="../../images/icon/iconmonstr-note-37-240.png" style="width:100%">공유자료</div>
+    <div class = "block block-test2 area3"  onclick = "goShare();"><img src="../../images/icon/iconmonstr-note-37-240.png" style="width:100%">공유자료</div>
     <div class = "block block-test2 area4"><img src="../../images/icon/iconmonstr-speech-bubble-18-240.png" style="width:100%">채팅</div>
     <div class = "block block-test2 area5"><img src="../../images/icon/iconmonstr-eat-6-thin-240.png" style="width:100%">맛집</div>
 </div>
@@ -392,11 +392,17 @@ function showSlides(n) {
 			location.href="<%=request.getContextPath()%>/views/thumbnail/thumbnailListView.jsp";
 			//ThumbanailListServlet 만들러가기
 		} --%>
-   	// 4. 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
+		
+   	// 사진 게시판으로 이동
 	function goThumbnail(){
 		location.href="<%=request.getContextPath()%>/list.th";
-		//ThumbanailListServlet 만들러가기
 	}
+   	
+   	// 자료실로 이동
+   	function goShare(){
+   		location.href="<%=request.getContextPath()%>/list.sh";
+   	}
+   	
 </script>
 
 

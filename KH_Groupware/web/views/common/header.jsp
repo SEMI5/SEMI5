@@ -304,7 +304,7 @@ h3{
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;> 소개 </h3>
          <ul>
-            <li> 소개글 </li>
+            <li onclick= "goInfo();"> 소개글 </li>
          </ul>
       </div>
       <div class = "btnImg">
@@ -775,8 +775,14 @@ h3{
              } 
       }); 
    	
+     // 소개글 이동
+     	function goInfo(){
+    	 location.href="infoPage.jsp"
+    	 
+     }
       
-   	// 4. 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
+      
+   	// 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
 		function goThumbnail(){
 			location.href="<%=request.getContextPath()%>/list.th";
 		}

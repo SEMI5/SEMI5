@@ -19,6 +19,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 .outer{
       width:100%;
@@ -118,7 +119,21 @@
 #writeBtn:hover{
 	background-color: gray;
 }
-         
+
+#listcountDiv{
+		border:none;
+		width: 200px;
+		height: 50px;
+		position: relative;
+		font-size: 16px;
+	  	display: inline-block;
+	  	padding-left: 30px;
+	  	padding-top:6px;
+	} 
+	
+.lisCountSpan{
+	color: #f53f29;
+}       
 </style>
 
 	
@@ -128,7 +143,7 @@
 </header>
 <body>
 	<div>
-	<img src="<%=request.getContextPath() %>/images/photos.jpg" style="width:100%; height:300px;">
+	<img src="<%=request.getContextPath() %>/images/photos.jpg" style="width:1550px; height:300px;">
 		<div id = "thum1" style="width:100%; height:60px">
 		</div>
 	</div>
@@ -136,25 +151,15 @@
 		<h2 align = "center"> 사진 게시판 </h2>
 		<hr>
 		<br>
-		<label>총 <%=listCount %>건</label>
-				<!-- 여기도 마찬가지로 검색 창을 만들어 주자, 역시 구현은 pass  -->
-		<div class="searchArea">
-			<select id ="searchCondition" name = "searchCondition">
-				<option> --------- </option>
-				<option value="writer"> 작성자 </option>
-				<option value="title"> 제목 </option>
-				<option value="content"> 내용 </option>
-			</select>
-			<input type ="search" id = "serach-bar">
-			<button type ="submit" id = "submit-btn">검색하기 </button>
-		</div>
+		<div id = listcountDiv><b>총 <span class=lisCountSpan><%=listCount%></span>건,(<span class=lisCountSpan><%=currentPage%></span>/<%=maxPage%>)</b></div>
+
 		<div class = "thumbnailArea">
-			 
+		<%if(loginUser != null) {%>	 
 			 <% if(list.isEmpty())	{%>
 				<p>조회된 결과가 없습니다.</p>
-
+				
 			<%} else  {%> 
-			
+				
 			<% for(Thumbnail b : list){%>
 					
 			<div class = "thumb-list" align ="center">
@@ -170,9 +175,9 @@
 						<% } %>
 				</div>
 				<div>
-				<p>No. <%= b.getbId() %><br> 
 				제목 : <%=b.getbTitle() %><br>
-					조회수 : <%= b.getbCount() %><br>
+				<p>No. <%= b.getbId() %><br> 
+					조회수: <%= b.getbCount() %><br>
 					<button id = "like_btn">
 						<img src="<%=request.getContextPath() %>/images/icon/like.png" width="50px">
 					</button>
@@ -183,6 +188,7 @@
 			</div>
 			<% } %>
 		<% } %>
+	<%} %>
 			<!-- 로그인 아닐시 안보임  -->
 			<div class = "writeArea">
 			<%if(loginUser != null) {%>

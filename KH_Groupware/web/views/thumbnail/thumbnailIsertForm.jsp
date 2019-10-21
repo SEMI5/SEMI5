@@ -16,21 +16,21 @@
     margin-top:50px;
   
 }
-table {
-      border:2px solid black;
-}
-table td {
-      border:1px solid gray;
-}
+/* table{
+      text-align :center;
+} */
+
+/* table td {
+	border: 1px solid lightgray;
+} */
 
 
 .insertArea {
 	/* background : red; */
-	width:850px;
+	width:950px;
 	height:100%;
 	margin-left:auto;
 	margin-right:auto;
-    border : 1px solid black;
 }
 
 .btnArea {
@@ -44,9 +44,9 @@ table td {
   	display: inline-block;
   	/* width:350px;
   	height:200px; */
-	border: 1px solid darkgray;
+	
     text-align:center;
-    /* display:table-cell; */
+     display:table-cell;
     vertical-align:middle;    
 }
 
@@ -55,23 +55,42 @@ table td {
       cursor:pointer;
 }
    
- #contentImgArea1, #contentImgArea2, #contentImgArea3, #contentImgArea4 {
+#contentImgArea1, #contentImgArea2, #contentImgArea3, #contentImgArea4 {
     display: inline-block;
-  /*   width:150px;
-	height:100px; */
-    border: 1px solid darkgray;
     text-align:center;
-    /* display:table-cell; */
+    display:table-cell;
     vertical-align:middle;
 }
-#contentImgArea3{
-	margin-left:106px;
+
+table.type02 {
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+  margin : 20px 10px;
 }
-#t_title_label, #t_writer_label, #t_mainthum_label, #t_conetentthum_label, #t_conetent_label{
-	display: inline-block;
-	width : 100px;
-	background : yellow;
+table.type02 th {
+    width: 500px;
+    padding: px;
+    font-weight: bold;
+    text-align : center;
+    vertical-align: center;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    background: #eee;
 }
+table.type02 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
 </style>
 </head>
 <header>
@@ -85,70 +104,47 @@ table td {
 		<h2 align = "center"> 사진 게시판 작성 </h2>
 		<form action = "<%=request.getContextPath()%>/insert.th" method="post" encType="multipart/form-data">		<!-- ***form태그를 가지고 encType=인코딩 타입 /multipart/form-data(파일업로드) 보냄-->
 			<div class = "insertArea" style="align:center">
-						
-						<div id ="t_title_label">제목 </div>
-						<input type="text" size ="90	" name ="title"><br><br>
-						
-						<div id ="t_writer_label">작성자 </div>
-						<input type = "text" size = "90" value = "<%=loginUser.getUserName() %>" readonly><br><br>
-						
-						<div id ="t_mainthum_label">대표이미지 </div>	
-							<div id = "titleImgArea">
-								<img id ="titleImg" width ="608" height ="400">
-							</div><br><br>
-						<div id ="t_conetentthum_label">내용사진 </div>	
-							<div id="contentImgArea1">
-								<img id ="contentImg1" width ="300" height ="200">
-							</div>						
-							<div id="contentImgArea2">
-								<img id ="contentImg2" width ="300" height ="200">
-							</div><br><br>		
-							<div id="contentImgArea3">
-								<img id ="contentImg3" width ="300" height ="200">
-							</div>
-							<div id="contentImgArea4">
-								<img id ="contentImg4" width ="300" height ="200">
-							</div>
-							<br><br>
-						<div id ="t_conetent_label">사진메모 </div>	
-						<textarea name="content" rows="10" cols ="82" size ="resize:none"></textarea>
 					
-				<%-- <table align="center">	
+				 <table class="type02" align="center">	
 					<tr>
-						<td style="background:red;">제목</td>
-						<td><input type="text" size ="99" name ="title"></td>
+						<th>제목</th>
+						<td><input type="text" size ="114" name ="title"></td>
 					</tr>
 					<tr>
-						<td style="background:red;">작성자</td>
-						<td><label><%=loginUser.getUSER_NAME() %></label></td>
+						<th>작성자</th>
+						<td><label><%=loginUser.getUserName() %></label></td>
 					</tr>
 					<tr>
-						<td style="background:red;"> 대표이미지 </td>
+						<th> 대표이미지 </th>
 						<td>
 							<div id = "titleImgArea">
-								<img id ="titleImg" width ="449" height ="300">
+								<img id ="titleImg" width ="755" height ="500">
 							</div>
 						</td>					
 					</tr>
 					<tr>
-						<td style="background:red;"> 내용사진 </td>
+						<th>사진 메모 </th>
+						<td><textarea name="content" rows="10" cols ="102" size ="resize:none"></textarea></td>
+					</tr>
+					<tr>
+						<th> 내용사진 </th>
 						<td>
 							<div id="contentImgArea1">
-								<img id ="contentImg1" width ="100" height ="150">
+								<img id ="contentImg1" width ="185" height ="180">
 							</div>						
 							<div id="contentImgArea2">
-								<img id ="contentImg2" width ="100" height ="150">
+								<img id ="contentImg2" width ="185" height ="180">
 							</div>		
 							<div id="contentImgArea3">
-								<img id ="contentImg3" width ="100" height ="150">
+								<img id ="contentImg3" width ="185" height ="180">
+							</div>		
+							<div id="contentImgArea4">
+								<img id ="contentImg4" width ="185" height ="180">
 							</div>		
 						</td>
 					</tr>
-					<tr>
-						<td width="100px" style="background:red;">사진 메모 </td>
-						<td><textarea name="content" rows="10" cols ="90" size ="resize:none"></textarea></td>
-					</tr>
-				</table> --%>
+					
+				</table>
 
 			<!-- 파일 업로드 하는 부분(file 타입형 input태그들) -->
 				<div id ="fileArea">							   <!-- input태그가 눌리면 this(객체)와1을 매개변수로 LoadImg함수발동 -->	

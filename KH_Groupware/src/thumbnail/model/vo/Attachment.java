@@ -23,9 +23,6 @@ public class Attachment implements Serializable {
 	private String status;
 	
 	
-	
-	
-	
 	public Attachment() {
 	}
 	
