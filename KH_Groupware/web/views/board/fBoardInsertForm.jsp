@@ -220,7 +220,7 @@
 </header>
 <body>
 <br><br>
-<form id= insertForm action = "<%=request.getContextPath()%>/insert.Nbo" method="post" encType="multipart/form-data">
+<form id= insertForm action = "<%=request.getContextPath()%>/insert.Fbo" method="post" encType="multipart/form-data">
 <div id="outer">
 	<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
 	<br>
@@ -229,7 +229,10 @@
 			<tr>
 				<td class= "titleTd tableTd"><b>제목</b></td>
 				<td class ="tableTd"><input type="text" name= "btitle" class="inputTd">&nbsp;&nbsp;
+
+				<%if(loginUser.getUserNo() >10000){%>
 				<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();"><label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+				<%}%>
 				<input id = noCheck type= "hidden" name="blevel" value="1">
 				</td> 
 			</tr>
@@ -374,7 +377,7 @@ function loadAttachName(attach,num){
 }
 
 function goBoardListView(){
-	location.href="<%= request.getContextPath()%>/Nlist.bo"	
+	location.href="<%= request.getContextPath()%>/Flist.bo"	
 }
 
 

@@ -243,7 +243,7 @@ public class FBoardDao {
 					rs=pstmt.executeQuery();
 				}else {
 					 query = "select * "
-					 		+ "FROM (SELECT ROWNUM RNUM,BID,CID,BTITLE,BCONTENT,BTYPE,USER_NAME,BCOUNT,CREATE_DATE,MODIFY_DATE,STATUS "  
+					 		+ "FROM (SELECT ROWNUM RNUM,BID,CID,BTITLE,BCONTENT,BTYPE,USER_NAME,BCOUNT,CREATE_DATE,MODIFY_DATE,STATUS,BLEVEL "  
 					 			   + "FROM N_BLIST " 
 					 			   + "WHERE ("+type+" LIKE '"+searchWord2 +"') AND (CID=" +cid +")) "
 							+ "WHERE RNUM BETWEEN "+ currentPage+ " AND " + limit;
@@ -325,6 +325,7 @@ public class FBoardDao {
 						rs.getString("BTITLE"),
 						rs.getString("BTYPE"),
 						rs.getString("BCONTENT"),
+						rs.getInt("USER_NO"),
 						rs.getString("USER_NAME"),
 						rs.getInt("bcount"),
 						rs.getDate("create_date"),
@@ -841,7 +842,7 @@ public class FBoardDao {
 		return result; 
 	}
 
-	public int deleteNAttach(Connection conn, int bid) {
+	public int deleteFAttach(Connection conn, int bid) {
 		PreparedStatement pstmt = null; 
 		ResultSet rs = null;  
 		int result =0; 

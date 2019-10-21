@@ -4,7 +4,6 @@
 <%
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");
 	 String today = formatter.format(new java.util.Date());
-	
 %>
 <!DOCTYPE html>
 <html>

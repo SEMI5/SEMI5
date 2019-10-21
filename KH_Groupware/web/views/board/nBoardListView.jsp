@@ -281,6 +281,33 @@ input{
 	margin-left:7px;
 }
 
+.pagingArea button {
+	  border: none;
+	  outline: none;
+	  padding: 10px 16px;
+	  background-color: #f1f1f1;
+	  cursor: pointer;
+	  font-weight: bold;
+	  font-size: 15px;
+}
+
+.pagingArea button:hover {
+	  background-color: #666;
+	  color: white;
+}
+
+
+#boardImg1{
+	position: relative;	
+	width:100%;
+	height:300px;
+	margin-left:auto;
+	margin-right:auto;
+	align: center;
+	text-align: center;
+	background: black;
+}
+
 
 
 
@@ -291,9 +318,15 @@ input{
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-<br><br>
+
+
+	<div id= boardImg1>
+		<img id= boardImg src="<%=request.getContextPath() %>/images/boardBack.jpg">
+		<div style="width:100%; height:60px;background:black;"></div>
+	</div>
 
 <div id ="outer">
+	<br><br>
 	<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
 	<br><br>
 	<div id = "tableDiv">

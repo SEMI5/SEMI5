@@ -280,14 +280,14 @@ public class FBoardService {
 	}
 
 
-	public int deleteNBoard(int flag, int bid) {
+	public int deleteFBoard(int flag, int bid) {
 		Connection conn = getConnection();
 		
 		int result = 0; 
 		if(flag == 2) { // 첨부파일이 있다면 
 		
 		   int result1 = new FBoardDao().deleteFBoard(conn, bid);
- 		   int result2 = new  FBoardDao().deleteNAttach(conn, bid);
+ 		   int result2 = new  FBoardDao().deleteFAttach(conn, bid);
 
  		   if( result1>0 && result2>=0) {
  			  result =1; 

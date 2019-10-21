@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.service.FBoardService;
 import board.model.service.NBoardService;
 import board.model.vo.PageInfo;
 import member.model.vo.Member;
@@ -52,7 +53,7 @@ public class FBoardSearchListServlet extends HttpServlet {
 		System.out.println("서블릿단 type: " + type);
 		System.out.println("서블릿단 searchWord: " + searchWord);
 
-		NBoardService bService= new NBoardService(); 
+		FBoardService bService= new FBoardService(); 
 		
 		// 게시판 리스트 갯수 구하기
 		int listCount = bService.getListCount(cid,type, searchWord);
@@ -127,7 +128,7 @@ public class FBoardSearchListServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		if(list!=null) {
-				view = request.getRequestDispatcher("views/board/nBoardListView.jsp");
+				view = request.getRequestDispatcher("views/board/fBoardListView.jsp");
 				request.setAttribute("list", list); // 현재 페이지 화면에 뿌려질 게시글이 담긴 객체 
 				request.setAttribute("pi", pi);		// 페이지관련된 정보가 담긴객체 
 				request.setAttribute("flist",flist);

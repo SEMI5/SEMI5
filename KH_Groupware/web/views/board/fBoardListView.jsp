@@ -263,8 +263,8 @@ input{
 .pagingArea{
 	position: relative;
 	top:10px;
-
 }
+
 .superTr:hover{
 	font-weight: bold;
 }
@@ -280,6 +280,33 @@ input{
 
 
 
+.pagingArea button {
+	  border: none;
+	  outline: none;
+	  padding: 10px 16px;
+	  background-color: #f1f1f1;
+	  cursor: pointer;
+	  font-weight: bold;
+	  font-size: 15px;
+}
+
+.pagingArea button:hover {
+	  background-color: #666;
+	  color: white;
+}
+
+#boardImg1{
+	position: relative;	
+	width:100%;
+	height:300px;
+	margin-left:auto;
+	margin-right:auto;
+	align: center;
+	text-align: center;
+	background: black;
+}
+
+
 
 </style>
 
@@ -288,16 +315,23 @@ input{
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-<br><br>
+
+
+<div id= boardImg1>
+		<img id= boardImg src="<%=request.getContextPath() %>/images/boardBack3.jpg">
+		<div style="width:100%; height:60px;background:black;"></div>
+</div>
+
 
 <div id ="outer">
+	<br><br>
 	<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
 	<br><br>
 	<div id = "tableDiv">
 	<div id = listcountDiv><b>총 <span class=lisCountSpan><%=listCount%></span>건,(<span class=lisCountSpan><%=currentPage%></span>/<%=maxPage%>)</b></div>
    <div id =searchDiv>
    	  
-   	  <form id = "searchForm" action = "<%=request.getContextPath() %>/NSlist.bo" method ="post" >
+   	  <form id = "searchForm" action = "<%=request.getContextPath() %>/FSlist.bo" method ="post" >
       <select name= "type" style="height: 40px;margin:0px">
         <option value="all">전체</option>
         <option value="btitle">제목</option>
@@ -384,13 +418,13 @@ input{
    <br>
       <div class="pagingArea" align="center">
          <!-- 맨 처음으로(<<) -->
-         <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=1'"> << </button>
+         <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=1'"> << </button>
          
          <!-- 이전 페이지로(<) -->
          <%if(currentPage <= 1) {%>
             <button disabled> < </button>
          <%} else{ %>
-            <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=currentPage-1 %>'"> < </button>
+            <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=currentPage-1 %>'"> < </button>
          <%} %>
          
          <!-- 10개의 페이지 목록 -->
@@ -398,21 +432,21 @@ input{
             <% if(p == currentPage){ %>
                <button disabled><%=p %></button>
             <%} else{%>
-               <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=p %>'"><%=p %></button>
+               <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=p %>'"><%=p %></button>
             <%} %>
          <%} %>
          
          <%if(currentPage >= maxPage){ %>
             <button disabled> > </button>
          <%}else{ %>
-            <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=currentPage+1 %>'"> > </button>
+            <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=currentPage+1 %>'"> > </button>
          <%} %>
          
          <!-- 맨 끝으로(>>) -->
-         <button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo?currentPage=<%=maxPage %>'"> >> </button>
+         <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=maxPage %>'"> >> </button>
       </div>
       
-      <form id= "formTag" action="<%=request.getContextPath()%>/Ndetail.bo" method="post">
+      <form id= "formTag" action="<%=request.getContextPath()%>/Fdetail.bo" method="post">
       	
       	<input id= "bid" type= hidden value="" name = bid >
       	<input id= "nextBid" type=hidden value="" name="nextBid">

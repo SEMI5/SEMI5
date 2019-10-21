@@ -73,7 +73,7 @@ String originName8= flist.get(7).getOriginName();
 
    .titleDiv2{
       position: relative;
-      width: 240px;   
+      width: 290px;   
       font-size: 45px;
       margin-left:auto;
       margin-right:auto;
@@ -182,7 +182,7 @@ String originName8= flist.get(7).getOriginName();
       color: white;
       font-size: 16px;
       height: 40px;
-      width: 70px;
+      width: 90px;
    }
    
    #listBtn:hover{
@@ -197,7 +197,7 @@ String originName8= flist.get(7).getOriginName();
       color: white;
       font-size: 16px;
       height: 40px;
-      width: 70px;
+      width: 90px;
    }
    
    #updateBtn:hover{
@@ -245,21 +245,22 @@ String originName8= flist.get(7).getOriginName();
 </header>
 <body>
 <br><br>
-<form id= updateForm action = "<%=request.getContextPath()%>/Nupdate.bo" method="post" encType="multipart/form-data">
+<form id= updateForm action = "<%=request.getContextPath()%>/Fupdate.bo" method="post" encType="multipart/form-data">
 <div id="outer">
-   <div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
+   <div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
    <br>
    <div id = "tableDiv">
       <table align="center" id="listArea">
          <tr>
             <td class= "titleTd tableTd"><b>제목</b></td>
             <td class ="tableTd"><input type="text" name= "btitle" class="inputTd" value="<%=b.getbTitle()%>">&nbsp;&nbsp;
-				
-				<%if(b.getBlevl() <4){ %>
-				<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();">
-				<%} else{%>
-				<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();" checked>
-				<%} %>
+				<%if(loginUser.getUserNo() >10000){%>
+					<%if(b.getBlevl() <4){ %>
+					<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();">
+					<%} else{%>
+					<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();" checked>
+					<%} %>
+				 <%} %>
 				<label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
 				<input id = noCheck type= "hidden" name="blevel" value="1">
             					 <input type="hidden" name = "btype" value="<%=b.getBtype() %>">
@@ -274,6 +275,8 @@ String originName8= flist.get(7).getOriginName();
          </tr>
       </table>
       <div id="textareaDiv"><textArea id= summernote rows=30 name = "bcontent" placeholder="내용을 입력해주세요"><%=b.getbContent()%></textArea><div>
+      
+      <%if(loginUser != null &&loginUser.getUserNo() > 10000){ %>
       <table id = "attachTable">
          <tr>
             <td rowspan=9 class= "titleTd" style= "border-right: 1px solid #dbdbdb">
@@ -350,10 +353,12 @@ String originName8= flist.get(7).getOriginName();
             </td>
          </tr>
       </table>
+      <%}%>
+      
       <br><br>
       <div class= btnDiv>
-            <button type='button'id=listBtn onclick=><b>목록</b></button>&nbsp;&nbsp;
-            <button id=updateBtn type = button onclick="updateSubmit();"><b>수정</b></button>
+            <button type='button'id="listBtn" onclick="location.href='<%=request.getContextPath() %>/Ndetail.bo?bid=<%=b.getbId()%>'"><b>뒤로가기</b></button>&nbsp;&nbsp;
+            <button id="updateBtn" type = "button" onclick="updateSubmit();"><b>수정</b></button>
       </div>
    </div>
 <div style="display:none">
@@ -418,6 +423,16 @@ $(document).ready(function() {
 </script>
 
 <script>
+$(function(){
+	if(document.getElementById("superCheck").checked == true){
+		document.getElementById("noCheck").disabled = true;
+	}else{
+		document.getElementById("noCheck").disabled = false;
+	}
+}); 
+	
+	
+	
 	
 	function checkBox(){
 		if(document.getElementById("superCheck").checked == true){
@@ -515,12 +530,11 @@ function loadAttachName(attach,num){
  function updateSubmit(){
    if(confirm("이대로 수정하시겠습니까?")) {
        $(this).parent().click();
-  	 location.href="<%=request.getContextPath() %>/Nupdate.bo>";
    } else {
        return false;
    }
-   
    $("#updateForm").submit(); 
+
 } 
 
  function selectReset(){

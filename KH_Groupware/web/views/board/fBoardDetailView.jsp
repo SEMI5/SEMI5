@@ -10,7 +10,8 @@
 	if(b.getBtype().equals("2")){
 		attachments = (ArrayList<Attachment>)request.getAttribute("attachments");
 	}			
-
+	System.out.println("글쓴이 번호:"+ b.getUserNo());
+	
 	/* Ajax이후 */
 /* 	ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist"); */
 %>
@@ -57,7 +58,7 @@
 
 .titleDiv2{
 	position: relative;
-	width: 240px;	
+	width: 290px;	
 	font-size: 45px;
 	margin-left:auto;
 	margin-right:auto;
@@ -94,6 +95,10 @@
     padding-left: 25px;
      padding-right: 25px;
    }
+   
+   td span{
+	cursor:pointer;
+	}
 
    thead{
       background: #EAEAEA;
@@ -258,7 +263,7 @@ text-decoration: underline;
 <body>
 <br><br>
 	<div id="outer">
-		<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
+		<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
 	
 		<div id="tableDiv" align>
 			<table align="center" width="1230px">
@@ -267,7 +272,11 @@ text-decoration: underline;
 				</thead>
 				<tbody>
 				<tr>
-					<td style="font-size: 16px"><b>등록일:</b>&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;|&nbsp;&nbsp;<b>조회수:</b> <%=b.getbCount()%></td>
+					<td style="font-size: 16px">
+					
+					<b>작성자:</b>&nbsp;&nbsp;<%=b.getbWriter()%>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+					<b>등록일:</b>&nbsp;&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+					<b>조회수:</b>&nbsp; <%=b.getbCount()%></td>
 				</tr>
 				<tr>
 				<td>
@@ -309,11 +318,11 @@ text-decoration: underline;
 				</tbody>
 			</table>
 			<br><br><br><br>
-				<%if(loginUser != null && loginUser.getUserNo() > 10000){ %>
+				<%if(loginUser != null && (loginUser.getUserNo() > 10000 || (loginUser.getUserNo() == b.getUserNo()))){ %>
 				<button id = deleteBtn onclick = "deleteBoard();"><b>삭제</b></button>
-				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/NupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
+				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/FupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
 				<%}%>
-				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
+				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Flist.bo'" style="display:inline-block"><b>목록</b></button>
 					
 		</div>
 		
@@ -420,11 +429,11 @@ $(function(){
 }); 
 
  function goBoardDetail(bid){
-	location.href="<%=request.getContextPath()%>/Ndetail.bo?bid=" + bid;
+	location.href="<%=request.getContextPath()%>/Fdetail.bo?bid=" + bid;
 } 
 
  function downloadAttach(thing){
-	 location.href="<%=request.getContextPath() %>/Ndownload.at?fid="+thing;
+	 location.href="<%=request.getContextPath() %>/Fdownload.at?fid="+thing;
 	 
  }
 
@@ -432,7 +441,7 @@ $(function(){
 	 
 	   if(confirm("정말로 삭제하시겠습니까?")) {
            $(this).parent().click();
-      	 location.href="<%=request.getContextPath() %>/Ndelete.bo?bid=<%=b.getbId()%>";
+      	 location.href="<%=request.getContextPath() %>/Fdelete.bo?bid=<%=b.getbId()%>";
        } else {
            return false;
        }

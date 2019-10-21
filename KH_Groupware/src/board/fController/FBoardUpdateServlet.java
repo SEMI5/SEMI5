@@ -27,14 +27,14 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class InsertThumbnailServlet
  */
-@WebServlet("/insert.Fbo")
-public class InsertFBoardServlet extends HttpServlet {
+@WebServlet("/Fupdate.bo")
+public class FBoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertFBoardServlet() {
+    public FBoardUpdateServlet() {
         super();
 
     }
@@ -45,48 +45,16 @@ public class InsertFBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				request.setCharacterEncoding("UTF-8");	
 				
-				// enctype이 multipart/form-data로 전송되었는지 확인!
+	
 				if(ServletFileUpload.isMultipartContent(request)) {
 					
-					// 1_1. 전송파일 용량 제한 : 10Mbyte로 제한하는 경우
 					int maxSize = 1024 * 1024 * 10;	//바이트 단위(바이트 > 킬로바이트 > 메가바이트)
 					
-					// 1_2. 웹 서버 컨테이너 경로 추출함
 					String root = request.getSession().getServletContext().getRealPath("/"); 	//넘어오는 파일 경로(web폴더 경로)
+					String savePath = root + "fBoard_uploadFiles/";
 					
-					System.out.println("파일경로 : " + root);
-					
-					// 1_3. 파일들 저장 경로(web/"thumbnail_uploadFiles/)
-					String savePath = root + "nBoard_uploadFiles/";
-					
-					System.out.println("저장경로:" + savePath);
-					
-					
-					// 2. 파일명 변환 및 저장 작업
-					/*
-					 *  객체 생성시 파일을 저장하고 그에 대한 정보를 가져오는 형태인데 
-					 *  저장한 다음 검사후 삭제를 해야 한다. 
-					 *  
-					 *  사용자가 올린 파일명을 그대로 저장하지 않는 것이 일반적이다.
-					 *  - 같은 파일명이 있는 경우 이전 파일을 덮어쓸 수 있다.
-					 *  - 한글로 된 파일명, 특수 기호나 띄어쓰기 등은 서버에 따라 문제가 생길 수 있다.
-					 *  
-					 *  DefaultFileRenamePolicy는 cos.jar 안에 존재하는 클래스이고
-					 *  같은 파일명이 존재하는지를 검사하고 있을 경우에는 파일명 뒤에 숫자를 붙여준다.
-					 *  ex:aaa.zip, aaa1.zip, aaa2.zip
-					 *  
-					 *  DefaultFileRenamePolicy 사용시
-					 *  MultipartRequest MultiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy())
-					 *  
-					 *  하지만 우리는 DefaultFileRenamePolicy를 사용하지 않고
-					 *  직접 우리 방식대로 rename 작업을 하기 위한 클래스를 만들 것이다.
-					 *  common 패키지 안에 MyFileRenamePolicy 클래스를 FileRenamePolicy를 상속받아 만들어 주자!!
-					 *  
-					 */
-					
-					// 2_1. 1번 작업에서 나온 결과 (저장경로, 용량제한), 인코딩, 파일명 변환 가능이 있는 클래스들을 지정하여
-					// 		MultipartRequest의 참조변수 MultiReqeust 선언
-					//		--> 선언하는 순간에 MyFileRenamePolicy의 rename메소드가 실행되면서 rename된 파일이 폴더에 저장
+				
+			
 					MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 													   // 우리가 재지정한 이름으로 저장한 파일명으로 저장된 파일이 savePath에 저장됨
 					
@@ -115,37 +83,61 @@ public class InsertFBoardServlet extends HttpServlet {
 							originFiles.add(multiRequest.getOriginalFileName(name));
 							
 						}
+						
+						System.out.println(originFiles);
 					}
 					
-					// 3_1. 파일 외에 게시판 제목, 내용, 작성자 회원 번호 받아오기
+					// 
 					String title = multiRequest.getParameter("btitle");
 					String content = multiRequest.getParameter("bcontent");
-					String bwriter = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-					int blevel = Integer.parseInt(multiRequest.getParameter("blevel"));
-					
+					String btype = multiRequest.getParameter("btype");
+					int blevel = Integer.parseInt(multiRequest. getParameter("blevel"));		
+					int bid = Integer.parseInt(multiRequest. getParameter("bid"));					
+					String bwriter = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());	
 					int cId = ((Member)request.getSession().getAttribute("loginUser")).getcId();
-										// 로그인한User에서 UserNo(int형)을 뽑아서 String형으로 변환
-					String bType= "0"; 
-					if(saveFiles.isEmpty()){
-						bType ="1"; 
-					}else {
-						bType="2";
-					}
+									
+					int [] fidList = new int[8]; 
+					fidList[0] = Integer.parseInt(multiRequest.getParameter("delFid1"));
+					fidList[1] = Integer.parseInt(multiRequest.getParameter("delFid2"));
+					fidList[2] = Integer.parseInt(multiRequest.getParameter("delFid3"));
+					fidList[3] = Integer.parseInt(multiRequest.getParameter("delFid4"));
+					fidList[4] = Integer.parseInt(multiRequest.getParameter("delFid5"));
+					fidList[5] = Integer.parseInt(multiRequest.getParameter("delFid6"));
+					fidList[6] = Integer.parseInt(multiRequest.getParameter("delFid7"));
+					fidList[7] = Integer.parseInt(multiRequest.getParameter("delFid8"));
+				
+			/*
+			 * System.out.println(fidList[0]); System.out.println(fidList[1]);
+			 * System.out.println(fidList[2]); System.out.println(fidList[3]);
+			 * System.out.println(fidList[4]); System.out.println(fidList[5]);
+			 * System.out.println(fidList[6]); System.out.println(fidList[7]);
+			 */
 					
+					for(int i=0; i<fidList.length; i++) {
+						if(fidList[i] > 0) {
+							int result = new FBoardService().deleteAttachAsFid(fidList[i]);
+						}
+					}
+		
+					
+			
+					if(!(saveFiles.isEmpty())){
+						btype = "2" ;
+					}
+						
+					
+				
 					// 3_2. DB에 보낼 thumbnail 객체와 Attachment 리스트 생성
 					
 					Board b = new Board();
 					
 					b.setcId(cId);
 					b.setbTitle(title);
-					b.setBtype(bType);
+					b.setBtype(btype);
 					b.setbContent(content);
 					b.setbWriter(bwriter);
-					b.setBlevl(blevel);
-					
-					System.out.println("blevel:" + blevel);
-					System.out.println("insert서블릿: " + b );
-						
+					b.setbId(bid);
+					b.setBlevl(blevel);	
 					ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 					// 전송 순서 역순으로 파일이 list에 저장되어 있기 때문에 반복문을 역으로 수행함
 					for(int i = originFiles.size()-1; i >= 0; i--) {
@@ -169,9 +161,9 @@ public class InsertFBoardServlet extends HttpServlet {
 					int result = 0; 
 					
 					if(saveFiles.isEmpty()) { // 첨부파일이 하나도 없다면, 
-						result = new FBoardService().insertBoard(b);
+						result = new FBoardService().updateBoard(b);
 					}else{ // 첨부파일 있다면 
-					    result = new FBoardService().insertNBoard(b,fileList);
+					    result = new FBoardService().updateNBoard(b,fileList);
 					}
 					
 					
@@ -189,7 +181,7 @@ public class InsertFBoardServlet extends HttpServlet {
 							failedFile.delete();
 						}
 						
-						request.setAttribute("msg", "공지사항 등록 실패!!");
+						request.setAttribute("msg", "공지사항 수정 실패!!");
 						request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 					}
 						// 여기까지 테스트 해보고 잘 되면 이제 사진 게시판 상세보기를 하자!! thumbnailListView.jsp로 돌아가자! 

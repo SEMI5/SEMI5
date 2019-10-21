@@ -238,7 +238,7 @@ public class NBoardDao {
 					rs=pstmt.executeQuery();
 				}else {
 					 query = "select * "
-					 		+ "FROM (SELECT ROWNUM RNUM,BID,CID,BTITLE,BCONTENT,BTYPE,USER_NAME,BCOUNT,CREATE_DATE,MODIFY_DATE,STATUS "  
+					 		+ "FROM (SELECT ROWNUM RNUM,BID,CID,BTITLE,BCONTENT,BTYPE,USER_NAME,BCOUNT,CREATE_DATE,MODIFY_DATE,STATUS,BLEVEL "  
 					 			   + "FROM N_BLIST " 
 					 			   + "WHERE ("+type+" LIKE '"+searchWord2 +"') AND (CID=" +cid +")) "
 							+ "WHERE RNUM BETWEEN "+ currentPage+ " AND " + limit;
@@ -400,7 +400,7 @@ public class NBoardDao {
 		ResultSet rs = null;
 		ArrayList list = null;
 		
-		String query = prop.getProperty("selectFList");
+		String query = prop.getProperty("selectNList");
 		
 		try {
 			stmt = conn.createStatement();
