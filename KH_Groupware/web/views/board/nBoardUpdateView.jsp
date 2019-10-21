@@ -212,8 +212,24 @@ String originName8= flist.get(7).getOriginName();
       padding-top: 30px;
    }
    #resetBtn{
-      margin-left: 159px; 
+      margin-left: 173px;
    }
+   
+   #superCheck{
+		width: 23px; 
+		height: 23px;
+		position: absolute; 
+		background-color: white;
+		border: 1px solid black;
+		outline: none;
+	}
+	
+	#checkLabel{
+		font-size: 16px;
+		margin-left: 30px;
+	}
+   
+   
    
 </style>
    
@@ -237,9 +253,18 @@ String originName8= flist.get(7).getOriginName();
       <table align="center" id="listArea">
          <tr>
             <td class= "titleTd tableTd"><b>제목</b></td>
-            <td class ="tableTd"><input type="text" name= "btitle" class="inputTd" value="<%=b.getbTitle()%>"></td>
+            <td class ="tableTd"><input type="text" name= "btitle" class="inputTd" value="<%=b.getbTitle()%>">&nbsp;&nbsp;
+				
+				<%if(b.getBlevl() <4){ %>
+				<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();">
+				<%} else{%>
+				<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();" checked>
+				<%} %>
+				<label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+				<input id = noCheck type= "hidden" name="blevel" value="1">
             					 <input type="hidden" name = "btype" value="<%=b.getBtype() %>">
             					 <input type="hidden" name = "bid" value="<%=b.getbId() %>">
+			</td>
          </tr>
             <td class= "titleTd tableTd"><b>작성자</b></td>
             <td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
@@ -331,7 +356,7 @@ String originName8= flist.get(7).getOriginName();
             <button id=updateBtn type = button onclick="updateSubmit();"><b>수정</b></button>
       </div>
    </div>
-<div style="display:display">
+<div style="display:none">
    <input type="file" id="fileInput1" name = "file1" onchange="loadAttachName(this,1);">
    <input type="file" id="fileInput2" name = "file2" onchange="loadAttachName(this,2);">
    <input type="file" id="fileInput3" name = "file3" onchange="loadAttachName(this,3);">
@@ -342,7 +367,7 @@ String originName8= flist.get(7).getOriginName();
    <input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
 </div>
 
-<div>
+<div style="display:none">
    <br>
    
    <input type = "text" id="delFid1" name = "delFid1" value = "0" ><br>
@@ -358,7 +383,8 @@ String originName8= flist.get(7).getOriginName();
 </form>
 
 
-<div>
+<div style="display:none">
+	<br>
    <input type = "text" id="originFid1" name = "originFid1" value =<%=flist.get(0).getfId()%> ><br>
    <input type = "text" id="originFid2" name = "originFid2" value =<%=flist.get(1).getfId()%> ><br>
    <input type = "text" id="originFid3" name = "originFid3" value =<%=flist.get(2).getfId()%> ><br>
@@ -392,6 +418,15 @@ $(document).ready(function() {
 </script>
 
 <script>
+	
+	function checkBox(){
+		if(document.getElementById("superCheck").checked == true){
+			document.getElementById("noCheck").disabled = true;
+		}else{
+			document.getElementById("noCheck").disabled = false;
+		}
+	}
+
 
 
 

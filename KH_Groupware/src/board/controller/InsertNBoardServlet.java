@@ -120,6 +120,8 @@ public class InsertNBoardServlet extends HttpServlet {
 					String title = multiRequest.getParameter("btitle");
 					String content = multiRequest.getParameter("bcontent");
 					String bwriter = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+					int blevel = Integer.parseInt(multiRequest.getParameter("blevel"));
+					
 					int cId = ((Member)request.getSession().getAttribute("loginUser")).getcId();
 										// 로그인한User에서 UserNo(int형)을 뽑아서 String형으로 변환
 					String bType= "0"; 
@@ -138,7 +140,9 @@ public class InsertNBoardServlet extends HttpServlet {
 					b.setBtype(bType);
 					b.setbContent(content);
 					b.setbWriter(bwriter);
+					b.setBlevl(blevel);
 					
+					System.out.println("blevel:" + blevel);
 					System.out.println("insert서블릿: " + b );
 						
 					ArrayList<Attachment> fileList = new ArrayList<Attachment>();

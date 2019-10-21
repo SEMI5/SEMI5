@@ -287,7 +287,7 @@ public class NBoardDao {
 			pstmt.setString(3,  b.getBtype());
 			pstmt.setString(4, b.getbContent());
 			pstmt.setString(5,  b.getbWriter());
-			
+			pstmt.setInt(6,  b.getBlevl());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -896,7 +896,8 @@ public class NBoardDao {
 			pstmt.setString(1,  b.getbTitle());
 			pstmt.setString(2,  b.getBtype());
 			pstmt.setString(3, b.getbContent());
-			pstmt.setInt(4,  b.getbId());
+			pstmt.setInt(4, b.getBlevl());
+			pstmt.setInt(5,  b.getbId());
 			
 			result = pstmt.executeUpdate();
 			

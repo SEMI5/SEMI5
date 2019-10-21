@@ -264,6 +264,10 @@ input{
 	top:10px;
 
 }
+.superTr:hover{
+	font-weight: bold;
+}
+
 
 
 </style>
@@ -317,7 +321,11 @@ input{
             </tr>
             <%}else{ %>
                <% for(Board b : list){ %>
-                  <tr class= blevel style="background: #F2FFED">
+               		<% if(b.getBlevl() == 4){%>
+                  	<tr class= superTr style="background: #F2FFED">
+                 	<%}else{%>
+                    <tr class= normalTr>
+                    <%}%>
                      <td align="center"><%=b.getbId() %></td>
                      <input type="hidden" value="<%=b.getbId() %>">
                      <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
@@ -325,7 +333,7 @@ input{
                       <% if(b.getBtype().equals("2")){ %>
                          	
                          	<td align="center" class = "attachment">
-                           	<div class="balloon">
+                           	<div class="balloon" style="font-weight:normal">
                            		<%for(int i = flist.size()-1; i>-1 ; i--){ %>
                            			<%Attachment f = flist.get(i);%>
                             		<%if(f.getbId() == b.getbId()){%> 
@@ -397,8 +405,8 @@ input{
 </div>
 </div>
 <script> 
- $(function(){
-      $("td").mouseenter(function(){
+  $(function(){
+      $(".normalTr td").mouseenter(function(){
          $(this).parent().css({"background":"#F2FFED"});
       }).mouseout(function(){
          $(this).parent().css({"background":"white"});
@@ -411,25 +419,33 @@ input{
     
 <script> 
 
-// 게시글 제목클릭시 detailView를 위한 서블릿으로 이동  
+ 
 $(function(){
-    $("td").mouseenter(function(){
-    $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
+	
+    $(".superTr td").mouseenter(function(){
+   		   $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
            var bid = $(this).parent().children().eq(0).text(); // 게시글의  글번호 
-           $("#bid").val(bid); 
-           
-           
-           // 이전 게시판 정보 , 다음 게시판 정보를 가져오려면 bid로 접근할게 아니라 rnum으로 접근해야함. 
-         /*   var nextBid = $(this).parent().prev().children().eq(0).text();
-           var prevBid = $(this).parent().next().children().eq(0).text();
-           $("#nextBid").val(nextBid); 
-           $("#prevBid").val(prevBid);  */
-           
-           
+           $("#bid").val(bid);            
            $("#formTag").submit(); 
-       }) 
+       });
+    }).mouseout(function(){
+    	$(this).parent().css({"background":"#F2FFED"});
     });
  });
+ 
+$(function(){
+	
+    $(".normalTr td").mouseenter(function(){
+   		   $(this).parent().children().eq(2).css({"cursor":"pointer"}).click(function(){ 
+           var bid = $(this).parent().children().eq(0).text(); // 게시글의  글번호 
+           $("#bid").val(bid);            
+           $("#formTag").submit(); 
+       });
+    }).mouseout(function(){
+    	$(this).parent().css({"background":"white"});
+    });
+ });
+ 
   
 // 첨부파일 아이콘 클릭시 
 $(function(){

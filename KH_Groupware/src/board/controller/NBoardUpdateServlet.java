@@ -90,6 +90,7 @@ public class NBoardUpdateServlet extends HttpServlet {
 					String title = multiRequest.getParameter("btitle");
 					String content = multiRequest.getParameter("bcontent");
 					String btype = multiRequest.getParameter("btype");
+					int blevel = Integer.parseInt(multiRequest. getParameter("blevel"));		
 					int bid = Integer.parseInt(multiRequest. getParameter("bid"));					
 					String bwriter = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());	
 					int cId = ((Member)request.getSession().getAttribute("loginUser")).getcId();
@@ -104,19 +105,16 @@ public class NBoardUpdateServlet extends HttpServlet {
 					fidList[6] = Integer.parseInt(multiRequest.getParameter("delFid7"));
 					fidList[7] = Integer.parseInt(multiRequest.getParameter("delFid8"));
 				
-					System.out.println(fidList[0]);
-					System.out.println(fidList[1]);
-					System.out.println(fidList[2]);
-					System.out.println(fidList[3]);
-					System.out.println(fidList[4]);
-					System.out.println(fidList[5]);
-					System.out.println(fidList[6]);
-					System.out.println(fidList[7]);
+			/*
+			 * System.out.println(fidList[0]); System.out.println(fidList[1]);
+			 * System.out.println(fidList[2]); System.out.println(fidList[3]);
+			 * System.out.println(fidList[4]); System.out.println(fidList[5]);
+			 * System.out.println(fidList[6]); System.out.println(fidList[7]);
+			 */
 					
 					for(int i=0; i<fidList.length; i++) {
 						if(fidList[i] > 0) {
 							int result = new NBoardService().deleteAttachAsFid(fidList[i]);
-							System.out.println("서블릿단 기존 파일 지워졌냐? : " + result);
 						}
 					}
 		
@@ -138,7 +136,7 @@ public class NBoardUpdateServlet extends HttpServlet {
 					b.setbContent(content);
 					b.setbWriter(bwriter);
 					b.setbId(bid);
-						
+					b.setBlevl(blevel);	
 					ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 					// 전송 순서 역순으로 파일이 list에 저장되어 있기 때문에 반복문을 역으로 수행함
 					for(int i = originFiles.size()-1; i >= 0; i--) {

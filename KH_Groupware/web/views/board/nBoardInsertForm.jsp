@@ -173,9 +173,24 @@
 		padding-top: 30px;
 	}
 	
+
 	#resetBtn{
-		margin-left:158px; 
+		outline: none;
+		border: none; 
+		background: black;
+		color: white;
+		font-size: 15px;
+		width: 100px;
+		height: 40px;	
+		margin-left: 173px; 
 	}
+	
+	#resetBtn:hover{
+	   background-color: #f53f29; ;
+	   color: white;
+	}
+	
+	
 	
 	#superCheck{
 		width: 23px; 
@@ -214,7 +229,8 @@
 			<tr>
 				<td class= "titleTd tableTd"><b>제목</b></td>
 				<td class ="tableTd"><input type="text" name= "btitle" class="inputTd">&nbsp;&nbsp;
-				<input id = superCheck type="checkbox" name="blevel" value="4"><label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+				<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();"><label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+				<input id = noCheck type= "hidden" name="blevel" value="1">
 				</td> 
 			</tr>
 				<td class= "titleTd tableTd"><b>작성자</b></td>
@@ -254,8 +270,8 @@
 		</table>
 		<br><br>
 		<div class= btnDiv>
-				<button type='button'id=listBtn onclick=><b>목록</b></button>&nbsp;&nbsp;
-				<button id=insertBtn onclick="insertSubmit();"><b>등록</b></button>
+				<button type='button'id=listBtn onclick="goBoardListView();"><b>목록</b></button>&nbsp;&nbsp;
+				<button id=insertBtn type="button" onclick="insertSubmit();"><b>등록</b></button>
 		</div>
 	</div>
 <div style="display:none">
@@ -273,6 +289,17 @@
 
 
 <script>
+
+	function checkBox(){
+		if(document.getElementById("superCheck").checked == true){
+			document.getElementById("noCheck").disabled = true;
+		}else{
+			document.getElementById("noCheck").disabled = false;
+		}
+	}
+
+
+
 	function fileInputClick1(){
 	 	$("#fileInput1").click(); 
 	}
@@ -341,6 +368,10 @@ function loadAttachName(attach,num){
 			var fileName = fileValue[fileValue.length-1]; // 파일명
 			$("#attachInput"+num).val(fileName); 
 	}
+}
+
+function goBoardListView(){
+	location.href="<%= request.getContextPath()%>/Nlist.bo"	
 }
 
 
