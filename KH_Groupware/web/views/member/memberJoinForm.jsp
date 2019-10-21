@@ -8,7 +8,35 @@
 	ArrayList<khClass> cList = (ArrayList)request.getAttribute("class");
 
 %>
+    <!-- https://coding-factory.tistory.com/196 
+    https://m.blog.naver.com/PostView.nhn?blogId=vnemftnsska2&logNo=221407559074&proxyReferer=https%3A%2F%2Fwww.google.com%2F
     
+   .keyup() 
+    
+    
+    아이디			.keyup() 유효성검사 + 중복검사
+    4~12->a-z,A-Z,0-9
+    
+    비밀번호		.keyup() 유효성검사 
+    
+    비밀번호 일치		.keyup() 일치여부
+    
+    이름			.blur() + 유효성검사
+    
+    주민등록번호		.blur() + 유효성검사
+    
+    연락처			.blur() + 유효성검사
+
+    이메일			select,option + 직접입력/api사용하기
+    
+    주소			우체국api + 상세주소
+    
+	반   => 처리했음 
+    
+    
+    
+    
+    -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,8 +152,9 @@
 			<table align = "center">
 				<tr>
 					<td width ="200px"> * 아이디 </td>
-					<td><input type = "text" maxlength ="13" name = "userId" required></td>  <!--required 미입력시 값을 입력하세요 문구뜸  -->
-					<td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td>
+					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" required></td>  <!--required 미입력시 값을 입력하세요 문구뜸  -->
+					<td><div id = "checkId" class = "checkInfo"></div></td>
+					<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
 				</tr>
 				<tr>
 					<td> * 비밀번호 </td>
@@ -199,6 +228,71 @@
 	
 	
 	<script>
+	
+	
+		$("#userId").keyup(function(){
+			
+			var userId = $("#userId").val();
+			var idRe = /^[a-z,A-z,0-9]{4,12}$/;
+			
+			$.ajax({
+				url : "/KH_Groupware/checkId.me",
+				data : {userId : userId},
+				success : function(data){
+					if(userId == null){
+						$("#checkId").text("아이디를 입력하세요.");
+					}
+					if(!idRe.test(userId)){
+						$("#checkId").css("color","red");
+						$("#userId").css("border","3px solid red");
+						$("#checkId").text("4-12의 영문자,숫자만 입력가능합니다.");
+					}else if(data > 0){
+						$("#checkId").text("중복된 아이디입니다.");
+					}else{
+						$("#checkId").text("사용가능한 아이디입니다.");
+						$("#checkId").css("color","blue");
+						$("#userId").css("border","3px solid blue");
+						}
+					}	
+				});		
+		});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		// 메인으로 이동 함수
 		function goMain(){
 			location.href ="<%=request.getContextPath()%>/index.jsp";

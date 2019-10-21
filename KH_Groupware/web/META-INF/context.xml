@@ -17,7 +17,7 @@
 --><!-- The contents of this file will be loaded for each web application -->
 
 
-<Context workDir= "C:\Users\JHK\git\SEMI5\KH_Groupware\web\META-INF">
+<Context workDir= "C:\Users\햄모\git\SEMI5\KH_Groupware\web\META-INF">
 
 
     <!-- Default set of monitored resources. If one of these changes, the    -->

@@ -77,7 +77,6 @@ public class LoginServlet extends HttpServlet {
 							}		
 							
 						}
-						System.out.println("시이발~");
 						
 						session = request.getSession();
 						

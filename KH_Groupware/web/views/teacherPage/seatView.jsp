@@ -6,10 +6,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
-	session.setAttribute("changeSeatList", stdList);
+	ArrayList<Member> List = (ArrayList)session.getAttribute("stdList");
 
-	ArrayList<Member> csList = (ArrayList)session.getAttribute("changeSeatList");
+	ArrayList<Member> stdList = new ArrayList();
+	
+	for(int i = 0 ; i < List.size() ; i++){
+		if(List.get(i).getApprove().equals("Y")){
+			stdList.add(List.get(i));
+		}
+	}
+
 	
 	int count = 1;
 	int countSize = stdList.size();
@@ -19,6 +25,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style>
 #outer {
@@ -134,7 +141,6 @@
 </style>
 </head>
 <body>
-
 	<div id="outer">
 		<h3 style="text-align: left; font-size: 50px;">
 			<em>자리배치</em>
@@ -150,13 +156,13 @@
 					int j;%>
 					<tr>
 						<%for (j = 0; j < 3 ; j++){ %>
-						<td id="sNo<%=i*6+j+1%>" class="seat"><%=i*6+j+1%></td>
+						<td id="sNo<%=i*6+j+1%>" class="seat" ondrop = "drop(event)" ondragover = "allowDrop(event)"><%=i*6+j+1%></td>
 						<%} %>
 						<%if(i==0 && j==3){ %>
 						<td rowspan="5" id="hallway">복도</td>
 						<%} %>
 						<%for (j = 4; j < 7 ; j++){ %>
-						<td id="sNo<%=i*6+j%>" class="seat"><%=i*6+j%></td>
+						<td id="sNo<%=i*6+j%>" class="seat" ondrop = "drop(event)" ondragover = "allowDrop(event)"><%=i*6+j%></td>
 						<%} %>
 					</tr>
 					<%} %>
@@ -168,7 +174,7 @@
 					<%for (int i = 0 ; i < 10 ; i++){ %>
 					<tr>
 						<%for (int j = 0 ; j < 3 ; j++){ %>
-								<td id = "list<%=(i*3+j+1)%>" class="list">
+								<td id = "list<%=(i*3+j+1)%>" class="list" ondrop = "drop(event);" ondragover = "allowDrop(event)">
 								</td>
 						<%} %>
 					</tr>
@@ -184,6 +190,50 @@
 
 	<script>
 	
+HashMap = function(){
+	this.map = new Array();
+};
+ 
+HashMap.prototype= {
+		put : function(key, value){
+			this.map[key] = value;
+		},
+		get : function(key){
+			return this.map[key];
+		},
+		getAll : function(){
+			return this.map;
+		},
+		clear : function(){
+			this.map = new Array();
+		},
+		getKeys : function(){
+			var keys = new Array();
+			for(i in this.map){
+				key.push(i);
+			}
+			return keys;
+		},
+		 remove : function(key){    
+	         delete this.map[key];
+	    },
+		 isEmpty : function(){    
+	         return (this.map.size() == 0);
+	    },
+	    toString : function(){
+	        var temp = '';
+	        for(i in this.map){  
+	            temp = temp + ',' + i + ':' +  this.map[i];
+	        }
+	        temp = temp.replace(',','');
+	          return temp;
+	    },
+};
+
+var seatMap = new HashMap();
+<%for (int i = 0 ; i < stdList.size() ; i++){%>
+	seatMap.put("<%=stdList.get(i).getUserNo()%>","<%=stdList.get(i).getSeat()%>");
+<%}%>
 	
 	
 	
@@ -191,86 +241,70 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
-function drag(ev) {
+function drag(ev) {	
   ev.dataTransfer.setData("std", ev.target.id);
+  $(ev.target).parent().attr({"ondrop":"drop(event)", "ondragover":"allowDrop(event)"});
 }
 
 function drop(ev) {
  	
   ev.preventDefault();
   var std = ev.dataTransfer.getData("std");
-  var stdNo = std.substring(3,5);
+  var stdNo = $("#"+std+" .userNo").text()
   var seatNo = (ev.target.id).substring(3,5);
 
   if(seatNo.startsWith("t")){
-	  seatNo = null;
+	  seatNo = "N";
   }
+
+  seatMap.put(stdNo,seatNo);
+  console.log(seatMap); 
+
+
+  
+  $("#sNo"+seatNo).removeAttr("ondrop", "ondragover");
   
   console.log(stdNo+"번 학생이 "+seatNo+"번 자리에 배정 받습니다.");
   
   ev.target.appendChild(document.getElementById(std));
 
-  $.ajax({
-		url:"/KH_Groupware/updateSeat.te",
-		data:{stdNo:stdNo,
-			  seatNo:seatNo,
-			  type:"move"	
-		},
-		success:function(data){	
- 			
-			
-			alert("옮기기 성공입니다."); 
-			}
-		}
-	); 
+
 
 }
 
 
 $("#saveSeat").click(function(){
-	  $.ajax({
+ 	  $.ajax({
 			url:"/KH_Groupware/updateSeat.te",
-			data:{ type:"save"	
+			data:{seatMap : seatMap.toString()	
 			},
 			success:function(data){	
-				
-				alert("저장 성공입니다.");
+				alert("저장이 완료되었습니다."); 
 				}
 			}
-		); 
-});
-
-
-$("#resetSeate").click(function(){
-	  $.ajax({
-			url:"/KH_Groupware/updateSeat.te",
-			data:{ type:"reset"	
-			},
-			success:function(data){	
-				
-				alert("성공입니다.");
-				}
-			}
-		); 
-});
-
-
-
-$(function(){
-	$(".seat").attr({"ondrop":"drop(event)", "ondragover":"allowDrop(event)"});
-	$(".list").attr({"ondrop":"drop(event)", "ondragover":"allowDrop(event)"});
+		);  
 });
 
 
 
 
-$(function(){
+
+/* $(function(){
+
+		$(".seat").attr({"ondrop":"drop(event)", "ondragover":"allowDrop(event)"});
+		$(".list").attr({"ondrop":"drop(event)", "ondragover":"allowDrop(event)"});
+		ondrop = "drop(event);" ondragover = "allowDrop(evnet)"
+
+});
+ */
+
+var setSeat = $(function(){
 
 	<%for (int i = 0 ; i < 10 ; i++){ %>
 		<%for (int j = 0 ; j < 3 ; j++){ %>
 			<%if(countSize > 0 && stdList.get(i*3+j) != null){ %>
 				<% countSize--;%>
-				<%if(stdList.get(i*3+j).getSeat() == null){%>
+				<%if(stdList.get(i*3+j).getSeat().equals("N")){%>
 					$("#list<%=count%>").html("<div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
 						 						+"<table id='stdInfo<%=(i*3+j+1)%>'>"
 													+"<tr>"
@@ -284,10 +318,13 @@ $(function(){
 													+"<tr>"
 														+"<td><%=stdList.get(i*3+j).getMajor()%></td>"
 														+"<td><%=stdList.get(i*3+j).getSmoking()%></td>"
+														+"<td style = 'display:none' class = 'userNo'><%=stdList.get(i*3+j).getUserNo()%></td>"
 													+"</tr>"
 												+"</table>"
 											+"</div");
 					<%count++; %>
+					$("#list<%=(i*3+j+1)%>").parent().removeAttr("ondrop", "ondragover");
+					$("#list<%=(i*3+j+1)%>").children().removeAttr("ondrop", "ondragover");
 				<%} else{%>
 					$("#sNo<%=stdList.get(i*3+j).getSeat()%>").html("<%=stdList.get(i*3+j).getSeat()%> <div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
 						 						+"<table id='stdInfo<%=(i*3+j+1)%>'>"
@@ -302,17 +339,25 @@ $(function(){
 													+"<tr>"
 														+"<td><%=stdList.get(i*3+j).getMajor()%></td>"
 														+"<td><%=stdList.get(i*3+j).getSmoking()%></td>"
+														+"<td style = 'display:none' class = 'userNo'><%=stdList.get(i*3+j).getUserNo()%></td>"
 													+"</tr>"
 												+"</table>"
 											+"</div");
-				
+					$("#sNo<%=(i*3+j+1)%>").removeAttr("ondrop", "ondragover");
 				<%} %>
 			<%} %>
 		<%} %>
 	<%} %>
-
 });
 
+
+
+
 </script>
+
+ 
+ 
+ 
+
 </body>
 </html>

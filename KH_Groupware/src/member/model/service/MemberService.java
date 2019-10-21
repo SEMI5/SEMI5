@@ -128,4 +128,14 @@ public class MemberService {
 		return memberList;
 	}
 
+	public int checkOl(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().checkOl(conn, userId);
+		
+		commit(conn);
+		
+		return result;
+	}
+
 }

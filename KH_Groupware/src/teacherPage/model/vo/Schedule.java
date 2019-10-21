@@ -15,13 +15,14 @@ public class Schedule implements Serializable{
 	private String scdName;
 	private Date strDate;
 	private Date endDate;
+	private String scdType;
 	private String status;
 	
 	
 	public Schedule () {}
 
 
-	public Schedule( int scdNum, int calssNum, int userNum, String scdName, Date strDate, Date endDate, String status) {
+	public Schedule( int scdNum, int calssNum, int userNum, String scdName, Date strDate, Date endDate, String scdType, String status) {
 		super();
 		this.scdNum = scdNum;
 		this.calssNum = calssNum;
@@ -29,18 +30,20 @@ public class Schedule implements Serializable{
 		this.scdName = scdName;
 		this.strDate = strDate;
 		this.endDate = endDate;
+		this.scdType = scdType;
 		this.status = status;
 	}
 
 
 	
-	public Schedule(int calssNum, int userNum, String scdName, Date strDate, Date endDate) {
+	public Schedule(int calssNum, int userNum, String scdName, Date strDate, Date endDate, String scdType) {
 		super();
 		this.calssNum = calssNum;
 		this.userNum = userNum;
 		this.scdName = scdName;
 		this.strDate = strDate;
 		this.endDate = endDate;
+		this.scdType = scdType;
 	}
 
 	
@@ -116,6 +119,16 @@ public class Schedule implements Serializable{
 
 	public String getStatus() {
 		return status;
+	}
+
+
+	public String getScdType() {
+		return scdType;
+	}
+
+
+	public void setScdType(String scdType) {
+		this.scdType = scdType;
 	}
 
 
