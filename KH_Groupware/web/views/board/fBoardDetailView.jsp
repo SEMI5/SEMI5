@@ -69,7 +69,7 @@ textArea{
 	resize:none;
 	padding: 5px;
 	borderspacing:0px;
-	width:863px;
+	width:796px;
 	border:none;
 	outline:none;
 }
@@ -77,7 +77,7 @@ textArea{
 
 #tableDiv{
 	  border: none;
-      position: relative;
+      position: relative;	
       width: 1300px;
       padding:10px;
       margin: auto;
@@ -97,9 +97,9 @@ textArea{
    
 #boardTbody tr td{
       height: 50px;
-      
    }
    
+
 
 #boardTbody tr td{
     border-bottom: 1px solid lightgray;
@@ -107,7 +107,7 @@ textArea{
      padding-right: 25px;
    }
    
-   td span{
+#tableDiv td span{
 	cursor:pointer;
 	}
 
@@ -294,6 +294,39 @@ text-decoration: underline;
 	  align:center;
 
 }
+
+#replySelectArea{
+	  border: none;
+      position: relative;
+      width: 1230px;
+      padding:auto;
+      margin: auto;
+	  align:left;
+	  
+
+}
+
+
+#replySelectTable{
+	  border-top: 1px solid gray;
+      position: relative;
+      width: 800px;
+	  left: 1px;
+}
+
+
+#replySelectTable tr {
+	height:30px;
+}
+
+
+#replySelectTable tr td{
+	word-break:break-all; 
+	wrap:hard;
+	border: none;
+	padding: 10px;
+}
+
 .replyWriterArea{
 	border: none;
 	position: relative;
@@ -304,7 +337,7 @@ text-decoration: underline;
 
 
 .replyWriterArea div{
-	border: 1px solid black;
+	border: none;
 	position: relative;
 	width: 1230px;	
 	
@@ -329,6 +362,28 @@ text-decoration: underline;
 	background: black;
 }
 
+.answer{
+   border: 1px solid lightgray;
+   background: white;
+   color: lightblack;
+   padding: 5px;
+}
+
+.answer:hover{
+	cursor:pointer;
+	color: lightgray;
+}
+
+.good{
+	position: relative;
+	left: 570px;
+}
+
+
+.good:hover{
+	cursor:pointer;	
+}
+
 </style>
 </head>
 <header>
@@ -349,7 +404,7 @@ text-decoration: underline;
 		<div id="tableDiv" >
 			<table align="center" width="1230px">
 				<thead>
-					<tr><td style="text-align:center;font-size: 20px;padding:none"><b><%=b.getbTitle()%></b></td></tr>
+					<tr><td style="text-align:center;font-size: 20px;padding:none;height:50px;"><b><%=b.getbTitle()%></b></td></tr>
 				</thead>
 				<tbody id= "boardTbody">
 				<tr>
@@ -411,55 +466,67 @@ text-decoration: underline;
 				<div class="replyWriterArea">
 					<div style="border:none;margin-bottom:2px;"><span style="font-weight:bold;font-size:18px;">댓글작성</span></div>
 					
-					<div style="width:865px;border:1px solid darkgray;">
-					<textArea rows="3" cols="119" id="replyContent" placeholder="댓글을 입력해주세요" style="font-weight:normal;border-top:none"></textArea>
-					<br><span style="margin-left:750px;color:darkgray;">글자수 &nbsp;<span id="counter">0</span>&nbsp;/&nbsp;300&nbsp; </span>
-					<div style="height: 40px;width:865px;border:none; border-top:1px solid lightgray"><button id="addReplyBtn" type="button">등록</button></div>
+					<div style="width:802px;border:1px solid darkgray;">
+					<textArea rows="3" cols="119" id="replyContent" placeholder="댓글을 입력해주세요" style="font-weight:normal;border:none"></textArea>
+					<br><span style="margin-left:680px;color:darkgray;">글자 수 &nbsp;<span id="counter">0</span>&nbsp;/&nbsp;200&nbsp; </span>
+					<div style="height: 40px;width:800px;border:none; border-top:1px solid lightgray"><button id="addReplyBtn" type="button">등록</button></div>
 					</div>
-					
-				</div> 	
-			<table id= replyTable align="center">
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-			</table> 
-				
-			</div><!-- replyArea 끝 -->
+				</div>	
+			</div> <!-- replyArea 끝 -->
+				 <%if(rlist !=null){ %>	 
+			<div id="replySelectArea">
+				<br>
+				<table id="replySelectTable" >
+					<%if(rlist.isEmpty()) {%>
+						<tr><td colspan="3">댓글이 없습니다.</td></tr>
+					<%}else{ %>
+						<%for(int i=0;i<rlist.size();i++){ %>
+							<tr style="border:none; border-top: 1px solid darkgray;">
+								<td style="width:100px;">&nbsp;<b><%=rlist.get(i).getrWriter() %><span style="margin-left:10px;"><%=rlist.get(i).getCreateDate()%></b></span></td>
+							</tr>
+							<tr style="border:none">
+								<td width="400px">&nbsp;<%=rlist.get(i).getrContent() %></td>
+							</tr>
+							<tr style="border:none; border-bottom: 1px solid darkgray;">
+								<td width="200px" style="border:none">&nbsp;
+									<span class= "answer" type="button">답글</span>&nbsp;
+									<span class= "answer" type="button">수정</span>&nbsp;
+									<span class= "answer" type="button">삭제</span>
+									<span class= "good" onclick="goodClick(this);" style="hegiht: 20px; margin-left:10px;padding:5px; color:gray; border:1px solid gray"><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span >389</span></span>
+								</td>
+							</tr>
+						<%} %>
+					<%} %>
+				</table>
+			</div>		
+			<%} %>
+		
+		
 			
 		</div><!--outer끝 -->
 	 
 	
 	
 	<!-- 여기는 Ajax 관련 코드 -->
-	
-		
 		 <!-- 불러온 댓글 리스트 보여주기 -->
 		 
-		 <%if(rlist !=null){ %>)
-		<div id="replySelectArea">
-			<table id="replySelectTable" border="1" align="center">
-				<%if(rlist.isEmpty()) {%>
-					<tr><td colspan="3">댓글이 없습니다.</td></tr>
-				<%}else{ %>
-					<%for(int i=0;i<rlist.size();i++){ %>
-						<tr>
-							<td width="100px"><%=rlist.get(i).getrWriter() %></td>
-							<td width="400px"><%=rlist.get(i).getrContent() %></td>
-							<td width="200px"><%=rlist.get(i).getCreateDate() %></td>
-						</tr>
-					<%} %>
-				<%} %>
-			</table>
-		</div>		
-		<%} %>
-	</div> 
+	
+
 	<!-- Ajax로 댓글 입력부분을 완성해보자 -->
 	 <script>
 		$(function(){
 			// addReply 버튼을 클릭 시 댓글 달기 기능을 실행했을 때 비동기적으로 새로 갱신된 리스트들을 테이블에 적용 시키자
 			$("#addReplyBtn").click(function(){
+				
+				var count = $("textArea").val().length;
+				if( count <2){
+					alert("2자 이상 입력해주세요 ")	;	
+					return false;
+				}else if(count > 200){
+					alert("200자 미만으로 입력해주세요 ");
+					return false ;
+				}
+				
 				var writer = <%=loginUser.getUserNo()%>;
 				var bid = <%=b.getbId()%>
 				var content = $("#replyContent").val();
@@ -474,16 +541,35 @@ text-decoration: underline;
 						
 						// 새로 받아온 갱신된 댓글리스트들을 for문을 통해 다시 table에 추가
 						for(var key in data){
-							var $tr = $("<tr>");
-							var $writerTd = $("<td>").text(data[key].rWriter).css("width","100px");
-							var $contentTd = $("<td>").text(data[key].rContent).css("width","400px");
-							var $dateTd = $("<td>").text(data[key].createDate).css("width","200px");
 							
-							$tr.append($writerTd);
-							$tr.append($contentTd);
-							$tr.append($dateTd);
-							$replyTable.append($tr);
+							var rWriter = data[key].rWriter;
+							var createDate= data[key].createDate;
+							var rContent =data[key].rContent;
+					
 							
+							
+							var html = ""; 
+
+							html += "<tr style='border:none; border-top: 1px solid darkgray;'>"; 
+							html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "<span style='margin-left:10px;'>" + createDate +"</b></span></td>";
+							html += "</tr>";
+							
+							html += "<tr style='border:none'>";
+							html += "<td width='400px'>&nbsp;" + rContent + "</td>";
+							html += "</tr>"
+							
+							html += "<tr style='border:none; border-bottom: 1px solid darkgray;'>";
+							html += "<td width='200px' style='border:none'>&nbsp;";
+							html +=  "<span class= 'answer' type='button'>답글</span>";
+							html += "<span class= 'good' onclick='goodClick(this)' style='hegiht: 20px; margin-left:10px;padding:5px; border:1px solid gray; color:gray'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>389</span></span>";
+							html += "</td>";
+							html += "</tr>";
+							
+							
+							
+							$("#replySelectTable").append(html);
+					
+
 						}
 						
 						// 댓글 작성 부분 리셋
@@ -548,16 +634,43 @@ $(function(){
 
 		$("#counter").text(inputLength);
 		
-		var remain = 300- inputLength; 
+		var remain = 200- inputLength; 
 		
 		if(remain >= 0){
 			$("#counter").css("color", "darkgray");
 		}else{
 			$("#counter").css("color","#f53f29");
 		}
-	});						
+	});		
+	
+
+	$( ".good" ).click(function() {
+		if($(this).css("color") == "rgb(128, 128, 128)"){
+	 		$(this).css({"border": "1px solid #f53f29", "color":"#f53f29" }); 
+
+		}else{
+			$(this).css({"border": "1px solid gray", "color":"gray" }); 
+		} 
+	});
+	
 });
- 
+
+
+
+
+  function goodClick(thing){
+
+	 if( thing.style.color == "gray"){ 
+		thing.style.color = "#f53f29";
+	 	thing.style.border = "1px solid #f53f29";
+	}else{
+		thing.style.color = "gray";
+		thing.style.border = "1px solid gray";
+		
+	}; 
+} 
+
+
 </script>
 
 </html>
