@@ -13,7 +13,7 @@
 	System.out.println("글쓴이 번호:"+ b.getUserNo());
 	
 	/* Ajax이후 */
-/* 	ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist"); */
+ 	ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist"); 
 %>
 <!DOCTYPE html>
 <html>
@@ -30,12 +30,13 @@
 <title>Insert title here</title>
 <style>
    #outer{
+       	
        width: 100%;
        position: absolute;
-       border:none;
+       border:1px solid black;
        padding: 10px;
    }
-   td {
+#boardTbody tr td {
       border:1px solid white;
    
    }
@@ -54,7 +55,7 @@
 	margin-left:auto;
 	margin-right:auto;
 	align: center;
-}
+ 	}	
 
 .titleDiv2{
 	position: relative;
@@ -64,8 +65,18 @@
 	margin-right:auto;
 }
 
+textArea{
+	resize:none;
+	padding: 5px;
+	borderspacing:0px;
+	width:863px;
+	border:none;
+	outline:none;
+}
+
+
 #tableDiv{
-	  
+	  border: none;
       position: relative;
       width: 1300px;
       padding:10px;
@@ -73,7 +84,7 @@
 }
 
 
- table{
+#tableDiv table{
       border-top: 2px solid black; 
       border-bottom: 2px solid black; 
       border-spacing:0px;
@@ -84,13 +95,13 @@
      
    }
    
-   tr{
+#boardTbody tr td{
       height: 50px;
       
    }
    
 
-   td{
+#boardTbody tr td{
     border-bottom: 1px solid lightgray;
     padding-left: 25px;
      padding-right: 25px;
@@ -199,6 +210,20 @@ text-decoration: underline;
    bottom: 35px;
    z-index:1;
 }
+#addReplyBtn{
+	 border:none;
+   outline: none;
+   background-color: black; 
+   color: white;
+   font-size: 16px;
+   height: 40px;
+   width: 70px;
+   position: absolute;
+   right:0px;
+   font-weight: bold;
+}
+
+
 
 #reWriteBtn{
 	 border:none;
@@ -245,6 +270,11 @@ text-decoration: underline;
    color: white;
 }
 
+#addReplyBtn:hover{
+	background-color: #f53f29; 
+   color: white;
+}
+
 #preNextBoard:hover{
 	cusrsor:pointer; 
 	color: darkgray;
@@ -255,22 +285,73 @@ text-decoration: underline;
 	font-size:15px
 }
 
+.replyArea{
+	  border-top:  1px solid darkgray;
+      position: relative;
+      width: 1230px;
+      padding:auto;
+      margin: auto;
+	  align:center;
+
+}
+.replyWriterArea{
+	border: none;
+	position: relative;
+	width: 1230px;
+	padding: 1px;
+	
+}
+
+
+.replyWriterArea div{
+	border: 1px solid black;
+	position: relative;
+	width: 1230px;	
+	
+
+}
+
+
+.replyWriterArea table{
+	text-align: center;
+	font-size:16px;
+	font-weight: bold;
+}
+
+#boardImg1{
+	position: relative;	
+	width:100%;
+	height:300px;
+	margin-left:auto;
+	margin-right:auto;
+	align: center;
+	text-align: center;
+	background: black;
+}
+
 </style>
 </head>
 <header>
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-<br><br>
+<div id= boardImg1>
+		<img id= boardImg src="<%=request.getContextPath() %>/images/boardBack3.jpg">
+		<div style="width:100%; height:60px;background:black;"></div>
+</div>
+
+
 	<div id="outer">
+	
+	<br><br>
 		<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
 	
-		<div id="tableDiv" align>
+		<div id="tableDiv" >
 			<table align="center" width="1230px">
 				<thead>
 					<tr><td style="text-align:center;font-size: 20px;padding:none"><b><%=b.getbTitle()%></b></td></tr>
 				</thead>
-				<tbody>
+				<tbody id= "boardTbody">
 				<tr>
 					<td style="font-size: 16px">
 					
@@ -323,37 +404,40 @@ text-decoration: underline;
 				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/FupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
 				<%}%>
 				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Flist.bo'" style="display:inline-block"><b>목록</b></button>
+			<br>
+			</div>	<!--tableDiv 끝 -->
+			<div class="replyArea">
+				<br>
+				<div class="replyWriterArea">
+					<div style="border:none;margin-bottom:2px;"><span style="font-weight:bold;font-size:18px;">댓글작성</span></div>
 					
-		</div>
-		
-		
-
-	</div>
-	<%-- <div align="center">
-			<button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'">메뉴로 돌아가기</button>
-			<button>수정하기</button>
-			<!-- 수정하기는 공지사항 때 해봤으니까 알아서 센스껏 완성 하시고 -->
-			<!-- 이제 사진게시판 하러 가자! menubar.jsp로 ㄱㄱ씽 -->
+					<div style="width:865px;border:1px solid darkgray;">
+					<textArea rows="3" cols="119" id="replyContent" placeholder="댓글을 입력해주세요" style="font-weight:normal;border-top:none"></textArea>
+					<br><span style="margin-left:750px;color:darkgray;">글자수 &nbsp;<span id="counter">0</span>&nbsp;/&nbsp;300&nbsp; </span>
+					<div style="height: 40px;width:865px;border:none; border-top:1px solid lightgray"><button id="addReplyBtn" type="button">등록</button></div>
+					</div>
+					
+				</div> 	
+			<table id= replyTable align="center">
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+			</table> 
+				
+			</div><!-- replyArea 끝 -->
 			
-		</div> --%>
+		</div><!--outer끝 -->
+	 
 	
 	
 	<!-- 여기는 Ajax 관련 코드 -->
-	<!-- <div class="replyArea">
-		댓글 작성하는 부분
-		<div class="replyWriterArea">
-			<table align="center">
-				<tr>
-					<td>댓글작성</td>
-					<td><textArea rows="3" cols="80" id="replyContent"></textArea></td>
-					<td>
-						<button id="addReply">댓글등록</button>
-					</td>
-				</tr>
-			</table>
-		</div> -->
+	
 		
-<%-- 		<!-- 불러온 댓글 리스트 보여주기 -->
+		 <!-- 불러온 댓글 리스트 보여주기 -->
+		 
+		 <%if(rlist !=null){ %>)
 		<div id="replySelectArea">
 			<table id="replySelectTable" border="1" align="center">
 				<%if(rlist.isEmpty()) {%>
@@ -369,18 +453,19 @@ text-decoration: underline;
 				<%} %>
 			</table>
 		</div>		
-	</div> --%>
+		<%} %>
+	</div> 
 	<!-- Ajax로 댓글 입력부분을 완성해보자 -->
-	<%-- <script>
+	 <script>
 		$(function(){
 			// addReply 버튼을 클릭 시 댓글 달기 기능을 실행했을 때 비동기적으로 새로 갱신된 리스트들을 테이블에 적용 시키자
-			$("#addReply").click(function(){
+			$("#addReplyBtn").click(function(){
 				var writer = <%=loginUser.getUserNo()%>;
 				var bid = <%=b.getbId()%>
 				var content = $("#replyContent").val();
 				
 				$.ajax({
-					url:"/jspProject/insertReply.bo",
+					url:"/KH_Groupware/insertReply.bo",
 					type:"post",
 					data:{writer:writer, content:content, bid:bid}, //InsertReplyServlet 만들러 ㄱㄱ씽
 					success:function(data){
@@ -407,10 +492,15 @@ text-decoration: underline;
 				});
 			});
 		});
-	</script> --%>
+	</script> 
 	
 </body>
 <script>
+
+
+
+
+
 $(function(){
     $(".clipDiv").click(function(){
        
@@ -447,6 +537,26 @@ $(function(){
        }
  }
  
+ 
+$(function(){
+	$("textarea").keydown(function(){
+		//alert($(this).text()); // textarea는 input태그처럼 입력 값을 val()로 뽑아와야한다.\
+		//alert($(this).val()); // textarea의 입력값을 뽑아올 수는 있지만, 맨 마지막 한글자가 빠짐 
+		
+		var inputLength = $(this).val().length +1;  // textarea는 한턴이 느리므로 +1
+		console.log(inputLength);
+
+		$("#counter").text(inputLength);
+		
+		var remain = 300- inputLength; 
+		
+		if(remain >= 0){
+			$("#counter").css("color", "darkgray");
+		}else{
+			$("#counter").css("color","#f53f29");
+		}
+	});						
+});
  
 </script>
 

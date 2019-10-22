@@ -60,11 +60,14 @@ public class FBoardDetailServlet extends HttpServlet {
 		// --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분 ------------------- 
 		// 우선 댓글 달기 기능을 위해서 Reply vo 클래스를 만들어 주고 오자.
 		/*
-		 * ArrayList<Reply> rlist = new NBoardService().selectReplyList(bid);
-		 * System.out.println(rlist);
+		
 		 * 
 		 * //---------------------------------------------------------------------------
 		 */ 
+		ArrayList<Reply> rlist = new FBoardService().selectReplyList(bid);
+		 System.out.println(rlist);
+		
+		
 		 
 		 if(board != null) { 
 			 request.setAttribute("board", board);
@@ -73,7 +76,7 @@ public class FBoardDetailServlet extends HttpServlet {
 			
 		
 			  // --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분
-			  //------------------- request.setAttribute("rlist", rlist); //
+			 request.setAttribute("rlist", rlist); 
 			  //boardDetailView.jsp로 가서 댓글리스트가 보여지도록 화면단 작성하자
 			 request.getRequestDispatcher("views/board/fBoardDetailView.jsp").forward(request, response); 
 		  }else { 

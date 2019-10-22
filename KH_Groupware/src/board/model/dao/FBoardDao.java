@@ -739,7 +739,7 @@ public class FBoardDao {
 			pstmt.setString(1,  r.getrContent());
 			pstmt.setInt(2, r.getRefBid());
 			pstmt.setInt(3, Integer.valueOf(r.getrWriter()));
-			
+			System.out.println("리플 다오 인서트값: " + r.getrContent() +" "+ r.getRefBid() +" "+r.getrWriter());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
