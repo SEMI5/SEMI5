@@ -399,6 +399,18 @@ public class FBoardService {
 		return glist;
 
 	}
+
+
+	public Good SelectGoodRecord(int userNo, int rid) {
+		Connection conn = getConnection();
+		Good good = null;
+		
+		FBoardDao NbDao = new FBoardDao();
+		
+		
+		close(conn);
+		return good; 
+	}
 }
 
 

@@ -7,7 +7,7 @@
 	Board bNext = (Board)request.getAttribute("nextBoard");
 	
 	ArrayList<Attachment> attachments= new ArrayList<Attachment>();
-	if(b.getBtype().equals("2")){
+	if(b.getBtype().equals("2")){	
 		attachments = (ArrayList<Attachment>)request.getAttribute("attachments");
 	}			
 	System.out.println("글쓴이 번호:"+ b.getUserNo());
@@ -16,7 +16,9 @@
  	ArrayList<Reply> rlist = (ArrayList<Reply>)request.getAttribute("rlist"); 
  	ArrayList<Good> glist = (ArrayList<Good>)request.getAttribute("glist"); 
  	
- 	String color = "green"; // 그린은 glist 값이 없다는 것 
+ 	String color = "gray"; // 그린은 glist 값이 없다는 것 
+ 	
+ 	int i = 0; 
 %>
 <!DOCTYPE html>
 <html>
@@ -464,7 +466,7 @@ text-decoration: underline;
                   			&nbsp;<b style="font-size:14px">첨부파일(<font class= attachmentCount><%=attachments.size()%></font>)</b></span>
                			</div>
 						<div class="balloon">
-							<%for(int i = 0;  i<attachments.size(); i++){ %>
+							<%for( i = 0;  i<attachments.size(); i++){ %>
                            			<%Attachment f = attachments.get(i);%>
                             		<%if(f.getbId() == b.getbId()){%> 
 			                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
@@ -520,7 +522,7 @@ text-decoration: underline;
 					<%if(rlist.isEmpty()) {%>
 						<tr><td colspan="3">댓글이 없습니다.</td></tr>
 					<%}else{ %>
-						<%for(int i=0;i<rlist.size();i++){ %>
+						<%for(i=0;i<rlist.size();i++){ %>
 							<%for (int j=0; j<glist.size(); j++){
 									if((rlist.get(i).getrId() == glist.get(j).getrId()) && (loginUser.getUserNo() == glist.get(j).getUserNo())){
 										 color = "#f53f29";
@@ -547,9 +549,9 @@ text-decoration: underline;
 									<span class= "answer" type="button">답글</span>&nbsp;
 									<span class= "answer" type="button">수정</span>&nbsp;
 									<span class= "answer" type="button" onclick="deleteReply(this);" value = "">삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
-										<input type = hidden value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
+										<input id = "rid<%=i%>" type = hidden value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
 									</span>
-									<span class= "good" onclick="goodClick(this);" style="hegiht: 20px; margin-left:10px;padding:5px;border:1px solid <%=color %>; color:<%=color %> " ><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span id="gCount"><%=rlist.get(i).getCount()%></span></span>
+									<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="hegiht: 20px; margin-left:10px;padding:5px;border:1px solid <%=color %>; color:<%=color %> " ><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span id="gCount"><%=rlist.get(i).getCount()%></span></span> 
 								</td>
 							</tr>
 						
@@ -602,8 +604,8 @@ text-decoration: underline;
 						$replyTable.html("");	// 기존 테이블 초기화(기존에는 댓글이 없습니다가 적힌 태그가 있었는데 지워지게)
 						
 						// 새로 받아온 갱신된 댓글리스트들을 for문을 통해 다시 table에 추가
-						for(var key in data){
-					
+						for(var  [key] in data){
+							<% i = i +1; %>
 							var rWriter = data[key].rWriter;
 							var createDate= data[key].createDate;
 							var rContent =data[key].rContent;
@@ -615,7 +617,7 @@ text-decoration: underline;
 							var color = "<%=color%>";
 							
 							var html = ""; 
-
+                            
 							html += "<tr style='border:none; border-top: 1px solid darkgray;'>"; 
 							html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "sdafasf" + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
 							html += "<span class='fix' style='color:gray' onclick= 'fixClick(this);'><span style='font-size: 12px;'>"+ rWriter+"님이 고정함&nbsp;&nbsp;</span><i class='fa fa-thumb-tack' aria-hidden='true' style='font-size:14px;'></i></span>";
@@ -630,8 +632,8 @@ text-decoration: underline;
 							html += "<td width='200px' style='border:none'>&nbsp;";
 							html +=  "<span class= 'answer' type='button'>답글</span>&nbsp;";
 							html +=  "<span class= 'answer' type='button'>수정</span>&nbsp;";
-							html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제 <input type= 'hidden' value =" +rId+ "></span>";
-							html += "<span class= 'good' onclick='goodClick(this)' style='hegiht:20px;margin-left:25px;padding:5px;color: " +color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
+							html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제 <input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
+							html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='hegiht:20px;margin-left:25px;padding:5px;color: " +color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
 							html += "</td>";
 							html += "</tr>";
 							
@@ -651,11 +653,7 @@ text-decoration: underline;
 <script>
 
 
-
-
-
 $(function(){
-	
 	
     $(".clipDiv").click(function(){
        
@@ -667,6 +665,8 @@ $(function(){
          }
     });
 
+    
+    
 
     $("textarea").keydown(function(){
 		//alert($(this).text()); // textarea는 input태그처럼 입력 값을 val()로 뽑아와야한다.\
@@ -725,41 +725,48 @@ $(function(){
  }
  
 
- 
 
-   function goodClick(thing){	
-		 if( thing.style.color == "gray"){ 
-			thing.style.color = "#f53f29";
-		 	thing.style.border = "1px solid #f53f29";
-		 	 var count =  thing.lastChild.innerHTML
-		 	 countAdd = parseInt(count) +1 ;
-		 	 thing.lastChild.innerHTML= countAdd
-		 	 
-		 	 
-		 	$.ajax({
-	    		url:"/KH_Groupware/Fdelete.re",
-	    		type:"post",
-	    		data:{userNo: <%=loginUser.getUserNo()%>},
-	    		success:function(data){
-	    		  	if(data == 1){
-						alert("변경되었습니다.")	    		  		
-	    		  	}else{
-	    		  		alert("변경되었습니다.")
-	    		  		
-	    		  	}
-	    		}
-    		});
-		 	 
-		 	 
-		 	 
-		}else{
+ function goodClick(thing, rid){
+
+	 var rId = rid.value 
+	 alert(rId);
+	 	
+	  if( thing.style.color == "gray"){ 
+				thing.style.color = "#f53f29";
+			 	thing.style.border = "1px solid #f53f29"
+			 	;
+			 	 var count =  thing.lastChild.innerHTML
+			 	 countAdd = parseInt(count) +1 ;
+			  	
+			 	thing.lastChild.innerHTML= countAdd
+			 	 
+	  }else{
 			thing.style.color = "gray";
 			thing.style.border = "1px solid gray";
 			 var count =  thing.lastChild.innerHTML
 		 	 countSub = parseInt(count) -1 ;
 		 	 thing.lastChild.innerHTML= countSub; 
-		}; 
-	} 
+		};   	 	 
+			    
+		
+		 $.ajax({
+    		url:"/KH_Groupware/insert.go",
+    		type:"post",
+    		data:{userNo: <%=loginUser.getUserNo()%>,
+	 	          rid1: rid},
+    		success:function(data){
+    		  	
+    		 },
+    		 error : function(request,status,error) {
+ 				// 3-2. 에러 발생 시 처리할 절차
+ 				alert("code:"+request.status+"\n"+
+ 				"message:"+request.responseText+"\n"+"error:"+error);
+ 				}
+		  });  
+ 
+ }
+ 
+
 
   
   function fixClick(thing){	
@@ -800,6 +807,8 @@ function deleteReply(thing){
 						
 						// 새로 받아온 갱신된 댓글리스트들을 for문을 통해 다시 table에 추가
 						console.log( data["rlist"]); */
+						
+						
 						
 						
 							
