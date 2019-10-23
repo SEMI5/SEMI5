@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import board.model.dao.FBoardDao;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Good;
 import board.model.vo.Reply;
 
 public class FBoardService {
@@ -360,6 +361,43 @@ public class FBoardService {
 		close(conn);
 		
 		return result;
+	}
+
+
+	public ArrayList<Reply> deleteReply(int rid, int bid) {
+		Connection conn = getConnection();
+		FBoardDao fbDao =new FBoardDao();
+		
+		ArrayList<Reply> list = new ArrayList<Reply>();
+		
+		int result = fbDao. deleteReply(conn, rid);
+		
+		if(result>0) {
+			commit(conn);
+			
+			list = fbDao.selectReplyList(conn, bid);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return list;
+
+	}
+
+
+	public ArrayList<Good> selectGinfo(int bid) {
+		Connection conn = getConnection();
+		FBoardDao fbDao =new FBoardDao();
+		
+		ArrayList<Good> glist = new ArrayList<Good>();
+		
+		glist = fbDao.selectGinfo(conn, bid);
+		close(conn);
+		
+		return glist;
+
 	}
 }
 

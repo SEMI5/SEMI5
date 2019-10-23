@@ -11,15 +11,33 @@ public class Reply implements Serializable{
 	private String rContent; 
 	private int refBid; 
 	private String rWriter; 
+	private int userNo;
 	private Date createDate; 
 	private Date modifyDate;
 	private String Status;
+	private int count;
 	
 	// int rWriter가 아니고 String rWriter로 하자! 조인결과 값을 가져올 꺼라서...(조인 결과를 담을 vo 객체를 찍어낼 class기 때문에 ) 
 
 
 	public Reply() {
 	}
+
+
+	public Reply(int rId, String rContent, int refBid, String rWriter, int userNo, Date createDate, Date modifyDate,
+			String status, int count) {
+		super();
+		this.rId = rId;
+		this.rContent = rContent;
+		this.refBid = refBid;
+		this.rWriter = rWriter;
+		this.userNo = userNo;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		Status = status;
+		this.count = count;
+	}
+
 
 	public Reply(int rId, String rContent, int refBid, String rWriter, Date createDate, Date modifyDate,
 			String status) {
@@ -33,6 +51,19 @@ public class Reply implements Serializable{
 		Status = status;
 	}
 
+	
+	public int getUserNo() {
+		return userNo;
+	}
+
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	
+	
+	
 	public int getrId() {
 		return rId;
 	}
@@ -91,14 +122,22 @@ public class Reply implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	} 
-	
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Reply [rId=" + rId + ", rContent=" + rContent + ", refBid=" + refBid + ", rWriter=" + rWriter
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", Status=" + Status + "]";
+				+ ", userNo=" + userNo + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", Status="
+				+ Status + ", count=" + count + "]";
 	}
-
-	
 	
 }

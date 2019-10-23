@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Good;
 import board.model.vo.Reply;
 
 public class FBoardDao {
@@ -709,11 +710,13 @@ public class FBoardDao {
 			while(rs.next()) {
 				rlist.add(new Reply(rs.getInt("rid"),
 									rs.getString("rcontent"),
-									rs.getInt("ref_bid"),
+									rs.getInt("bid"),
 									rs.getString("user_name"),
+									rs.getInt("user_no"),
 									rs.getDate("create_date"),
 									rs.getDate("modify_date"),
-									rs.getString("status")));
+									rs.getString("rstatus"), 
+									rs.getInt("count")));
 			}
 			
 		} catch (SQLException e) {
@@ -916,5 +919,57 @@ public class FBoardDao {
 		return result;
 	}
 
+	public int deleteReply(Connection conn, int rid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteReply");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1,  rid); 
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Good> selectGinfo(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<Good> glist = null;
+		
+		String query = prop.getProperty("selectGinfo");	
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+			rs=pstmt.executeQuery();
+			glist = new ArrayList<Good>();
+			
+			while(rs.next()) {
+				glist.add(new Good(rs.getInt("GID"),
+									rs.getInt("RID"),
+									rs.getInt("USER_NO"),
+									rs.getString("STATUS"),
+									rs.getInt("REF_BID")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
 	
+		
+		return glist;
+	}
 }

@@ -357,7 +357,7 @@ String originName8= flist.get(7).getOriginName();
       
       <br><br>
       <div class= btnDiv>
-            <button type='button'id="listBtn" onclick="location.href='<%=request.getContextPath() %>/Ndetail.bo?bid=<%=b.getbId()%>'"><b>뒤로가기</b></button>&nbsp;&nbsp;
+            <button type='button'id="listBtn" onclick="location.href='<%=request.getContextPath() %>/Fdetail.bo?bid=<%=b.getbId()%>'"><b>뒤로가기</b></button>&nbsp;&nbsp;
             <button id="updateBtn" type = "button" onclick="updateSubmit();"><b>수정</b></button>
       </div>
    </div>

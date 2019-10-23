@@ -14,6 +14,7 @@ import board.model.service.FBoardService;
 import board.model.service.NBoardService;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Good;
 import board.model.vo.Reply;
 import member.model.vo.Member;
 
@@ -65,7 +66,9 @@ public class FBoardDetailServlet extends HttpServlet {
 		 * //---------------------------------------------------------------------------
 		 */ 
 		ArrayList<Reply> rlist = new FBoardService().selectReplyList(bid);
-		 System.out.println(rlist);
+		ArrayList<Good> glist = new FBoardService().selectGinfo(bid); 
+		 System.out.println("디테일 서블릿: "+ rlist);
+		 System.out.println("디테일 서블릿: "+ glist);
 		
 		
 		 
@@ -77,6 +80,7 @@ public class FBoardDetailServlet extends HttpServlet {
 		
 			  // --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분
 			 request.setAttribute("rlist", rlist); 
+			 request.setAttribute("glist", glist);
 			  //boardDetailView.jsp로 가서 댓글리스트가 보여지도록 화면단 작성하자
 			 request.getRequestDispatcher("views/board/fBoardDetailView.jsp").forward(request, response); 
 		  }else { 
