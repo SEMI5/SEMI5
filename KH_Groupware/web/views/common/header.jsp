@@ -4,6 +4,11 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 
+	int userNo = 0; 
+	if(loginUser != null){
+		userNo = loginUser.getUserNo();
+	} 
+
 %>    
 <!DOCTYPE html>
 <html>
@@ -799,8 +804,15 @@ h3{
     	 location.href="infoPage.jsp"
     	 
      }
+     // 소개글 이동
+     	function goInfo(){
+    	 location.href="infoPage.jsp"
+    	 
+     }
       
       
+      
+   	// 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
    	// 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
 		function goThumbnail(){
 			location.href="<%=request.getContextPath()%>/list.th";
