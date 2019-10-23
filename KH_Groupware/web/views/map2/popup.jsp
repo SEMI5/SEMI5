@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+    pageEncoding="UTF-8"  import="member.model.vo.Member" %>
 		<%
+		    //Member loginUser = (Member)session.getAttribute("loginUser");
 			String Aname = (String)request.getParameter("A");
 			String Address = (String)request.getParameter("B");
 			
-			out.print(Aname); 
-			out.print(Address); 
+			//out.print(Aname); 
+			//out.print(Address); 
 		%> 
 <!DOCTYPE>
 <html>
@@ -38,7 +39,7 @@
 				<%-- <input type="hidden" name="TR_LatLng" value="<%=Address%>"> --%> <!-- 주소-->
 				<input type="hidden" name="ST_id" value="0">
 			</table>
-			<button type="submit" id="completeBtn" onclick="complete">등록 완료</button>
+				<button type="submit" id="completeBtn" onclick="complete">등록 완료</button>
 		</form>
 		
 		
