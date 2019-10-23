@@ -636,6 +636,12 @@ text-decoration: underline;
 							html += "<span class= 'good' onclick='goodClick(this,rid"+<%=i%>+")' style='hegiht:20px;margin-left:25px;padding:5px;color: " +color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
 							html += "</td>";
 							html += "</tr>";
+							////////////////////////
+							////////////////////////
+							////////////////////////
+							////////////////////////
+							////////////////////////
+							////////////////////////
 							
 							$("#replySelectTable").append(html); 
 							
