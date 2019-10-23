@@ -345,7 +345,7 @@ input{
 		 </script>
 		 
 
-		<!-- 여기는 Ajax 관련 코드  -->
+		<!-- ㅇ여기는 Ajax 관련 코드  -->
 <!-- Ajax로 댓글 입력 부분을 완성해보자  -->
 <%-- 	<script>
 		$(function(){
