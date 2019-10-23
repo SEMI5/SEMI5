@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 .outer {
     width:100%;
@@ -32,13 +33,74 @@
 	margin-left:auto;
 	margin-right:auto;
 }
-
 .btnArea {
-   width:150px;
+  width:300px;
    margin-left:auto;
    margin-right:auto;
       
 }
+
+
+#write-btn{
+	/* background-color: #f1f1f1; */
+	background-color: black; 
+	color: white;
+	border: none;
+	margin-right : 20px;
+	float : right;
+	padding: 10px 16px;
+	font-size: 15px;
+	cursor: pointer;
+	display : inline-block;
+	  border-radius: 16px;
+	    box-shadow: 0 5px #999;
+}  
+#write-btn:hover{
+	background-color: #f53f29; 
+   color: white;
+     border-radius: 16px;
+	/* background-color: #666;
+	color: white; */
+} 
+
+#write-btn:active {
+	color : white;
+/*   background-color: #666; */
+  	background-color: #f53f29; 
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+   border-radius: 16px;
+}
+
+
+#rest-btn{
+	background-color: #f1f1f1;
+	border: none;
+	/* margin-right : 80px; */
+	float : right;
+	padding: 10px 16px;
+	font-size: 15px;
+	cursor: pointer;
+	display : inline-block;
+	  border-radius: 16px;
+	    box-shadow: 0 5px #999;
+}  
+#rest-btn:hover{
+	background-color: #666;
+	color: white;
+	border-radius: 16px;
+} 
+
+#rest-btn:active {
+	color : white;
+/*   background-color: #666; */
+  	background-color: #f53f29; 
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+   border-radius: 16px;
+}
+
+
    
 #titleImgArea {
   	display: inline-block;
@@ -145,7 +207,7 @@ table.type02 td {
 					</tr>
 					
 				</table>
-
+			
 			<!-- 파일 업로드 하는 부분(file 타입형 input태그들) -->
 				<div id ="fileArea">							   <!-- input태그가 눌리면 this(객체)와1을 매개변수로 LoadImg함수발동 -->	
 					<input type="file" id ="thumbnailImg1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)">
@@ -212,9 +274,9 @@ table.type02 td {
 			
 			</div>
 			<br>
-			<div class="btnArea">
-				<button type ="reset">취소하기 </button>
-				<button type ="submit">작성완료 </button>
+			<div class="btnArea"  align ="center">
+				<button type ="reset" id="rest-btn">취소하기 </button>
+				<button type ="submit" id="write-btn">작성완료 </button>
 			</div>
 			<!-- InsertThumbnailServlet 만들러 ㄱㄱ!!!! -->
 		</form>

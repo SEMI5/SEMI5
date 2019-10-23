@@ -394,7 +394,7 @@ public class NBoardDao {
 
 		return list;
 	}
-
+	
 	public ArrayList selectFList(Connection conn, int currentPage, int limit) {
 		Statement stmt = null;
 		ResultSet rs = null;

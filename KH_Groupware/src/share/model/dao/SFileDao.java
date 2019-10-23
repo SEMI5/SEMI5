@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,6 +32,14 @@ public class SFileDao {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 자료실 리스트 갯수 조회용
 	public int getListCount(Connection conn) {
@@ -65,11 +74,11 @@ public class SFileDao {
 
 	}
 
-	public ArrayList<Share> selectList(Connection conn, int currentPage, int limit) {
+	public ArrayList<Attachment> selectList(Connection conn, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		ArrayList<Share>list = null;
+		ArrayList<Attachment>list = null;
 		
 		String query = prop.getProperty("selectSFList");
 		
@@ -86,20 +95,20 @@ public class SFileDao {
 			
 			rs=pstmt.executeQuery();
 			
-			list = new ArrayList<Share>();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
+			list = new ArrayList<Attachment>();	// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
 			
 			while(rs.next()) {
-				Share b = new Share(rs.getInt("BID"),		//list에 바로 값넣음 
-									rs.getInt("CID"),
-									rs.getString("BTITLE"),
-									rs.getString("BTYPE"),
-									rs.getString("BCONTENT"),
-									rs.getInt("BCOUNT"),
-									rs.getString("USER_NAME"),
-									rs.getDate("CREATE_DATE"),
-									rs.getDate("MODIFY_DATE"),
-									rs.getString("STATUS"));
-				
+				Attachment b = new Attachment(rs.getInt("fid"),
+								rs.getInt("bid"),
+								rs.getString("origin_name"),
+								rs.getString("change_name"),
+								rs.getString("file_path"),
+								rs.getDate("upload_Date"),
+								rs.getInt("file_Level"),
+								rs.getInt("download_Count"),
+								rs.getString("status"),
+								rs.getInt("rnum"));
+				                
 				list.add(b);
 				
 			}
@@ -142,7 +151,7 @@ public class SFileDao {
 			return result;
 		}
 
-		
+	//자료등록 업로드	
 	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
 
 		PreparedStatement pstmt = null;
@@ -180,6 +189,8 @@ public class SFileDao {
 		else
 			return 0;
 	}
+	
+	
 	// 자료실  - 자료실 게시판 리스트 정보
 	public ArrayList selectBList(Connection conn) {
 		Statement stmt = null;
@@ -208,7 +219,7 @@ public class SFileDao {
 									rs.getString("STATUS")));
 				
 			}
-				
+			System.out.println("dao selectBList:" + list);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -238,11 +249,19 @@ public class SFileDao {
 			list = new ArrayList();	// 안해주면 null로 나와서 add가 안먹힘
 			
 			while(rs.next()) {
-				list.add(new Attachment(rs.getInt("bid"),
-										rs.getString("change_name")));
+				list.add(new Attachment(rs.getInt("fid"),
+											rs.getInt("bid"),
+											rs.getString("origin_name"),
+											rs.getString("change_name"),
+											rs.getString("file_path"),
+											rs.getDate("upload_Date"),
+											rs.getInt("file_Level"),
+											rs.getInt("download_Count"),
+											rs.getString("status"), 
+											rs.getInt("rnum")));
 			}
 			
-			
+			System.out.println("dao selectFList:" + list);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -284,7 +303,7 @@ public class SFileDao {
 		
 		Share s = null;
 		
-		String query = prop.getProperty("selectSFILE");
+		String query = prop.getProperty("selectShare");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -305,7 +324,7 @@ public class SFileDao {
 								rs.getDate("MODIFY_DATE"),
 								rs.getString("STATUS"));
 			}
-			System.out.println(s);
+			// System.out.println(s);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -357,6 +376,198 @@ public class SFileDao {
 		}
 		
 		return list;
+	}
+
+	public Share selectSFile(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Share s = null;
+		
+		String query = prop.getProperty("selectSFile");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+		
+			rs = pstmt.executeQuery();
+		
+			while(rs.next()) {
+				s = new Share(rs.getInt("BID"),		//list에 바로 값넣음 
+							rs.getInt("CID"),
+							rs.getString("BTITLE"),
+							rs.getString("BTYPE"),
+							rs.getString("BCONTENT"),
+							rs.getInt("BCOUNT"),
+							rs.getString("USER_NAME"),
+							rs.getDate("CREATE_DATE"),
+							rs.getDate("MODIFY_DATE"),
+							rs.getString("STATUS"));
+	}
+			System.out.println("s: " + s);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return s;
+	}
+
+	public ArrayList<Attachment> selectAttachments(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Attachment at = null;
+		ArrayList<Attachment> attachments = new ArrayList<Attachment>();
+		
+		String query = prop.getProperty("selectAttachments");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+			rs = pstmt.executeQuery();
+				
+					// 컬렉션(ArrayList)는 반드시 기본생성자로 초기화 해놓고 활용하자!!
+				while(rs.next()) {
+					at= new Attachment(rs.getInt("fid"),
+										rs.getInt("bid"),
+										rs.getString("origin_name"),
+										rs.getString("change_name"),
+										rs.getString("file_path"));
+					attachments.add(at);
+				}
+				
+				System.out.println("at: " + at);	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return attachments;
+	}
+
+	public int updateShare(Connection conn, Share b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateShare");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1,  b.getbTitle());
+			//pstmt.setString(2,  b.getBtype());
+			pstmt.setString(2, b.getbContent());
+			//pstmt.setInt(4, b.getBlevl());
+			pstmt.setInt(3,  b.getbId());
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println("updateShare" + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateAttachment(int bid, Connection conn, ArrayList<Attachment> fileList) {
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateSAttachment");
+		
+		try {
+			for(int i=0; i<fileList.size();i++) {
+				Attachment at = fileList.get(i);
+				
+				pstmt=conn.prepareStatement(query);
+				pstmt.setInt(1, bid);
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				// pstmt.setInt(5, at.getFileLevel());
+				
+				result += pstmt.executeUpdate();
+				System.out.println("updateSAtt" + result);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		// fileList가 가진 파일 갯수만큼의 행이 모두 insert가 되었다면
+		if(result == fileList.size())
+			return result;
+		else
+			return 0;
+
+	}
+
+	public Attachment selectAttachment(Connection conn, int fid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Attachment at = null;
+		
+		String query = prop.getProperty("selectSATTACH");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, fid);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				//필요한것만 뽑아와도 된다.
+				
+				at = new Attachment();
+				
+				at.setOriginName(rs.getString("origin_name"));
+				at.setChangeName(rs.getString("change_name"));
+				at.setFilePath(rs.getString("file_path"));
+				
+				System.out.println(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return at;
+		
+	}
+	// 파일 다운로드시 다운로드 횟수도 증가
+	public int updateDownloadCount(Connection conn, int fid) {
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateDownloadCount");	
+		
+		try {
+				pstmt = conn.prepareStatement(query);	
+				pstmt.setInt(1, fid);
+				
+				result = pstmt.executeUpdate();
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 

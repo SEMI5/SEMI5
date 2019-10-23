@@ -45,6 +45,7 @@ public class ThumbnailDetailServlet extends HttpServlet {
 		// 2. 해당 게시판의 사진들 리스트 조회!
 		ArrayList<Attachment> fileList = bService.selectThumbnail(bid);
 		
+		
 		if(fileList != null) {
 			request.setAttribute("thumbnail", thumbnail);
 			request.setAttribute("fileList", fileList);

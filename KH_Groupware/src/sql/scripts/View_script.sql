@@ -72,3 +72,10 @@ SELECT S.BID, S.CID, S.BTITLE,  S.BTYPE, S.BCONTENT, S.BCOUNT, M.USER_NAME, S.CR
       JOIN MEMBER M ON(S.BWRITER = M.USER_NO)
       WHERE S.STATUS = 'Y';
       
+      
+create or replace view a_list
+as
+select rownum rnum, a.fid, a.bid, a.origin_name, a.change_name, a.File_path, a.upload_date,
+               a.file_level, a.download_count, a.status
+from (select * from s_attach) a
+where bid= 0;
