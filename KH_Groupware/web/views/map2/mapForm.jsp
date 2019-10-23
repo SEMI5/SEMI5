@@ -59,6 +59,19 @@
 		#kan:hover{
 			background: grey;
 		}
+		
+		#storeName, #storeMemo{
+			margin: 0px;
+		}
+		#onelist{
+		    text-align-last: center;
+		}
+		#likeCountt{
+			vertical-align: -webkit-baseline-middle;
+		}
+		li{
+		list-style: none;
+		}
 	</style>
 </head>
 <header>
@@ -76,39 +89,50 @@
 			
 			</table>
 		</div>
-		
 	<!-- 자동실행 -->
 	<script type="text/javascript">
+    abcd = null;
 	var AjaxData= $(function(){
 					 $.ajax({
 						 url:"/KH_Groupware/ajaxlist.tr",
 						 type:"get",	
-						 success: function(data) {
-								$.each(data, function(index, value) {  // 데이터 만큼의 포문을 돌리는것.
-								var str = "<tr id=kan"+index+" style='border: 1px solid white'>"+
-										  	 "<td id=onelist>"+
-											 "    가게 명 : "+ data[index].trName +"<br>"+
-								             "    후기 : "+ data[index].trMemo +"<br>"+
-								             "    별점 : "+ data[index].trName + 
+						 success: function (data) {
+							 
+								$.each(data, function(index, value) {
+									abcd = data[index];
+									var str = "<tr id=kan"+index+" style='border: 1px solid white'>"+
+										  	 "<td id=onelist>"+	
+											 "    <li id=storeName>"+ data[index].trName +".</li><br>"+
+								             "    <li id=storeMemo> 후기 : "+ data[index].trMemo +"</li><br>"+
 								             "    <input type=hidden id=hiddenAddress value=" + data[index].trLatLng + ">" +
-								             "</td>" +
-								             "<td>"+
 								             "    <div id=likeTd"+index+">" +
 								             "    	 <img src=../../images/like30px.png>"+				
-								             "   	 <a>like <span id=ctnSpan"+index+">0<span></a>  "+
+								             "   	 <a id=likeCountt>like <span id=ctnSpan"+index+">0<span></a>  "+
 								             "    </div>  "+
-								             "</td>"+
+								             "</td>" +
 								          "</tr>";
 								        $("#AJlist").append(str);					
 										console.log(data);
 										
-							
+										/*  DB에 저장된 like 가져오기  */
+										$.ajax({
+											url:"/KH_Groupware/ajaxLikeList.tr",
+											type:"get",
+											data:{trlist:data[index].trNo},
+											success: function (data) {
+												console.log(data);
+													$("#ctnSpan"+index).text(data);
+											},// success종료
+											error: function() {
+											}
+										}); // ajax종료 
+										/* ----------------------------------------리스트 클릭하면 키워드칸에 가게명 뿌리기---------------------------------------------------- */
 										$("#kan" + index).click(function () {
 											str2 = data[index].trName;
 										 	$("#keyword").val(str2); // 다시 검색창에
+										 	
 										 	/* -------------------------------------------주소값으로 좌표 찾고 해당 좌표자리에 마커 찍기------------------------------------------ */
-										 	// 주소로 좌표를 검색합니다
-										 		console.log(data[index].trLatLng);
+										 		//console.log(data[index].trLatLng);
 												geocoder.addressSearch(data[index].trLatLng, function(result, status) {
 												
 												    // 정상적으로 검색이 완료됐으면 
@@ -123,46 +147,94 @@
 												        });												
 												        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 												        map.setCenter(coords);
-												    } 
+												    }
 												});    
-										 	/* ------------------------------------------------------------------------------------------------------------------- */
+										 
 										});
-										        /* like----------------------------------------------------------------------------------------------------------- */
-												var ctn = 0;
-											var likes = $("#likeTd"+index).on('click', function () {
-															alert(ctn);
-															ctn++;
-															$("#ctnSpan"+index).text(ctn);
-														});
 											
-												function AjaxData2() {
-													$.ajax({
-														 url:"/KH_Groupware/ajaxLikeInsert.tr",
-														 type:"get",
-														 data:{"likeCnt":"#ctnSpan"+index},
-														 success: function() {
+											/* like 클릭시 횟수 증가.----------------------------------------------------------------------------------------------------------- */
+										/* 	var ctn = 0;
+											var likes = $("#likeTd"+index).on('click', function () {
+															//alert(ctn);
+															//ctn++;
+															var likePlus = $("#ctnSpan"+index).text();
+															$("#ctnSpan"+index).text(parseInt(likePlus) + 1);
 															
-														 },
-														 error: function() {
-															alert("실패했습니다.");
-													 	 }
-													});
-												}
-										        /* --------------------------------------------------------------------------------------------------------------- */
-												
+															// 클릭시 ajax발동 후 테이블 좋아요 횟수 수정
+																alert("ajax발동");	
+																alert("해당 TRNO" + data[index].trNo);	
+																$.ajax({
+																	 url:"/KH_Groupware/ajaxLikeInsert.tr",
+																	 type:"get",
+																	 data:{likeCnt:$("#ctnSpan"+index).text(), SameTrNo:data[index].trNo},
+																	 success: function(data) {
+																		alert("성공했습니다. 중복 검사를 시작합니다.");
+																	 },
+																	 error: function() {
+																		alert("like 추가 실패했습니다.");
+																 	 }
+																});
+														}); */
+														
+														var ctn = 0;
+														var likes = $("#likeTd"+index).on('click', function () {
+																		//alert(ctn);
+																		//ctn++;
+																		var likePlus = $("#ctnSpan"+index).text();
+																		//$("#ctnSpan"+index).text(parseInt(likePlus) + 1); // 카운트 늘려주는 라인
+																		
+															
+																		/* 중복검사 */
+																		alert("중복검사할 trNo = " + data[index].trNo);
+																		abcd = data[index].trNo;
+																		
+																		$.ajax({
+																			 url:"/KH_Groupware/limitLike.tr",
+																			 type:"get",
+																			 data:{SameTrNo:data[index].trNo},
+																			 success: function(data) {
+																				 
+																				 if(data == "possible"){
+																					alert("possible");
+																					
+																					// 클릭시 ajax발동 후 테이블 좋아요 횟수 수정
+																					//alert("ajax발동");	
+																					alert("해당 TRNO" + abcd);
+																					console.log("abcd" + abcd);
+																					$.ajax({
+																						 url:"/KH_Groupware/ajaxLikeInsert.tr",
+																						 type:"get",
+																						 data:{likeCnt:$("#ctnSpan"+index).text(), SameTrNo:abcd},
+																						 success: function(data) {
+																							alert("성공했습니다. 중복 검사를 시작합니다.");
+																							$("#ctnSpan"+index).text(parseInt(likePlus) + 1); // 카운트 늘려주는 라인
+																						 },
+																						 error: function() {
+																							alert("like 추가 실패했습니다.");
+																					 	 }
+																					});
+																				 }else{
+																					 alert("중복이 존재 합니다.");
+																				 }
+																			 
+																			 },
+																			 error: function() {
+																				alert("중복검사 실패");	
+																		 	 }
+																		});
+																	
+																	});
 								}); // each(for)문 종료
 						},  // success 종료
 						error: function(data) {
 							alert("실패");
-						}// error 종료
-					}); // ajax 종료
-					
-					
-					
+						}
+					}); // ajax 종료					
 				}); // function 종료
+				
 	</script>
 	
  	</div>
 </body>
-	<%@ include file = "/views/common/footer.jsp" %> 
+	<%@ include file = "/views/common/bootsFooter.jsp" %> 
 </html>

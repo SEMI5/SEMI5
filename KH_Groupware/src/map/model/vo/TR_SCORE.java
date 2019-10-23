@@ -13,6 +13,10 @@ public class TR_SCORE implements Serializable {
 	
 	public TR_SCORE() {
 	}
+	
+	public TR_SCORE(int likeScore) {
+		this.likeScore = likeScore;
+	}
 
 	public TR_SCORE(int trNo, int likeScore) {
 		this.trNo = trNo;

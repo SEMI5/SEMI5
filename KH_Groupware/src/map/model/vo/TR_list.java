@@ -18,6 +18,10 @@ public class TR_list implements Serializable {
 	public TR_list() {
 	}
 
+	public TR_list(int trNo) {
+		this.trNo = trNo;
+	}
+
 	public TR_list(int trNo, String trName, String trMemo, String trLatLng, String status, int userNo) {
 		this.trNo = trNo;
 		this.trName = trName;

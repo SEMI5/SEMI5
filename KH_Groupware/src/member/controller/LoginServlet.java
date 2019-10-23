@@ -45,6 +45,8 @@ public class LoginServlet extends HttpServlet {
 				// 3. 서비스 클래스의 해당 메소드를 실행하고, 그 처리 결과를  받음
 				Member loginUser = new MemberService().loginMember(member);
 				
+				Member loginUser2 = new MemberService().loginMember(member);  //지도api에서 변수명 겹치는 부분있어서 생성해놨습니다.
+				
 				System.out.println(loginUser);				   
 				
 				// 4. 보낼 값에 한글이 있을 경우 인코딩 처리를 해야한다.

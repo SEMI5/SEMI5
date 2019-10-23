@@ -3,12 +3,15 @@
     
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+<<<<<<< HEAD
 
 	int userNo = 0; 
 	if(loginUser != null){
 		userNo = loginUser.getUserNo();
 	} 
 
+=======
+>>>>>>> refs/remotes/origin/master
 %>    
 <!DOCTYPE html>
 <html>
@@ -41,6 +44,11 @@
 /* @font-face {
 	font-family: 'Noto Sans KR', sans-serif;
 } */
+
+#chattingBtn{
+	float: right;
+}
+
 body{
    margin: 0px;
    overflow-x:hidden;   
@@ -302,9 +310,12 @@ h3{
    <button class= navBtn1 id="navBtn2" data-value="0" onclick="showSubnav2();">게시판</button>
    <button class= navBtn1 id="navBtn4" data-value="0" onclick="showSubnav4();">마이페이지</button>
    <button class= navBtn1 id="teacherPage" data-value="0" onclick="showSubnav5();">강사페이지</button>
+   	<%if(loginUser != null){ %>
    <button class= navBtn1 id="navBtn3" data-value="0" onclick="showSubnav3();">맛집</button>
+    <%} %>
    <button class="navBtn1" id= myPageBtn data-value = "0" onclick= "showLoginDiv();"><img src ="<%=request.getContextPath() %>/images/icon/myPage.png" style= width:30px; id=myPageBtnImg></button>
    <button class="navBtn1" id= searchBtn data-value = "0" onclick= "showSearchBar();"><img src ="<%=request.getContextPath() %>/images/icon/readingGlasses.png" style= width:30px; id=serachBtnImg></button>
+   <button class="navBtn1" id= chattingBtn data-value = "0" onclick= "showChattingPOPUP();"><img src ="<%=request.getContextPath() %>/images/icon/speechBubble.png" style= width:30px; id=chattingBtnImg></button>
 </div>
    <div class= blackOpacity id= blackOpacity1></div>
    <div class= blackOpacity id= blackOpacity2></div>
@@ -666,7 +677,13 @@ h3{
                   } 
                }      
 
-            
+      // 채팅 클릭시 이벤트
+ /*      function showChattingPage() {
+    	  location.href="../chatting/chatting.jsp";
+	  } */
+      function showChattingPOPUP() {
+		  window.open("../chatting/chattingPopup.jsp", "", "width=400, height=600, left=100, top=50");
+	  }
       
       // 돋보기 클릭시 이벤트
 
