@@ -348,6 +348,102 @@ var setSeat = $(function(){
 			<%} %>
 		<%} %>
 	<%} %>
+   <%for (int i = 0 ; i < 10 ; i++){ %>
+      <%for (int j = 0 ; j < 3 ; j++){ %>
+         <%if(countSize > 0 && stdList.get(i*3+j) != null){ %>
+            <% countSize--;%>
+            <%if(stdList.get(i*3+j).getSeat().equals("N")){%>
+               $("#list<%=count%>").html("<div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
+                                     +"<table id='stdInfo<%=(i*3+j+1)%>'>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getUserName()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
+                                       +"</tr>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getStdLv()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getExp()%></td>"
+                                       +"</tr>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getMajor()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getSmoking()%></td>"
+                                          +"<td style = 'display:none' class = 'userNo'><%=stdList.get(i*3+j).getUserNo()%></td>"
+                                       +"</tr>"
+                                    +"</table>"
+                                 +"</div");
+               <%count++; %>
+               $("#list<%=(i*3+j+1)%>").parent().removeAttr("ondrop", "ondragover");
+               $("#list<%=(i*3+j+1)%>").children().removeAttr("ondrop", "ondragover");
+            <%} else{%>
+               $("#sNo<%=stdList.get(i*3+j).getSeat()%>").html("<%=stdList.get(i*3+j).getSeat()%> <div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
+                                     +"<table id='stdInfo<%=(i*3+j+1)%>'>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getUserName()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
+                                       +"</tr>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getStdLv()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getExp()%></td>"
+                                       +"</tr>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getMajor()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getSmoking()%></td>"
+                                          +"<td style = 'display:none' class = 'userNo'><%=stdList.get(i*3+j).getUserNo()%></td>"
+                                       +"</tr>"
+                                    +"</table>"
+                                 +"</div");
+               $("#sNo<%=(i*3+j+1)%>").removeAttr("ondrop", "ondragover");
+            <%} %>
+         <%} %>
+      <%} %>
+   <%} %>
+   <%for (int i = 0 ; i < 10 ; i++){ %>
+      <%for (int j = 0 ; j < 3 ; j++){ %>
+         <%if(countSize > 0 && stdList.get(i*3+j) != null){ %>
+            <% countSize--;%>
+            <%if(stdList.get(i*3+j).getSeat().equals("N")){%>
+               $("#list<%=count%>").html("<div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
+                                     +"<table id='stdInfo<%=(i*3+j+1)%>'>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getUserName()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
+                                       +"</tr>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getStdLv()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getExp()%></td>"
+                                       +"</tr>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getMajor()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getSmoking()%></td>"
+                                          +"<td style = 'display:none' class = 'userNo'><%=stdList.get(i*3+j).getUserNo()%></td>"
+                                       +"</tr>"
+                                    +"</table>"
+                                 +"</div");
+               <%count++; %>
+               $("#list<%=(i*3+j+1)%>").parent().removeAttr("ondrop", "ondragover");
+               $("#list<%=(i*3+j+1)%>").children().removeAttr("ondrop", "ondragover");
+            <%} else{%>
+               $("#sNo<%=stdList.get(i*3+j).getSeat()%>").html("<%=stdList.get(i*3+j).getSeat()%> <div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
+                                     +"<table id='stdInfo<%=(i*3+j+1)%>'>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getUserName()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
+                                       +"</tr>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getStdLv()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getExp()%></td>"
+                                       +"</tr>"
+                                       +"<tr>"
+                                          +"<td><%=stdList.get(i*3+j).getMajor()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getSmoking()%></td>"
+                                          +"<td style = 'display:none' class = 'userNo'><%=stdList.get(i*3+j).getUserNo()%></td>"
+                                       +"</tr>"
+                                    +"</table>"
+                                 +"</div");
+               $("#sNo<%=(i*3+j+1)%>").removeAttr("ondrop", "ondragover");
+            <%} %>
+         <%} %>
+      <%} %>
+   <%} %>
 });
 
 
