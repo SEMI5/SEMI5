@@ -45,7 +45,7 @@ public class TRlistServlet extends HttpServlet {
 			request.setAttribute("list", list);
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg", "���� ����Ʈ ��ȸ ����");
+			request.setAttribute("msg", "실패");
 		}
 		view.forward(request, response);
 		

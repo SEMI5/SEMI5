@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="map.model.vo.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="member.model.vo.*, map.model.vo.*" %>
+<%
+	Member loginUser2 = (Member)session.getAttribute("loginUser"); // 지도api에서 변수명 겹치는것 있음. loginUser -> loginUser2로.. 변경
+%>
 <!DOCTYPE html>
+
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -199,6 +203,9 @@
 			cursor: default;
 			color: #777;
 		}
+		.info{
+			
+		}
 	</style>
 
 </head>
@@ -216,7 +223,10 @@
 					<form onsubmit="searchPlaces(); return false;">
 						키워드 : <input type="text" value="" id="keyword" required><br>
 						<button type="submit">검색</button>
+						<!-- 로그인 한 사람만 등록 가능하게함. -->
+						<%if(loginUser2 != null){ %>
 						<button type="button" onclick="popupOpen();">등록</button>
+						<%}%>
 					</form>
 				</div>
 			</div>
@@ -318,7 +328,6 @@
 
 	
 		var B = null;
-		
 		// 검색 결과 목록과 마커를 표출하는 함수입니다
 		function displayPlaces(places) {
 
@@ -361,15 +370,43 @@
 					/* document.getElementById('placesList').onclick = function () {
 						displayInfowindow(marker, title);
 						}; */
-
-				
+					
+						
 					  itemEl.onmousedown = function() {
 						displayInfowindow(marker, title);
 						$(this).css({"background":"black","color":"white","opacity":"0.5"});
-						
+						// 주소를 B에 담았음
 						B = $(this).find("#address").text();  // find메소드로 하위 개체들을 찾아올 수 있게 해줘야, 정확한 위치로 간다.
-						alert(B);
+						//alert(B);
+						var ExistList = $("tr #storeName").text();
+						var CheckingList = title;
+						
+						/* 이름 같은것 추가 */
+				 		if(ExistList.match(CheckingList) ){
+							var result = confirm("이미 등록된 가게입니다. 좋아요를 자동선택 하시겠습니까?");
+							
+							
+							if(result){
+									//예 눌렀을 때,
+									var strList = $("tr #storeName").text();
+									var strListSplit = strList.split(".");
+
+									for(var i = 1; i<strListSplit.length; i++){
+												if(title == strListSplit[i])
+													$("#likeTd"+i).trigger('click');	// #trg에 선언된 click이벤트의 이벤트 핸들러 함수를 호출
+									}
+								}else {
+								//아니오 눌렀을 때,
+								
+								}
+						
+							
+							}else {
+							alert("등록되지 않은 가게입니다. '등록' 버튼을 눌러주세요");
+						}  
 					};
+					
+					
 					
 					itemEl.onmouseout = function() {
 						infowindow.close();

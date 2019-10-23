@@ -3,12 +3,19 @@
     
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+<<<<<<< HEAD
 
 	int userNo = 0; 
 	if(loginUser != null){
 		userNo = loginUser.getUserNo();
 	} 
+<<<<<<< HEAD
 
+=======
+
+=======
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master
 %>    
 <!DOCTYPE html>
 <html>
@@ -804,15 +811,21 @@ h3{
     	 location.href="infoPage.jsp"
     	 
      }
+<<<<<<< HEAD
      // 소개글 이동
      	function goInfo(){
     	 location.href="infoPage.jsp"
     	 
      }
+=======
+>>>>>>> refs/remotes/origin/master
       
       
+<<<<<<< HEAD
       
    	// 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
+=======
+>>>>>>> refs/remotes/origin/master
    	// 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
 		function goThumbnail(){
 			location.href="<%=request.getContextPath()%>/list.th";

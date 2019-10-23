@@ -15,46 +15,113 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-   .outer {
+.outer {
       width:1000px;
       height:650px;
-      background:black;
-      color:white;
+      color:black;
       margin-left:auto;
       margin-right:auto;
       margin-top:50px;
-   }
-   .detail td{
-      text-align:center;
-      width:1000px;
-      border:1px solid white;
-   }
-   #titleImgArea {
+}
+.detail{
+     width:1000px;
+} 
+   
+.detail_other{
+	width : 100%;
+   	border:1px solid black;
+   	margin-left : 9px;
+}
+#titleImgArea {
       width:500px;
       height:300px;
       margin-left:auto;
       margin-right:auto;
-   }
-   #contentArea {
-      height:30px;
-   }
-   .detailImgArea {
-      width:250px;
+      boader : 1px solid black;
+}
+#contentArea {
+      height:60px;
+      boader : 1px solid red;
+}
+
+.detailImgArea {
+      width:235px;
       height:210px;
       margin-left:auto;
       margin-right:auto;
-   }
-   #titleImg {
+      boader : 1px solid black;
+      display : inline-block;
+      
+}
+#titleImg {
       width:500px;
       height:300px;
-   }
-   .detailImg {
+}
+.detailImg {
       width:250px;
       height:180px;
-   }
-   
-.btns{
-	
+      margin : 15px;
+}
+
+
+table.detail {
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+  margin : 20px 10px;
+}
+table.detail th {
+    width: 500px;
+    padding: px;
+    font-weight: bold;
+    text-align : center;
+    vertical-align: center;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    background: #eee;
+}
+table.detail td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+
+/* tr{
+	border: 1px solid darkgray;
+}
+td{
+	border: 1px solid darkgray;
+} */
+
+
+/* 다운로드 버튼 */
+
+.down-btn1, .down-btn2 {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+
+/* Darker background on mouse-over */
+.down-btn:hover {
+  background-color: RoyalBlue;
+}
+
+
+.down-btn2{
+	margin-left : 60px;
 }
 
 </style>
@@ -68,61 +135,80 @@
 
 
 <div class = "outer">
+
+			
+		<div class = "detail">
+						
 		<table class = "detail" align="center">
 			<tr>
-				<td width = "50px">제목</td>
-				<td colspan = "5"><label><%=b.getbTitle() %></label></td>
+				<th width = "90px" height = "40px">제목</th>
+				<td colspan = "5"> <%-- <label><%=b.getbTitle() %></label></td> --%>
+				<input type="text" size="50" name="title" value="<%= b.getbTitle() %>" readonly></td>
+				
 			</tr>
 			<tr>
-				<td> 작성자 </td>
-				<td><lable><%=b.getbWriter() %></lable></td>
-				<td> 조회수 </td>
-				<td><label><%=b.getbCount() %></label></td>
-				<td> 작성일 </td>
-				<td><label><%=b.getModifyDate() %></label></td>
+				<th height = "40px"> 작성자 </th>
+				<td colspan = "5">	<%-- <label><%=b.getbWriter() %></label></td> --%>
+				<input type="text" name="writer" value="<%= b.getbWriter() %>" readonly></td>
+			</tr>
+			<tr>
+				<th height = "40px"> 조회수 </th>
+				<td colspan = "5"><label><%=b.getbCount() %></label></td>
+			</tr>	
+			<tr>
+				<th height = "40px"> 작성일 </th>
+				<td colspan = "5"><label><%=b.getModifyDate() %></label></td>
 			</tr>		
 			<tr>
-				<td> 대표사진 </td>
+				<th> 대표사진 </th>
 				<td colspan="4">
 					<div id="titleImgArea" align="center">
 						<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
 					</div>
 				</td>
 				<td>
-					<button onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">다운로드</button>
+					<button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
+						<i class="fa fa-download"></i> Download
+					</button>
 				</td>
-			</tr>		
+			</tr>
 			<tr>
-				<td> 사진메모 </td>
+				<th> 사진메모 </th>
 				<td colspan = "6">
-					<p id = "contentArea"><%=b.getbContent() %></p>
+					<textarea name="content" cols="60" rows="15" style="resize:none" readonly><%= b.getbContent() %></textarea>
 				</td>
 			</tr>
 		</table>
 	
-		<table class = "detail">
-			<tr>
+		<div class = "detail_other" style="align:center">
+			<P align = "center"> 추가 이미지 </P>
+			<hr>
 				<% for(int i=1; i<fileList.size(); i++){ %>
-				<td>
 					<div class = "detailImgArea">
 						<img id ="detailImg" class="detailImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=fileList.get(i).getChangeName() %>">
-						<button onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'">
-							다운로드
+						<div class ="down-area" style="align:center">
+						<button  class="down-btn2" onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
+							<i class="fa fa-download"></i> Download
 						</button>				
+						</div>
 					</div>
-				</td>
 				<%} %>
-				
-			</tr>
-			
-		</table>	
+				<br><br>
+		</div>	
+		<br><br><br>
 		<!-- 이제 파일을 다운로드 할 수 있도록 ThumbnailDownloadServlet 만들러 !!  -->
 		
 		<div class = "btns" align ="center">
-			<button id = "goMain" onclick ="goMain();">메인으로</button>
-			<button id  = "updateBtn" onclick ="updateMember();">수정하기</button>
-			<button id  = "deleteBtn" onclick = "deleteMember();">탈퇴하기</button>
+			<button id = "goList" onclick="location.href='<%=request.getContextPath()%>/list.th'">목록으로</button>	
+			<%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
+					<button type="submit" onclick="location.href='<%=request.getContextPath()%>/updateView.th?bid=<%=b.getbId()%>'">수정하기</button>				
+			<%} %>	
+					
+		<!-- 	<button id  = "updateBtn" onclick ="updateTthumbnail();">수정하기</button> -->
+			<button id  = "deleteBtn" onclick = "deleteThumbnail();">삭제하기</button>
 		</div>
+		<br><br><br>
+	</div>
 </div>
 </body>
 </html>

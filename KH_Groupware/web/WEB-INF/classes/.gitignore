@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 /Share/
+=======
+>>>>>>> refs/remotes/origin/master
 /board/
 /common/
 /filter/
 /map/
 /member/
+<<<<<<< HEAD
+=======
+/share/
+>>>>>>> refs/remotes/origin/master
 /sql/
 /studentPage/
 /teacherPage/

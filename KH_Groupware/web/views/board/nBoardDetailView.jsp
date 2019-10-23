@@ -250,6 +250,10 @@ text-decoration: underline;
 	font-size:15px
 }
 
+td span{
+	cursor:pointer;
+}
+
 </style>
 </head>
 <header>
@@ -267,7 +271,9 @@ text-decoration: underline;
 				</thead>
 				<tbody>
 				<tr>
-					<td style="font-size: 16px"><b>등록일:</b>&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;|&nbsp;&nbsp;<b>조회수:</b> <%=b.getbCount()%></td>
+					<td style="font-size: 16px">
+					<b>등록일:</b>&nbsp;&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+					<b>조회수:</b><%=b.getbCount()%></td>
 				</tr>
 				<tr>
 				<td>

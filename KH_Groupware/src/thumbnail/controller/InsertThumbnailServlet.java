@@ -144,8 +144,6 @@ public class InsertThumbnailServlet extends HttpServlet {
 					
 					int result = new ThumbnailService().insertThumbnail(b,fileList);
 					
-					//System.out.println(result);
-					
 					if(result > 0) {
 						response.sendRedirect("list.th");  //DB에 갔다가 갱신된 데이터를 가져와야함
 						

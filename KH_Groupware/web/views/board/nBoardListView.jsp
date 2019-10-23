@@ -11,7 +11,11 @@
    
 		Date day1 = formatter.parse((list.get(0).getModifyDate());  */
 	 
-	 
+		
+		Calendar today  = Calendar.getInstance();
+		long todaySec = today.getTimeInMillis(); 
+	
+		
    int listCount = pi.getListCount();
    int currentPage = pi.getCurrentPage();
    int maxPage = pi.getMaxPage();
@@ -268,6 +272,43 @@ input{
 	font-weight: bold;
 }
 
+#new {
+	font-size: 13px;
+	font-weight: bold;
+	background: #ffca0b;
+	border-radius: 4px;
+	padding: 2px;
+	margin-left:7px;
+}
+
+.pagingArea button {
+	  border: none;
+	  outline: none;
+	  padding: 10px 16px;
+	  background-color: #f1f1f1;
+	  cursor: pointer;
+	  font-weight: bold;
+	  font-size: 15px;
+}
+
+.pagingArea button:hover {
+	  background-color: #666;
+	  color: white;
+}
+
+
+#boardImg1{
+	position: relative;	
+	width:100%;
+	height:300px;
+	margin-left:auto;
+	margin-right:auto;
+	align: center;
+	text-align: center;
+	background: black;
+}
+
+
 
 
 </style>
@@ -277,9 +318,15 @@ input{
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-<br><br>
+
+
+	<div id= boardImg1>
+		<img id= boardImg src="<%=request.getContextPath() %>/images/boardBack.jpg">
+		<div style="width:100%; height:60px;background:black;"></div>
+	</div>
 
 <div id ="outer">
+	<br><br>
 	<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
 	<br><br>
 	<div id = "tableDiv">
@@ -328,7 +375,12 @@ input{
                     <%}%>
                      <td align="center"><%=b.getbId() %></td>
                      <input type="hidden" value="<%=b.getbId() %>">
+                     
+             	      <%if(  ((todaySec - b.getCreateDate().getTime()) /1000)/(60*60*24) <= 2){%>   
+                     <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%><span id=new style="font-weight: bold">NEW</span></td>
+                      <%}else{%> 
                      <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
+                     <%} %> 
                      <td align="center"><%=b.getbWriter()%></td>
                       <% if(b.getBtype().equals("2")){ %>
                          	

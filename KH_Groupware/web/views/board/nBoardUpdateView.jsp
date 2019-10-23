@@ -182,7 +182,7 @@ String originName8= flist.get(7).getOriginName();
       color: white;
       font-size: 16px;
       height: 40px;
-      width: 70px;
+      width: 90px;
    }
    
    #listBtn:hover{
@@ -197,7 +197,7 @@ String originName8= flist.get(7).getOriginName();
       color: white;
       font-size: 16px;
       height: 40px;
-      width: 70px;
+      width: 90px;
    }
    
    #updateBtn:hover{
@@ -352,7 +352,7 @@ String originName8= flist.get(7).getOriginName();
       </table>
       <br><br>
       <div class= btnDiv>
-            <button type='button'id=listBtn onclick=><b>목록</b></button>&nbsp;&nbsp;
+            <button type='button'id=listBtn onclick="location.href='<%=request.getContextPath() %>/Ndetail.bo?bid=<%=b.getbId()%>'"><b>뒤로가기</b></button>&nbsp;&nbsp;
             <button id=updateBtn type = button onclick="updateSubmit();"><b>수정</b></button>
       </div>
    </div>
@@ -418,6 +418,17 @@ $(document).ready(function() {
 </script>
 
 <script>
+	
+ $(function(){
+	if(document.getElementById("superCheck").checked == true){
+		document.getElementById("noCheck").disabled = true;
+	}else{
+		document.getElementById("noCheck").disabled = false;
+	}
+}); 
+
+	
+	
 	
 	function checkBox(){
 		if(document.getElementById("superCheck").checked == true){
@@ -515,7 +526,6 @@ function loadAttachName(attach,num){
  function updateSubmit(){
    if(confirm("이대로 수정하시겠습니까?")) {
        $(this).parent().click();
-  	 location.href="<%=request.getContextPath() %>/Nupdate.bo>";
    } else {
        return false;
    }

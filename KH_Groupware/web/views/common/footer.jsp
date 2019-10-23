@@ -63,7 +63,7 @@ span{
 <footer>
 <div class =footer>
 	<div class= footerTitle><h3>KH Groupware</h3></div><div class=titleBar></div>
-	<span class = info>| SEMI-5조 | 이거사조 | 강현모, 안상재, 윤솔, 이준배, 조호관 |<br>  
+	<span class = info>| SEMI-5조 | 이거사조 | 강현모, 안상재, 이준배, 조호관 |<br>  
 	 주소: 서울특별시 강남구 테헤란로14길 6 남도빌딩 5F S반 <br> 
 	 문의: 010-4686-7423</span>
 	
