@@ -632,13 +632,35 @@ text-decoration: underline;
 							html += "<td width='200px' style='border:none'>&nbsp;";
 							html +=  "<span class= 'answer' type='button'>답글</span>&nbsp;";
 							html +=  "<span class= 'answer' type='button'>수정</span>&nbsp;";
-							html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제 <input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
-							html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='hegiht:20px;margin-left:25px;padding:5px;color: " +color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
+							html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제 <input id ='rid"+<%=i%>+ "' type= 'hidden' value =" +rId+ "></span>";
+							html += "<span class= 'good' onclick='goodClick(this,rid"+<%=i%>+")' style='hegiht:20px;margin-left:25px;padding:5px;color: " +color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
 							html += "</td>";
 							html += "</tr>";
 							
-							
 							$("#replySelectTable").append(html); 
+							
+							
+						<%-- 	<tr style="border:none; border-top: 1px solid darkgray;">
+							<td style="width:100px;">&nbsp;
+								<b><%=rlist.get(i).getrWriter() %><span style="margin-left:10px;"><%=rlist.get(i).getCreateDate()%></span></b>
+								<span class="fix" style="color:gray;"onclick= "fixClick(this);" ><span style="font-size: 12px;"><%=b.getbWriter()%>님이 고정함&nbsp;&nbsp;</span><i class="fa fa-thumb-tack" aria-hidden="true" style="font-size:14px;"></i></span>
+							</td>
+						</tr>
+						<tr style="border:none">
+							<td width="400px"><span class= "best">BEST</span>&nbsp;<%=rlist.get(i).getrContent() %></td>
+						</tr>
+						<tr style="border:none; border-bottom: 1px solid darkgray;">
+							<td width="200px" style="border:none">&nbsp;
+								<span class= "answer" type="button">답글</span>&nbsp;
+								<span class= "answer" type="button">수정</span>&nbsp;
+								<span class= "answer" type="button" onclick="deleteReply(this);" value = "">삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
+									<input id = "rid<%=i%>" type = hidden value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
+								</span>
+								<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="hegiht: 20px; margin-left:10px;padding:5px;border:1px solid <%=color %>; color:<%=color %> " ><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span id="gCount"><%=rlist.get(i).getCount()%></span></span> 
+							</td>
+						</tr>
+							
+							 --%>
 						}
 						
 						// 댓글 작성 부분 리셋

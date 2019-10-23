@@ -3,15 +3,13 @@
     
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
-<<<<<<< HEAD
 
 	int userNo = 0; 
 	if(loginUser != null){
 		userNo = loginUser.getUserNo();
 	} 
 
-=======
->>>>>>> refs/remotes/origin/master
+
 %>    
 <!DOCTYPE html>
 <html>
