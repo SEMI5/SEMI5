@@ -282,8 +282,12 @@ h3{
    <img src ="<%=request.getContextPath() %>/images/khGroupware3.png" onclick= "location.href = '<%=request.getContextPath()%>/views/common/mainHome.jsp'"style=height:50px;cursor:pointer;margin-right:20px;margin-left:20px;padding:0px;>
    <button class= navBtn1 id="navBtn1" data-value="0" onclick="showSubnav1();">소개</button>
    <button class= navBtn1 id="navBtn2" data-value="0" onclick="showSubnav2();">게시판</button>
+   <%if(loginUser == null || loginUser.getUserNo() < 100000){ %>
    <button class= navBtn1 id="navBtn4" data-value="0" onclick="showSubnav4();">마이페이지</button>
+   <%} %>
+    <%if(loginUser != null && loginUser.getUserNo() >= 100000){ %>
    <button class= navBtn1 id="teacherPage" data-value="0" onclick="showSubnav5();">강사페이지</button>
+   <%} %>
    <button class= navBtn1 id="navBtn3" data-value="0" onclick="showSubnav3();">맛집</button>
    <button class="navBtn1" id= myPageBtn data-value = "0" onclick= "showLoginDiv();"><img src ="<%=request.getContextPath() %>/images/icon/myPage.png" style= width:30px; id=myPageBtnImg></button>
    <button class="navBtn1" id= searchBtn data-value = "0" onclick= "showSearchBar();"><img src ="<%=request.getContextPath() %>/images/icon/readingGlasses.png" style= width:30px; id=serachBtnImg></button>
@@ -333,13 +337,13 @@ h3{
       </div>
    </div>
    
-
+	
    <div class = "subNavbar1" id="boardMenu4">
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;>마이페이지</h3>
          <ul>
-            <li> 내정보수정 </li>
-            <li> 휴가관리 </li>
+            <li onclick= "selectMenu('modify')"> 내정보수정 </li>
+            <li onclick= "selectMenu('vacation')"> 휴가관리 </li>
          </ul>
       </div>
       <div class = "btnImg">
@@ -348,6 +352,23 @@ h3{
    </div>
    
    
+   <script type="text/javascript">
+   		function selectMenu(type){
+   			if(<%=loginUser==null%>){
+   					alert("먼저 로그인을 해주세요.");
+   			}else{
+  	 			if(type == "modify"){
+   					location.href = "<%=request.getContextPath()%>/views/member/memberView.jsp"
+   				}
+	   			if(type == "vacation"){
+		   			location.href = "<%=request.getContextPath()%>/views/studentPage/stdCalendar.jsp"
+	   			}
+   			}
+   		}
+   
+   </script> 
+   
+  
    <div class = "subNavbar1" id="boardMenu5">
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;>강사페이지</h3>
@@ -355,6 +376,7 @@ h3{
            <li onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/approvalJoin.jsp'"> 가입승인 </li>
             <li onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/managementStd.jsp'"> 학생관리 </li>
             <li onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/seatView.jsp'"> 자리배치 </li>
+            <li onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/teacherCalendar.jsp'"> 일정관리 </li>
          </ul>
       </div>
       <div class = "btnImg">

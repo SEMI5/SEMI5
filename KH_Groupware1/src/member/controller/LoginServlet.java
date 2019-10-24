@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
-import teacherPage.model.service.tPageService;
+import member.model.vo.khClass;
 
 /**
  * Servlet implementation class LoginServlet
@@ -47,12 +47,17 @@ public class LoginServlet extends HttpServlet {
 				
 				Member loginUser2 = new MemberService().loginMember(member);  //지도api에서 변수명 겹치는 부분있어서 생성해놨습니다.
 				
-				System.out.println(loginUser);				   
+				ArrayList<khClass> cList = new MemberService().callClass();
 				
 				// 4. 보낼 값에 한글이 있을 경우 인코딩 처리를 해야한다.
 				// 지금 내보내는 내용을 html문으로 해석해라
 				
-				
+				String className = "";
+				for(int i = 0 ; i < cList.size() ; i++) {
+					if(cList.get(i).getcId() == loginUser.getcId()) {
+						className = cList.get(i).getcName();
+					}
+				}
 				
 				RequestDispatcher view = null;
 				// 5. 서비스요청에 해당하는 결과를 가지고 성공/실패에 대한 뷰 페이지(파일)을 선택해서 내보냄
@@ -62,6 +67,7 @@ public class LoginServlet extends HttpServlet {
 					
 					//객체를 session에 담는다.
 					session.setAttribute("loginUser",loginUser);
+					session.setAttribute("className", className);
 					// session은 브라우져를 닫지않으면 객체가 사라지지않아서 페이지만 넘겨주면됨
 					
 					// 로그인한 회원이 강사일 경우 학생들의 목록을 가져옵니다.
