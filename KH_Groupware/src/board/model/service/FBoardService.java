@@ -227,8 +227,10 @@ public class FBoardService {
 	public ArrayList<Reply> selectReplyList(int bid) {
 		Connection conn = getConnection();
 		
-		ArrayList<Reply> rlist = new FBoardDao().selectReplyList(conn,bid);
-		
+		ArrayList<Reply> Blist = new FBoardDao().selectBestReplyList(conn,bid); 
+		System.out.println("BsetList :" + Blist);
+		ArrayList<Reply> rlist = new FBoardDao().selectReplyList(conn,bid, Blist);
+		System.out.println("replyList :" + rlist);
 		
 		close(conn);
 		
@@ -244,11 +246,14 @@ public class FBoardService {
 		
 		int result = bDao.insertReply(conn, r);
 		
-		ArrayList<Reply> rlist = null;
+		ArrayList<Reply> rlist = new ArrayList<Reply>();
 		
 		if(result > 0) {
 			commit(conn);
-			rlist = bDao.selectReplyList(conn, r.getRefBid());
+			
+			ArrayList<Reply> Blist = new FBoardDao().selectBestReplyList(conn, r.getRefBid()); 
+			 rlist = new FBoardDao().selectReplyList(conn, r.getRefBid(), Blist);
+			
 		}else {
 			rollback(conn);
 			close(conn);
@@ -368,21 +373,24 @@ public class FBoardService {
 		Connection conn = getConnection();
 		FBoardDao fbDao =new FBoardDao();
 		
-		ArrayList<Reply> list = new ArrayList<Reply>();
+		ArrayList<Reply> rlist = new ArrayList<Reply>();
 		
 		int result = fbDao. deleteReply(conn, rid);
 		
 		if(result>0) {
 			commit(conn);
 			
-			list = fbDao.selectReplyList(conn, bid);
+			
+			ArrayList<Reply> Blist = new FBoardDao().selectBestReplyList(conn,bid); 
+			rlist = new FBoardDao().selectReplyList(conn,bid, Blist);
+			
 			
 		}else {
 			rollback(conn);
 		}
 		close(conn);
 		
-		return list;
+		return rlist;
 
 	}
 
@@ -403,13 +411,51 @@ public class FBoardService {
 
 	public Good SelectGoodRecord(int userNo, int rid) {
 		Connection conn = getConnection();
-		Good good = null;
-		
-		FBoardDao NbDao = new FBoardDao();
-		
+		Good good = new FBoardDao().SelectGoodRecord(userNo, rid, conn);
 		
 		close(conn);
 		return good; 
+	}
+
+
+	public int deleteGoodRecord(int gid) {
+		
+		Connection conn = getConnection();
+		FBoardDao fbDao =new FBoardDao();
+		
+		
+		int result = fbDao.deleteGoodRecord(gid, conn);
+		
+		if(result>0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+
+	}
+
+
+	public int insertGoodRecord(int rid, int userNo) {
+		Connection conn = getConnection();
+		FBoardDao fbDao =new FBoardDao();
+		
+		
+		int result = fbDao.insertGoodRecord(rid, userNo, conn);
+		
+		if(result>0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+
 	}
 }
 

@@ -690,14 +690,14 @@ public class FBoardDao {
 		
 		return result;
 	}
-
-	public ArrayList<Reply> selectReplyList(Connection conn, int bid) {
+	
+	public ArrayList<Reply> selectBestReplyList(Connection conn, int bid) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		ArrayList<Reply> rlist = null;
+		ArrayList<Reply> blist = null;
 		
-		String query = prop.getProperty("selectReplyList");	// board-query.properties에 만들자
+		String query = prop.getProperty("selectBestReplyList");	
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -705,10 +705,10 @@ public class FBoardDao {
 			
 			rs=pstmt.executeQuery();
 			
-			rlist = new ArrayList<Reply>();
+			blist = new ArrayList<Reply>();
 			
 			while(rs.next()) {
-				rlist.add(new Reply(rs.getInt("rid"),
+				blist.add(new Reply(rs.getInt("rid"),
 									rs.getString("rcontent"),
 									rs.getInt("bid"),
 									rs.getString("user_name"),
@@ -717,6 +717,58 @@ public class FBoardDao {
 									rs.getDate("modify_date"),
 									rs.getString("rstatus"), 
 									rs.getInt("count")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		
+		return blist;
+
+	}
+	
+	
+	
+	
+
+	public ArrayList<Reply> selectReplyList(Connection conn, int bid, ArrayList<Reply> blist) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+
+		
+		String query = prop.getProperty("selectReplyList");	// board-query.properties에 만들자
+		ArrayList<Reply> rlist = new ArrayList<Reply>();
+		rlist =(ArrayList<Reply>) blist.clone();
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Reply r2= new Reply (rs.getInt("rid"),
+										rs.getString("rcontent"),
+										rs.getInt("bid"),
+										rs.getString("user_name"),
+										rs.getInt("user_no"),
+										rs.getDate("create_date"),
+										rs.getDate("modify_date"),
+										rs.getString("rstatus"), 
+										rs.getInt("count"));
+
+				try {
+					if ( (r2.getrId() != blist.get(0).getrId()) && (r2.getrId() != blist.get(1).getrId())) {
+						  rlist.add(r2);
+					  }
+				}catch(Exception e){
+					e.printStackTrace();
+					 rlist.add(r2);
+				}
+	 
 			}
 			
 		} catch (SQLException e) {
@@ -972,4 +1024,83 @@ public class FBoardDao {
 		
 		return glist;
 	}
+
+	public Good SelectGoodRecord(int userNo, int rid, Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Good good= null;
+		
+		String query = prop.getProperty("selectGoodRecord");	
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rid);
+			pstmt.setInt(2, userNo);
+		
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+					good=	new Good(rs.getInt("GID"),
+									rs.getInt("RID"),
+									rs.getInt("USER_NO"),
+									rs.getString("STATUS"),
+									rs.getInt("REF_BID"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		
+		
+		
+		return good;
+	}
+
+	public int deleteGoodRecord(int gid, Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteGoodRecord");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1,  gid); 
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertGoodRecord(int rid, int userNo, Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertGoodRecord");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1,  rid); 
+			pstmt.setInt(2,  userNo); 
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
 }

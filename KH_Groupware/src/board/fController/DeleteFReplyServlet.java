@@ -46,11 +46,13 @@ public class DeleteFReplyServlet extends HttpServlet {
 	   ArrayList rlist  = Fbservice.deleteReply(rid,bid);
 	   ArrayList glist = new FBoardService().selectGinfo(bid); 
 			System.out.println("델리트: " + rlist);
-	  
+			System.out.println("델리트: " +glist );
 			
-			HashMap<String,ArrayList> listMap = new HashMap<String,ArrayList>();
-			listMap.put("rlist",rlist);
-			listMap.put("glist",glist);
+		
+		  HashMap<String,ArrayList> listMap = new HashMap<String,ArrayList>();
+		  listMap.put("rlist",rlist); 
+		  listMap.put("glist",glist);
+		 
 			
 			
 			response.setContentType("application/json;");	//charset=utf-8 해줘야 되는데 필터에서 해주니까 생략
