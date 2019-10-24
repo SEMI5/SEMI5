@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp"%>
-<%@ include file="/views/common/footer.jsp"%>
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="member.model.vo.Member"%>
 <%
 	ArrayList<Member> stdList = (ArrayList) session.getAttribute("stdList");
 
 	int i;
+	int count = 0;
 %>
 
 
@@ -29,7 +29,7 @@
 }
 
 #content {
-	margin: 20%;
+	margin: 25%;
 	margin-top: 3%;
 }
 
@@ -47,8 +47,8 @@
 	text-align: center;
 	border-bottom: 0.5px solid darkgray;
 	padding: 1.5px;
-	height: 70px;
-	font-size: 20px;
+	height: 50px;
+	font-size: 15px;
 }
 
 [id*=popUp] {
@@ -99,7 +99,7 @@
 						<td><%=stdList.get(i).getEnrollDate()%></td>
 						<td id="appInfo<%=i%>"></td>
 					</tr>
-
+					<% count++;%>
 
 
 					<script>
@@ -129,14 +129,13 @@
 
 
 					<div id="popUp<%=i%>">
-						<div id="app<%=i%>"
-							onclick="appJoin(<%=stdList.get(i).getUserNo()%>, <%=stdList.get(i).getUserId()%>, <%=i%>);"
-							style="background: whitesmoke; color: grey">
+						<div id="app<%=i%>" onclick = "appJoin(<%=stdList.get(i).getUserNo()%>, '<%=stdList.get(i).getUserId()%>', <%=i%>);" style = "background: whitesmoke; color: grey">
 							<div>
 								<p>가입승인
 								<p>
 							</div>
 						</div>
+						
 						<div id="hol<%=i%>" style="background: grey; color: white">
 							<div>
 								<p>보류
@@ -150,8 +149,11 @@
 					</div>
 					<%
 					}
+					if(count == 0){
 					%>
 				</table>
+					<h2>승인 대기 중인 학생이 없습니다.</h2>
+					<%} %>
 			</div>
 		</div>
 	</div>

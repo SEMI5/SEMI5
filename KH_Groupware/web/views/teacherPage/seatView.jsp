@@ -1,8 +1,6 @@
 <%@page import="member.model.vo.Member"%>
 <%@page import="java.util.ArrayList"%>
 
-<%@ include file="/views/common/header.jsp"%>
-<%@ include file="/views/common/footer.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%
@@ -29,128 +27,157 @@
 <title>Insert title here</title>
 <style>
 #outer {
-   width: 100%;
-   height: 100%;
-   border: 3px solid red;
-   padding-left: 30px;
+	width: 100%;
+	height: 100%;
+	border: 3px solid red;
+	padding-left: 30px;
 }
 
-
-
 #content {
-   display: inline-block;
-   border: 5px solid black;
-   margin: 10%;
-   margin-top: 0%;
+	display: inline-block;
+	margin: 10%;
+	margin-top: 0%;
 }
 
 #seatTableArea {
-   border: 5px solid black;
-   margin: 1%;
-   width: 66%;
-   display: inline-block;
+	margin: 1%;
+	width: 66%;
+	display: inline-block;
+	color: black;
+	height: 100px;
+
+}
+
+#stdListArea div{
+	padding: 7px;
 }
 
 
 #seatTableArea table .seat {
-   border: 2px solid blue;
-   height: 120px;
+	text-align: center; border : 0.5px solid black;
+	height: 90px;
+	background: lightgrey;
+	border: 0.5px solid white;
 }
-
-
 
 #seatTableArea table #hallway {
-   border: 2px solid blue;
-   height: 120px;
+	height: 120px;
+	background: lightgrey;
 }
 
-
 .seat {
-   width: 15%;
-   height: 120px;
+	width: 15%;
+	height: 120px;
 }
 
 #hallway {
-   width: 300px;
-   height: 100%;
-   text-align: center;
+	width: 300px;
+	height: 100%;
+	text-align: center;
+	background: lightgrey;
 }
 
 #front {
-   width: 1000px;
-   text-align: center;
+	width: 1000px;
+	text-align: center;
+	background: lightgrey;
 }
 
 #front td {
-   border: 2px solid blue;
-   height: 120px;
+	height: 120px;
 }
 
 #stdListArea {
-   width: 30%;
-   border: 5px solid black;
-   display: inline-block;
+	width: 30%;
+	display: inline-block;
 }
 
 #std {
-   width: 20%;
-   height: 30px;
-   border: 1px solid red;
-   position: relative;
-   cursor: pointer;
+	width: 30%;
+	height: 40px;
+	border: 1px solid red;
+	position: relative;
+	cursor: pointer;
 }
 
 .list {
-   border: 1px solid green;
-   width: 1000px;
-   height: 71.5px;
+	background: white;
+	border: 1px solid grey;
+	width: 1000px;
+	height: 50px;
 }
 
 .list table[id^=stdInfo] td {
-   border: 1px solid yellow;
-   width: 1000px;
-   font-size: 5px;
+	color: black;
+	background: white;
+	border: 0.3px solid black;
+	width: 1000px;
+	font-size: 5px;
+}
+
+[id^=sNo]{
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .seat table[id^=stdInfo] td {
-   border: 1px solid red;
-   width: 1000px;
-   font-size: 5px;
+	color: black;
+	background: white;
+	border: 0.3px solid black;
+	width: 1000px;
+	font-size: 5px;
 }
 
-.btn{
-   width: 150px;
-   height: 80px;
-   float: right;
-   margin-right: 2%;
+.btn {
+	width: 150px;
+	height: 50px;
+	float: right;
+	margin-right: 2%;
+	margin-top: 5px;	
 }
 
-
-#saveSeat{
-   border: 1px solid white;
-   color: white;
-   background: black;
+#saveSeat {
+	border: 1px solid white;
+	color: white;
+	background: black;
 }
 
-#resetSeat{
-   border: 1px solid black;
-   color: black;
-   background: white;
+#resetSeat {
+	border: 1px solid black;
+	color: black;
+	background: white;
 }
 
+.seat:hover {
+	background: whitesmoke;
+}
+
+.list:hover {
+	background: whitesmoke;
+}
+
+#stdList, #seatTable, table[id^=stdInfo] {
+	border-spacing: 0px;
+	margin
+}
+
+#seatTable {
+	border: 1px solid white;
+	height: 500px;
+}
 </style>
 </head>
 <body>
    <div id="outer">
-      <h3 style="text-align: left; font-size: 50px;">
-         <em>자리배치</em>
-      </h3>
       <div id="content">
          <div id="seatTableArea">
-            자리
-            <table id="seatTable">
+		&nbsp;
+         <h3 style="text-align: left; font-size: 40px; margin-top: 80px; height: 84px;">
+         <em>자리배치</em>
+     	 </h3>
+            <table id="seatTable" >
                <tr id="front">
-                  <td colspan="7">앞</td>
+                  <td colspan="7"></td>
                </tr>
                <%for (int i = 0 ; i < 5 ; i++){ 
                int j;%>
@@ -159,7 +186,7 @@
                   <td id="sNo<%=i*6+j+1%>" class="seat" ondrop = "drop(event)" ondragover = "allowDrop(event)"><%=i*6+j+1%></td>
                   <%} %>
                   <%if(i==0 && j==3){ %>
-                  <td rowspan="5" id="hallway">복도</td>
+                  <td rowspan="5" id="hallway"></td>
                   <%} %>
                   <%for (j = 4; j < 7 ; j++){ %>
                   <td id="sNo<%=i*6+j%>" class="seat" ondrop = "drop(event)" ondragover = "allowDrop(event)"><%=i*6+j%></td>
@@ -169,7 +196,7 @@
             </table>
          </div>
          <div id="stdListArea">
-            학생 <
+         	&nbsp;
             <table id="stdList">
                <%for (int i = 0 ; i < 10 ; i++){ %>
                <tr>
@@ -183,7 +210,7 @@
          </div>
          <div>
             <button id = "saveSeat" class = "btn">저장하기</button>
-            <button id = "resetSeat" class = "btn">초기화</button>
+            <button id = "resetSeat" class = "btn" onclick = "resetSeat();">초기화</button>
          </div>
       </div>
    </div>
@@ -260,9 +287,6 @@ function drop(ev) {
   seatMap.put(stdNo,seatNo);
   console.log(seatMap); 
 
-
-  
-  $("#sNo"+seatNo).removeAttr("ondrop", "ondragover");
   
   console.log(stdNo+"번 학생이 "+seatNo+"번 자리에 배정 받습니다.");
   
@@ -279,6 +303,9 @@ $("#saveSeat").click(function(){
          data:{seatMap : seatMap.toString()   
          },
          success:function(data){   
+        	if(!confirm("저장하시겠습니까?")){
+        		return false;
+        	} 
             alert("저장이 완료되었습니다."); 
             }
          }
@@ -312,45 +339,91 @@ var setSeat = $(function(){
                                           +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
                                        +"</tr>"
                                        +"<tr>"
-                                          +"<td><%=stdList.get(i*3+j).getStdLv()%></td>"
-                                          +"<td><%=stdList.get(i*3+j).getExp()%></td>"
+                                          +"<td>수준 : <%=stdList.get(i*3+j).getStdLv()%></td>"
+                                          +"<td>경험 : <%=stdList.get(i*3+j).getExp()%></td>"
                                        +"</tr>"
                                        +"<tr>"
-                                          +"<td><%=stdList.get(i*3+j).getMajor()%></td>"
-                                          +"<td><%=stdList.get(i*3+j).getSmoking()%></td>"
+                                          +"<td>전공 : <%=stdList.get(i*3+j).getMajor()%></td>"
+                                          +"<td>흡연 : <%=stdList.get(i*3+j).getSmoking()%></td>"
                                           +"<td style = 'display:none' class = 'userNo'><%=stdList.get(i*3+j).getUserNo()%></td>"
                                        +"</tr>"
                                     +"</table>"
                                  +"</div");
                <%count++; %>
-               $("#list<%=(i*3+j+1)%>").parent().removeAttr("ondrop", "ondragover");
-               $("#list<%=(i*3+j+1)%>").children().removeAttr("ondrop", "ondragover");
+
             <%} else{%>
-               $("#sNo<%=stdList.get(i*3+j).getSeat()%>").html("<%=stdList.get(i*3+j).getSeat()%> <div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
+               $("#sNo<%=stdList.get(i*3+j).getSeat()%>").html("<div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
                                      +"<table id='stdInfo<%=(i*3+j+1)%>'>"
                                        +"<tr>"
                                           +"<td><%=stdList.get(i*3+j).getUserName()%></td>"
                                           +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
                                        +"</tr>"
                                        +"<tr>"
-                                          +"<td><%=stdList.get(i*3+j).getStdLv()%></td>"
-                                          +"<td><%=stdList.get(i*3+j).getExp()%></td>"
+                                          +"<td>수준 : <%=stdList.get(i*3+j).getStdLv()%></td>"
+                                          +"<td>경험 : <%=stdList.get(i*3+j).getExp()%></td>"
                                        +"</tr>"
                                        +"<tr>"
-                                          +"<td><%=stdList.get(i*3+j).getMajor()%></td>"
-                                          +"<td><%=stdList.get(i*3+j).getSmoking()%></td>"
+                                          +"<td>전공 : <%=stdList.get(i*3+j).getMajor()%></td>"
+                                          +"<td>흡연 : <%=stdList.get(i*3+j).getSmoking()%></td>"
                                           +"<td style = 'display:none' class = 'userNo'><%=stdList.get(i*3+j).getUserNo()%></td>"
                                        +"</tr>"
                                     +"</table>"
                                  +"</div");
-               $("#sNo<%=(i*3+j+1)%>").removeAttr("ondrop", "ondragover");
             <%} %>
-         <%} %>
+         <%}%>
       <%} %>
    <%} %>
 });
 
 
+function resetSeat(){
+	if(!confirm("초기화 하시겠습니까 ?")){
+		return false;
+	}
+	<%for (int i = 0 ; i < stdList.size() ; i++){%>
+	   seatMap.put("<%=stdList.get(i).getUserNo()%>","N");
+	<%}%>
+
+	
+	<% 
+		int ccountSize = stdList.size();
+		int ccount = 1;
+	%>
+	
+	
+	<%for (int i = 0 ; i < 10 ; i++){ %>
+    <%for (int j = 0 ; j < 3 ; j++){ %>
+       <%if(ccountSize > 0 && stdList.get(i*3+j) != null){ %>
+          <% ccountSize--;%>
+         
+             $("#list<%=ccount%>").html("<div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
+                                   +"<table id='stdInfo<%=(i*3+j+1)%>'>"
+                                     +"<tr>"
+                                        +"<td><%=stdList.get(i*3+j).getUserName()%></td>"
+                                        +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
+                                     +"</tr>"
+                                     +"<tr>"
+                                        +"<td>수준 : <%=stdList.get(i*3+j).getStdLv()%></td>"
+                                        +"<td>경험 : <%=stdList.get(i*3+j).getExp()%></td>"
+                                     +"</tr>"
+                                     +"<tr>"
+                                        +"<td>전공 : <%=stdList.get(i*3+j).getMajor()%></td>"
+                                        +"<td>흡연 : <%=stdList.get(i*3+j).getSmoking()%></td>"
+                                        +"<td style = 'display:none' class = 'userNo'><%=stdList.get(i*3+j).getUserNo()%></td>"
+                                     +"</tr>"
+                                  +"</table>"
+                               +"</div");
+
+          
+             $("#sNo<%=ccount%>").html("<%=ccount%>");
+             <%ccount++; %>
+ 
+          
+       <%} %>
+    <%} %>
+ <%} %>
+	
+}
 
 
 </script>

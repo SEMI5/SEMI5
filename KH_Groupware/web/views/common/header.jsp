@@ -421,7 +421,7 @@ h3{
 					<input type = "checkbox" name = "saveID" id = "saveId">&nbsp;
 					<label for = "saveId">아이디 저장</label><br><br>
 			<div class = "btns" align = "center">
-				<button id = "loginBtn" class = "headerbtn1 loginBtn" type ="submit">로그인</button>
+				<button id = "loginBtn" class = "headerbtn1 loginBtn" type = "submit" onclick = "login();">로그인</button>
 			</div>         
 		</form>
 		<br><br>
@@ -494,6 +494,11 @@ h3{
 			
 		}
 
+		function login(){
+			
+			alert("ㅇㅇ");
+			$("#loginBtn").submit;
+		}
 		
 	</script>
 

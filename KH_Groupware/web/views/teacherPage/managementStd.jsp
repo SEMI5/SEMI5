@@ -30,39 +30,38 @@
 #outer{
 		width: 100%;
 		height: 100%;
-		border: 3px solid red;
 		padding: 20px;
 	}
 
 #content {
-	margin: 5%;
-	margin-top: 3%;
-	border: 5px solid black;
+	margin: 15%;
+	margin-top: 1%;
+
+	width: 70%;
 }
 
 #stdList {
 	display: inline-block;
 	margin: 2%;
-	border: 5px solid black;
 	width: 30%;
-	height: 770px;
+	height: 570px;
 }
 
 #consulting {
 	display: inline-block;
 	margin: 2%;
-	border: 5px solid black;
 	width: 60%;
-	height: 770px;
+	height: 570px;
+	text-align: center;
 	
 }
 
-.consultingForm {
-	border: 3px solid red; 
+.consultingForm { 
 	width: 100%;
-	height: 700px;
+	height: 400px;
 	display: none;
 	padding: 10px;
+	border: 1px solid lightgrey;
 	}
 
 #stdList>table {
@@ -78,7 +77,7 @@
 }
 
 #stdInfoCheck>input, #stdInfoCheck>button{
-	 font-size:17px;
+	 font-size:12px;
 	 width:15px;
 	 height:15px
 }
@@ -89,7 +88,21 @@
 	 text-align: left;"
 }
 
+#consulting td{
+	width: 40%;
+	height: 60px;
+	border-bottom-width: 1px solid lightgrey;
+}
 
+
+#submitInfo:hover{
+	background: white;
+	cursor: pointer;
+}
+
+#stdList{
+	font-size: 12px;
+}
 
 </style>
 
@@ -133,12 +146,12 @@
 			<%for(int i = 0; i < stdList.size() ; i++){ %>
 			<div id="consulting<%=i%>" class = "consultingForm">
 				<div class = "stdInfo">
-					<h2><%=stdList.get(i).getUserName() %> 상담일지</h2>
-					<h4><%=stdList.get(i).getAddress() %></h4>
+					<h2 style = "text-align: left;"><%=stdList.get(i).getUserName() %> 상담일지</h2>
+					<h4 style = "text-align: left;"><%=stdList.get(i).getAddress() %></h4>
 					<%if(stdList.get(i).getConsult() == null){ %>
-						<textarea rows="25" cols="150" style="resize: none" name = "consult<%=i%>" placeholder = "내용을 입력하세요."></textarea>
+						<textarea style="resize: none; width: 100%; height: 250px;" name = "consult<%=i%>" placeholder = "내용을 입력하세요."></textarea>
 					<%}else{ %>
-						<textarea rows="25" cols="150" style="resize: none" name = "consult<%=i%>"><%=stdList.get(i).getConsult() %></textarea>
+						<textarea style="resize: none; width: 100%; height: 250px;" name = "consult<%=i%>"><%=stdList.get(i).getConsult() %></textarea>
 					<%} %>
 					<br><br><br>
 					<table id = "stdInfoCheck">
@@ -154,7 +167,7 @@
 									smkN = "checked";
 								}
 								%>
-								<label style="font-size:20px">흡연여부</label>
+								<label style="font-size:20px">흡연여부</label><br>
 								<input type="radio" id="smokingY" name="smokingYN<%=i%>" value="Y" <%=smkY%>> 
 								<label for="smokingY">Y</label> 
 								<input type="radio" id="smokingN" name="smokingYN<%=i%>" value="N" <%=smkN%>>
@@ -172,7 +185,7 @@
 									mjrN = "checked";
 								}
 								%>
-								<label style="font-size:20px">전공유무</label>
+								<label style="font-size:20px">전공유무</label><br>
 								<input type="radio" id="majorY" name="majorYN<%=i%>" value="Y" <%=mjrY%>> 
 								<label for="majorY">Y</label> 
 								<input type="radio" id="majorN" name="majorYN<%=i%>" value="N" <%=mjrN%>>
@@ -191,7 +204,7 @@
 								 }
 								}
 								 %>
-								<label style="font-size:20px">학생Level</label>
+								<label style="font-size:20px">학생Level</label><br>
 								<input type="radio" id="beginningLv" name="stdLevel<%=i%>" value="3" <%= level[0]%>> 
 								<label for="beginningLv">초급</label> 
 								<input type="radio" id="intermediateLv" name="stdLevel<%=i%>" value="2" <%= level[1]%>>
@@ -211,14 +224,14 @@
 									expN = "checked";
 								}
 								%>
-								<label style="font-size:20px">실무경험</label>
+								<label style="font-size:20px">실무경험</label><br>
 								<input type="radio" id="pExpY" name="PracticalExp<%=i%>" value="Y" <%=expY%>> 
 								<label for="pExpY">Y</label> 
 								<input type="radio" id="pExpN" name="PracticalExp<%=i%>" value="N" <%=expN%>>
 								<label for="pExpN">N</label>
 							</td>
 							<td style="width:350px;height:80px;text-align: right;">
-								<button id = "submitInfo" style="width:250px;height:50px; font-size:30px;" onclick = "updateStd(<%=stdList.get(i).getUserNo()%>, <%=i%>);">
+								<button id = "submitInfo" style="width:150px; height: 50px; font-size:20px; background: black; color: white;" onclick = "updateStd(<%=stdList.get(i).getUserNo()%>, <%=i%>);">
 								저장하기
 								</button>
 								<script type="text/javascript">
@@ -235,7 +248,7 @@
 											exp : $("input[name=PracticalExp"+i+"]:checked").val()
 											},
 										success:function(data){	
-											$alert("정상적으로 저장되었습니다.");
+											alert("정상적으로 저장되었습니다.");
 											$(".consultingForm").css("display","none");
 											}
 										}
