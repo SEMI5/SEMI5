@@ -138,4 +138,24 @@ public class MemberService {
 		return result;
 	}
 
+	public String findId(String userName, String email) {
+		Connection conn = getConnection();
+		
+		String id = new MemberDao().findId(userName, email, conn);
+		
+		commit(conn);
+		
+		return id;
+	}
+
+	public int findPwd(String userId, String email, String phone, String newPwd) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().findPwd(userId,  email,  phone, newPwd, conn);
+		
+		commit(conn);
+		
+		return result;
+	}
+
 }

@@ -349,6 +349,60 @@ public class MemberDao {
 
 		return result;
 	}
+
+	public String findId(String userName, String email, Connection conn) {
+		PreparedStatement pstmt = null;
+		String id = null;
+		ResultSet rs = null;
+		
+		
+		String query = prop.getProperty("findId");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, email);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				id = rs.getString("user_id");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return id;
+	}
+
+	public int findPwd(String userId, String email, String phone, String newPwd, Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("findPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, phone);
+			pstmt.setString(4, email);
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 	
 	
 	
