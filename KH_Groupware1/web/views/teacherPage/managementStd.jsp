@@ -5,7 +5,15 @@
 	pageEncoding="UTF-8"%>
 	
 <%
-	ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
+	ArrayList<Member> List = (ArrayList)session.getAttribute("stdList");
+	
+	ArrayList<Member> stdList = new ArrayList();
+	
+	for(int i = 0 ; i < List.size() ; i++){
+		if(List.get(i).getApprove().equals("Y")){
+			stdList.add(List.get(i));
+		}
+	}
 
 %>
 	
@@ -22,39 +30,38 @@
 #outer{
 		width: 100%;
 		height: 100%;
-		border: 3px solid red;
 		padding: 20px;
 	}
 
 #content {
-	margin: 5%;
-	margin-top: 3%;
-	border: 5px solid black;
+	margin: 15%;
+	margin-top: 1%;
+
+	width: 70%;
 }
 
 #stdList {
 	display: inline-block;
 	margin: 2%;
-	border: 5px solid black;
 	width: 30%;
-	height: 770px;
+	height: 570px;
 }
 
 #consulting {
 	display: inline-block;
 	margin: 2%;
-	border: 5px solid black;
 	width: 60%;
-	height: 770px;
+	height: 570px;
+	text-align: center;
 	
 }
 
-.consultingForm {
-	border: 3px solid red; 
+.consultingForm { 
 	width: 100%;
-	height: 700px;
+	height: 400px;
 	display: none;
 	padding: 10px;
+	border: 1px solid lightgrey;
 	}
 
 #stdList>table {
@@ -70,7 +77,7 @@
 }
 
 #stdInfoCheck>input, #stdInfoCheck>button{
-	 font-size:17px;
+	 font-size:12px;
 	 width:15px;
 	 height:15px
 }
@@ -81,7 +88,21 @@
 	 text-align: left;"
 }
 
+#consulting td{
+	width: 40%;
+	height: 60px;
+	border-bottom-width: 1px solid lightgrey;
+}
 
+
+#submitInfo:hover{
+	background: white;
+	cursor: pointer;
+}
+
+#stdList{
+	font-size: 12px;
+}
 
 </style>
 
@@ -98,6 +119,8 @@
 
 
 <body>
+
+
 <div id = "outer">
 	<div id="content">
 		<div id="stdList">
@@ -123,99 +146,120 @@
 			<%for(int i = 0; i < stdList.size() ; i++){ %>
 			<div id="consulting<%=i%>" class = "consultingForm">
 				<div class = "stdInfo">
-					<h2><%=stdList.get(i).getUserName() %> 상담일지</h2>
-					<h4><%=stdList.get(i).getAddress() %></h4>
-					<textarea rows="25" cols="150" style="resize: none" name = "consult"><%=stdList.get(i).getConsult() %></textarea>
+					<h2 style = "text-align: left;"><%=stdList.get(i).getUserName() %> 상담일지</h2>
+					<h4 style = "text-align: left;"><%=stdList.get(i).getAddress() %></h4>
+					<%if(stdList.get(i).getConsult() == null){ %>
+						<textarea style="resize: none; width: 100%; height: 250px;" name = "consult<%=i%>" placeholder = "내용을 입력하세요."></textarea>
+					<%}else{ %>
+						<textarea style="resize: none; width: 100%; height: 250px;" name = "consult<%=i%>"><%=stdList.get(i).getConsult() %></textarea>
+					<%} %>
 					<br><br><br>
 					<table id = "stdInfoCheck">
 						<tr>
 							<td>
 								<%
 								String smkY = null, smkN = null;
-								if(stdList.get(i).getSmoking().equals("Y")){
+								if(stdList.get(i).getSmoking() == null){
+									/*  */
+								}else if(stdList.get(i).getSmoking().equals("Y")){
 									smkY = "checked";
 								}else{
 									smkN = "checked";
 								}
 								%>
-								<label style="font-size:20px">흡연여부</label>
-								<input type="radio" id="smokingY" name="smokingYN" value="Y" <%=smkY%>> 
+								<label style="font-size:20px">흡연여부</label><br>
+								<input type="radio" id="smokingY" name="smokingYN<%=i%>" value="Y" <%=smkY%>> 
 								<label for="smokingY">Y</label> 
-								<input type="radio" id="smokingN" name="smokingYN" value="N" <%=smkN%>>
+								<input type="radio" id="smokingN" name="smokingYN<%=i%>" value="N" <%=smkN%>>
 								<label for="smokingN">N</label>
 							</td>
 							<td style="width:350px;height:80px;text-align: left;">
+								
 								<%
 								String mjrY = null, mjrN = null;
-								if(stdList.get(i).getExp().equals("Y")){
+								if(stdList.get(i).getMajor() == null){
+									/*  */
+								}else if(stdList.get(i).getMajor().equals("Y")){
 									mjrY = "checked";
 								}else{
 									mjrN = "checked";
 								}
 								%>
-								<label style="font-size:20px">전공유무</label>
-								<input type="radio" id="majorY" name="majorYN" value="Y" <%=mjrY%>> 
+								<label style="font-size:20px">전공유무</label><br>
+								<input type="radio" id="majorY" name="majorYN<%=i%>" value="Y" <%=mjrY%>> 
 								<label for="majorY">Y</label> 
-								<input type="radio" id="majorN" name="majorYN" value="N" <%=mjrN%>>
+								<input type="radio" id="majorN" name="majorYN<%=i%>" value="N" <%=mjrN%>>
 								<label for="majorN">N</label>
 							</td>
-							
 						</tr>
 						<tr>
 							<td>
 								<%
 								String[] level = new String[3];
+								if(stdList.get(i).getStdLv() != null){
 								switch(stdList.get(i).getStdLv()){
 								case "3": level[0] = "checked"; break;
 								case "2": level[1] = "checked"; break;
 								case "1": level[2] = "checked"; break;	
-								 } 
+								 }
+								}
 								 %>
-								<label style="font-size:20px">학생Level</label>
-								<input type="radio" id="beginningLv" name="stdLevel" value="3" <%= level[0]%>> 
+								<label style="font-size:20px">학생Level</label><br>
+								<input type="radio" id="beginningLv" name="stdLevel<%=i%>" value="3" <%= level[0]%>> 
 								<label for="beginningLv">초급</label> 
-								<input type="radio" id="intermediateLv" name="stdLevel" value="2" <%= level[1]%>>
+								<input type="radio" id="intermediateLv" name="stdLevel<%=i%>" value="2" <%= level[1]%>>
 								<label for="intermediateLv">중급</label>
-								<input type="radio" id="advancedLv" name="stdLevel" value="1" <%= level[2]%>>
+								<input type="radio" id="advancedLv" name="stdLevel<%=i%>" value="1" <%= level[2]%>>
 								<label for="advancedLv">고급</label>
 							</td>
 							<td style="width:350px;height:80px;text-align: left;">
+
 								<%
 								String expY = null, expN = null;
-								if(stdList.get(i).getExp().equals("Y")){
+								if(stdList.get(i).getExp() == null){
+									/*  */
+								}else if(stdList.get(i).getExp().equals("Y")){
 									expY = "checked";
 								}else{
 									expN = "checked";
 								}
 								%>
-								<label style="font-size:20px">실무경험</label>
-								<input type="radio" id="pExpY" name="PracticalExp" value="Y" <%=expY%>> 
+								<label style="font-size:20px">실무경험</label><br>
+								<input type="radio" id="pExpY" name="PracticalExp<%=i%>" value="Y" <%=expY%>> 
 								<label for="pExpY">Y</label> 
-								<input type="radio" id="pExpN" name="PracticalExp" value="N" <%=expN%>>
+								<input type="radio" id="pExpN" name="PracticalExp<%=i%>" value="N" <%=expN%>>
 								<label for="pExpN">N</label>
 							</td>
 							<td style="width:350px;height:80px;text-align: right;">
-								<button id = "submitInfo" style="width:250px;height:50px; font-size:30px;" onclick = "updateStd(<%=stdList.get(i).getUserNo()%>, <%=stdList.get(i).getUserId()%>);">
+								<button id = "submitInfo" style="width:150px; height: 50px; font-size:20px; background: black; color: white;" onclick = "updateStd(<%=stdList.get(i).getUserNo()%>, <%=i%>);">
 								저장하기
 								</button>
 								<script type="text/javascript">
-								function updateStd (stdNo, userId){
+
+								function updateStd (stdNo, i){
 									 $.ajax({
 										url:"/KH_Groupware/updateD.te",
-										data:{stdNo:stdNo,
-											consult:$("textarea[name=consult]").val(),
-											smoking:$("input[name=smokingYN]:checked").val(),
-											major:$("input[name=majorYN]:checked").val(),
-											level:$("input[name=stdLevel]:checked").val(),
-											exp:$("input[name=PracticalExp]:checked").val(),
-											userId:userId},
+										data:{
+											stdNo : stdNo,
+											consult : $("textarea[name=consult"+i+"]").val(),
+											smoking : $("input[name=smokingYN"+i+"]:checked").val(),
+											major : $("input[name=majorYN"+i+"]:checked").val(),
+											level : $("input[name=stdLevel"+i+"]:checked").val(),
+											exp : $("input[name=PracticalExp"+i+"]:checked").val()
+											},
 										success:function(data){	
-
+											alert("정상적으로 저장되었습니다.");
 											$(".consultingForm").css("display","none");
 											}
 										}
 									); 
 								};
+								
+								$(function(){
+									$("#c")
+									
+								});
+								
 								
 								</script>
 							</td>

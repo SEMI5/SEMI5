@@ -2,6 +2,7 @@ package teacherPage.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,60 +37,39 @@ public class UpdateSeatSurvlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json; charset=utf-8");
+		String seatMap = request.getParameter("seatMap");
+		
+		String[]  seatMapping = seatMap.split(",");
+		
+		int result = 0;
 		
 		
-		String type = request.getParameter("type");
-		
-		HttpSession session = request.getSession();
-		
-		ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
-		
-		ArrayList<Member> csList = (ArrayList)session.getAttribute("changeSeatList");
+		result = new tPageService().updateSeat(seatMapping);
+	
+		if(result > 0) {
+			HttpSession session = request.getSession();
 
-		switch(type){
-		case "move":
-			int stdNo = Integer.valueOf(request.getParameter("stdNo"));
-
-			String seatNo = request.getParameter("seatNo");
-
-			System.out.println(csList);
+			System.out.println(result);
 			
-			csList.get(stdNo-1).setSeat(seatNo);
-			session.setAttribute("changeSeatList", csList);
+			ArrayList<Member> memberList = new MemberService().selectAllStd();
+			Member loginUser = (Member)session.getAttribute("loginUser");
 			
-			csList = (ArrayList)session.getAttribute("changeSeatList");
-
-			System.out.println(csList);
+			// 강사 자신을 제외한 학생들 리스트를 다시 만듭니다.
+			ArrayList<Member> stdList = new ArrayList();
 			
-			break;
-			
-		case "reset":
-			/*
-			 * for(int i = 0 ; i < stdList.size() ; i++) { if(stdList.get(i).getUserNo() ==
-			 * stdNo) { stdList.get(i).setSeat(null); } }
-			 */
-			break;
-			
-		case "save":
-			int result  = new tPageService().updateSeat(csList);
-			int cid = csList.get(0).getcId();
-			
-			if(result > 0) {
-				for(int i = 0 ; i<csList.size() ; i++){
-					if(csList.get(i).getUserNo() <= 1000 && csList.get(i).getStatus().equals("Y") &&  csList.get(i).getApprove().equals("Y") && csList.get(i).getcId() == cid) {
-						csList.add(csList.get(i));
-					}
-				}
+			for(int i = 0 ; i<memberList.size() ; i++){
+				if(memberList.get(i).getUserNo()<100000 && memberList.get(i).getcId() == loginUser.getcId()){
+					stdList.add(memberList.get(i));
+				}		
+				
 			}
+
+			session.setAttribute("stdList", stdList);
 			
-			session.setAttribute("stdList", csList);
-			break;
-		}
-		
-		
-		new Gson().toJson(stdList, response.getWriter());
-		
-		
+			new Gson().toJson(null, response.getWriter());			
+		} 
+
 	}
 
 	/**

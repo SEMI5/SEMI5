@@ -45,6 +45,8 @@ public class LoginServlet extends HttpServlet {
 				// 3. 서비스 클래스의 해당 메소드를 실행하고, 그 처리 결과를  받음
 				Member loginUser = new MemberService().loginMember(member);
 				
+				Member loginUser2 = new MemberService().loginMember(member);  //지도api에서 변수명 겹치는 부분있어서 생성해놨습니다.
+				
 				System.out.println(loginUser);				   
 				
 				// 4. 보낼 값에 한글이 있을 경우 인코딩 처리를 해야한다.
@@ -63,26 +65,24 @@ public class LoginServlet extends HttpServlet {
 					// session은 브라우져를 닫지않으면 객체가 사라지지않아서 페이지만 넘겨주면됨
 					
 					// 로그인한 회원이 강사일 경우 학생들의 목록을 가져옵니다.
-					if(loginUser.getUserNo() > 10000) {
+					if(loginUser.getUserNo() > 100000) {
+
 						ArrayList<Member> memberList = new MemberService().selectAllStd();
 						
 						
 						// 강사 자신을 제외한 학생들 리스트를 다시 만듭니다.
 						ArrayList<Member> stdList = new ArrayList();
-						// 아직 가입승인을 받지 못한 학생들 리스트를 만듭니다.
-						ArrayList<Member> appYet = new ArrayList();
+						
 						for(int i = 0 ; i<memberList.size() ; i++){
-							if(memberList.get(i).getUserNo() <= 1000 && memberList.get(i).getApprove().equals("N") && memberList.get(i).getcId() == loginUser.getcId()){
-								appYet.add(memberList.get(i));
-							} else if(memberList.get(i).getUserNo() <= 1000 && memberList.get(i).getStatus().equals("Y") && memberList.get(i).getcId() == loginUser.getcId()) {
+							if(memberList.get(i).getUserNo()<100000 && memberList.get(i).getcId() == loginUser.getcId()){
 								stdList.add(memberList.get(i));
-								
-							}
+							}		
+							
 						}
 						
 						session = request.getSession();
 						
-						session.setAttribute("appYet", appYet);
+
 						session.setAttribute("stdList", stdList);
 						
 					}
