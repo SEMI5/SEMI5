@@ -92,9 +92,19 @@
 	outline:none;
 }
 
+.replyListText{
+	 border: none;
+	 width: 700px;
+	 resize:none;
+	 height: 30px;
+	 postion: absolute;
+	 outline: none;
+	 
+}
+
 .reReplyText{	
 	resize:none;
-	padding:none; 
+	padding: 0px; 
 	borderspacing:0px;
 	width: 550px;
 	border: 1px solid black; 
@@ -344,6 +354,10 @@ text-decoration: underline;
 
 #replySelectTable tr {
 	height:30px;
+	border: none;
+}
+#replySelectTable td{
+	border: none; 
 }
 
 
@@ -351,7 +365,9 @@ text-decoration: underline;
 	word-break:break-all; 
 	wrap:hard;
 	border: none;
-	padding: 10px;
+	height: 30px;
+	padding: 2px;
+	margin: 0px; 
 }
 
 .replyWriterArea{
@@ -403,7 +419,11 @@ text-decoration: underline;
 
 .good{
 	position: relative;
-	left: 570px;
+	float: right;
+	hegiht: 20px; 
+	margin-left:10px;
+	padding:2px;
+	bottom: 3px;
 }
 
 
@@ -427,14 +447,14 @@ text-decoration: underline;
 
 
 .best{
-
 	padding: 3px;
 	background: #f53f29; 
 	color: white;
 	font-weight: bold;
 	border-radius: 5px;
 	margin-left: 3px;
-	
+	position: relative;
+	bottom: 11px;
 
 }
 
@@ -536,50 +556,10 @@ text-decoration: underline;
 			<div id="replySelectArea">
 				<br>
 				<table id="replySelectTable" >
-					
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				
 					<%if(rlist.isEmpty()) {%>
-						<tr><td colspan="3">댓글이 없습니다.</td></tr>
+						<tr style= "boder-top: 1px solid darkgrqy";><td colspan="3">댓글이 없습니다.</td></tr>
 					<%}else{ %>
-					<tr style="border:none; border-top: 1px solid darkgray; ">
-								<td style="width:100px; padding-bottom:0px; height: 20px">&nbsp;
-									<b style="background:yellow">조호관<span style="margin-left:10px;">20191021</span></b>
-									<span class="fix" style="color:gray;"onclick= "fixClick(this);" >
-									<span style="font-size: 12px;" >조호관님이 고정함&nbsp;&nbsp;</span><i class="fa fa-thumb-tack" aria-hidden="true" style="font-size:14px;"></i></span>
-								</td>
-							</tr>
-							<tr style="border:none; padding-top:0px" >
-								<td width="400px" style= "padding-top: 0px; padding-bottom:0px;" >
-									&nbsp;&nbsp;ㄻㄴㅇㄹㄴㅇㄹ
-								</td>
-							</tr>
-							<tr style="border:none; border-bottom: 1px solid darkgray;">
-								<td width="200px" style="border:none;" >&nbsp;
-									<span style="" class= "answer" type="button" onclick = "ReReply()">답글</span>&nbsp;
-									<span class= "answer" type="button">수정</span>&nbsp;
-									<span class= "answer" type="button" onclick="deleteReply(this);" value = "">삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
-										<input id = "rid<%=i%>" type = hidden value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
-									</span>
-									<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="hegiht: 20px; margin-left:10px;padding:5px;border:1px solid <%=color %>; color:<%=color %> " ><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span id="gCount"><%=rlist.get(i).getCount()%></span></span> 
-								</td>
-							</tr>
-							
-					
-					
-					
-					
-					
-						<br><br>
 						<%for(i=0;i<rlist.size();i++){ %>
 							<%for (int j=0; j<glist.size(); j++){
 									if((rlist.get(i).getrId() == glist.get(j).getrId()) && (loginUser.getUserNo() == glist.get(j).getUserNo())){
@@ -590,157 +570,45 @@ text-decoration: underline;
 									}
 							}%> <!-- 안쪽 for문 -->	
 				
-							<tr style="border:none; border-top: 1px solid darkgray;">
+							<tr style= "border-top: 1px solid darkgray;">
 								<td style="width:100px;">&nbsp;
 									<b><%=rlist.get(i).getrWriter() %><span style="margin-left:10px;"><%=rlist.get(i).getCreateDate()%></span></b>
-									<% if(loginUser.getUserNo() == b.getUserNo()){%>
-									<span class="fix" style="color:gray;"onclick= "fixClick(this);" >
-									<span style="font-size: 12px;" ><%=b.getbWriter()%>님이 고정함&nbsp;&nbsp;</span><i class="fa fa-thumb-tack" aria-hidden="true" style="font-size:14px;"></i></span>
-									<%} %>
 								</td>
 							</tr>
-							<tr style="border:none">
+							<tr>
 								<td width="400px">
-								
 								<%if((i == 0 || i== 1) && rlist.get(i).getCount() >= 2){ %>
-									<span class= "best">BEST</span>&nbsp;<%=rlist.get(i).getrContent() %>
-								<%}else{ %>
-									&nbsp;<%=rlist.get(i).getrContent() %>
+									<span class= "best">BEST</span>
 								<%}%>
+									&nbsp;<textArea id="text<%=i%>" class="replyListText" readonly= readonly data-value="1"><%=rlist.get(i).getrContent() %></textArea>
 								</td>
 							</tr>
-							<tr style="border:none; border-bottom: 1px solid darkgray;">
-								<td width="200px" style="border:none">&nbsp;
-									<span style="" class= "answer" type="button" onclick = "ReReply()">답글</span>&nbsp;
-									<span class= "answer" type="button">수정</span>&nbsp;
-									<span class= "answer" type="button" onclick="deleteReply(this);" value = "">삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
+							<tr style="border:none; border-bottom: 1px solid darkgray;padding:3px;">
+								<td style= "height: 35px;width=200px;pdding-top:0px">&nbsp;
+									<%if (loginUser != null && (loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
+									<span class= "answer" onclick= "changeReply(text<%=i%>,<%=rlist.get(i).getrId()%> );">수정</span>&nbsp;	
+									<%}%>									
+									<%if (loginUser != null && (loginUser.getUserNo() > 10000 || loginUser.getUserNo() == b.getUserNo() || loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
+									<span class= "answer" onclick="deleteReply(this);" >삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
+								 	<% }%> 
 										<input id = "rid<%=i%>" type = hidden value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
 									</span>
-									<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="hegiht: 20px; margin-left:10px;padding:5px;border:1px solid <%=color %>; color:<%=color %> " ><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span id="gCount"><%=rlist.get(i).getCount()%></span></span> 
+									<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="border:1px solid <%=color %>; color:<%=color %> " >
+										<i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;
+										<span id="gCount"><%=rlist.get(i).getCount()%></span>
+									</span> 
 								</td>
 							</tr>
-							<!--  <-- tr> 
-								<td> 
-									<div style="border: 1px solid black" >
-										<div>+++++++작성자 <button>등록</button><button>삭제</button> 시간</div>  
-										<div>+++++++<textArea id=reReplyText rows="2" cols="50"  placeholder="댓글을 입력해주세요" style="font-weight:normal;"></textArea></div>
-									</div>
-								</td>
-							</tr> -->
-							
-							
-						<%} %> <!--  바깥쪽 for문 -->
+						<%}%> <!--  바깥쪽 for문 -->
 					<%} %>
 				</table>
 				<br><br><br><br>
 				<div>나중에 앵커를 여기다가 박자 맨 끝으로 올라가고싶다</div>
 			</div>		
 			<%} %>
-		
-		
-			
 		</div><!--outer끝 -->
-	 
-	
-	
-	<!-- 여기는 Ajax 관련 코드 -->
-		 <!-- 불러온 댓글 리스트 보여주기 -->
-		 
-	
-
-	<!-- Ajax로 댓글 입력부분을 완성해보자 -->
-	 <script>
-		$(function(){
-			// addReply 버튼을 클릭 시 댓글 달기 기능을 실행했을 때 비동기적으로 새로 갱신된 리스트들을 테이블에 적용 시키자
-			$("#addReplyBtn").click(function(){
-				
-				var count = $("textArea").val().length;
-				if( count <2){
-					alert("2자 이상 입력해주세요 ")	;	
-					return false;
-				}else if(count > 200){
-					alert("200자 미만으로 입력해주세요 ");
-					return false ;
-				}
-				
-				var writer = <%=loginUser.getUserNo()%>;
-				var bid = <%=b.getbId()%>
-				var content = $("#replyContent").val();
-				 
-				$.ajax({
-					url:"/KH_Groupware/insertReply.bo",
-					type:"post",
-					data:{writer:writer, content:content, bid:bid}, //InsertReplyServlet 만들러 ㄱㄱ씽
-					success:function(data){
-						$replyTable = $("#replySelectTable");
-						$replyTable.html("");	// 기존 테이블 초기화(기존에는 댓글이 없습니다가 적힌 태그가 있었는데 지워지게)
-						
-					
-						// 새로 받아온 갱신된 댓글리스트들을 for문을 통해 다시 table에 추가
-						var result= [];
-						for(var key in data){
-							result.push(data[key]); 
-						}
-						var i = <%= i+1 %>
-						var bestIndex = -1; 
-						
-						for (var index in result[0]){
-							 var i = i+ 1; 
-							 var bestIndex = bestIndex +1;
-							 
-							var rWriter = result[0][index].rWriter;
-							var createDate= result[0][index].createDate;
-							var rContent =result[0][index].rContent;
-							var rId = result[0][index].rId;
-							var bWriter = "<%=b.getbWriter()%>"; 
-							var loginUserNo = "<%=loginUser.getUserNo()%>";
-							var count = result[0][index].count; 
-							var color = "gray"; 
-							for(var index2 in result[1]){
-								if(( rId == result[1][index2].rId) && (loginUserNo== result[1][index2].userNo)){
-		       						 color = "#f53f29";
-		       						break; 
-		       					}else{
-		       						 color = "gray"; 
-		       					}
-							} 
-							var html = ""; 
-	                        
-							html += "<tr style='border:none; border-top: 1px solid darkgray;'>"; 
-							html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "sdafasf" + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
-							html += "<span class='fix' style='color:gray' onclick= 'fixClick(this);'><span style='font-size: 12px;'>"+ rWriter+"님이 고정함&nbsp;&nbsp;</span><i class='fa fa-thumb-tack' aria-hidden='true' style='font-size:14px;'></i></span>";
-							html += "</td>";
-							html += "</tr>";
-						
-							html += "<tr style='border:none'>";
-							if((bestIndex == 0 || bestIndex== 1) && count >= 2){
-								html += "<td width='400px'><span class= 'best'>BEST</span>&nbsp;" + rContent + "</td>";
-							}else{
-								html += "<td width='400px'>&nbsp;" + rContent + "</td>";
-							}
-							html += "</tr>";
-							
-							html += "<tr style='border:none; border-bottom: 1px solid darkgray;'>";
-							html += "<td width='200px' style='border:none'>&nbsp;";
-							html +=  "<span class= 'answer' type='button'>답글</span>&nbsp;";
-							html +=  "<span class= 'answer' type='button'>수정</span>&nbsp;";
-							html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제 <input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
-							html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='hegiht:20px;margin-left:25px;padding:5px;color: " +color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
-							html += "</td>";
-							html += "</tr>";
-
-							$("#replySelectTable").append(html); 
-						}
-							$("#replyContent").val(""); 
-					}
-				});
-			});
-		});
-	</script> 
-	
 </body>
 <script>
-
 
 $(function(){
 	
@@ -780,113 +648,30 @@ $(function(){
     $(".balloonClose").click(function(){
         $(this).parent().css("display","none");
     }); 
-    
-/*     
-    $(document).ready(function(){
-    	  $(".good").click(function(){
-    	    $(this).hide();
-    	  });
-    });
-	 */
-});
 
-
-	function goBoardDetail(bid){
-		location.href="<%=request.getContextPath()%>/Fdetail.bo?bid=" + bid;
-	} 
-	
-	 function downloadAttach(thing){
-		 location.href="<%=request.getContextPath() %>/Fdownload.at?fid="+thing;
-		 
-	 }
-	
-	 
-
-
- function delBoard(){
-	 
-	   if(confirm("게시글을 정말로 삭제하시겠습니까?")) {
-           $(this).parent().click();
-      	 location.href="<%=request.getContextPath() %>/Fdelete.bo?bid=<%=b.getbId()%>";
-       } else {
-           return false;
-       }
- }
- 
-
-
- function goodClick(thing, rid){
-
- 	 var rId = rid.value 
-	 alert(rId);
-	 	
-	  if( thing.style.color == "gray"){ 
-				thing.style.color = "#f53f29";
-			 	thing.style.border = "1px solid #f53f29"
-			 	;
-			 	 var count =  thing.lastChild.innerHTML
-			 	 countAdd = parseInt(count) +1 ;
-			  	
-			 	thing.lastChild.innerHTML= countAdd
-			 	 
-	  }else{
-			thing.style.color = "gray";
-			thing.style.border = "1px solid gray";
-			 var count =  thing.lastChild.innerHTML
-		 	 countSub = parseInt(count) -1 ;
-		 	 thing.lastChild.innerHTML= countSub; 
-		};   	 	 
+    ///댓글등록 에이작스 
+    $(function(){
+		// addReply 버튼을 클릭 시 댓글 달기 기능을 실행했을 때 비동기적으로 새로 갱신된 리스트들을 테이블에 적용 시키자
+		$("#addReplyBtn").click(function(){
 			
-		 $.ajax({
-    		url:"/KH_Groupware/insert.go",
-    		type:"post",
-    		data:{userNo:<%=loginUser.getUserNo()%>,
-	 	          rid1: rId },
-    		success:function(data){
- 					if(data == 1){
- 						
- 						alert("성공");
- 					}else{
- 						
- 						alert("실패");
- 					}  		  	
-    		 },
-    		 error : function(request,status,error) {
- 				alert("code:"+request.status+"\n"+
- 				"message:"+request.responseText+"\n"+"error:"+error);
- 				}
-		  });  
- 
- }
- 
-
-
-  
-  function fixClick(thing){	
-		 if( thing.style.color == "gray"){ 
-			thing.style.color = "#2478FF";
-		}else{
-			thing.style.color = "gray";
-		}; 
-	} 
-
-
-  function refreshClick(){
-	  location.reload();
-  }
-  
-function deleteReply(thing){
-
-	var rid = thing.children[0].value;
- 	   if(confirm("댓글을 정말로 삭제하시겠습니까?")) {
-           $(this).parent().click();
-           
-	       	$.ajax({
-	    		url:"/KH_Groupware/Fdelete.re",
-	    		type:"post",
-	    		data:{rid: rid,
-	    			  bid: <%=b.getbId()%>}, 
-	    		success:function(data){
+			var count = $("textArea").val().length;
+			if( count <2){
+				alert("2자 이상 입력해주세요 ")	;	
+				return false;
+			}else if(count > 200){
+				alert("200자 미만으로 입력해주세요 ");
+				return false ;
+			}
+			
+			var writer = <%=loginUser.getUserNo()%>;
+			var bid = <%=b.getbId()%>
+			var content = $("#replyContent").val();
+			 
+			$.ajax({
+				url:"/KH_Groupware/insertReply.bo",
+				type:"post",
+				data:{writer:writer, content:content, bid:bid}, //InsertReplyServlet 만들러 ㄱㄱ씽
+				success:function(data){
 					$replyTable = $("#replySelectTable");
 					$replyTable.html("");	// 기존 테이블 초기화(기존에는 댓글이 없습니다가 적힌 태그가 있었는데 지워지게)
 					
@@ -904,6 +689,7 @@ function deleteReply(thing){
 						 var bestIndex = bestIndex +1;
 						 
 						var rWriter = result[0][index].rWriter;
+						var rUserNo= result[0][index].userNo;
 						var createDate= result[0][index].createDate;
 						var rContent =result[0][index].rContent;
 						var rId = result[0][index].rId;
@@ -921,49 +707,270 @@ function deleteReply(thing){
 						} 
 						var html = ""; 
                         
-						html += "<tr style='border:none; border-top: 1px solid darkgray;'>"; 
-						html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "sdafasf" + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
-						html += "<span class='fix' style='color:gray' onclick= 'fixClick(this);'><span style='font-size: 12px;'>"+ rWriter+"님이 고정함&nbsp;&nbsp;</span><i class='fa fa-thumb-tack' aria-hidden='true' style='font-size:14px;'></i></span>";
+						html += "<tr style='border-top: 1px solid darkgray;'>"; 
+						html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
 						html += "</td>";
 						html += "</tr>";
 					
-						html += "<tr style='border:none'>";
+						html += "<tr>";
+						html += "<td width='400px'>";
 						if((bestIndex == 0 || bestIndex== 1) && count >= 2){
-							html += "<td width='400px'><span class= 'best'>BEST</span>&nbsp;" + rContent + "</td>";
-						}else{
-							html += "<td width='400px'>&nbsp;" + rContent + "</td>";
+							html += "<span class= 'best'>BEST</span>" ;
 						}
+						html += "&nbsp;<textArea id= 'text"+i"'" + "class='replyListText' readonly = 'readonly' data value-value='1'>"+ rContent + "</textArea>";
+						html += "</td>";
 						html += "</tr>";
 						
-						html += "<tr style='border:none; border-bottom: 1px solid darkgray;'>";
-						html += "<td width='200px' style='border:none'>&nbsp;";
-						html +=  "<span class= 'answer' type='button'>답글</span>&nbsp;";
+						html += "<tr style='border:none; border-bottom: 1px solid darkgray;padding:3px;'>";
+						html += "<td style= 'hegiht:35px;width=200px;padding-top:0px'>&nbsp;";
+						
+						if (loginUserNo != null && (loginUserNo == rUserNo)){ 	
+							html += "<span class= 'answer' onclick= 'changeReply(text"+i+",rid"+i ");' >수정</span>&nbsp;";
+						}	
 						html +=  "<span class= 'answer' type='button'>수정</span>&nbsp;";
-						html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제 <input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
-						html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='hegiht:20px;margin-left:25px;padding:5px;color: " +color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
+						
+						if( loginUserNo != null &&( loginUserNo > 10000  || loginUserNo== <%=b.getUserNo()%>|| loginUserNo ==rUserNo ) ){
+							html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제";	
+						}
+						hrml +=  "<input id ='rid"+i+ "type= 'hidden' value =" +rId+ "></span>";
+						
+						html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='color: " +color+"; border:1px solid "+ color +"'>
+						html += "<i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span id=gCount>" +count +"</span></span>";
 						html += "</td>";
 						html += "</tr>";
 
-						$("#replySelectTable").append(html);  
-					} //for문 끝
-				
+						$("#replySelectTable").append(html); 
+					}
+						$("#replyContent").val(""); 
+				}
+			});
+		});
+	});
+});
+ </script>
+	 
+	 
+<script> 
+	
+	function changeReply(text, rid){
+	
+		
+		if($(text).attr("data-value") == "1") {
+			$(this).parent().find("input").val(); 
+			
+			
+			$(text).attr("data-value", "2");
+			$(text).attr("readonly",false );
+			$(text).css("border", "2px solid #2478FF");
+			$(text).focus();
+		}else{
+			
+			var count = $(text).val().length;
+			if( count <2){
+				alert("2자 이상 입력해주세요 ")	;	
+				return false;
+			}else if(count > 200){
+				alert("200자 미만으로 입력해주세요 ");
+				return false ;
+			}
+			
+			var content = $(text).val();
+				$.ajax({
+		  		url:"/KH_Groupware/update.re",
+		  		type:"post",
+		  		data:{ rid1: rid,
+		  			   content1: content },
+		  		success:function(data){
+							if(data == 1){
+								/* alert("성공"); */
+							}else{
+							/* 	alert("실패"); */
+							}  		  	
+		  		 },
+		  		 error : function(request,status,error) {
+						alert("code:"+request.status+"\n"+
+						"message:"+request.responseText+"\n"+"error:"+error);
+						}
+				  });   
+			
+			
+			
+			
+			
+			var content = $(text).val();
+
+			$(text).attr("data-value", "1");
+			$(text).attr("readonly",true );
+			$(text).css("border", "none");
+		}
+
+		
+		
+	}; 
+	
+	
+	
+	function deleteReply(thing){
+	
+		var rid = thing.children[0].value;
+	 	   if(confirm("댓글을 정말로 삭제하시겠습니까?")) {
+	           $(this).parent().click();
+	           
+		       	$.ajax({
+		    		url:"/KH_Groupware/Fdelete.re",
+		    		type:"post",
+		    		data:{rid: rid,
+		    			  bid: <%=b.getbId()%>}, 
+		    		success:function(data){
+						$replyTable = $("#replySelectTable");
+						$replyTable.html("");	// 기존 테이블 초기화(기존에는 댓글이 없습니다가 적힌 태그가 있었는데 지워지게)
 						
+					
+						// 새로 받아온 갱신된 댓글리스트들을 for문을 통해 다시 table에 추가
+						var result= [];
+						for(var key in data){
+							result.push(data[key]); 
+						}
+						var i = <%= i+1 %>
+						var bestIndex = -1; 
 						
-						/*    $(".best").css({ 
-							   padding: "3px",background: "#f53f29",font-weight: "bold",border-radius: "5px",margin-left: "3px",color: "white",
-						   });  */
-	    		}
-	       	});
-       } else {
-           return false;
-       }  
- 
+						for (var index in result[0]){
+							 var i = i+ 1; 
+							 var bestIndex = bestIndex +1;
+							 
+							var rWriter = result[0][index].rWriter;
+							var createDate= result[0][index].createDate;
+							var rContent =result[0][index].rContent;
+							var rId = result[0][index].rId;
+							var bWriter = "<%=b.getbWriter()%>"; 
+							var loginUserNo = "<%=loginUser.getUserNo()%>";
+							var count = result[0][index].count; 
+							var color = "gray"; 
+							for(var index2 in result[1]){
+								if(( rId == result[1][index2].rId) && (loginUserNo== result[1][index2].userNo)){
+		       						 color = "#f53f29";
+		       						break; 
+		       					}else{
+		       						 color = "gray"; 
+		       					}
+							} 
+							var html = ""; 
+	                        
+							html += "<tr style='border:none; border-top: 1px solid darkgray;'>"; 
+							html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "sdafasf" + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
+							html += "</td>";
+							html += "</tr>";
+						
+							html += "<tr style='border:none'>";
+							if((bestIndex == 0 || bestIndex== 1) && count >= 2){
+								html += "<td width='400px'><span class= 'best'>BEST</span>&nbsp;" + rContent + "</td>";
+							}else{
+								html += "<td width='400px'>&nbsp;" + rContent + "</td>";
+							}
+							html += "</tr>";
+							
+							html += "<tr style='border:none; border-bottom: 1px solid darkgray;'>";
+							html += "<td width='200px' style='border:none'>&nbsp;";
+							html +=  "<span class= 'answer' type='button'>수정</span>&nbsp;";
+							html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제 <input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
+							html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='hegiht:20px;margin-left:25px;padding:5px;color: " +color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
+							html += "</td>";
+							html += "</tr>";
+	
+							$("#replySelectTable").append(html);  
+						} //for문 끝
+					
+							/*    $(".best").css({ 
+								   padding: "3px",background: "#f53f29",font-weight: "bold",border-radius: "5px",margin-left: "3px",color: "white",
+							   });  */
+		    		}
+		       	});
+	       } else {
+	           return false;
+	       }  
+	}
+
+	function goBoardDetail(bid){
+		location.href="<%=request.getContextPath()%>/Fdetail.bo?bid=" + bid;
+	} 
+	
+	 function downloadAttach(thing){
+		 location.href="<%=request.getContextPath() %>/Fdownload.at?fid="+thing;
+		 
+	 }
+	
+	 
+
+
+	 function delBoard(){
+		 
+		   if(confirm("게시글을 정말로 삭제하시겠습니까?")) {
+	           $(this).parent().click();
+	      	 location.href="<%=request.getContextPath() %>/Fdelete.bo?bid=<%=b.getbId()%>";
+	       } else {
+	           return false;
+	       }
+	 }
  
 
 
- 		
+	 function goodClick(thing, rid){
+	
+	 	 var rId = rid.value 
+		/*  alert(rId); */
+	 	  if( thing.style.color == "gray"){ 
+				thing.style.color = "#f53f29";
+			 	thing.style.border = "1px solid #f53f29"
+			 	;
+			 	 var count =  thing.lastChild.innerHTML
+			 	 countAdd = parseInt(count) +1 ;
+			  	
+			 	thing.lastChild.innerHTML= countAdd
+				 	 
+		  }else{
+				thing.style.color = "gray";
+				thing.style.border = "1px solid gray";
+				 var count =  thing.lastChild.innerHTML
+			 	 countSub = parseInt(count) -1 ;
+			 	 thing.lastChild.innerHTML= countSub; 
+			};   	 	 
+
+		 	 $.ajax({
+	  		url:"/KH_Groupware/insert.go",
+	  		type:"post",
+	  		data:{userNo:<%=loginUser.getUserNo()%>,
+		 	          rid1: rId },
+	  		success:function(data){
+						if(data == 1){
+							
+							/* alert("성공"); */
+						}else{
+							
+							/* alert("실패"); */
+						}  		  	
+	  		 },
+	  		 error : function(request,status,error) {
+					alert("code:"+request.status+"\n"+
+					"message:"+request.responseText+"\n"+"error:"+error);
+					}
+			  });   
+		
+	 }
  
- }
+	
+	  function fixClick(thing){	
+			 if( thing.style.color == "gray"){ 
+				thing.style.color = "#2478FF";
+			}else{
+				thing.style.color = "gray";
+			}; 
+		} 
+	
+	
+	  function refreshClick(){
+		  location.reload();
+	  }
+
   
 </script>
 

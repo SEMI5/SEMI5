@@ -1102,5 +1102,25 @@ public class FBoardDao {
 		return result;
 	}
 
+	public int updateReply(int rid, String content, Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateReply");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1,  content); 
+			pstmt.setInt(2,  rid); 
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 }

@@ -457,6 +457,25 @@ public class FBoardService {
 		return result;
 
 	}
+
+
+	public int updateReply(int rid, String content) {
+		Connection conn = getConnection();
+		FBoardDao fbDao =new FBoardDao();
+		
+		int result = fbDao.updateReply(rid, content, conn);
+		
+		if(result>0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+
+	}
 }
 
 
