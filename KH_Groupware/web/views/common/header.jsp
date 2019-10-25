@@ -27,7 +27,7 @@
 <!--  모두 파비콘을 가져가서 본인 파일에 삽입해주세요  -->
 <link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
@@ -166,8 +166,9 @@ li:hover{
 .blackOpacity{
    background:black;
    position:absolute;
+   top: 20px;
    width:100%;
-   height:880px;
+   height:100%;
    opacity: 0.8;
    display:none;
    left:0px;
@@ -219,8 +220,7 @@ li:hover{
 }
 
 .blackBtn:hover{
-
-	background-color: darkgray;
+	
 }
 
 /* 검색창 css */
@@ -812,7 +812,6 @@ h3{
      // 소개글 이동
      	function goInfo(){
     	 location.href="infoPage.jsp"
-    	 
      }
       
       

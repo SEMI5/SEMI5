@@ -5,9 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>KH_Groupware</title>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
 <link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
-<link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Text|Do+Hyeon|Sunflower:300&display=swap" rel="stylesheet">
 <style>
 * {box-sizing: border-box}
 body {font-family: Verdana, sans-serif; margin:0}
@@ -407,19 +406,8 @@ function showSlides(n) {
 
 
 
+		
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-	
-		
-		
-		
-		
 </body>
-
-<footer>
-
-<%-- <%@ include file = "footer.jsp" %> --%>
-</footer>
+<%@ include file = "footer.jsp" %>
 </html>

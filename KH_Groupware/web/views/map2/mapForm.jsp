@@ -75,9 +75,10 @@
 	</style>
 </head>
 <header>
-	<%@ include file = "/views/common/header.jsp" %>
+	<%@ include file = "/views/common/header2.jsp" %>
 </header>
 <body>
+	<br><br>
  	<div class="mapArea">
 		<div id="map">
 		 	<%@include file="../map2/map2.jsp"%> 	 
