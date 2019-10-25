@@ -757,9 +757,21 @@ if($(text).attr("data-value") == "1") {
 		});
 	</script> 
 		  });   
+		  });   
 	
-</body>
-<script>
+	var content = $(text).val();
+
+	$(text).attr("data-value", "1");
+	$(text).attr("readonly",true );
+	$(text).css("border", "none");
+}
+
+
+
+};  */
+
+
+
 
 
 $(function(){

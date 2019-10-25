@@ -690,14 +690,14 @@ public class FBoardDao {
 		
 		return result;
 	}
-
-	public ArrayList<Reply> selectReplyList(Connection conn, int bid) {
+	
+	public ArrayList<Reply> selectBestReplyList(Connection conn, int bid) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		ArrayList<Reply> rlist = null;
+		ArrayList<Reply> blist = null;
 		
-		String query = prop.getProperty("selectReplyList");	// board-query.properties에 만들자
+		String query = prop.getProperty("selectBestReplyList");	
 		
 		try {
 			pstmt = conn.prepareStatement(query);
