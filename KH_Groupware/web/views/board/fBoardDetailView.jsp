@@ -586,17 +586,17 @@ text-decoration: underline;
 							<tr style="border:none; border-bottom: 1px solid darkgray;padding:3px;">
 								<td style= "height: 35px;width=200px;pdding-top:0px">&nbsp;
 									<%if (loginUser != null && (loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
-									<span class= "answer" onclick= "changeReply(text<%=i%>,<%=rlist.get(i).getrId()%> );">수정</span>&nbsp;	
+										<%-- <span class= 'answer change' onclick= 'changeReply(text<%=i%>, <%=rlist.get(i).getrId()%>);' >수정</span>&nbsp; --%>
+										<span class= 'answer change'>수정&nbsp;</span>
+											<input type = hidden value = 'text<%=i%>'>
+											<input type = hidden value = '<%=rlist.get(i).getrId()%>'>
 									<%}%>									
 									<%if (loginUser != null && (loginUser.getUserNo() > 10000 || loginUser.getUserNo() == b.getUserNo() || loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
 									<span class= "answer" onclick="deleteReply(this);" >삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
 								 	<% }%> 
-										<input id = "rid<%=i%>" type = hidden value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
+										<input id = "rid<%=i%>" type ="hidden" value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
 									</span>
-									<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="border:1px solid <%=color %>; color:<%=color %> " >
-										<i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;
-										<span id="gCount"><%=rlist.get(i).getCount()%></span>
-									</span> 
+									<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="border:1px solid <%=color %>; color:<%=color %> " ><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span id="gCount<%=i%>"><%=rlist.get(i).getCount()%></span></span> 
 								</td>
 							</tr>
 						<%}%> <!--  바깥쪽 for문 -->
@@ -609,6 +609,111 @@ text-decoration: underline;
 		</div><!--outer끝 -->
 </body>
 <script>
+
+$(document).on('click', ".change", function () {
+
+	var text = $(this).next().val();
+	 var rid = $(this).next().next().val();
+	 var content = $("#"+text).val(); 	
+		
+  	 if($("#"+text).attr("data-value") == "1") {
+ 		$("#"+text).attr("data-value", "2");
+ 		$("#"+text).attr("readonly",false );
+ 		$("#"+text).css("border", "2px solid #2478FF");
+ 		$("#"+text).focus();
+ 	}else{ 
+ 		
+ 		var count = $("#"+text).val().length;
+ 		if( count <2){
+ 			alert("2자 이상 입력해주세요 ")	;	
+ 			return false;
+ 		}else if(count > 200){
+ 			alert("200자 미만으로 입력해주세요 ");
+ 			return false ;
+ 		} 
+ 		
+ 	 	$.ajax({
+ 	  		url:"/KH_Groupware/update.re",
+ 	  		type:"post",
+ 	  		data:{ rid1: rid,
+ 	  			   content1: content },
+ 	  		success:function(data){
+ 						if(data == 1){
+ 						/*  alert("성공"); */
+ 						}else{
+ 						/* 	alert('실패'); */
+ 						}  		  	
+ 	  		 },
+ 	  		 error : function(request,status,error) {
+ 					alert("code:"+request.status+"\n"+
+ 					"message:"+request.responseText+"\n"+"error:"+error);
+ 					}
+ 			  });    
+ 	
+ 	 	$("#"+text).attr("data-value", "1");
+ 		$("#"+text).attr("readonly",true );
+ 		$("#"+text).css("border", "none"); 
+ 	}
+});
+ 
+
+
+
+/* function changeReply(text, rid){
+
+
+if($(text).attr("data-value") == "1") {
+	$(this).parent().find("input").val(); 
+	
+	
+	$(text).attr("data-value", "2");
+	$(text).attr("readonly",false );
+	$(text).css("border", "2px solid #2478FF");
+	$(text).focus();
+}else{
+	
+	var count = $(text).val().length;
+	if( count <2){
+		alert("2자 이상 입력해주세요 ")	;	
+		return false;
+	}else if(count > 200){
+		alert("200자 미만으로 입력해주세요 ");
+		return false ;
+	}
+	
+	var content = $(text).val();
+		$.ajax({
+  		url:"/KH_Groupware/update.re",
+  		type:"post",
+  		data:{ rid1: rid,
+  			   content1: content },
+  		success:function(data){
+					if(data == 1){
+					
+					}else{
+					
+					}  		  	
+  		 },
+  		 error : function(request,status,error) {
+				alert("code:"+request.status+"\n"+
+				"message:"+request.responseText+"\n"+"error:"+error);
+				}
+		  });   
+	
+	var content = $(text).val();
+
+	$(text).attr("data-value", "1");
+	$(text).attr("readonly",true );
+	$(text).css("border", "none");
+}
+
+
+
+};  */
+
+
+
+
 
 $(function(){
 	
@@ -650,163 +755,112 @@ $(function(){
     }); 
 
     ///댓글등록 에이작스 
-    $(function(){
+   
 		// addReply 버튼을 클릭 시 댓글 달기 기능을 실행했을 때 비동기적으로 새로 갱신된 리스트들을 테이블에 적용 시키자
-		$("#addReplyBtn").click(function(){
-			
-			var count = $("textArea").val().length;
-			if( count <2){
-				alert("2자 이상 입력해주세요 ")	;	
-				return false;
-			}else if(count > 200){
-				alert("200자 미만으로 입력해주세요 ");
-				return false ;
-			}
-			
-			var writer = <%=loginUser.getUserNo()%>;
-			var bid = <%=b.getbId()%>
-			var content = $("#replyContent").val();
-			 
-			$.ajax({
-				url:"/KH_Groupware/insertReply.bo",
-				type:"post",
-				data:{writer:writer, content:content, bid:bid}, //InsertReplyServlet 만들러 ㄱㄱ씽
-				success:function(data){
-					$replyTable = $("#replySelectTable");
-					$replyTable.html("");	// 기존 테이블 초기화(기존에는 댓글이 없습니다가 적힌 태그가 있었는데 지워지게)
-					
-				
-					// 새로 받아온 갱신된 댓글리스트들을 for문을 통해 다시 table에 추가
-					var result= [];
-					for(var key in data){
-						result.push(data[key]); 
-					}
-					var i = <%= i+1 %>
-					var bestIndex = -1; 
-					
-					for (var index in result[0]){
-						 var i = i+ 1; 
-						 var bestIndex = bestIndex +1;
-						 
-						var rWriter = result[0][index].rWriter;
-						var rUserNo= result[0][index].userNo;
-						var createDate= result[0][index].createDate;
-						var rContent =result[0][index].rContent;
-						var rId = result[0][index].rId;
-						var bWriter = "<%=b.getbWriter()%>"; 
-						var loginUserNo = "<%=loginUser.getUserNo()%>";
-						var count = result[0][index].count; 
-						var color = "gray"; 
-						for(var index2 in result[1]){
-							if(( rId == result[1][index2].rId) && (loginUserNo== result[1][index2].userNo)){
-	       						 color = "#f53f29";
-	       						break; 
-	       					}else{
-	       						 color = "gray"; 
-	       					}
-						} 
-						var html = ""; 
-                        
-						html += "<tr style='border-top: 1px solid darkgray;'>"; 
-						html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
-						html += "</td>";
-						html += "</tr>";
-					
-						html += "<tr>";
-						html += "<td width='400px'>";
-						if((bestIndex == 0 || bestIndex== 1) && count >= 2){
-							html += "<span class= 'best'>BEST</span>" ;
-						}
-						html += "&nbsp;<textArea id= 'text"+i"'" + "class='replyListText' readonly = 'readonly' data value-value='1'>"+ rContent + "</textArea>";
-						html += "</td>";
-						html += "</tr>";
-						
-						html += "<tr style='border:none; border-bottom: 1px solid darkgray;padding:3px;'>";
-						html += "<td style= 'hegiht:35px;width=200px;padding-top:0px'>&nbsp;";
-						
-						if (loginUserNo != null && (loginUserNo == rUserNo)){ 	
-							html += "<span class= 'answer' onclick= 'changeReply(text"+i+",rid"+i ");' >수정</span>&nbsp;";
-						}	
-						html +=  "<span class= 'answer' type='button'>수정</span>&nbsp;";
-						
-						if( loginUserNo != null &&( loginUserNo > 10000  || loginUserNo== <%=b.getUserNo()%>|| loginUserNo ==rUserNo ) ){
-							html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제";	
-						}
-						hrml +=  "<input id ='rid"+i+ "type= 'hidden' value =" +rId+ "></span>";
-						
-						html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='color: " +color+"; border:1px solid "+ color +"'>
-						html += "<i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span id=gCount>" +count +"</span></span>";
-						html += "</td>";
-						html += "</tr>";
+	$("#addReplyBtn").click(function(){
+		
+		var count = $("textArea").val().length;
+		if( count <2){
+			alert("2자 이상 입력해주세요 ")	;	
+			return false;
+		}else if(count > 200){
+			alert("200자 미만으로 입력해주세요 ");
+			return false ;
+		}
+		
+		var writer = <%=loginUser.getUserNo()%>;
+		var bid = <%=b.getbId()%>
+		var content = $("#replyContent").val();
+		 
+		$.ajax({
+			url:"/KH_Groupware/insertReply.bo",
+			type:"post",
+			data:{writer:writer, content:content, bid:bid}, //InsertReplyServlet 만들러 ㄱㄱ씽
+			success:function(data){
 
-						$("#replySelectTable").append(html); 
-					}
-						$("#replyContent").val(""); 
+				$replyTable = $("#replySelectTable");
+				$replyTable.html("");	// 기존 테이블 초기화(기존에는 댓글이 없습니다가 적힌 태그가 있었는데 지워지게)
+				
+				
+				// 새로 받아온 갱신된 댓글리스트들을 for문을 통해 다시 table에 추가
+				var result= [];
+				for(var key in data){
+					result.push(data[key]); 
 				}
-			});
+				var i = <%= i+1 %>
+				var bestIndex = -1; 
+				
+				for (var index in result[0]){
+					 var i = i+ 1; 
+					 var bestIndex = bestIndex +1;
+					 
+					var rWriter = result[0][index].rWriter;
+					var createDate= result[0][index].createDate;
+					var rUserNo = result[0][index].userNo;
+					var rContent =result[0][index].rContent;
+					var rId = result[0][index].rId;
+					var bWriter = "<%=b.getbWriter()%>"; 
+					var loginUserNo = "<%=loginUser.getUserNo()%>";
+					var bUserNo = "<%=b.getUserNo()%>";
+					var count = result[0][index].count; 
+					var color = "gray"; 
+					for(var index2 in result[1]){
+						if(( rId == result[1][index2].rId) && (loginUserNo== result[1][index2].userNo)){
+       						 color = "#f53f29";
+       						break; 
+       					}else{
+       						 color = "gray"; 
+       					}
+					} 
+					var html = ""; 
+                    
+					html += "<tr style='border-top: 1px solid darkgray;'>"; 
+					html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
+					html += "</td>";
+					html += "</tr>";
+				
+					html += "<tr><td width='400px'>";
+					if((bestIndex == 0 || bestIndex== 1) && count >= 2){
+						html += "<span class= 'best'>BEST&nbsp;</span>";
+					}
+						html += "<textArea id= 'text"+i+"' class='replyListText' readonly= 'readonly' data-value='1'>" + rContent + "</textArea></td>";
+					
+					html += "</tr>";
+					
+					html += "<tr style='border:none; border-bottom: 1px solid darkgray;padding:3px'>";
+					html += "<td style= width:'200px;height:35px; padding-top:0px'>&nbsp;";
+					if (loginUserNo != null && (loginUserNo == rUserNo)){ 	
+						html += "<span class= 'answer change'>수정</span>&nbsp;";
+						html += "<input type = hidden value = 'text"+i+"'>";
+						html += "<input type = hidden value = '"+ rId + "'>";
+						
+					}
+					if( loginUserNo != null &&( loginUserNo > 10000  || loginUserNo==  bUserNo|| loginUserNo ==rUserNo )){
+						html +=  "<span class= 'answer' onclick='deleteReply(this);'>삭제";	
+						html +=   "<input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
+					}
+					html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='color:"+color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
+					html += "</td>";
+					html += "</tr>";
+
+					$("#replySelectTable").append(html); 
+
+				} //for문 끝
+				
+				$("#replyContent").val(""); 
+			
+				
+    			}
 		});
 	});
+	
 });
  </script>
 	 
 	 
 <script> 
 	
-	function changeReply(text, rid){
 	
-		
-		if($(text).attr("data-value") == "1") {
-			$(this).parent().find("input").val(); 
-			
-			
-			$(text).attr("data-value", "2");
-			$(text).attr("readonly",false );
-			$(text).css("border", "2px solid #2478FF");
-			$(text).focus();
-		}else{
-			
-			var count = $(text).val().length;
-			if( count <2){
-				alert("2자 이상 입력해주세요 ")	;	
-				return false;
-			}else if(count > 200){
-				alert("200자 미만으로 입력해주세요 ");
-				return false ;
-			}
-			
-			var content = $(text).val();
-				$.ajax({
-		  		url:"/KH_Groupware/update.re",
-		  		type:"post",
-		  		data:{ rid1: rid,
-		  			   content1: content },
-		  		success:function(data){
-							if(data == 1){
-								/* alert("성공"); */
-							}else{
-							/* 	alert("실패"); */
-							}  		  	
-		  		 },
-		  		 error : function(request,status,error) {
-						alert("code:"+request.status+"\n"+
-						"message:"+request.responseText+"\n"+"error:"+error);
-						}
-				  });   
-			
-			
-			
-			
-			
-			var content = $(text).val();
-
-			$(text).attr("data-value", "1");
-			$(text).attr("readonly",true );
-			$(text).css("border", "none");
-		}
-
-		
-		
-	}; 
 	
 	
 	
@@ -822,10 +876,10 @@ $(function(){
 		    		data:{rid: rid,
 		    			  bid: <%=b.getbId()%>}, 
 		    		success:function(data){
-						$replyTable = $("#replySelectTable");
+		    			$replyTable = $("#replySelectTable");
 						$replyTable.html("");	// 기존 테이블 초기화(기존에는 댓글이 없습니다가 적힌 태그가 있었는데 지워지게)
 						
-					
+						
 						// 새로 받아온 갱신된 댓글리스트들을 for문을 통해 다시 table에 추가
 						var result= [];
 						for(var key in data){
@@ -840,10 +894,12 @@ $(function(){
 							 
 							var rWriter = result[0][index].rWriter;
 							var createDate= result[0][index].createDate;
+							var rUserNo = result[0][index].userNo;
 							var rContent =result[0][index].rContent;
 							var rId = result[0][index].rId;
 							var bWriter = "<%=b.getbWriter()%>"; 
 							var loginUserNo = "<%=loginUser.getUserNo()%>";
+							var bUserNo = "<%=b.getUserNo()%>";
 							var count = result[0][index].count; 
 							var color = "gray"; 
 							for(var index2 in result[1]){
@@ -855,29 +911,38 @@ $(function(){
 		       					}
 							} 
 							var html = ""; 
-	                        
-							html += "<tr style='border:none; border-top: 1px solid darkgray;'>"; 
-							html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "sdafasf" + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
+		                    
+							html += "<tr style='border-top: 1px solid darkgray;'>"; 
+							html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
 							html += "</td>";
 							html += "</tr>";
 						
-							html += "<tr style='border:none'>";
+							html += "<tr><td width='400px'>";
 							if((bestIndex == 0 || bestIndex== 1) && count >= 2){
-								html += "<td width='400px'><span class= 'best'>BEST</span>&nbsp;" + rContent + "</td>";
-							}else{
-								html += "<td width='400px'>&nbsp;" + rContent + "</td>";
+								html += "<span class= 'best'>BEST&nbsp;</span>";
 							}
+								html += "<textArea id= 'text"+i+"' class='replyListText' readonly= 'readonly' data-value='1'>" + rContent + "</textArea></td>";
+							
 							html += "</tr>";
 							
-							html += "<tr style='border:none; border-bottom: 1px solid darkgray;'>";
-							html += "<td width='200px' style='border:none'>&nbsp;";
-							html +=  "<span class= 'answer' type='button'>수정</span>&nbsp;";
-							html +=  "<span class= 'answer' type='button' onclick='deleteReply(this);'>삭제 <input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
-							html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='hegiht:20px;margin-left:25px;padding:5px;color: " +color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
+							html += "<tr style='border:none; border-bottom: 1px solid darkgray;padding:3px'>";
+							html += "<td style= width:'200px;height:35px; padding-top:0px'>&nbsp;";
+							if (loginUserNo != null && (loginUserNo == rUserNo)){ 	
+								html += "<span class= 'answer change'>수정</span>&nbsp;";
+								html += "<input type = hidden value = 'text"+i+"'>";
+								html += "<input type = hidden value = '"+ rId + "'>";
+								
+							}
+							if( loginUserNo != null &&( loginUserNo > 10000  || loginUserNo==  bUserNo|| loginUserNo ==rUserNo )){
+								html +=  "<span class= 'answer' onclick='deleteReply(this);'>삭제";	
+								html +=   "<input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
+							}
+							html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='color:"+color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
 							html += "</td>";
 							html += "</tr>";
-	
-							$("#replySelectTable").append(html);  
+
+							$("#replySelectTable").append(html); 
+  
 						} //for문 끝
 					
 							/*    $(".best").css({ 
@@ -920,8 +985,7 @@ $(function(){
 		/*  alert(rId); */
 	 	  if( thing.style.color == "gray"){ 
 				thing.style.color = "#f53f29";
-			 	thing.style.border = "1px solid #f53f29"
-			 	;
+			 	thing.style.border = "1px solid #f53f29";
 			 	 var count =  thing.lastChild.innerHTML
 			 	 countAdd = parseInt(count) +1 ;
 			  	
@@ -931,6 +995,7 @@ $(function(){
 				thing.style.color = "gray";
 				thing.style.border = "1px solid gray";
 				 var count =  thing.lastChild.innerHTML
+				 alert(count);
 			 	 countSub = parseInt(count) -1 ;
 			 	 thing.lastChild.innerHTML= countSub; 
 			};   	 	 
@@ -943,10 +1008,10 @@ $(function(){
 	  		success:function(data){
 						if(data == 1){
 							
-							/* alert("성공"); */
+							/*  alert("성공");  */
 						}else{
 							
-							/* alert("실패"); */
+							/*  alert("실패"); */
 						}  		  	
 	  		 },
 	  		 error : function(request,status,error) {

@@ -23,7 +23,11 @@
 
 
 <title>KH_Groupware</title>
+
+<!--  모두 파비콘을 가져가서 본인 파일에 삽입해주세요  -->
 <link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
@@ -175,7 +179,7 @@ li:hover{
 .loginDiv{
    background: white; 
    width: 500px; 
-   height: 90%; 
+   height: 100%; 
    color: black; 
    text-align: center; 
    margin: 0px;

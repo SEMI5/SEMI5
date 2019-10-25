@@ -275,14 +275,14 @@ h1{
 
 </head>
 <header>
-	<%@ include file = "header.jsp" %>
+	<%@ include file = "header2.jsp" %>
 </header>
 <body>
 
 
 <!-- 이미지 슬라이더 부분  -->
 
-<!-- <br><br><br><br><br> -->
+<br><br>
 	<div class="slideshow-container">	
 		<div class="mySlides fade">
 		  <div class="numbertext">1 / 3</div>

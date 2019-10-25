@@ -245,7 +245,7 @@ public class FBoardDao {
 				}else {
 					 query = "select * "
 					 		+ "FROM (SELECT ROWNUM RNUM,BID,CID,BTITLE,BCONTENT,BTYPE,USER_NAME,BCOUNT,CREATE_DATE,MODIFY_DATE,STATUS,BLEVEL "  
-					 			   + "FROM N_BLIST " 
+					 			   + "FROM F_BLIST " 
 					 			   + "WHERE ("+type+" LIKE '"+searchWord2 +"') AND (CID=" +cid +")) "
 							+ "WHERE RNUM BETWEEN "+ currentPage+ " AND " + limit;
 					stmt= conn.createStatement();
