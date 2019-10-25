@@ -4,6 +4,10 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 
+	int userNo = 0; 
+	if(loginUser != null){
+		userNo = loginUser.getUserNo();
+	} 
 %>    
 <!DOCTYPE html>
 <html>
@@ -23,9 +27,24 @@
 
 
 <style>
+
+   /* place holder 감추기*/
+   input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { /* WebKit browsers */ color:transparent; } 
+   input:focus:-moz-placeholder, textarea:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color:transparent; } 
+   input:focus::-moz-placeholder, textarea:focus::-moz-placeholder { /* Mozilla Firefox 19+ */ color:transparent; } 
+   input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder { /* Internet Explorer 10+ */ color:transparent; }
+
+
+
+
 /* @font-face {
 	font-family: 'Noto Sans KR', sans-serif;
 } */
+
+#chattingBtn{
+	float: right;
+}
+
 body{
    margin: 0px;
    overflow-x:hidden;   
@@ -287,9 +306,12 @@ h3{
    <button class= navBtn1 id="navBtn2" data-value="0" onclick="showSubnav2();">게시판</button>
    <button class= navBtn1 id="navBtn4" data-value="0" onclick="showSubnav4();">마이페이지</button>
    <button class= navBtn1 id="teacherPage" data-value="0" onclick="showSubnav5();">강사페이지</button>
+   	<%if(loginUser != null){ %>
    <button class= navBtn1 id="navBtn3" data-value="0" onclick="showSubnav3();">맛집</button>
+    <%} %>
    <button class="navBtn1" id= myPageBtn data-value = "0" onclick= "showLoginDiv();"><img src ="<%=request.getContextPath() %>/images/icon/myPage.png" style= width:30px; id=myPageBtnImg></button>
    <button class="navBtn1" id= searchBtn data-value = "0" onclick= "showSearchBar();"><img src ="<%=request.getContextPath() %>/images/icon/readingGlasses.png" style= width:30px; id=serachBtnImg></button>
+   <button class="navBtn1" id= chattingBtn data-value = "0" onclick= "showChattingPOPUP();"><img src ="<%=request.getContextPath() %>/images/icon/speechBubble.png" style= width:30px; id=chattingBtnImg></button>
 </div>
    <div class= blackOpacity id= blackOpacity1></div>
    <div class= blackOpacity id= blackOpacity2></div>
@@ -312,10 +334,11 @@ h3{
       <div class= "menuList boardMenu">
          <h3 style=margin:20px;>게시판</h3>
          <ul>
+         	<input id= userNo type= hidden value= <%=userNo%>> 
             <li onclick= "goNBoard();"> 공지사항 </li>
             <li onclick = "goShareFile();"> 공유자료 </li>
-            <li> 퀴즈 </li>
-            <li> 자유게시판 </li>
+            <li > 퀴즈 </li>
+            <li onclick = "goFBoard();"> 자유게시판 </li>
             <li onclick = "goThumbnail();"> 사진게시판 </li>
          </ul>
       </div>
@@ -650,7 +673,13 @@ h3{
                   } 
                }      
 
-            
+      // 채팅 클릭시 이벤트
+ /*      function showChattingPage() {
+    	  location.href="../chatting/chatting.jsp";
+	  } */
+      function showChattingPOPUP() {
+		  window.open("../chatting/chattingPopup.jsp", "", "width=400, height=600, left=100, top=50");
+	  }
       
       // 돋보기 클릭시 이벤트
 
@@ -779,18 +808,30 @@ h3{
    	// 사진게시판 작업 시작 (게시판 관련 작업이 끝나면)
 		function goThumbnail(){
 			location.href="<%=request.getContextPath()%>/list.th";
-			//ThumbanailListServlet 만들러가기
 		}
    	
    	// 공유자료 작업시작
    		function goShareFile(){
    			location.href="<%=request.getContextPath()%>/list.sh";
-   			// ShareFileListServlet 만들러가기
    	}
+   	
+   	
    	
    		function goNBoard(){
   			location.href="<%=request.getContextPath()%>/Nlist.bo";
-  			// NBoardListServlet 만들러가기 
+   		}
+   		
+   		function goFBoard(){
+   			
+   			var userNo = $("#userNo").val()
+   		
+   			
+   		  if( userNo == 0 ){
+   				alert("로그인을 해야만 사용가능합니다.");
+   			}else{
+   				location.href="<%=request.getContextPath()%>/Flist.bo";	
+   			}  
+  			  
    		}
    	
 </script>

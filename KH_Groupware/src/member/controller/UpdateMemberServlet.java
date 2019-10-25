@@ -33,10 +33,10 @@ public class UpdateMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");	// 꺼내온 값이 String이라 String으로 받아줌
-		String userPwd = request.getParameter("userId");
-		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
-		String address = request.getParameter("address");
+		String userPwd = request.getParameter("userPwd");
+		String phone = request.getParameter("phone1") +"-"+request.getParameter("phone2") +"-"+request.getParameter("phone3");
+		String email = request.getParameter("emailId") + "@" + request.getParameter("email2");
+		String address = request.getParameter("address") + "@" + request.getParameter("detailAdd");
 
 		
 																

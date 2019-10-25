@@ -135,31 +135,60 @@ td{
 #goList-btn{
 	background-color: #f1f1f1;
 	border: none;
+	/* margin-right : 80px; */
+	float : right;
+	padding: 10px 16px;
+	font-size: 15px;
+	cursor: pointer;
+	display : inline-block;
+	border-radius: 16px;
+	box-shadow: 0 5px #999;
+}  
+#goList-btn:hover{
+	background-color: #666;
+	color: white;
+	border-radius: 16px;
+} 
+#goList-btn:active {
+	color : white;
+/*   background-color: #666; */
+  	background-color: #f53f29; 
+  	box-shadow: 0 3px #666;
+  	transform: translateY(4px);
+  	border-radius: 16px;
+}
+
+
+#update-btn{
+	background-color: black; 
+	color: white;
+	border: none;
 	margin-right : 20px;
 	float : right;
 	padding: 10px 16px;
 	font-size: 15px;
 	cursor: pointer;
 	display : inline-block;
-}  
-#goList-btn:hover{
-	background-color: #666;
-	color: white;
-} 
-#update-btn{
-	background-color: #f1f1f1;
-	border: none;
-	margin-right : 10px;
-	float : right;
-	padding: 10px 16px;
-	font-size: 15px;
-	cursor: pointer;
-	display : inline-block;
+	border-radius: 16px;
+	box-shadow: 0 5px #999;
+	
+	
 }  
 #update-btn:hover{
-	background-color: #666;
-	  color: white;
+	background-color: #f53f29; 
+   	color: white;
+   	border-radius: 16px;
 } 
+
+#update-btn:active {
+	color : white;
+/*   background-color: #666; */
+  	background-color: #f53f29; 
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+   border-radius: 16px;
+}
+
 </style>
 
 

@@ -4,7 +4,6 @@
 <%
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");
 	 String today = formatter.format(new java.util.Date());
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -240,7 +239,7 @@
 				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=today%></span></td>
 			</tr>
 		</table>
-		<div id="textareaDiv"><textArea id= summernote rows=30 name = "bcontent" placeholder="내용을 입력해주세요"></textArea><div>
+		<div id="textareaDiv"><textArea id= summernote rows=30 col=100 name = "bcontent" placeholder="내용을 입력해주세요"></textArea><div>
 		<table id = "attachTable">
 			<tr>
 				<td rowspan=9 class= "titleTd" style= "border-right: 1px solid #dbdbdb">

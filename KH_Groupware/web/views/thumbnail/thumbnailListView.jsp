@@ -4,6 +4,10 @@
 	ArrayList blist = (ArrayList)request.getAttribute("blist");
 	ArrayList flist = (ArrayList)request.getAttribute("flist");
 	
+	//System.out.print("view blist : " + blist);
+	//System.out.print("view flist : " + flist);
+	
+	
 	ArrayList<Thumbnail> list = (ArrayList<Thumbnail>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
@@ -190,7 +194,7 @@
 
 		<div class = "thumbnailArea">
 		<%if(loginUser != null) {%>	 
-			 <% if(list.isEmpty())	{%>
+			 <% if(blist.isEmpty())	{%>
 				<p>조회된 결과가 없습니다.</p>
 				
 			<%} else  {%> 
@@ -200,7 +204,7 @@
 			<div class = "thumb-list" align ="center">
 				<div class = "thumb-img">
 						<input type ="hidden" value ="<%=b.getbId() %>">
-						<% for(int j=0; j < flist.size(); j++){
+						<% for(int j=0; j < flist.size(); j++){		// flist.size()
 							Attachment a = (Attachment)flist.get(j); %>
 						
 							<% if(b.getbId() == a.getbId()) {%>	  <!-- 체인지된 이름이 thumbnail_uploadFiles 경로로 업로드 됨  -->
@@ -215,9 +219,9 @@
 					</p>
 					</div>
 				</div>
-					<button id = "like_btn">
+					<%-- <button id = "like_btn">
 						<img src="<%=request.getContextPath() %>/images/icon/like30.png" width="30px">
-					</button>
+					</button> --%>
 			</div>
 			<% } %>
 		<% } %>

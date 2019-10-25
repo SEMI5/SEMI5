@@ -6,9 +6,8 @@
 
 	ArrayList<Attachment> flist = (ArrayList<Attachment>)request.getAttribute("list");
 	
-	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	System.out.print("view pi ::::::::::" + pi);
+	//System.out.print("view pi ::::::::::" + pi);
 	
 	
 	// 현재 보고있는 페이지정보의 값을 변수로 선언함
@@ -17,9 +16,9 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-%>
-	
 
+	int i=-1;
+%>
 
 <!DOCTYPE html>
 <html>
@@ -262,19 +261,22 @@ input{
 				</tr>
 				<tr>
                <% for(Attachment a : flist){ %>
+               		<%i = i+1 ;%>
 						<td align="center"><%=a.getRnum()%></td>
 						<td align="center"><%=a.getOriginName()%></td>
-												  
+												 
 						   <td>
 						   <%if(flist.isEmpty()){ %>
 						   		<p> 다운받을 자료가없습니다.</p>	 
 							<%}else {%>
-							<button id = "down-btn1" class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.sh?fid=<%=a.getfId()%>'">
+							<button class="down-btn1" onclick = "downloadBtn(count<%=i%>,<%=a.getfId()%>);">
 								<i class="fa fa-download"></i> Download
+								<input type = "hidden" value =<%=a.getfId()%> > 
 							</button>
 							<%} %>
-						</td>   
-						<td align="center"><%=a.getDownloadCount()%></td>
+						</td> 
+					
+						<td align="center"><span id= "count<%=i%>"><%=a.getDownloadCount()%></span></td>
 					</tr>
                  <%}%>
                <%} %>
@@ -345,48 +347,37 @@ input{
 		 </script>
 		 
 
-		<!-- ㅇ여기는 Ajax 관련 코드  -->
-<!-- Ajax로 댓글 입력 부분을 완성해보자  -->
-<%-- 	<script>
-		$(function(){
-			// addReply 버튼을 클릭 시 댓글 달기 기능을 실행 했을때 비동기적으로 새로 갱신된 리스트들을 테이블에 적용 시키자
-			$("#down-btn1").click(function(){
-				var writer = <%=loginUser.getUserNo()%>;	//menubar에서 온 loginUser 세션
-				var content = $("#replyContent").val();
+	<!-- ㅇ여기는 Ajax 관련 코드  -->
+	<!-- Ajax로 댓글 입력 부분을 완성해보자  -->
+
+ 	<script>
+		
+ 	function downloadBtn(count, fid){
+ 		
+ 		location.href="<%=request.getContextPath() %>/download.sh?fid=" +fid; 
+ 	
+   // 위 주소로 가서 메소드가 완료되야 카운트가 1증가한다. 
+   // 맨처음은 완료되지않아서 에이작스도 현재값이나온다. 
+   // 두번쨰부턴, 첫번째 실행했떤 메소드의 카운트증가가 체크되서 그다음부턴 1씩증가. 
+ 	
+	 	$.ajax({	
+			url : "/KH_Groupware/ajaxDown.sh",
+			type : "post",
+			data: { fid1: fid
 				
-				$.ajax({	//context root 명 = jspProject
-					url : "/jspProject/insertReply.bo",
-					type : "post",
-					data : {writer:writer, content:content, bid:bid},		// insertReplyServlet 만들러 ㄱㄱ
-					success : function(data){
-						$replyTable = $("#replySelectTable");
-						$replyTable.html("");	// 기존 테이블 초기화 ("기존에는 댓글이 없습니디다"가 적힌 태그가 있었는데 지워지게)
-						
-						// 새로 받아온 갱신된 댓글 리스트들을 for문을 통해 다시 table에 추가
-						for(var key in data){
-							// 각각의 태그들에 대한 객체 생성
-							var $tr = $("<tr>");
-							var $writerTd = $("<td>").text(data[key].rWriter).css("width","100px");
-							var $contentTd = $("<td>").text(data[key].rContent).css("width","400px");
-							var $dateTd = $("<td>").text(data[key].createDate).css("width", "200px");
-							
-							$tr.append($writerTd);
-							$tr.append($contentTd);
-							$tr.append($dateTd);
-							$replyTable.append($tr);
-						}
-						
-						// 댓글 작성 부분 리셋
-						$("#replyContent").val("");
-					}
-				});
+			},
+			success : function(data){
 				
-			});
-			
-			
-		});
+			 	$(count).text(data.downloadCount+1); 
+			},
+			error : function(data){
+				console.log("실패");
+			}
+	 		
+ 		});
+	}
 	
-	</script> --%>
+	</script>
 	
 	
 			

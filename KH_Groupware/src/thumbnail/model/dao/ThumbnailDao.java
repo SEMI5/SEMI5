@@ -67,7 +67,7 @@ public class ThumbnailDao {
 									
 
 			}
-		
+			System.out.println("사진게시판 정보 불러오기 !!" + list);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -101,7 +101,7 @@ public class ThumbnailDao {
 										rs.getString("change_name")));
 			}
 			
-			
+			System.out.println("사진불러오기#####!# : " + list);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();

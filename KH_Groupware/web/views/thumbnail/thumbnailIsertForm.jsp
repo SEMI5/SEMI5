@@ -52,15 +52,13 @@
 	font-size: 15px;
 	cursor: pointer;
 	display : inline-block;
-	  border-radius: 16px;
-	    box-shadow: 0 5px #999;
+	border-radius: 16px;
+	box-shadow: 0 5px #999;
 }  
 #write-btn:hover{
 	background-color: #f53f29; 
    color: white;
      border-radius: 16px;
-	/* background-color: #666;
-	color: white; */
 } 
 
 #write-btn:active {
@@ -82,8 +80,8 @@
 	font-size: 15px;
 	cursor: pointer;
 	display : inline-block;
-	  border-radius: 16px;
-	    box-shadow: 0 5px #999;
+	border-radius: 16px;
+	box-shadow: 0 5px #999;
 }  
 #rest-btn:hover{
 	background-color: #666;
@@ -162,22 +160,23 @@ table.type02 td {
 
 <!-- 사진 게시판 작성은 두개의 테이블에 저장되게 한다 (게시판의 타입 2번, Attachment테이블  -->
 	<div class = "outer">
-		<br>
-		<h2 align = "center"> 사진 게시판 작성 </h2>
+		<br>	
+		<h2 style = "margin-left : 650px"> 사진 게시판 작성 <span style = "color:red; font-size : 0.7em;"> * 표시는 반드시 입력해주세요</span></h2>
+			
 		<form action = "<%=request.getContextPath()%>/insert.th" method="post" encType="multipart/form-data">		<!-- ***form태그를 가지고 encType=인코딩 타입 /multipart/form-data(파일업로드) 보냄-->
 			<div class = "insertArea" style="align:center">
 					
 				 <table class="type02" align="center">	
 					<tr>
-						<th>제목</th>
-						<td><input type="text" size ="114" name ="title"></td>
+						<th>제목  <span style = "color:red; font-size : 1.5em;">*</span> </th>
+						<td><input type="text" size ="114" name ="title" required></td>
 					</tr>
 					<tr>
 						<th>작성자</th>
 						<td><label><%=loginUser.getUserName() %></label></td>
 					</tr>
 					<tr>
-						<th> 대표이미지 </th>
+						<th> 대표이미지  <span style = "color:red; font-size : 1.5em;">*</span> </th>
 						<td>
 							<div id = "titleImgArea">
 								<img id ="titleImg" width ="755" height ="500">
@@ -185,8 +184,8 @@ table.type02 td {
 						</td>					
 					</tr>
 					<tr>
-						<th>사진 메모 </th>
-						<td><textarea name="content" rows="10" cols ="102" size ="resize:none"></textarea></td>
+						<th>사진 메모 <span style = "color:red; font-size : 1.5em;">*</span></th>
+						<td><textarea name="content" rows="10" cols ="102" size ="resize:none" required></textarea></td>
 					</tr>
 					<tr>
 						<th> 내용사진 </th>

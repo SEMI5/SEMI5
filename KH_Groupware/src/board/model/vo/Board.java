@@ -12,7 +12,8 @@ public class Board implements Serializable{
 	private String bTitle; 		//게시판 제목 
 	private String btype; 		//게시판 타입(1.  일반게시판, 2. 사진게시판) 
 	private String bContent; 	//게시판 내용 
-	private String bWriter; 	//게시판 작성자    // 조인 view 에서 멤버 이름을 받아올거라서 STRING 
+	private int userNo; 
+	private String bWriter;//게시판 작성자    // 조인 view 에서 멤버 이름을 받아올거라서 STRING 
 	private int bCount; 		//게시판 조회수
 	private Date createDate; 	//게시판 작성일
 	private Date modifyDate; 	//게시판 수정일
@@ -22,6 +23,29 @@ public class Board implements Serializable{
 	public Board() {
 		
 	}
+
+	
+
+
+	public Board(int bId, int cId, String bTitle, String btype, String bContent, int userNo, String bWriter,  int bCount,
+			Date createDate, Date modifyDate, String status, int blevl) {
+		super();
+		this.bId = bId;
+		this.cId = cId;
+		this.bTitle = bTitle;
+		this.btype = btype;
+		this.bContent = bContent;
+		this.bWriter = bWriter;
+		this.userNo = userNo;
+		this.bCount = bCount;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.blevl = blevl;
+	}
+
+
+
 
 	public Board(int bId, int cId, String bTitle, String btype, String bContent, String bWriter, int bCount,
 			Date createDate, Date modifyDate, String status, int blevl) {
@@ -131,14 +155,23 @@ public class Board implements Serializable{
 		this.blevl = blevl;
 	}
 
-	@Override
-	public String toString() {
-		return "Board [bId=" + bId + ", cId=" + cId + ", bTitle=" + bTitle + ", btype=" + btype + ", bContent="
-				+ bContent + ", bWriter=" + bWriter + ", bCount=" + bCount + ", createDate=" + createDate
-				+ ", modifyDate=" + modifyDate + ", status=" + status + ", blevl=" + blevl + "]";
+	
+	public int getUserNo() {
+		return userNo;
 	}
 
 
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [bId=" + bId + ", cId=" + cId + ", bTitle=" + bTitle + ", btype=" + btype + ", bContent="
+				+ bContent + ", userNo=" + userNo + ", bWriter=" + bWriter + ", bCount=" + bCount + ", createDate="
+				+ createDate + ", modifyDate=" + modifyDate + ", status=" + status + ", blevl=" + blevl + "]";
+	}
+	
 
 }
 

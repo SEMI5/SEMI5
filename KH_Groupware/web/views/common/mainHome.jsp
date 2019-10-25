@@ -275,7 +275,8 @@ h1{
 
 </head>
 <header>
-	<%@ include file = "header.jsp" %>
+ 	<%@ include file = "header.jsp" %>
+<%-- 	<%@ include file = "bootsHeader.jsp" %> --%>
 </header>
 <body>
 
@@ -364,6 +365,8 @@ function showSlides(n) {
     <div class = "block block-test2 area10"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">퀴즈</div>
 </div>
 
+<br><br><br><br>
+<hr>
 
 
 <script>
@@ -383,7 +386,7 @@ function showSlides(n) {
 	}
 	// Get the element with id="defaultOpen" and click on it
 	document.getElementById("defaultOpen").click();
-	
+
 	
 	
 <%-- 	// gothumbnail 이동
@@ -414,7 +417,7 @@ function showSlides(n) {
 	
 		
 		
-		
+	<%@ include file = "bootsFooter.jsp" %>		
 		
 </body>
 
