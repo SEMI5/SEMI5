@@ -7,6 +7,8 @@
 <title>KH_Groupware</title>
 
 <link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 * {box-sizing: border-box}
 body {font-family: Verdana, sans-serif; margin:0}
@@ -269,6 +271,84 @@ img {vertical-align: middle;}
 h1{
 	text-align: center;
 }
+      
+.previewBoard1{
+border: 1px solid black;
+width: 400px;
+height: 200px;
+position: absolute;
+right:0px;
+}
+.previewBoard2{
+border: 1px solid black;
+width: 400px;
+height: 200px;
+position: absolute;
+left:0px;
+}      
+      
+.mainOuter{
+border: 1px solid green;
+width:100%;
+height:600px;
+display:inline-block;
+align: center;
+text-align: center;
+
+}
+
+.mainOuter > div{
+display:inline-block;
+width: 1500px;
+height: 600px;
+}
+         
+.mainOuter>div{
+position: relative;
+display: inline-block;
+}
+
+.mainOuter>div .tableDiv{
+
+}
+
+.tableDiv{
+position: absolute; 
+right: 0px;
+width: 830px;
+height: 210px;
+top: 0px;
+border: 1px solid blue;
+	
+}
+
+
+iframe{
+position: absolute;
+left: 0px;
+bottom: 0px;
+}
+          
+          
+          
+.callendarDiv{
+	width: 830px;
+	border: 1px solid orange;
+	height: 370px;
+	position: absolute; 
+	bottom: 0px;
+	right: 0px;
+} 
+       
+.previewThumb{
+ absolute: 0px; 
+ border: 1px solid purple; 
+ height: 200px; 
+ width: 600px;
+ left: 0px;
+ 
+
+}   
             
 </style>
 
@@ -277,11 +357,11 @@ h1{
 	
 </header>
 <body>
-<%@ include file = "header2.jsp" %>
+<%@ include file = "header.jsp" %>
 
 <!-- 이미지 슬라이더 부분  -->
 
-<br><br>
+<div style="height:46px;width:100%"></div>
 	<div class="slideshow-container">	
 		<div class="mySlides fade">
 		  <div class="numbertext">1 / 3</div>
@@ -308,6 +388,85 @@ h1{
 		<span class="dot" onclick="currentSlide(3)"></span> 
 	</div>
 	
+<br><br>
+<hr>
+<br>
+
+<h1> 주요 서비스 </h1>
+<button class="tablink" onclick="openCity('London', this, 'red')" id="defaultOpen"> 주요기능1 </button>
+<button class="tablink" onclick="openCity('Paris', this, 'green')" id="defaultClose" > 주요기능2 </button>
+	<br><br><br><br>
+	<div id="London" class="tabcontent">
+  	<div class = "block block-test2 area1"><img src="../../images/icon/iconmonstr-clipboard-1-240.png" style="width:100%">자유게시판</div>
+    <div class = "block block-test2 area2" onclick = "goThumbnail();"><img src="../../images/icon/iconmonstr-picture-1-240.png" style="width:100%">사진게시판</a></div>
+    <div class = "block block-test2 area3"  onclick = "goShare();"><img src="../../images/icon/iconmonstr-note-37-240.png" style="width:100%">공유자료</div>
+    <div class = "block block-test2 area4"><img src="../../images/icon/iconmonstr-speech-bubble-18-240.png" style="width:100%">채팅</div>
+    <div class = "block block-test2 area5"><img src="../../images/icon/iconmonstr-eat-6-thin-240.png" style="width:100%">맛집</div>
+</div>
+
+<div id="Paris" class="tabcontent">
+  	<div class = "block block-test2 area6"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">공지사항</div>
+    <div class = "block block-test2 area7"><img src="../../images/icon/iconmonstr-user-30-240.png" style="width:100%">학생관리</div>
+    <div class = "block block-test2 area8"><img src="../../images/icon/iconmonstr-window-11-240.png" style="width:100%">자리배치</div>
+    <div class = "block block-test2 area9"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">휴가관리</div>
+    <div class = "block block-test2 area10"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">퀴즈</div>
+</div>
+
+<div class= "mainOuter">
+	<div style="border: 1px solid red">
+		
+		<div class=previewThumb></div>
+		<iframe width="600px" height="337px" src="https://www.youtube.com/embed/LGJe_ZchraY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<div class= tableDiv >
+		<table class="previewBoard1"> 
+			<tr>
+				<td>공지사항</td>
+				<td>더보기</td>
+			</tr> 
+			<tr>
+			<td>공지사항 어쩌구 안내 사항1</td>
+			<td>날짜 들어갈자림 </td>
+			</tr>
+			<tr>
+			<td>공지사항 어쩌구 안내 사항2</td>
+			<td>날짜 들어갈자림 </td>
+			</tr>
+			<tr>
+			<td>공지사항 어쩌구 안내 사항3</td>
+			<td>날짜 들어갈자림 </td>
+			</tr>
+		</table>
+		<table class="previewBoard2"> 
+			<tr>
+				<td>공지사항</td>
+				<td>더보기</td>
+			</tr> 
+			<tr>
+			<td>공지사항 어쩌구 안내 사항1</td>
+			<td>날짜 들어갈자림 </td>
+			</tr>
+			<tr>
+			<td>공지사항 어쩌구 안내 사항2</td>
+			<td>날짜 들어갈자림 </td>
+			</tr>
+			<tr>
+			<td>공지사항 어쩌구 안내 사항3</td>
+			<td>날짜 들어갈자림 </td>
+			</tr>
+		</table>
+		</div>
+		
+		<div class= callendarDiv> 
+			callendar		
+		</div>
+	</div>
+	<br><br><br><br>
+</div>
+
+
+
+</body>
+
 	
 <script>
 
@@ -339,29 +498,13 @@ function showSlides(n) {
 }
 </script>
 
-<br><br>
-<hr>
-<br>
 
-<h1> 주요 서비스 </h1>
-<button class="tablink" onclick="openCity('London', this, 'red')" id="defaultOpen"> 주요기능1 </button>
-<button class="tablink" onclick="openCity('Paris', this, 'green')" id="defaultClose" > 주요기능2 </button>
-	<br><br><br><br>
-	<div id="London" class="tabcontent">
-  	<div class = "block block-test2 area1"><img src="../../images/icon/iconmonstr-clipboard-1-240.png" style="width:100%">자유게시판</div>
-    <div class = "block block-test2 area2" onclick = "goThumbnail();"><img src="../../images/icon/iconmonstr-picture-1-240.png" style="width:100%">사진게시판</a></div>
-    <div class = "block block-test2 area3"  onclick = "goShare();"><img src="../../images/icon/iconmonstr-note-37-240.png" style="width:100%">공유자료</div>
-    <div class = "block block-test2 area4"><img src="../../images/icon/iconmonstr-speech-bubble-18-240.png" style="width:100%">채팅</div>
-    <div class = "block block-test2 area5"><img src="../../images/icon/iconmonstr-eat-6-thin-240.png" style="width:100%">맛집</div>
-</div>
 
-<div id="Paris" class="tabcontent">
-  	<div class = "block block-test2 area6"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">공지사항</div>
-    <div class = "block block-test2 area7"><img src="../../images/icon/iconmonstr-user-30-240.png" style="width:100%">학생관리</div>
-    <div class = "block block-test2 area8"><img src="../../images/icon/iconmonstr-window-11-240.png" style="width:100%">자리배치</div>
-    <div class = "block block-test2 area9"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">휴가관리</div>
-    <div class = "block block-test2 area10"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">퀴즈</div>
-</div>
+
+
+
+
+
 
 
 
@@ -384,14 +527,11 @@ function showSlides(n) {
 	document.getElementById("defaultOpen").click();
 	
 	
+
 	
-<%-- 	// gothumbnail 이동
-	function gothumbnail(){
-			alert('클릭');
-			location.href="<%=request.getContextPath()%>/views/thumbnail/thumbnailListView.jsp";
-			//ThumbanailListServlet 만들러가기
-		} --%>
-		
+	
+	
+
    	// 사진 게시판으로 이동
 	function goThumbnail(){
 		location.href="<%=request.getContextPath()%>/list.th";
@@ -406,8 +546,6 @@ function showSlides(n) {
 
 
 
-		
 
-</body>
-<%@ include file = "footer.jsp" %>
+
 </html>

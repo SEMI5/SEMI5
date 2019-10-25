@@ -35,7 +35,7 @@
 
 
 
-
+<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
@@ -260,6 +260,17 @@ text-decoration: underline;
    font-weight: bold;
 }
 
+.topBtn{
+   border:none;
+   outline: none;
+   background-color: #f53f29;
+   color: white;
+   font-size: 16px;
+   height: 40px;
+   width: 70px;
+   z-index:1;
+   font-weight: bold;
+}
 
 
 #reWriteBtn{
@@ -300,6 +311,7 @@ text-decoration: underline;
    background-color: #f53f29; 
    color: white;
 }
+
 
 #reWriteBtn:hover{
 
@@ -470,6 +482,8 @@ text-decoration: underline;
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+<a name="top"></a>
+<div style="height:46px;width:100%"></div>
 <div id= boardImg1>
 		<img id= boardImg src="<%=request.getContextPath() %>/images/boardBack3.jpg">
 		<div style="width:100%; height:60px;background:black;"></div>
@@ -480,7 +494,7 @@ text-decoration: underline;
 	
 	<br><br>
 		<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
-	
+		
 		<div id="tableDiv" >
 			<table align="center" width="1230px">
 				<thead>
@@ -558,7 +572,7 @@ text-decoration: underline;
 				<table id="replySelectTable" >
 				
 					<%if(rlist.isEmpty()) {%>
-						<tr style= "boder-top: 1px solid darkgrqy";><td colspan="3">댓글이 없습니다.</td></tr>
+						<tr style= "boder-top: 1px solid darkgrqy";><td colspan="3"><b>댓글이 없습니다.</b></td></tr>
 					<%}else{ %>
 						<%for(i=0;i<rlist.size();i++){ %>
 							<%for (int j=0; j<glist.size(); j++){
@@ -602,10 +616,15 @@ text-decoration: underline;
 						<%}%> <!--  바깥쪽 for문 -->
 					<%} %>
 				</table>
-				<br><br><br><br>
-				<div>나중에 앵커를 여기다가 박자 맨 끝으로 올라가고싶다</div>
 			</div>		
 			<%} %>
+					<br><br><br><br>
+					<br><br>
+					
+					<div style="width: 100%; text-align:center;"><a href="#top"><button class= topBtn>TOP</button></a></div>
+			
+				<br><br><br>
+			
 		</div><!--outer끝 -->
 </body>
 <script>
