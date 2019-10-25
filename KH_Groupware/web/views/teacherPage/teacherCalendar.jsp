@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
 
+
 <%
 	ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
 

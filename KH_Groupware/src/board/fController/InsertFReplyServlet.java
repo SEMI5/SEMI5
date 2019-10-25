@@ -2,6 +2,7 @@ package board.fController;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,11 +54,13 @@ public class InsertFReplyServlet extends HttpServlet {
 		// 바로 boardDetailView쪽을 넣은 값에 대해 갱신해 줘야 하므로
 		// ArrayList를 받아올 것이다.
 		
-		
-		// gson으로 값을 넘겨보자
-		// gson 라이브러리 있는지 확인하고!!
+
+		  HashMap<String,ArrayList> listMap = new HashMap<String,ArrayList>();
+		  listMap.put("rlist",rlist); 
+		  listMap.put("glist",glist);
+		  
 		response.setContentType("application/json;");	//charset=utf-8 해줘야 되는데 필터에서 해주니까 생략
-		new Gson().toJson(rlist,response.getWriter());
+		new Gson().toJson(listMap,response.getWriter());
 		/* new Gson().toJson(glist,response.getWriter()); */
 	}
 

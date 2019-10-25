@@ -30,12 +30,15 @@ public class findIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		response.setContentType("application/json; charset=utf-8");
 		
 		String userName = request.getParameter("userName");
-		String email = request.getParameter("emilId") +"@"+ request.getParameter("emailTail");
-		
+		String email = request.getParameter("emailId") +"@"+ request.getParameter("emailTail");
+		System.out.println(userName+"   "+email);
 		String id = new MemberService().findId(userName, email); 
+		
+		System.out.println(id);
 		
 		new Gson().toJson(id, response.getWriter());
 	}
