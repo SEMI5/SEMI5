@@ -275,10 +275,10 @@ h1{
 
 </head>
 <header>
-	<%@ include file = "header2.jsp" %>
+	
 </header>
 <body>
-
+<%@ include file = "header2.jsp" %>
 
 <!-- 이미지 슬라이더 부분  -->
 
