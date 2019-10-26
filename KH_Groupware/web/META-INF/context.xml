@@ -16,6 +16,7 @@
   limitations under the License.
 --><!-- The contents of this file will be loaded for each web application -->
 
+<Context workDir= "C:\Users\jun\git\semi5_wor\KH_Groupware\web\WEB-INF">
 
 
 <Context workDir= "C:\Users\햄모\git\SEMI5\KH_Groupware\web\META-INF">

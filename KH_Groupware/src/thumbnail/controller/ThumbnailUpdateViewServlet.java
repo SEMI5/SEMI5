@@ -1,6 +1,7 @@
 package thumbnail.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import thumbnail.model.service.ThumbnailService;
+import thumbnail.model.vo.Attachment;
 import thumbnail.model.vo.Thumbnail;
 
 /**
