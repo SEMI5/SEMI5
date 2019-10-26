@@ -19,7 +19,23 @@ public class Attachment implements Serializable {
 	private int fileLevel;
 	private int downloadCount;
 	private String status;
+	private int rnum; 
 	
+	public Attachment(int fId, int bId, String originName, String changeName, String filePath, Date uploadDate,
+			int fileLevel, int downloadCount, String status, int rnum) {
+		this.fId = fId;
+		this.bId = bId;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.uploadDate = uploadDate;
+		this.fileLevel = fileLevel;
+		this.downloadCount = downloadCount;
+		this.status = status;
+		this.rnum = rnum;
+	}
+
+
 	public Attachment() {
 	}
 	
@@ -30,6 +46,15 @@ public class Attachment implements Serializable {
 	}
 	
 	
+	public Attachment(int fId, int bId, String originName, String changeName, String filePath) {
+		this.fId = fId;
+		this.bId = bId;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+	}
+
+
 	public Attachment(int fId, int bId, String originName, String changeName, String filePath, Date uploadDate,
 			int fileLevel, int downloadCount, String status) {
 		this.fId = fId;
@@ -42,6 +67,10 @@ public class Attachment implements Serializable {
 		this.downloadCount = downloadCount;
 		this.status = status;
 	}
+
+	
+	
+	
 	public int getfId() {
 		return fId;
 	}
@@ -99,14 +128,25 @@ public class Attachment implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+
+	public int getRnum() {
+		return rnum;
+	}
+
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Attachment [fId=" + fId + ", bId=" + bId + ", originName=" + originName + ", changeName=" + changeName
 				+ ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", fileLevel=" + fileLevel
-				+ ", downloadCount=" + downloadCount + ", status=" + status + "]";
+				+ ", downloadCount=" + downloadCount + ", status=" + status + ", rnum=" + rnum + "]";
 	}
-	
-	
+
 	
 	
 	

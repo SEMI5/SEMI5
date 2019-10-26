@@ -108,14 +108,15 @@ public class ThumbnailListServlet extends HttpServlet {
 			request.setAttribute("list", list); // 현재 페이지에 화면에 뿌려질 게시글이 담긴 객체
 			request.setAttribute("pi", pi);	// 페이지에 관련된 정보가 담긴 객체
 			request.getRequestDispatcher("views/thumbnail/thumbnailListView.jsp").forward(request, response);	
-		
+			request.getRequestDispatcher("views/common/mainHome.jsp").forward(request, response);	
+			
 		
 		}else {												  	
 			request.setAttribute("msg", "사진게시판 조회실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		
 		
-	}
+		}
 	}
 
 	/**

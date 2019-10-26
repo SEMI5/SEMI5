@@ -4,7 +4,7 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-
+import board.model.dao.NBoardDao;
 import thumbnail.model.vo.Thumbnail;
 import thumbnail.model.dao.ThumbnailDao;
 import thumbnail.model.vo.Attachment;
@@ -157,6 +157,29 @@ public class ThumbnailService {
 	}
 	
 	//수정하기
+	public int updateThumbnail(Thumbnail t, ArrayList<Attachment> fileList) {
+		Connection conn = getConnection();
+		
+		ThumbnailDao tDao = new ThumbnailDao();
+		
+		
+		int result1 = tDao.updateThumbnail(conn, t);
+		int result2 = tDao.updateAttachment(t.getbId(), conn, fileList);
+		
+		int result = 0;
+		
+		if(result1>0 && result2>0) {
+			commit(conn);
+			result =1;
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	//quest
 	public int updateThumbnail(Thumbnail t) {
 		Connection conn = getConnection();
 		
@@ -172,19 +195,37 @@ public class ThumbnailService {
 		
 		return result;
 	}
+	
+	//삭제하기
+	public int deleteThumbnail(int flag, int bid) {
+		Connection conn = getConnection();
+		
+		int result = 0; 
+		if(flag == 2) { // 첨부파일이 있다면 
+		
+		   int result1 = new ThumbnailDao().deleteThumbail(conn, bid);
+ 		   int result2 = new  ThumbnailDao().deleteTAttach(conn, bid);
 
-	/*
-	 * public int updatelikeThumbnail(int bid) { Connection conn = getConnection();
-	 * 
-	 * ThumbnailDao bDao = new ThumbnailDao(); int result =
-	 * bDao.updatelikeThumbnail(conn, bid);
-	 * 
-	 * if (result > 0) { commit(conn); }else { rollback(conn); }
-	 * 
-	 * close(conn);
-	 * 
-	 * return result; }
-	 */
+ 		   if( result1>0 && result2>=0) {
+ 			  result =1; 
+ 		   }
+ 		   
+		}else { //첨부파일이 없다면 
+			result = new ThumbnailDao().deleteThumbail(conn, bid);
+		}
+		
+
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	
 	
 	
 }

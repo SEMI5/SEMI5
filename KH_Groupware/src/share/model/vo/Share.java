@@ -10,6 +10,7 @@ public class Share implements Serializable{
 	 */
 	private static final long serialVersionUID = -8209039453237695965L;
 	
+	
 	private int bId;			//NUMBER 
 	private int cId;  		 	// 해당 게시판 소속 
 	private String bTitle; 		//게시판 제목 

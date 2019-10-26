@@ -4,7 +4,6 @@
 <%
 	Thumbnail b = (Thumbnail)request.getAttribute("thumbnail");
 	ArrayList<Attachment> fileList = (ArrayList<Attachment>)request.getAttribute("fileList");
-	
 	/* 대표사진 - (fileLevel=0) */
 	Attachment titleImg = fileList.get(0);
 	
@@ -24,8 +23,15 @@
       margin-top:50px;
 }
 .detail{
-     width:1000px;
+    	width:950px;
 } 
+ .btnArea {
+  width:300px;
+   background : red;
+   margin-left:auto;
+   margin-right:auto;
+      
+}
    
 .detail_other{
 	width : 100%;
@@ -124,18 +130,78 @@ td{
 	margin-left : 60px;
 }
 
+
+
+#goList-btn{
+	background-color: #f1f1f1;
+	border: none;
+	/* margin-right : 80px; */
+	float : right;
+	padding: 10px 16px;
+	font-size: 15px;
+	cursor: pointer;
+	display : inline-block;
+	border-radius: 16px;
+	box-shadow: 0 5px #999;
+}  
+#goList-btn:hover{
+	background-color: #666;
+	color: white;
+	border-radius: 16px;
+} 
+#goList-btn:active {
+	color : white;
+/*   background-color: #666; */
+  	background-color: #f53f29; 
+  	box-shadow: 0 3px #666;
+  	transform: translateY(4px);
+  	border-radius: 16px;
+}
+
+
+#update-btn{
+	background-color: black; 
+	color: white;
+	border: none;
+	margin-right : 20px;
+	float : right;
+	padding: 10px 16px;
+	font-size: 15px;
+	cursor: pointer;
+	display : inline-block;
+	border-radius: 16px;
+	box-shadow: 0 5px #999;
+	
+	
+}  
+#update-btn:hover{
+	background-color: #f53f29; 
+   	color: white;
+   	border-radius: 16px;
+} 
+
+#update-btn:active {
+	color : white;
+/*   background-color: #666; */
+  	background-color: #f53f29; 
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+   border-radius: 16px;
+}
+
 </style>
 
 
 </head>
-<header>
+
 	<%@ include file = "../common/header.jsp" %>
-</header>
+
 <body>
 
 
 <div class = "outer">
-
+<br>
+		<h2 align = "center"> 사진 게시판 디테일 보기 </h2>
 			
 		<div class = "detail">
 						
@@ -198,14 +264,14 @@ td{
 		<br><br><br>
 		<!-- 이제 파일을 다운로드 할 수 있도록 ThumbnailDownloadServlet 만들러 !!  -->
 		
-		<div class = "btns" align ="center">
-			<button id = "goList" onclick="location.href='<%=request.getContextPath()%>/list.th'">목록으로</button>	
+		<div class = "btnArea" align ="center">
+			<button id = "goList-btn" onclick="location.href='<%=request.getContextPath()%>/list.th'">목록으로</button>	
 			<%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
-					<button type="submit" onclick="location.href='<%=request.getContextPath()%>/updateView.th?bid=<%=b.getbId()%>'">수정하기</button>				
+					<button id = "update-btn" type="submit" onclick="location.href='<%=request.getContextPath()%>/updateView.th?bid=<%=b.getbId()%>'">수정하기</button>				
 			<%} %>	
 					
 		<!-- 	<button id  = "updateBtn" onclick ="updateTthumbnail();">수정하기</button> -->
-			<button id  = "deleteBtn" onclick = "deleteThumbnail();">삭제하기</button>
+			<!-- <button id  = "deleteBtn" onclick = "deleteThumbnail();">삭제하기</button> -->
 		</div>
 		<br><br><br>
 	</div>

@@ -1,4 +1,4 @@
-<%@page import="member.model.vo.Member"%>
+ <%@page import="member.model.vo.Member"%>
 <%@page import="java.util.ArrayList"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"

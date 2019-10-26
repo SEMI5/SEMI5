@@ -66,7 +66,7 @@
    input:focus::-moz-placeholder, textarea:focus::-moz-placeholder { /* Mozilla Firefox 19+ */ color:transparent; } 
    input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder { /* Internet Explorer 10+ */ color:transparent; }
 
-   input{
+   #searchDiv input{
       
       width: 450px; 
       height: 40px;
@@ -236,7 +236,7 @@ option{
    font-size: 14px;
 }
 
-input{
+#searchDiv input{
    font-size: 14px;
    position: absolute;
    right: 76px

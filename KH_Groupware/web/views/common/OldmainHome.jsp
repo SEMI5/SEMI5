@@ -373,8 +373,7 @@ bottom: 0px;
 <body>
 <div id="container"><!-- container -->
   <div id="mainContent"><!-- mainContent -->
-<%@ include file = "Newheader.jsp" %>
-		<!-- 이미지 슬라이더 부분  -->
+
 
 <!-- 이미지 슬라이더 부분  -->
 

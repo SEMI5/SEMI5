@@ -1,4 +1,4 @@
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -16,7 +16,7 @@
   limitations under the License.
 --><!-- The contents of this file will be loaded for each web application -->
 
-<Context workDir= "C:\Users\jun\git\semi5_wor\KH_Groupware\web\WEB-INF">
+<Context workDir= "C:\Users\JHK\git\SEMI5\KH_Groupware\web\META-INF">
 
 
     <!-- Default set of monitored resources. If one of these changes, the    -->

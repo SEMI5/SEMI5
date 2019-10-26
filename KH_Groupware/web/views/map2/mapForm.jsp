@@ -75,7 +75,7 @@
 	</style>
 </head>
 <header>
-	<%@ include file = "/views/common/header2.jsp" %>
+	<%@ include file = "/views/common/header.jsp" %>
 </header>
 <body>
 	<br><br>
@@ -237,5 +237,5 @@
 	
  	</div>
 </body>
-	<%@ include file = "/views/common/bootsFooter.jsp" %> 
+	<%@ include file = "/views/common/footer.jsp" %> 
 </html>

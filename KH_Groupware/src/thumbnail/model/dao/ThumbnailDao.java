@@ -67,7 +67,7 @@ public class ThumbnailDao {
 									
 
 			}
-		
+			System.out.println("사진게시판 정보 불러오기 !!" + list);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -101,7 +101,7 @@ public class ThumbnailDao {
 										rs.getString("change_name")));
 			}
 			
-			
+			System.out.println("사진불러오기#####!# : " + list);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -319,7 +319,7 @@ public class ThumbnailDao {
 		
 		return list;
 	}
-
+	
 	// 사진게시판 리스트 갯수 조회용
 	public int getListCount(Connection conn) {
 		// 게시판의 글 전체 수 구하기
@@ -435,46 +435,113 @@ public class ThumbnailDao {
 	// 수정하기
 	public int updateThumbnail(Connection conn, Thumbnail t) {
 		PreparedStatement pstmt = null;
-		
 		int result = 0;
 		
 		String query = prop.getProperty("updateThumbnail");
 		
 		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, t.getbTitle());
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1,  t.getbTitle());
 			pstmt.setString(2, t.getbContent());
-			pstmt.setInt(3, t.getbId());
-			
+			pstmt.setInt(3,  t.getbId());
 			
 			result = pstmt.executeUpdate();
+			System.out.println("th : " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		
+		return result;
+	}
+
+	//Attach 수정
+	public int updateAttachment(int bid, Connection conn, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateTAttachment");
+		
+		try {
+			for(int i=0; i<fileList.size();i++) {
+				Attachment at = fileList.get(i);
+				
+				pstmt=conn.prepareStatement(query);
+				pstmt.setInt(1, bid);
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				pstmt.setInt(5, at.getFileLevel());
+				
+				result += pstmt.executeUpdate();
+				
+				System.out.println("att : " + result);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		// fileList가 가진 파일 갯수만큼의 행이 모두 insert가 되었다면
+		if(result == fileList.size())
+			return result;
+		else
+			return 0;
+
+	}
+
+	// 삭제하기
+	public int deleteThumbail(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("deleteThumbail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+	
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-
+		
 		return result;
 	}
 
+	//Attach 삭제하기
+	public int deleteTAttach(Connection conn, int bid) {
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;  
+		int result =0; 
+		
+		String query = prop.getProperty("deleteTAttach");
+	
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			result =pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result; 
+	}
 
-	/*
-	 * public int updatelikeThumbnail(Connection conn, int bid) { PreparedStatement
-	 * pstmt = null; int result = 0;
-	 * 
-	 * String query = prop.getProperty("updatelikeThumbnail");
-	 * 
-	 * try { pstmt = conn.prepareStatement(query);
-	 * 
-	 * pstmt.setInt(1, bid);
-	 * 
-	 * result = pstmt.executeUpdate();
-	 * 
-	 * } catch (SQLException e) { e.printStackTrace(); } finally { close(pstmt); }
-	 * 
-	 * return result; }
-	 */
+
+
+
 
 }

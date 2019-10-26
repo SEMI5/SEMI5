@@ -4,6 +4,10 @@
 	ArrayList blist = (ArrayList)request.getAttribute("blist");
 	ArrayList flist = (ArrayList)request.getAttribute("flist");
 	
+	//System.out.print("view blist : " + blist);
+	//System.out.print("view flist : " + flist);
+	
+	
 	ArrayList<Thumbnail> list = (ArrayList<Thumbnail>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
@@ -84,6 +88,7 @@
 	  color: white;
 }
 
+
 /* 썸네일 리스트 정보 좋아요버튼  */
 #like_btn{
 	 	background : white;
@@ -105,20 +110,54 @@
 } 
 
 /* 작성하기 버튼 */
-#writeBtn{
-	background : black;
+#writeBtn {
+  padding: 15px 25px;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  /* background-color: #f1f1f1; */
+  background-color: black; 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px #999;
+  margin-right : 80px;
+  float : right;
+  border-radius: 16px;
+  color : white;
+}
+
+#writeBtn:hover {
+	color : white;
+	/* background-color: #666; */
+	background-color: #f53f29; 
+	border-radius: 16px;
+}
+
+#writeBtn:active {
+	color : white;
+/*   background-color: #666; */
+  	background-color: #f53f29; 
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+   border-radius: 16px;
+}
+
+
+/* #writeBtn{
+	background-color: #f1f1f1;
 	border: none;
-	color: white;
 	margin-right : 80px;
 	float : right;
-	padding: 14px 28px;
-	font-size: 16px;
+	padding: 10px 16px;
+	font-size: 15px;
 	cursor: pointer;
 	display : inline-block;
 }  
 #writeBtn:hover{
-	background-color: gray;
-}
+	background-color: #666;
+	  color: white;
+} */
 
 #listcountDiv{
 		border:none;
@@ -143,7 +182,7 @@
 </header>
 <body>
 	<div>
-	<img src="<%=request.getContextPath() %>/images/photos.jpg" style="width:1550px; height:300px;">
+	<img src="<%=request.getContextPath() %>/images/photos.jpg" style="width:100%; height:300px;">
 		<div id = "thum1" style="width:100%; height:60px">
 		</div>
 	</div>
@@ -155,7 +194,7 @@
 
 		<div class = "thumbnailArea">
 		<%if(loginUser != null) {%>	 
-			 <% if(list.isEmpty())	{%>
+			 <% if(blist.isEmpty())	{%>
 				<p>조회된 결과가 없습니다.</p>
 				
 			<%} else  {%> 
@@ -165,7 +204,7 @@
 			<div class = "thumb-list" align ="center">
 				<div class = "thumb-img">
 						<input type ="hidden" value ="<%=b.getbId() %>">
-						<% for(int j=0; j < flist.size(); j++){
+						<% for(int j=0; j < flist.size(); j++){		// flist.size()
 							Attachment a = (Attachment)flist.get(j); %>
 						
 							<% if(b.getbId() == a.getbId()) {%>	  <!-- 체인지된 이름이 thumbnail_uploadFiles 경로로 업로드 됨  -->
@@ -173,18 +212,16 @@
 												width = "150px" height ="150px" class ="trans">
 							<% } %>
 						<% } %>
+					<div id ="thuminfo-list">
+					 <%=b.getbTitle() %><br>
+					<p>No. <%= b.getbId() %><br> 
+						조회수: <%= b.getbCount() %><br>
+					</p>
+					</div>
 				</div>
-				<div>
-				제목 : <%=b.getbTitle() %><br>
-				<p>No. <%= b.getbId() %><br> 
-					조회수: <%= b.getbCount() %><br>
-					<button id = "like_btn">
-						<img src="<%=request.getContextPath() %>/images/icon/like.png" width="50px">
-					</button>
-					
-					<p id = "p2" style = "width:30px; height:30px; border:1px solid red;"></p>
-				</p>
-				</div>
+					<%-- <button id = "like_btn">
+						<img src="<%=request.getContextPath() %>/images/icon/like30.png" width="30px">
+					</button> --%>
 			</div>
 			<% } %>
 		<% } %>
@@ -251,30 +288,10 @@
 		});
 	
 		
-		/* 좋아요 ajax */
-		
-		$("#like_btn").click(function(){
-			var like = $("#like_btn").val();
-			
-			$.ajax({
-				url : "/KH_Groupware/like.th",
-				type : "get",
-				data : {
-						like : like
-				},			// 서블릿으로 보낼 서블릿주소,방식,데이터변수 설정 
-				success : function(data){	//서블릿에서 연산처리된 결과값 result가 data에 담겨옴
-					$("#p2").text(data);
-				}
-				
-			});
-			
-		});
-		
 		
 	</script>
 
 	
-
-
+ <%@ include file = "../common/footer.jsp" %> 
 </body>
 </html>
