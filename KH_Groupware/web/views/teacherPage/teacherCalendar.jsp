@@ -2,8 +2,7 @@
 <%@page import="member.model.vo.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp"%>
-<%@ include file="/views/common/footer.jsp"%>
+
 
 <%
 	ArrayList<Member> stdList = (ArrayList)session.getAttribute("stdList");
@@ -32,7 +31,7 @@
 <script type="text/javascript">
 	var sDate;
 	var eDate;
-	
+
 	$(function(){
 		$('#calendar').fullCalendar({
 			navLinkDayClick: function(){
@@ -279,15 +278,15 @@
 	#outer{
 		margin: 5%;
 		margin-top: 3%;
-		border: 5px solid black;
+		
 	}
 	
  	#stdList{
+ 		background: whitesmoke;
 		display: none;
 		margin: 2%;
-		border: 5px solid black;
 		width: 20%;
-		height: 830px;
+		height: 330px;
 		padding: 2%;
 	} 
 	
@@ -301,9 +300,14 @@
 		max-width: 50%;
 		display: inline-block;
 		margin: 2%;
-		border: 5px solid black;
+		margin-left : 20%;
+		
 		padding: 2%;
-		height: 830px;
+		height: 600px;
+	}
+	
+	#scdContentsDiv{
+		height: 250px;
 	}
 	
 	#scdContents{
@@ -315,11 +319,13 @@
 	#scdContents td{
 		border-bottom: 1px solid grey;
 		width: 300px;
+		height: 3%;
 	}
 	
 	#scdContents th{
 		border-bottom: 1px solid grey;
 		width: 300px;
+		height: 3%;
 	}
 	
 	
@@ -327,16 +333,36 @@
 		margin-top: 50px;
 	}
 	
+	#appBtn{
+		background: black; 
+		color: white;
+	}
+	
+	#rejBtn{
+		background: white; 
+		color: black;
+	}
+	
+	#appBtn:hover{
+		cursor: pointer;
+		background: grey;
+	}
+	
+	#rejBtn:hover{
+		cursor: pointer;
+		background: grey;
+		color: white;
+	}
+	
 	.buttons button{
 		width: 100px;
 		height: 50px;
 	}
 	
-	.buttons button:hover{
-		cursor: pointer;
-	}
 	
-/* 	.fc-past{ background:whitesmoke} */
+ 	.fc-past{ background:whitesmoke}
+ 		
+ 	
 	.fc-sun { color:red; }
 	.fc-sat { color:blue;  }
 	.fc-day:hover{background: whitesmoke; cursor: pointer;}
@@ -356,17 +382,21 @@
 <div id = "outer">
 	
 	<div id = "calendar"></div>
+	
 	<div id = "stdList">
 		<div id = "stdListTable">
+			<div id = "scdContentsDiv">
 			<table id = "scdContents">
 
 			</table>
+			</div>
 			<div class = "buttons" align="center">
-				<button style = "background: black; color: white; border: none;" onclick = "appVac();">휴가승인</button>
-				<button style = "background: white; color: black; border: 1px soild black;" onclick = "recVac();">휴가불승인</button>
+				<button id = "appBtn" style = " border: none;" onclick = "appVac();">휴가승인</button>
+				<button id = "rejBtn" style = " border: 1px soild black;" onclick = "recVac();">휴가불승인</button>
 			</div>
 		</div>
 	</div>
+	
 </div>
 
 
@@ -381,6 +411,10 @@
 
 
 <script type="text/javascript">
+
+	
+
+
 	function appVac(){
 		if(!confirm("휴가를 승인하시겠습니까?")){
 			return false;
@@ -395,7 +429,7 @@
 			success:function(data){	
  				if(data>0){
 					alert("정상으로 저장되었습니다.");
-					$("#stdList").css("display","none");
+					$("#stdList").bPopup().close();
 					$("#calendar").fullCalendar("addEventSource",data);
 					$("#calendar").fullCalendar("refetchEvents");
 				} 
@@ -419,7 +453,7 @@
 			success:function(data){	
  				if(data>0){
 					alert("정상으로 저장되었습니다.");
-					$("#stdList").css("display","none");
+					$("#stdList").bPopup().close();
 					$("#calendar").fullCalendar("addEventSource",data);
 					$("#calendar").fullCalendar("refetchEvents");
 				} 
