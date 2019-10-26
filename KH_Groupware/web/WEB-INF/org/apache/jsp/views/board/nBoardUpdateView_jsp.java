@@ -28,7 +28,7 @@ public final class nBoardUpdateView_jsp extends org.apache.jasper.runtime.HttpJs
 
   static {
     _jspx_dependants = new java.util.HashMap<java.lang.String,java.lang.Long>(1);
-    _jspx_dependants.put("/views/board/../common/header.jsp", Long.valueOf(1571850186802L));
+    _jspx_dependants.put("/views/board/../common/header.jsp", Long.valueOf(1571648010755L));
   }
 
   private static final java.util.Set<java.lang.String> _jspx_imports_packages;
@@ -657,13 +657,7 @@ String originName8= flist.get(7).getOriginName();
       out.write("   <button class= navBtn1 id=\"navBtn2\" data-value=\"0\" onclick=\"showSubnav2();\">게시판</button>\r\n");
       out.write("   <button class= navBtn1 id=\"navBtn4\" data-value=\"0\" onclick=\"showSubnav4();\">마이페이지</button>\r\n");
       out.write("   <button class= navBtn1 id=\"teacherPage\" data-value=\"0\" onclick=\"showSubnav5();\">강사페이지</button>\r\n");
-      out.write("   \t");
-if(loginUser != null){ 
-      out.write("\r\n");
       out.write("   <button class= navBtn1 id=\"navBtn3\" data-value=\"0\" onclick=\"showSubnav3();\">맛집</button>\r\n");
-      out.write("    ");
-} 
-      out.write("\r\n");
       out.write("   <button class=\"navBtn1\" id= myPageBtn data-value = \"0\" onclick= \"showLoginDiv();\"><img src =\"");
       out.print(request.getContextPath() );
       out.write("/images/icon/myPage.png\" style= width:30px; id=myPageBtnImg></button>\r\n");
@@ -1207,6 +1201,7 @@ if(loginUser == null) {
       out.write("  \t\t\tlocation.href=\"");
       out.print(request.getContextPath());
       out.write("/Nlist.bo\";\r\n");
+      out.write("  \t\t\t// NBoardListServlet 만들러가기 \r\n");
       out.write("   \t\t}\r\n");
       out.write("   \t\r\n");
       out.write("</script>\r\n");
