@@ -16,9 +16,8 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- 지워야함 쓰려면 메인홈에서 제이쿼리 적용해서 써야함. -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-
+<!-- 제이 쿼리 지워야함 쓰려면 메인홈에서 제이쿼리 적용해서 써야함. -->
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 
@@ -827,7 +826,7 @@ function logout(){
        $("#loginDiv").data("value","0");
        $("#loginIcon").removeClass("hoverStay")
     }
-
+	  
 	
 </script>
 
