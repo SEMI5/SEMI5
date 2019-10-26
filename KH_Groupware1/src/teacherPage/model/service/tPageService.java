@@ -40,6 +40,8 @@ public class tPageService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
 	}
 
@@ -53,6 +55,8 @@ public class tPageService {
 		}else {
 			rollback(conn);
 		}
+		
+		close(conn);
 		
 		return result;
 	}
@@ -68,6 +72,8 @@ public class tPageService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
 	}
 
@@ -81,6 +87,8 @@ public class tPageService {
 		}else {
 			rollback(conn);
 		}
+		
+		close(conn);
 		
 		return scdList;
 	}
@@ -96,6 +104,8 @@ public class tPageService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
 	}
 
@@ -109,6 +119,8 @@ public class tPageService {
 		}else {
 			rollback(conn);
 		}
+		
+		close(conn);
 		
 		return result;
 	}
@@ -124,6 +136,8 @@ public class tPageService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return scdList;
 	}
 
@@ -137,6 +151,8 @@ public class tPageService {
 		}else {
 			rollback(conn);
 		}
+		
+		close(conn);
 		
 		return result;
 	}

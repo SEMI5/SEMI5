@@ -105,7 +105,8 @@
 						async: false
 					})
 					.done(function(data){
-						$("#stdList").css("display","inline-block");
+						
+						$("#stdList").bPopup();
 						
 						var info = "<tr>"+
 										"<th>날짜</th>"+
@@ -164,6 +165,8 @@
 			}
 		});
 	});
+
+	$("td[class~='fc-past']").off("click");
 	
 
 	function addSchedule(){

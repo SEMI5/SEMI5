@@ -270,26 +270,50 @@ th{
 		  <h2 align = "center"><em>KH_GroupWare에 오신걸 환영합니다.</em></h2>
 			<table align = "center">
 				<tr>
+<<<<<<< HEAD
 					<th width ="200px;"> * 아이디 </th>
 					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" required>
 					<div id = "checkId" class = "checkInfo" style = "font-size : 0.7em"></div></td>
 					  							<!--required 미입력시 값을 입력하세요 문구뜸  -->
+=======
+					<td width ="200px">아이디 </td>
+					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" ></td>  <!--requi#ffd0d0 미입력시 값을 입력하세요 문구뜸  -->
+					<th class = "info"><div id = "checkId" class = "checkInfo"></div></th>
+>>>>>>> refs/remotes/origin/master
 					<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
 				</tr>
 				<tr>
+<<<<<<< HEAD
 					<th> * 비밀번호 </th>
 					<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd" required>
 					<div id = "checkPwd" class = "checkInfo" style = "font-size : 0.7em"></div></td>
+=======
+					<td>비밀번호 </td>
+					<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd"></td>
+					<th class = "info"><div id = "checkPwd" class = "checkInfo"></div></th>
+>>>>>>> refs/remotes/origin/master
 				</tr>
 				<tr>
+<<<<<<< HEAD
 					<th>* 비밀번호 확인</th>
 					<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2" required>
 					<div id = "checkPwd2" class = "checkInfo" style = "font-size : 0.7em"></div></td>
+=======
+					<td>비밀번호확인</td>
+					<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2"></td>
+					<th class = "info"><div id = "checkPwd2" class = "checkInfo"></div></th>
+>>>>>>> refs/remotes/origin/master
 				</tr>
 				<tr>
+<<<<<<< HEAD
 					<th> * 이름 </th>
 					<td><input id = "userName" type = "text" maxlength="5" name="userName" required>
 					<div id = "checkName" class = "checkInfo" style = "font-size : 0.7em"></div></td>
+=======
+					<td>이름 </td>
+					<td><input id = "userName" type = "text" maxlength="5" name="userName"></td>
+					<th class = "info"><div id = "checkName" class = "checkInfo"></div></th>
+>>>>>>> refs/remotes/origin/master
 				</tr>
 				<tr>
 					<th> * 생년월일 </th>
@@ -320,9 +344,15 @@ th{
 					</td>
 				</tr>
 				<tr>
+<<<<<<< HEAD
 					<th> * 이메일 </th>
 					<td id = "emailPt"><input type = "text" name = "emailId" style="width: 141px; margin-right: 5px;" required="required"><em>@</em>
 					<input type="text" name="email2" value="naver.com" style="width: 220px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
+=======
+					<td>이메일 </td>
+					<td id = "emailPt"><input type = "text" name = "emailId" style="width: 100px; margin-right: 5px;" ><em>@</em>
+					<input type="text" name="email2" value="naver.com" style="width: 120px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
+>>>>>>> refs/remotes/origin/master
 					</td>
 					<td>
 					<select id = "selctEmail" name = "selctEmail" class = "info" style="width: 150px; margin-left: 0px; height: 40px;" onchange="SetEmailTail(selctEmail.options[this.selectedIndex].value)" >
@@ -339,9 +369,15 @@ th{
 					</td>
 				</tr>
 				<tr>
+<<<<<<< HEAD
 					<th> * 주소 </th>
 					<td><input type="text" id="address" name = "address" placeholder="주소" ReadOnly = "true" required="required"></td>
 					<td><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px"></td>
+=======
+					<td>주소 </td>
+					<td><input type="text" id="address" name = "address" placeholder="주소" ReadOnly = "true" ></td>
+					<th><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px"></th>
+>>>>>>> refs/remotes/origin/master
 				</tr>
 				<tr>
 					<th></th>

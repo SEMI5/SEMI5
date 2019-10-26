@@ -1,12 +1,4 @@
-/board/
-/chatting/
-/common/
-/filter/
-/map/
-/member/
-/share/
 /sql/
+/board/
+/member/
 /studentPage/
-/teacherPage/
-/thumbnail/
-/wrapper/
