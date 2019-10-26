@@ -573,8 +573,6 @@ bottom: 0px;
 }  
 
 
-  
-  
 </style>
 
 </head>
@@ -582,8 +580,7 @@ bottom: 0px;
 	
 </header>
 <body>
-<%@ include file = "header.jsp" %>
-
+		<%@ include file = "header.jsp" %>
 <!-- 이미지 슬라이더 부분  -->
 
 <div style="height:46px;width:100%"></div>
@@ -775,7 +772,6 @@ function showSlides(n) {
 </div>
 <br>
 
-
 <!-- <h1> 주요 서비스 </h1>
 <button class="tablink" onclick="openCity('London', this, 'red')" id="defaultOpen"> 주요기능1 </button>
 <button class="tablink" onclick="openCity('Paris', this, 'green')" id="defaultClose" > 주요기능2 </button>
@@ -788,13 +784,11 @@ function showSlides(n) {
     <div class = "block block-test2 area5"><img src="../../images/icon/iconmonstr-eat-6-thin-240.png" style="width:100%">맛집</div>
 </div>
 
-<div id="Paris" class="tabcontent">
-  	<div class = "block block-test2 area6"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">공지사항</div>
-    <div class = "block block-test2 area7"><img src="../../images/icon/iconmonstr-user-30-240.png" style="width:100%">학생관리</div>
-    <div class = "block block-test2 area8"><img src="../../images/icon/iconmonstr-window-11-240.png" style="width:100%">자리배치</div>
-    <div class = "block block-test2 area9"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">휴가관리</div>
-    <div class = "block block-test2 area10"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">퀴즈</div>
-</div>
+
+
+
+
+
 
 <br><br><br><br>
 <hr> -->
@@ -900,11 +894,6 @@ function showSlides(n) {
 
 
 
-
-
-
-	
-		
 		
 	<%-- <%@ include file = "bootsFooter.jsp" %>	 --%>
 	

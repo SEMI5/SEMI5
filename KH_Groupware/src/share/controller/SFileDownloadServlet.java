@@ -35,7 +35,7 @@ public class SFileDownloadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int fid = Integer.valueOf(request.getParameter("fid"));
 			
-			Attachment file = new SFileService().selectAttachment(fid);
+			Attachment file = new SFileService().selectAttachment2(fid);
 			
 			// 클라이언트로 내보낼 출력 스트림 생성(요청된 파일을 읽어서 클라이언트쪽으로 저장한다.)
 			ServletOutputStream downOut = response.getOutputStream();	//스트림 열기

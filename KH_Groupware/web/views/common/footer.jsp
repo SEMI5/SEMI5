@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE>
 <html>
 <head>
 <style>
 
 #page-container {
+   #page-container {
      position: relative;
      min-height: 13vh;
    }
@@ -39,7 +39,24 @@
       float: right;
        margin: 10px;
 }
-
+   #content-wrap {
+     padding-bottom: 2.5rem;    /* Footer height */
+   }
+   
+   #footer {
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+     /* height: 2.5rem;  */           /* Footer height */
+      height: 250px;
+      background: #262A2D;
+      color: #F6F6F6;
+      display: inline-block;
+   }
+   
+   .footerDiv li{
+   	list-style:none;
+   }
 #footerDiv1{
       background: #262A2D; 
       /* background: grey; */
@@ -64,7 +81,38 @@
 
 
 
+   #footerImg{
+      float: right;
+       margin: 10px;
+   }
+   .footerDiv{
+      background: #262A2D; 
+      /* background: grey; */
+      color: #F6F6F6;
+      font-size: 12px;
+   }
+   #img1{
+      width: 50px;
+   }
+   #img2{
+      width: 50px;
+   }
+   #img1:hover{
+      background: red;
+   }
+   #img2:hover{
+      background: red;
+      
+   }
 </style>
+<script>
+   $("#img1").click(function() {
+      alert("ds");
+      $(this).css({"background":"red"});
+   });
+</script>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>footer test</title>
 </head>

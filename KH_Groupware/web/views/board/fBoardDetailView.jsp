@@ -102,6 +102,17 @@
 	 
 }
 
+.reReplyText{	
+	resize:none;
+	padding: 0px; 
+	borderspacing:0px;
+	width: 550px;
+	border: 1px solid black; 
+	outline:none;
+}
+
+>>>>>>> refs/remotes/origin/master
+
 #tableDiv{
 	  border: none;
       position: relative;	
@@ -361,9 +372,6 @@ text-decoration: underline;
 #replySelectTable td{
 	border: none; 
 }
-#replySelectTable td{
-	border: none; 
-}
 
 
 #replySelectTable tr td{
@@ -566,6 +574,7 @@ text-decoration: underline;
 				
 					<%if(rlist.isEmpty()) {%>
 						<tr style= "boder-top: 1px solid darkgrqy";><td colspan="3">댓글이 없습니다.</td></tr>
+						<tr style= "boder-top: 1px solid darkgrqy";><td colspan="3"><b>댓글이 없습니다.</b></td></tr>
 					<%}else{ %>
 						<%for(i=0;i<rlist.size();i++){ %>
 							<%for (int j=0; j<glist.size(); j++){
@@ -753,6 +762,120 @@ if($(text).attr("data-value") == "1") {
 		});
 	</script> 
 		  });   
+		  });   
+	
+	var content = $(text).val();
+
+	$(text).attr("data-value", "1");
+	$(text).attr("readonly",true );
+	$(text).css("border", "none");
+}
+
+
+
+};  */
+
+
+
+					<br><br><br><br>
+					<br><br>
+					
+					<div style="width: 100%; text-align:center;"><a href="#top"><button class= topBtn>TOP</button></a></div>
+			
+				<br><br><br>
+			
+		</div><!--outer끝 -->
+</body>
+<script>
+
+$(document).on('click', ".change", function () {
+
+	  var text = $(this).next().val();
+	 var rid = $(this).next().next().val();
+	 var content = $("#"+text).val(); 	
+		
+  	 if($("#"+text).attr("data-value") == "1") {
+ 		$("#"+text).attr("data-value", "2");
+ 		$("#"+text).attr("readonly",false );
+ 		$("#"+text).css("border", "2px solid #2478FF");
+ 		$("#"+text).focus();
+ 	}else{ 
+ 		
+ 		var count = $("#"+text).val().length;
+ 		if( count <2){
+ 			alert("2자 이상 입력해주세요 ")	;	
+ 			return false;
+ 		}else if(count > 200){
+ 			alert("200자 미만으로 입력해주세요 ");
+ 			return false ;
+ 		} 
+ 		
+ 	 	$.ajax({
+ 	  		url:"/KH_Groupware/update.re",
+ 	  		type:"post",
+ 	  		data:{ rid1: rid,
+ 	  			   content1: content },
+ 	  		success:function(data){
+ 						if(data == 1){
+ 						/*  alert("성공"); */
+ 						}else{
+ 						/* 	alert('실패'); */
+ 						}  		  	
+ 	  		 },
+ 	  		 error : function(request,status,error) {
+ 					alert("code:"+request.status+"\n"+
+ 					"message:"+request.responseText+"\n"+"error:"+error);
+ 					}
+ 			  });    
+ 	
+ 	 	$("#"+text).attr("data-value", "1");
+ 		$("#"+text).attr("readonly",true );
+ 		$("#"+text).css("border", "none"); 
+ 	}
+});
+ 
+
+
+
+/* function changeReply(text, rid){
+
+
+if($(text).attr("data-value") == "1") {
+	$(this).parent().find("input").val(); 
+	
+	
+	$(text).attr("data-value", "2");
+	$(text).attr("readonly",false );
+	$(text).css("border", "2px solid #2478FF");
+	$(text).focus();
+}else{
+	
+	var count = $(text).val().length;
+	if( count <2){
+		alert("2자 이상 입력해주세요 ")	;	
+		return false;
+	}else if(count > 200){
+		alert("200자 미만으로 입력해주세요 ");
+		return false ;
+	}
+	
+	var content = $(text).val();
+		$.ajax({
+  		url:"/KH_Groupware/update.re",
+  		type:"post",
+  		data:{ rid1: rid,
+  			   content1: content },
+  		success:function(data){
+					if(data == 1){
+					
+					}else{
+					
+					}  		  	
+  		 },
+  		 error : function(request,status,error) {
+				alert("code:"+request.status+"\n"+
+				"message:"+request.responseText+"\n"+"error:"+error);
+				}
 		  });   
 	
 	var content = $(text).val();

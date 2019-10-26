@@ -201,7 +201,7 @@ input{
 </style>
 
 <header>
-	<%@ include file = "../common/header2.jsp" %>
+	<%@ include file = "../common/header.jsp" %>
 </header>
 <body>
 	<div>

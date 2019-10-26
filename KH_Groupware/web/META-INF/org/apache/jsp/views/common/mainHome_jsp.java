@@ -6,6 +6,7 @@
  * Version: Apache Tomcat/8.5.45
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Generated at: 2019-10-20 04:39:14 UTC
 =======
  * Generated at: 2019-10-19 17:23:57 UTC
@@ -13,6 +14,9 @@
 =======
  * Generated at: 2019-10-22 07:58:46 UTC
 >>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master
+=======
+ * Generated at: 2019-10-24 14:43:00 UTC
 >>>>>>> refs/remotes/origin/master
  * Note: The last modified time of this file was set to
  *       the last modified time of the source file after
@@ -37,11 +41,15 @@ public final class mainHome_jsp extends org.apache.jasper.runtime.HttpJspBase
   static {
     _jspx_dependants = new java.util.HashMap<java.lang.String,java.lang.Long>(1);
 <<<<<<< HEAD
+<<<<<<< HEAD
     _jspx_dependants.put("/views/common/header.jsp", Long.valueOf(1571827509180L));
 =======
 
     _jspx_dependants.put("/views/common/header.jsp", Long.valueOf(1571546353361L));
 
+>>>>>>> refs/remotes/origin/master
+=======
+    _jspx_dependants.put("/views/common/header.jsp", Long.valueOf(1571928030773L));
 >>>>>>> refs/remotes/origin/master
   }
 
@@ -419,8 +427,8 @@ public final class mainHome_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<html>\r\n");
       out.write("<head>\r\n");
       out.write("<meta charset=\"UTF-8\">\r\n");
-      out.write("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n");
-      out.write("<script src = \"../js/jquery-3.2.1.min.js\" type = \"text/javascript\"></script>\r\n");
+      out.write("<!-- <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n");
+      out.write("<script src = \"../js/jquery-3.2.1.min.js\" type = \"text/javascript\"></script> -->\r\n");
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
@@ -569,7 +577,6 @@ public final class mainHome_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("   border: 1px solid lightgray;\r\n");
       out.write("   position:absolute; right:-610px;\r\n");
       out.write("   z-index:10;\r\n");
-      out.write("   display:none;\r\n");
       out.write("}\r\n");
       out.write("\r\n");
       out.write(".login{\r\n");
@@ -700,10 +707,6 @@ public final class mainHome_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("   <button class= navBtn1 id=\"navBtn4\" data-value=\"0\" onclick=\"showSubnav4();\">마이페이지</button>\r\n");
       out.write("   <button class= navBtn1 id=\"teacherPage\" data-value=\"0\" onclick=\"showSubnav5();\">강사페이지</button>\r\n");
       out.write("   <button class= navBtn1 id=\"navBtn3\" data-value=\"0\" onclick=\"showSubnav3();\">맛집</button>\r\n");
-      out.write("   \r\n");
-      out.write("   <button class=\"navBtn1\" id= chattingBtn data-value = \"0\" onclick= \"showChattingPage();\"><img src =\"");
-      out.print(request.getContextPath() );
-      out.write("/images/icon/speechBubble.png\" style= width:30px; id=chattingBtnImg></button>\r\n");
       out.write("   <button class=\"navBtn1\" id= myPageBtn data-value = \"0\" onclick= \"showLoginDiv();\"><img src =\"");
       out.print(request.getContextPath() );
       out.write("/images/icon/myPage.png\" style= width:30px; id=myPageBtnImg></button>\r\n");
@@ -732,7 +735,7 @@ public final class mainHome_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("      <div class= \"menuList boardMenu\">\r\n");
       out.write("         <h3 style=margin:20px;>게시판</h3>\r\n");
       out.write("         <ul>\r\n");
-      out.write("            <li> 공지사항 </li>\r\n");
+      out.write("            <li onclick= \"goNBoard();\"> 공지사항 </li>\r\n");
       out.write("            <li onclick = \"goShareFile();\"> 공유자료 </li>\r\n");
       out.write("            <li> 퀴즈 </li>\r\n");
       out.write("            <li> 자유게시판 </li>\r\n");
@@ -748,7 +751,7 @@ public final class mainHome_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("      <div class= \"menuList boardMenu\">\r\n");
       out.write("         <h3 style=margin:20px;>커뮤니티</h3>\r\n");
       out.write("         <ul>\r\n");
-      out.write("             <li id=\"ahn\" onclick=\"location.href = '");
+      out.write("            <li id=\"ahn\" onclick=\"location.href = '");
       out.print(request.getContextPath());
       out.write("/views/map2/mapForm.jsp'\"> 근처맛집 </li> \r\n");
       out.write("         </ul>\r\n");
@@ -764,9 +767,7 @@ public final class mainHome_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("         <h3 style=margin:20px;>마이페이지</h3>\r\n");
       out.write("         <ul>\r\n");
       out.write("            <li> 내정보수정 </li>\r\n");
-      out.write("            <li onclick= \"location.href = '");
-      out.print(request.getContextPath());
-      out.write("/views/studentPage/stdCalendar.jsp'\"> 일정 및 휴가관리 </li>\r\n");
+      out.write("            <li> 휴가관리 </li>\r\n");
       out.write("         </ul>\r\n");
       out.write("      </div>\r\n");
       out.write("      <div class = \"btnImg\">\r\n");
@@ -1108,12 +1109,7 @@ if(loginUser == null) {
       out.write("               }      \r\n");
       out.write("\r\n");
       out.write("            \r\n");
-      out.write("      // 채팅 클릭시 이벤트\r\n");
-      out.write("      function showChattingPage() {\r\n");
-      out.write("    \t  location.href=\"../chatting/chatting.jsp\";\r\n");
-      out.write("\t  }\r\n");
-      out.write("            \r\n");
-      out.write("            \r\n");
+      out.write("      \r\n");
       out.write("      // 돋보기 클릭시 이벤트\r\n");
       out.write("\r\n");
       out.write("      function showSearchBar(){\r\n");
@@ -1154,8 +1150,6 @@ if(loginUser == null) {
       out.write("            if($('#myPageBtn').data(\"value\") == \"0\"){\r\n");
       out.write("               $('#myPageBtn').addClass(\"hoverStay\");      \r\n");
       out.write("               \r\n");
-      out.write("               $(\".loginDiv\").css(\"display\",\"block\")\r\n");
-      out.write("               \r\n");
       out.write("               $(\".loginDiv\").children().addClass(\"stay\");\r\n");
       out.write("               $(\".loginDiv\").children().children().addClass(\"stay\");\r\n");
       out.write("               $(\".loginDiv\").children().children().children().addClass(\"stay\");\r\n");
@@ -1171,7 +1165,6 @@ if(loginUser == null) {
       out.write("   \r\n");
       out.write("      //로그인 div 제거 \r\n");
       out.write("      function removeLoginDiv(){\r\n");
-      out.write("    \t  $(\".loginDiv\").css(\"display\",\"none\")\r\n");
       out.write("         $(\"#blackOpacity2\").fadeOut('2000');\r\n");
       out.write("         $(\".loginDiv\").animate({\"right\":\"-605px\"},'2000',function(){\r\n");
       out.write("            $(\"#myPageBtn\").data(\"value\",\"0\");\r\n");
@@ -1247,6 +1240,13 @@ if(loginUser == null) {
       out.write("/list.sh\";\r\n");
       out.write("   \t\t\t// ShareFileListServlet 만들러가기\r\n");
       out.write("   \t}\r\n");
+      out.write("   \t\r\n");
+      out.write("   \t\tfunction goNBoard(){\r\n");
+      out.write("  \t\t\tlocation.href=\"");
+      out.print(request.getContextPath());
+      out.write("/Nlist.bo\";\r\n");
+      out.write("  \t\t\t// NBoardListServlet 만들러가기 \r\n");
+      out.write("   \t\t}\r\n");
       out.write("   \t\r\n");
       out.write("</script>\r\n");
       out.write("\r\n");
