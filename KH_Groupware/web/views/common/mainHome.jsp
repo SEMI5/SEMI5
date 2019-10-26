@@ -579,8 +579,6 @@ bottom: 0px;
 
 </head>
 <header>
- 	<%@ include file = "header.jsp" %>
-<%-- 	<%@ include file = "bootsHeader.jsp" %> --%>
 	
 </header>
 <body>
