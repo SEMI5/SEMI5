@@ -373,7 +373,7 @@ bottom: 0px;
 
 </head>
 <body>
-<%@ include file = "header.jsp" %>
+<%@ include file = "Newheader.jsp" %>
 		<!-- 이미지 슬라이더 부분  -->
 
 <!-- <br><br><br><br><br> -->
@@ -404,6 +404,11 @@ bottom: 0px;
 	</div>
 	
 <!-- 메인 슬라이더  css  -->
+<br><br>
+
+
+
+	
 <script>
 
 	var slideIndex = 1;

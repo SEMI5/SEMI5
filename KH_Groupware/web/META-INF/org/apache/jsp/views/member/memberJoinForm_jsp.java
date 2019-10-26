@@ -510,7 +510,6 @@ for(int i = 0 ; i < cList.size(); i++ ){
       out.write("\t\t\t} else {\r\n");
       out.write("\t\t\t\t$(\"#checkPwd2\").css(\"color\", \"#badcff\");\r\n");
       out.write("\t\t\t\t$(\"#userPwd2\").css(\"border\", \"2px solid #badcff\");\r\n");
->>>>>>> refs/remotes/origin/master
       out.write("\t\t\t\t$(\"#checkPwd2\").text(\"비밀번호가 일치합니다.\");\r\n");
       out.write("\t\t\t\tpwdCheck2 = true;\r\n");
       out.write("\t\t\t}\r\n");
@@ -584,7 +583,6 @@ for(int i = 0 ; i < cList.size(); i++ ){
       out.write("\t\t\t} else {\r\n");
       out.write("\t\t\t\t$(\"#checkRRN\").css(\"color\", \"#badcff\");\r\n");
       out.write("\t\t\t\t$(\"#RRN\").css(\"border\", \"2px solid #ffd0d0\");\r\n");
->>>>>>> refs/remotes/origin/master
       out.write("\t\t\t\t$(\"#checkRRN\").text(\"유효한 생년월일입니다.\");\r\n");
       out.write("\t\t\t\trrnCheck  = true;\r\n");
       out.write("\t\t\t}\r\n");

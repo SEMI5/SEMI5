@@ -1013,7 +1013,6 @@ if(loginUser == null) {
       out.write("   \r\n");
       out.write("      //로그인 div 제거 \r\n");
       out.write("      function removeLoginDiv(){\r\n");
-      out.write("    \t  $(\".loginDiv\").css(\"display\",\"none\")\r\n");
       out.write("         $(\"#blackOpacity2\").fadeOut('2000');\r\n");
       out.write("         $(\".loginDiv\").animate({\"right\":\"-605px\"},'2000',function(){\r\n");
       out.write("            $(\"#myPageBtn\").data(\"value\",\"0\");\r\n");
