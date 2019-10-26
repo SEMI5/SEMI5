@@ -13,7 +13,7 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
-
+<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 <%
 Board b = (Board)request.getAttribute("board");
 java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");

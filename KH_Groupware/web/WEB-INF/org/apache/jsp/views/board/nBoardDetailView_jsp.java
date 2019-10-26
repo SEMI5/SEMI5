@@ -369,10 +369,6 @@ public final class nBoardDetailView_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("\tfont-size:15px\r\n");
       out.write("}\r\n");
       out.write("\r\n");
-      out.write("td span{\r\n");
-      out.write("\tcursor:pointer;\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
       out.write("</style>\r\n");
       out.write("</head>\r\n");
       out.write("<header>\r\n");
@@ -381,10 +377,6 @@ public final class nBoardDetailView_jsp extends org.apache.jasper.runtime.HttpJs
 
 	Member loginUser = (Member)session.getAttribute("loginUser");
 
-	int userNo = 0; 
-	if(loginUser != null){
-		userNo = loginUser.getUserNo();
-	} 
 
       out.write("    \r\n");
       out.write("<!DOCTYPE html>\r\n");
@@ -405,24 +397,9 @@ public final class nBoardDetailView_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("\r\n");
       out.write("\r\n");
       out.write("<style>\r\n");
-      out.write("\r\n");
-      out.write("   /* place holder 감추기*/\r\n");
-      out.write("   input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { /* WebKit browsers */ color:transparent; } \r\n");
-      out.write("   input:focus:-moz-placeholder, textarea:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color:transparent; } \r\n");
-      out.write("   input:focus::-moz-placeholder, textarea:focus::-moz-placeholder { /* Mozilla Firefox 19+ */ color:transparent; } \r\n");
-      out.write("   input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder { /* Internet Explorer 10+ */ color:transparent; }\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
-      out.write("\r\n");
       out.write("/* @font-face {\r\n");
       out.write("\tfont-family: 'Noto Sans KR', sans-serif;\r\n");
       out.write("} */\r\n");
-      out.write("\r\n");
-      out.write("#chattingBtn{\r\n");
-      out.write("\tfloat: right;\r\n");
-      out.write("}\r\n");
-      out.write("\r\n");
       out.write("body{\r\n");
       out.write("   margin: 0px;\r\n");
       out.write("   overflow-x:hidden;   \r\n");
@@ -701,9 +678,6 @@ if(loginUser != null){
       out.write("   <button class=\"navBtn1\" id= searchBtn data-value = \"0\" onclick= \"showSearchBar();\"><img src =\"");
       out.print(request.getContextPath() );
       out.write("/images/icon/readingGlasses.png\" style= width:30px; id=serachBtnImg></button>\r\n");
-      out.write("   <button class=\"navBtn1\" id= chattingBtn data-value = \"0\" onclick= \"showChattingPOPUP();\"><img src =\"");
-      out.print(request.getContextPath() );
-      out.write("/images/icon/speechBubble.png\" style= width:30px; id=chattingBtnImg></button>\r\n");
       out.write("</div>\r\n");
       out.write("   <div class= blackOpacity id= blackOpacity1></div>\r\n");
       out.write("   <div class= blackOpacity id= blackOpacity2></div>\r\n");
@@ -726,13 +700,10 @@ if(loginUser != null){
       out.write("      <div class= \"menuList boardMenu\">\r\n");
       out.write("         <h3 style=margin:20px;>게시판</h3>\r\n");
       out.write("         <ul>\r\n");
-      out.write("         \t<input id= userNo type= hidden value= ");
-      out.print(userNo);
-      out.write("> \r\n");
       out.write("            <li onclick= \"goNBoard();\"> 공지사항 </li>\r\n");
       out.write("            <li onclick = \"goShareFile();\"> 공유자료 </li>\r\n");
-      out.write("            <li > 퀴즈 </li>\r\n");
-      out.write("            <li onclick = \"goFBoard();\"> 자유게시판 </li>\r\n");
+      out.write("            <li> 퀴즈 </li>\r\n");
+      out.write("            <li> 자유게시판 </li>\r\n");
       out.write("            <li onclick = \"goThumbnail();\"> 사진게시판 </li>\r\n");
       out.write("         </ul>\r\n");
       out.write("      </div>\r\n");
@@ -1098,13 +1069,7 @@ if(loginUser == null) {
       out.write("                  } \r\n");
       out.write("               }      \r\n");
       out.write("\r\n");
-      out.write("      // 채팅 클릭시 이벤트\r\n");
-      out.write(" /*      function showChattingPage() {\r\n");
-      out.write("    \t  location.href=\"../chatting/chatting.jsp\";\r\n");
-      out.write("\t  } */\r\n");
-      out.write("      function showChattingPOPUP() {\r\n");
-      out.write("\t\t  window.open(\"../chatting/chattingPopup.jsp\", \"\", \"width=400, height=600, left=100, top=50\");\r\n");
-      out.write("\t  }\r\n");
+      out.write("            \r\n");
       out.write("      \r\n");
       out.write("      // 돋보기 클릭시 이벤트\r\n");
       out.write("\r\n");
@@ -1242,29 +1207,14 @@ if(loginUser == null) {
       out.write("   \t\t\tlocation.href=\"");
       out.print(request.getContextPath());
       out.write("/list.sh\";\r\n");
+      out.write("   \t\t\t// ShareFileListServlet 만들러가기\r\n");
       out.write("   \t}\r\n");
-      out.write("   \t\r\n");
-      out.write("   \t\r\n");
       out.write("   \t\r\n");
       out.write("   \t\tfunction goNBoard(){\r\n");
       out.write("  \t\t\tlocation.href=\"");
       out.print(request.getContextPath());
       out.write("/Nlist.bo\";\r\n");
-      out.write("   \t\t}\r\n");
-      out.write("   \t\t\r\n");
-      out.write("   \t\tfunction goFBoard(){\r\n");
-      out.write("   \t\t\t\r\n");
-      out.write("   \t\t\tvar userNo = $(\"#userNo\").val()\r\n");
-      out.write("   \t\t\r\n");
-      out.write("   \t\t\t\r\n");
-      out.write("   \t\t  if( userNo == 0 ){\r\n");
-      out.write("   \t\t\t\talert(\"로그인을 해야만 사용가능합니다.\");\r\n");
-      out.write("   \t\t\t}else{\r\n");
-      out.write("   \t\t\t\tlocation.href=\"");
-      out.print(request.getContextPath());
-      out.write("/Flist.bo\";\t\r\n");
-      out.write("   \t\t\t}  \r\n");
-      out.write("  \t\t\t  \r\n");
+      out.write("  \t\t\t// NBoardListServlet 만들러가기 \r\n");
       out.write("   \t\t}\r\n");
       out.write("   \t\r\n");
       out.write("</script>\r\n");
@@ -1291,11 +1241,9 @@ if(loginUser == null) {
       out.write("\t\t\t\t</thead>\r\n");
       out.write("\t\t\t\t<tbody>\r\n");
       out.write("\t\t\t\t<tr>\r\n");
-      out.write("\t\t\t\t\t<td style=\"font-size: 16px\">\r\n");
-      out.write("\t\t\t\t\t<b>등록일:</b>&nbsp;&nbsp;");
+      out.write("\t\t\t\t\t<td style=\"font-size: 16px\"><b>등록일:</b>&nbsp;");
       out.print(b.getModifyDate());
-      out.write("&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;\r\n");
-      out.write("\t\t\t\t\t<b>조회수:</b>");
+      out.write("&nbsp;&nbsp;|&nbsp;&nbsp;<b>조회수:</b> ");
       out.print(b.getbCount());
       out.write("</td>\r\n");
       out.write("\t\t\t\t</tr>\r\n");

@@ -35,7 +35,7 @@
 
 
 
-
+<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
@@ -101,16 +101,6 @@
 	 outline: none;
 	 
 }
-
-.reReplyText{	
-	resize:none;
-	padding: 0px; 
-	borderspacing:0px;
-	width: 550px;
-	border: 1px solid black; 
-	outline:none;
-}
-
 
 #tableDiv{
 	  border: none;
@@ -260,6 +250,17 @@ text-decoration: underline;
    font-weight: bold;
 }
 
+.topBtn{
+   border:none;
+   outline: none;
+   background-color: #f53f29;
+   color: white;
+   font-size: 16px;
+   height: 40px;
+   width: 70px;
+   z-index:1;
+   font-weight: bold;
+}
 
 
 #reWriteBtn{
@@ -300,6 +301,7 @@ text-decoration: underline;
    background-color: #f53f29; 
    color: white;
 }
+
 
 #reWriteBtn:hover{
 
@@ -355,6 +357,9 @@ text-decoration: underline;
 #replySelectTable tr {
 	height:30px;
 	border: none;
+}
+#replySelectTable td{
+	border: none; 
 }
 #replySelectTable td{
 	border: none; 
@@ -470,6 +475,8 @@ text-decoration: underline;
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+<a name="top"></a>
+<div style="height:46px;width:100%"></div>
 <div id= boardImg1>
 		<img id= boardImg src="<%=request.getContextPath() %>/images/boardBack3.jpg">
 		<div style="width:100%; height:60px;background:black;"></div>
@@ -480,7 +487,7 @@ text-decoration: underline;
 	
 	<br><br>
 		<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
-	
+		
 		<div id="tableDiv" >
 			<table align="center" width="1230px">
 				<thead>
@@ -602,19 +609,8 @@ text-decoration: underline;
 						<%}%> <!--  바깥쪽 for문 -->
 					<%} %>
 				</table>
-				<br><br><br><br>
-				<div>나중에 앵커를 여기다가 박자 맨 끝으로 올라가고싶다</div>
 			</div>		
 			<%} %>
-		</div><!--outer끝 -->
-</body>
-<script>
-
-$(document).on('click', ".change", function () {
-
-	var text = $(this).next().val();
-	 var rid = $(this).next().next().val();
-	 var content = $("#"+text).val(); 	
 		
   	 if($("#"+text).attr("data-value") == "1") {
  		$("#"+text).attr("data-value", "2");

@@ -134,7 +134,7 @@ Create sequence SEQ_TRNO minvalue 1 maxvalue 10000 start with 1 increment by 1;
 --  DDL for Table MEMBER
 --------------------------------------------------------
 
-   CREATE TABLE "KH"."MEMBER" 
+  CREATE TABLE "MEMBER" 
    (	"USER_NO" NUMBER, 
 	"CID" NUMBER, 
 	"USER_ID" VARCHAR2(30 BYTE), 
