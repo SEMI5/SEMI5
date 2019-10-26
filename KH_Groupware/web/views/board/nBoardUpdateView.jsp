@@ -6,6 +6,7 @@
 <html>
 <head>
 <!-- include libraries(jQuery, bootstrap) -->
+<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
@@ -229,11 +230,20 @@ String originName8= flist.get(7).getOriginName();
 		margin-left: 30px;
 	}
    
-   
+#boardImg1{
+	position: relative;	
+	width:100%;
+	height:300px;
+	margin-left:auto;
+	margin-right:auto;
+	align: center;
+	text-align: center;
+	background: black;
+}   
    
 </style>
    
-<title>Insert title here</title>
+<title>KH_Groupware</title>
 
 </head>
 
@@ -244,6 +254,11 @@ String originName8= flist.get(7).getOriginName();
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+<div style="height:46px;width:100%;background:#262A2D;"></div>
+	<div id= boardImg1>
+		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back4.jpg" style="height: 234px;">
+		<div style="width:100%; height:60px;"></div>
+	</div>
 <br><br>
 <form id= updateForm action = "<%=request.getContextPath()%>/Nupdate.bo" method="post" encType="multipart/form-data">
 <div id="outer">

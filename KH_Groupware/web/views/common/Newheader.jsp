@@ -462,7 +462,7 @@ body{
 	<!-- 마이페이지 서브메뉴 div -->	
 	<div id= "mypageDiv" class="subMenu" data-value = "0">
 	 	<div class= textArea>
-	 	<%--   <p style="width:130px;"><span style="width:130px;" onclick = "location.href='<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>'">내 정보수정<span></p> --%>
+		<p style="width:130px;"><span style="width:130px;" onclick = "goMyInfo();">내 정보수정<span></p>  
 	  	 <p style="width:130px;" onclick= "location.href = '<%=request.getContextPath()%>/views/studentPage/stdCalendar.jsp'"><span style="width:130px;" >일정 및 휴가관리<span></p> 
 	 	</div>
 	 	<div class= imgArea2>
@@ -601,10 +601,13 @@ function goTasty(){
 	  }
 
 
-	function goMyinfo(){
+	function goMyInfo(){
 		
-	<%-- location.href="<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId()%>";  --%>
+		alert("내정보수정 뭔가 이상함. 실행하면안됨")
 		
+		<%-- if(<%=userNo%> != 0){	
+			location.href="<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId()%>";  
+		}   --%>
 	}
 
 
@@ -635,17 +638,23 @@ function validate(){
 
 
 //로그인 sumbmit
-function login(){
+/* function login(){
 	alert("최신버전확인!")
 	$("#loginBtn").submit;
 }
-
+ */
 
 // 회원가입 버튼 
 function memberJoin(){
-	
-	location.href="<%=request.getContextPath()%>/views/member/memberJoinForm.jsp";
-	location.href ="<%=request.getContextPath()%>/cclass.me";
+	if(<%=userNo%> != 0){
+		alert("이미 회원가입을 하셨습니다.")
+		
+	}else{
+		location.href="<%=request.getContextPath()%>/views/member/memberJoinForm.jsp";
+		location.href ="<%=request.getContextPath()%>/cclass.me";
+		
+	}
+
 	
 }
 

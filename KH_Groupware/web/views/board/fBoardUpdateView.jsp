@@ -233,7 +233,7 @@ String originName8= flist.get(7).getOriginName();
    
 </style>
    
-<title>Insert title here</title>
+<title>KH_Groupware</title>
 
 </head>
 
@@ -245,6 +245,11 @@ String originName8= flist.get(7).getOriginName();
 </header>
 <body>
 <br><br>
+<div style="height:46px;width:100%;background:#262A2D;"></div>
+<div id= boardImg1>
+		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
+		<div style="width:100%; height:60px;background:black;"></div>
+</div>
 <form id= updateForm action = "<%=request.getContextPath()%>/Fupdate.bo" method="post" encType="multipart/form-data">
 <div id="outer">
    <div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>

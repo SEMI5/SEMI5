@@ -30,7 +30,7 @@
 <link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Text|Do+Hyeon|Sunflower:300&display=swap" rel="stylesheet">
-<title>Insert title here</title>
+<title>KH_Groupware</title>
 <style> 
    table{
       border-top: 2px solid black; 
@@ -40,6 +40,7 @@
    th{
       height: 50px;
       font-size: 20px;
+      border-right: 2px solid white;
      
    }
    
@@ -118,9 +119,9 @@
     position: absolute;
     background: white;
     width: 250px;
-    margin: 0 auto 10px;
+    margin: auto;
     border: 1px solid gray;
-    right: 390px;
+    right: 400px;
     font-size: 14px; 
     padding: 10px;
     text-align: left; 
@@ -133,8 +134,8 @@
     border-right: 5px solid transparent;
     border-left: 12px solid white;
     border-bottom: 5px solid transparent;
-    top: 13px;
-    left: 248px;
+    top: 18px;
+    left: 270px;
 }
 
  .balloon:before {
@@ -144,9 +145,9 @@
     border-right: 5px solid transparent;
     border-left: 13px solid gray;
     border-bottom: 5px solid transparent;
-    top: 13px;
-    left: 249px;
-}  
+    top: 18px;
+    left: 271px;
+} 
 
 .balloonClose{
 
@@ -186,10 +187,11 @@ text-decoration: underline;
 }
 
 .clipDiv{
-   padding-top: 3px;
+   padding-top: 18px;
    width: 40px;
    height: 35px;
    align: center;
+   text-align:center;
 }   
 
 #writerBtn{
@@ -226,8 +228,8 @@ cursor: pointer;
 select{
    font-size: 14px;
    position: absolute;
-   right: 526px;
-   border-right: none;
+   right: 536px;
+   border: 1px solid lightgray;
 }
 
 option{
@@ -318,11 +320,10 @@ input{
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-
-
+<div style="height:46px;width:100%;background:#262A2D;"></div>
 	<div id= boardImg1>
-		<img id= boardImg src="<%=request.getContextPath() %>/images/boardBack.jpg">
-		<div style="width:100%; height:60px;background:black;"></div>
+		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back4.jpg" style="height: 234px;">
+		<div style="width:100%; height:60px;"></div>
 	</div>
 
 <div id ="outer">
@@ -334,14 +335,14 @@ input{
    <div id =searchDiv>
    	  
    	  <form id = "searchForm" action = "<%=request.getContextPath() %>/NSlist.bo" method ="post" >
-      <select name= "type" style="height: 40px;margin:0px">
+      <select name= "type" style="height: 46px;margin:0px">
         <option value="all">전체</option>
         <option value="btitle">제목</option>
         <option value="bcontent">내용</option>
         <option value= "user_name">작성자</option>
        </select>
         <input name=searchWord type = "text" placeholder="검색어를 입력해주세요" style="background:white;padding-left:6px;vertical-align:0px">
-        <button onclick = "searchList();" style="outline:none;border:none;padding:0px;margin:0px" class = "searchBtn"><i class="fa fa-search searchBtn" style="color:white;width:40px;height:40px;font-size:25px;padding-top:5px"> </i></button>
+       <button onclick = "searchList();" style="outline:none;border:none;padding:0px;margin:0px" class = "searchBtn"><i class="fa fa-search searchBtn" style="color:white;width:40px;height:39px;font-size:25px;padding-top:7px"> </i></button>
         </form>
    </div>
    
@@ -536,9 +537,10 @@ $(function(){
  
  
  
- 
 </script>
 
 
 </body>
+
+
 </html>

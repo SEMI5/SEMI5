@@ -45,7 +45,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH_Groupware</title>
 <style>
    #outer{
        	
@@ -483,9 +483,9 @@ text-decoration: underline;
 </header>
 <body>
 <a name="top"></a>
-<div style="height:46px;width:100%"></div>
+<div style="height:46px;width:100%;background:#262A2D;"></div>
 <div id= boardImg1>
-		<img id= boardImg src="<%=request.getContextPath() %>/images/boardBack3.jpg">
+		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
 		<div style="width:100%; height:60px;background:black;"></div>
 </div>
 
@@ -1014,7 +1014,6 @@ $(function(){
 				thing.style.color = "gray";
 				thing.style.border = "1px solid gray";
 				 var count =  thing.lastChild.innerHTML
-				 alert(count);
 			 	 countSub = parseInt(count) -1 ;
 			 	 thing.lastChild.innerHTML= countSub; 
 			};   	 	 

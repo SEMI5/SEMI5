@@ -20,13 +20,13 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
+<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 <!-- include summernote css/js -->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>KH_Groupware</title>
 <style>
    #outer{
        width: 100%;
@@ -254,12 +254,28 @@ td span{
 	cursor:pointer;
 }
 
+#boardImg1{
+	position: relative;	
+	width:100%;
+	height:300px;
+	margin-left:auto;
+	margin-right:auto;
+	align: center;
+	text-align: center;
+	background: black;
+}   
+
 </style>
 </head>
 <header>
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+<div style="height:46px;width:100%;background:#262A2D;"></div>
+	<div id= boardImg1>
+		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back4.jpg" style="height: 234px;">
+		<div style="width:100%; height:60px;"></div>
+	</div>
 <br><br>
 	<div id="outer">
 		<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>

@@ -13,7 +13,7 @@
    }
    
    #footer {
-     position: absolute;
+     position: sticky;
      bottom: 0;
      width: 100%;
      /* height: 2.5rem;  */           /* Footer height */
@@ -24,7 +24,7 @@
    }
    
    .footerDiv li{
-   	list-style:none;
+      list-style:none;
    }
 
    #footerImg{
@@ -50,6 +50,9 @@
       background: red;
       
    }
+   .li1{
+        font-size: 17px;
+   }
 </style>
 <script>
    $("#img1").click(function() {
@@ -64,26 +67,26 @@
 </head>
 <body>
   <div id="page-container">
-    <div id="content-wrap">
-    </div>
+ <!--    <div id="content-wrap">
+    </div> -->
     <footer id="footer">
    <!--    <div class= footerTitle><h3>KH Groupware</h3></div> -->
-         <div style="height: 5px"></div>
+         <!-- <div style="height: 5px"></div> -->
          &nbsp;&nbsp;
          <div class=footerDiv style="width: 1480px; height:180px; display: inline-block;">
             <ul>
-               <li><h2>KH Groupware</h2></li>
-               <li>| SEMI-5조 | 이거사조 | 강현모, 안상재, 이준배, 조호관 |</li>
-               <li>  주소: 서울특별시 강남구 테헤란로14길 6 남도빌딩 5F S반 </li>
-               <li>Copyright 2019. 이거사조. ALL RIGHTS RESERVED</li>
+               <li><h1 style="text-align: left;height: 77px;">KH Groupware</h1></li>
+               <li class="li1">| SEMI-5조 | 이거사조 | 강현모, 안상재, 이준배, 조호관 |</li>
+               <li class="li1">  주소: 서울특별시 강남구 테헤란로14길 6 남도빌딩 5F S반 </li>
+               <li class="li1">Copyright 2019. 이거사조. ALL RIGHTS RESERVED</li>
             </ul>
          </div>
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class=footerDiv style="width: 355px; height:180px;display: inline-block;">
-             <ul>
-               <li><h3>CLICK HERE!</h3></li>
-               <li style="text-align: center;">-----------------</li>
-               <li style="text-align: center;">Alliance With</li>
+             <ul style="font-size: 20px;">
+               <li><h3 style="text-align-last: center;">CLICK BUTTON!</h3></li>
+               <li style="text-align: center; height: 50px;">-----------------</li>
+               <li style="text-align: center; height: 50px;">Alliance With</li>
                <li target="_blank" style="text-align-last: center;">
                   <img id="img1" src ="<%=request.getContextPath() %>/images/icon/KH.png"  onclick="location.href='https://iei.or.kr/main/main.kh'">
                   <img id="img2" src ="<%=request.getContextPath() %>/images/icon/HRD.png" onclick="location.href='http://hrd.go.kr/hrdp/ma/pmmao/indexNew.do'">

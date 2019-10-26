@@ -183,7 +183,7 @@
 		font-size: 15px;
 		width: 100px;
 		height: 40px;	
-		margin-left: 173px; 
+		margin-left: 182px; 
 	}
 	
 	#resetBtn:hover{
@@ -207,9 +207,20 @@
 		margin-left: 30px;
 	}
 	
+	
+	#boardImg1{
+	position: relative;	
+	width:100%;
+	height:300px;
+	margin-left:auto;
+	margin-right:auto;
+	align: center;
+	text-align: center;
+	background: black;
+	}
 </style>
    
-<title>Insert title here</title>
+<title>KH_Groupware</title>
 
 </head>
 
@@ -220,6 +231,13 @@
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+<div style="height:46px;width:100%;background:#262A2D;"></div>
+<div id= boardImg1>
+		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
+		<div style="width:100%; height:60px;background:black;"></div>
+</div>
+
+
 <br><br>
 <form id= insertForm action = "<%=request.getContextPath()%>/insert.Fbo" method="post" encType="multipart/form-data">
 <div id="outer">

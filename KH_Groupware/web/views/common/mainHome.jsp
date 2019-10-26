@@ -357,11 +357,12 @@ bottom: 0px;
 	 <%@ include file = "header.jsp" %>
 </header>
 <body>
-
+<div id="container"><!-- container -->
+  <div id="mainContent"><!-- mainContent -->
 
 <!-- 이미지 슬라이더 부분  -->
 
-<div style="height:46px;width:100%"></div>
+<div style="height:46px;width:100%;background:#262A2D;"></div>
 	<div class="slideshow-container">	
 		<div class="mySlides fade">
 		  <div class="numbertext">1 / 3</div>
@@ -411,6 +412,8 @@ bottom: 0px;
     <div class = "block block-test2 area9"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">휴가관리</div>
     <div class = "block block-test2 area10"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">퀴즈</div>
 </div>
+
+
 
 <div class= "mainOuter">
 	<div style="border: 1px solid red">
@@ -462,12 +465,12 @@ bottom: 0px;
 	</div>
 	<br><br><br><br>
 </div>
-
-
+   </div><!-- mainContent -->
+</div><!-- container -->
 
 </body>
 
-	
+<footer> <%@ include file = "footer.jsp" %></footer>
 <script>
 
 var slideIndex = 1;
