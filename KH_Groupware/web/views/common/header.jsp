@@ -10,7 +10,9 @@
 	} 
 
 
-%>    
+%>   
+
+<!--  헤더 수정 충돌날경우 old나 newheader 사용 -->
 <!DOCTYPE html>
 <html>
 <head>
