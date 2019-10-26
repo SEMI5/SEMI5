@@ -32,7 +32,7 @@
 <script type="text/javascript">
 	var sDate;
 	var eDate;
-
+	
 	$(function(){
 		$('#calendar').fullCalendar({
 			navLinkDayClick: function(){
@@ -289,6 +289,7 @@
 		width: 20%;
 		height: 830px;
 		padding: 2%;
+		
 	} 
 	
 	#stdListTable{

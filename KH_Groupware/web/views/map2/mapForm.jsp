@@ -236,5 +236,6 @@
 	
  	</div>
 </body>
-	<%@ include file = "/views/common/bootsFooter.jsp" %> 
+<%-- 	<%@ include file = "/views/common/bootsFooter.jsp" %>  --%>
+	 <%@ include file = "../common/footer.jsp" %>
 </html>

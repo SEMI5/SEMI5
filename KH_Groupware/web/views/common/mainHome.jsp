@@ -270,7 +270,232 @@ img {vertical-align: middle;}
 h1{
 	text-align: center;
 }
-            
+        
+/* 갤러리 */
+
+/* 썸네일이미지를올려놓을갤러리스타일*/
+#gallery_area {
+	/* 	border: 1px solid black; /* 굵은테두리*/ */
+		width: 100%; /* 너비*/
+		height: 600px; /* 높이*/
+		margin-left: auto; /* 여백자동*/
+		margin-right: auto;
+		overflow: visible; /* 오버플로일경우visible로*/
+		background: white; /* 배경색*/
+		/* -webkit-box-shadow: #272229 10px 10px 20px; */ /* 박스그림자*/
+		/* -moz-box-shadow: #272229 10px 10px 20px;
+		box-shadow: #272229 10px 10px 20px; */
+}
+
+/* 썸네일목록전체스타일*/
+#gallery_area ul{
+	margin-left: 140px; /* 갤러리가운데에콘텐츠가올수있도록*/
+	margin-top : 20px;
+	
+}
+
+/* 썸네일각항목에대한스타일*/
+#gallery_area ul li {
+		list-style:none; /* 불릿없앰*/
+		display:inline-table; /* 테이블스타일로배치*/
+		padding:10px;/* 안여백은각각10px로*/
+}
+
+/* 평소큰이미지.pic 에대한스타일*/
+#gallery_area ul li .pic{
+		-webkit-transition: all 0.6s ease-in-out; /* 웹킷브라우저에서트랜지션효과가나타나도록*/
+		width:400px; /* 너비*/
+		height:300px; /* 높이*/
+		opacity:0; /* 페이드아웃효과*/
+		visibility:hidden; /* 처음에는보이지않게*/
+		position:absolute; /* 고정위치*/
+		margin-top:10px; /* 상단여백*/
+		margin-left:-20px; /* 왼쪽으로20픽셀이동해서*/
+		border:1px solid black; /* 검은색테두리그림*/
+		-webkit-box-shadow:#272229 2px 2px 10px; /* 박스그림자*/
+		-moz-box-shadow:#272229 2px 2px 10px; /* 박스그림자*/
+		box-shadow:#272229 2px 2px 10px; /* 박스그림자*/
+}
+
+/*마우스 오버 효과주기*/
+#gallery_area ul li .small:hover{
+		cursor:pointer;
+}
+
+/* 썸네일이미지위로마우스오버했을때큰이미지의스타일* */
+#gallery_area ul li:hover .pic {
+		width:400px; /* 너비*/
+		height:300px; /* 높이*/
+		opacity:1; /* 불투명하게*/
+		visibility:visible; /* 화면에보임*/
+		float:right; /* 오른쪽으로플로팅*/
+}
+
+#gallery_textarea{
+	font-size : 2.5em;
+	margin-left : 195px;
+}
+
+  
+.outerblockarea{
+	width : 100%;
+	height : 600px;
+	background : yellow;
+}  
+.blockarea{
+     display : inline-block;
+     float : right;
+}
+
+.plusBtn:hover{
+     opacity: 0.8;
+     cursor : pointer;
+}  
+  
+
+
+
+
+
+
+
+
+/* 타임라인 */
+/* The actual timeline (the vertical ruler) */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  height : 700px;
+  margin: 30 auto;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background-color: white;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+  height : 600px;
+}
+
+/* Container around content */
+.container {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
+
+/* The circles on the timeline */
+.container::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;	
+  right: -17px;
+  background-color: white;
+  border: 4px solid #C94F44;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Place the container to the left */
+.left {
+  left: 0;
+}
+
+/* Place the container to the right */
+.right {
+  left: 50%;
+}
+
+/* Add arrows to the left container (pointing right) */
+.left::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  right: 30px;
+  border: medium solid white;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent white;
+}
+
+/* Add arrows to the right container (pointing left) */
+.right::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  left: 30px;
+  border: medium solid white;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+}
+
+/* Fix the circle for containers on the right side */
+.right::after {
+  left: -16px;
+}
+
+/* The actual content */
+.contentmonth {
+  padding: 20px 30px;
+  background-color: white;
+  position: relative;
+  border-radius: 6px;
+}
+.contentmonth:hover {
+  opacity: 0.8;
+   cursor : pointer;
+}
+
+
+
+/* Media queries - Responsive timeline on screens less than 600px wide */
+@media screen and (max-width: 600px) {
+  /* Place the timelime to the left */
+  .timeline::after {
+  left: 31px;
+  }
+  
+  /* Full-width containers */
+  .container {
+  width: 100%;
+  padding-left: 70px;
+  padding-right: 25px;
+  }
+  
+  /* Make sure that all arrows are pointing leftwards */
+  .container::before {
+  left: 60px;
+  border: medium solid white;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+  }
+
+  /* Make sure all circles are at the same spot */
+  .left::after, .right::after {
+  left: 15px;
+  }
+  
+  /* Make all right containers behave like the left ones */
+  .right {
+  left: 0%;
+}  
+
+
+  
+  
 </style>
 
 </head>
@@ -343,9 +568,58 @@ function showSlides(n) {
 
 <br><br>
 <hr>
+<br><br><br><br><br><br>
+<div class = "outerblockarea">
+	<!-- <div class = "blockarea" style="width : 49%; height:600px; background : blue; margin-left : 14px;" > 첫 번째 영역 </div> -->
+		<div class = "blockarea" style="width : 50%; height:600px; background : #dfdfdf;">
+			<div class = "timeArea" style="width : 80%; height:500px; margin-left : 20px; ">
+				<p class = "plusBtn" style = "font-size : 25px; color : black;"> 학 사 일 정 <span style = "float : right;"><i class="fa fa-plus" aria-hidden="true"></i></span></p>
+				<hr style = "border : 2px solid white;">
+					<div class="timeline">
+					  <div class="container left">
+					    <div class="contentmonth">
+					      <h3>2019.07.03</h3>
+					      <p> 프로그래밍 언어활용  </p>
+					    </div>
+					  </div>
+					 
+					  <div class="container right">
+					    <div class="contentmonth">
+					      <h3>2019.07.17</h3>
+					      <p>요구사항 확인 </p>
+					    </div>
+					  </div>
+					  
+					   <div class="container left">
+					    <div class="contentmonth">
+					      <h3>2019.07.24</h3>
+					      <p>자바기반<br> 애플리케이션 개발 </p>
+					    </div>
+					  </div>
+					  
+					  
+					</div>  
+			</div>
+		</div>
+		
+			<div class = "blockarea" style="width : 50%; height:600px; background : #ededed;">
+			<div class = "timeArea" style="width : 80%; height:500px; margin-left : 20px; ">
+				<p class = "plusBtn" style = "font-size : 25px; color : black;"> 공 지 사 항<span style = "float : right;"><i class="fa fa-plus" aria-hidden="true"></i></span></p>
+				<hr style = "border : 2px solid white;">
+				
+				
+				
+				
+			</div>
+	</div>
+	
+	
+	
+</div>
 <br>
 
-<h1> 주요 서비스 </h1>
+
+<!-- <h1> 주요 서비스 </h1>
 <button class="tablink" onclick="openCity('London', this, 'red')" id="defaultOpen"> 주요기능1 </button>
 <button class="tablink" onclick="openCity('Paris', this, 'green')" id="defaultClose" > 주요기능2 </button>
 	<br><br><br><br>
@@ -366,7 +640,64 @@ function showSlides(n) {
 </div>
 
 <br><br><br><br>
-<hr>
+<hr> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<p id = "gallery_textarea" ><span>g a l l e r y</span></p>
+  <div id="gallery_area">
+	  <ul>
+		  <li> <img src="<%=request.getContextPath() %>/images/austin.jpg" class="small" width="270" height="200"> <img src="<%=request.getContextPath() %>/images/austin.jpg" class="pic"> 
+		  </li>
+		   <li> <img src="<%=request.getContextPath() %>/images/dose.jpg" class="small" width="270" height="200"> <img src="<%=request.getContextPath() %>/images/dose.jpg" class="pic">
+		  </li>
+		   <li> <img src="<%=request.getContextPath() %>/images/estee.jpg" class="small" width="270" height="200"> <img src="<%=request.getContextPath() %>/images/estee.jpg" class="pic">
+		  </li>
+		  <li> <img src="<%=request.getContextPath() %>/images/josh.jpg" class="small" width="270" height="200"> <img src="<%=request.getContextPath() %>/images/josh.jpg" class="pic">
+		  </li>
+		   <li> <img src="<%=request.getContextPath() %>/images/melinda.jpg" class="small" width="270" height="200"> <img src="<%=request.getContextPath() %>/images/melinda.jpg" class="pic">
+		  </li>
+		   <li> <img src="<%=request.getContextPath() %>/images/stil.jpg" class="small" width="270" height="200"> <img src="<%=request.getContextPath() %>/images/stil.jpg" class="pic"> 
+		  </li>
+		  <li> <img src="<%=request.getContextPath() %>/images/priscilla.jpg" class="small" width="270" height="200"> <img src="<%=request.getContextPath() %>/images/priscilla.jpg" class="pic"> 
+		  </li>
+		  <li> <img src="<%=request.getContextPath() %>/images/tyle.jpg" class="small" width="270" height="200"> <img src="<%=request.getContextPath() %>/images/tyle.jpg" class="pic"> 
+		  </li>
+	  </ul>
+  </div>
+
 
 
 <script>
@@ -410,19 +741,14 @@ function showSlides(n) {
 
 
 
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 	
 		
 		
-	<%@ include file = "bootsFooter.jsp" %>		
+	<%-- <%@ include file = "bootsFooter.jsp" %>	 --%>
+	
+		
+ <%@ include file = "footer.jsp" %> 
 		
 </body>
 
-<footer>
-
-<%-- <%@ include file = "footer.jsp" %> --%>
-</footer>
 </html>
