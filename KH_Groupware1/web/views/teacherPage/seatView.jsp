@@ -352,7 +352,7 @@ var setSeat = $(function(){
                <%count++; %>
 
             <%} else{%>
-               $("#sNo<%=stdList.get(i*3+j).getSeat()%>").html("<div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
+               $("#sNo<%=stdList.get(i*3+j).getSeat()%>").html(" <%=stdList.get(i*3+j).getSeat()%><div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
                                      +"<table id='stdInfo<%=(i*3+j+1)%>'>"
                                        +"<tr>"
                                           +"<td><%=stdList.get(i*3+j).getUserName()%></td>"
@@ -415,11 +415,9 @@ function resetSeat(){
                                +"</div");
 
           
-             $("#sNo<%=ccount%>").html("<%=ccount%>");
-             <%ccount++; %>
- 
-          
        <%} %>
+       $("#sNo<%=ccount%>").html("<%=ccount%>");
+       <%ccount++; %>
     <%} %>
  <%} %>
 	

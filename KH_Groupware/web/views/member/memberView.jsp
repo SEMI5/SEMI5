@@ -5,12 +5,12 @@
     pageEncoding="UTF-8"%>
     
 <%
-	Member loginUser = (Member)request.getAttribute("member");
-	khClass cls = (khClass)request.getAttribute("khClass");
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	String cls = (String)session.getAttribute("className");
 
 	
 	String userId = loginUser.getUserId();
-	String cName = cls.getcName();
+	String cName = cls;
 	String userName = loginUser.getUserName();
 	String userBorn = loginUser.getRRN().substring(0, 7);
 	String userGender = loginUser.getRRN().substring(6);
@@ -51,20 +51,26 @@
 		color : black;
 	}
 	
-	#joinForm{
+	#updateForm{
+		margin: auto;
 		margin-top: 40px;
-	
+		margin-top: 10px;
+		border: 1px solid lightgrey;
+		width: 35%;
+		padding: 50px;
+		padding-top: 0px;
 	}
 	
 	input{
-		font-size: 20px;
-		margin-top : 20px;
-		width: 400px;
-		height: 40px;
-		margin-left: 60px;
+		font-size: 13px;
+		margin-top : 10px;
+		width: 250px;
+		height: 25px;
+		margin-left: 30px;
 	}
 	
 	#deleteBtn, #updateBtn, #joinBtn, #searchAdd{
+		margin-top: 2px;
 		background : black;
 		color : white;
 		border-radius : 5px;
@@ -73,23 +79,45 @@
 		text-align : center;
 	}
 	
+	#deleteBtn:hover, #updateBtn:hover, #searchAdd:hover {
+		background: lightgrey;
+		cursor: pointer;
+	}
+	
+	#joinBtn:hover, #searchAdd {
+		background: lightgrey;
+		cursor: pointer;
+	}
+	
+	#goMain:hover{
+		background: whitesmoke;
+		cursor: pointer;
+	}
+	
 	#searchAdd{
-		align-content: left;
+		margin-top: 8px;
+		background : black;
+		color : white;
+		border-radius : 5px;
+		width : 150px;
+		height : 30px;
+		text-align : center;
+		
 	}
 	
 	td{
 		margin-top: 20px;
-		font-size: 22px;
+		font-size: 15px;
 		text-align : right;
-		height: 50px;
+		height: 40px;
 	}
 	
 	select{
-		font-size: 20px;
-		height: 40px;
+		font-size: 13px;
+		height: 30px;
 		width: 400px;
-		margin-left: 200px;
-		margin-top: 20px;
+		margin-left: 100px;
+		margin-top: 10px;
 	}
 
 	#joinForm tr{
@@ -113,8 +141,8 @@
 	}
 	
 	.btns{
-		margin: 15px;
-		margin-top:50px;
+		margin: 10px;
+		margin-top:80px;
 		font-size: 20px;
 		padding: auto;
 	}
@@ -132,6 +160,7 @@
 		height: 20px;
 		text-align: right;
 		padding-left: 10px;
+		font-size: 10px;
 	}
 
 
@@ -147,48 +176,48 @@
 
 <div class = "outer">
 		<br>
-		<h1 align="left" style="font-size : 50px;"><em>정보수정</em></h1>
-		<h2><%= userName %> (<%=userBorn %>, <%=userGender %>)</h2> 
-		<h3><%=cName %>반</h3>
 		<form id = "updateForm" action = "<%=request.getContextPath() %>/update.me" method ="post" >
+				<h1 align="left" style="font-size : 40px;"><em>정보수정</em></h1>
+				<p style = "font-size: 20px; margin: 1px;"><%=cName %>반</p>
+				<p style = "font-size: 18px;  margin: 1px; margin-bottom: 20px;"><%= userName %> (<%=userBorn %>, <%=userGender %>)</p> 
 			<table align = "center">
 				<tr>
-					<td width ="200px"> * 아이디 </td>
+					<td width ="200px">아이디</td>
 					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" value = "<%=userId%>"readonly="readonly"></td>  <!--required 미입력시 값을 입력하세요 문구뜸  -->
 					<th class = "info"><div id = "checkId" class = "checkInfo"></div></th>
 					<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
 				</tr>
 				<tr>
-					<td> * 비밀번호 </td>
+					<td>비밀번호</td>
 					<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd" required></td>
 					<th class = "info"><div id = "checkPwd" class = "checkInfo"></div></th>
 				</tr>
 				<tr>
-					<td>* 비밀번호 확인</td>
+					<td>비밀번호 확인</td>
 					<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2" required></td>
 					<th class = "info"><div id = "checkPwd2" class = "checkInfo"></div></th>
 				</tr>
 				<tr>
-					<td> * 연락처 </td>
+					<td>연락처</td>
 					<td>
-						<select id = "tel0" class = "phone" name = "phone1" value = "<%=phone[0]%>"style="width: 90px; margin-left: 10px; height: 48px;">
+						<select id = "tel0" class = "phone" name = "phone1" value = "<%=phone[0]%>"style="width: 60px; margin-left: 10px; height: 30px;">
 							<option value = "010">010</option>
 							<option value = "011">011</option>
 							<option value = "016">016</option>
 							<option value = "019">019</option>
 						</select>
-						<input id = "tel1" class = "phone" type="tel" value = "<%=phone[1]%>"maxlength="4" name="phone2" style="width: 130px;  margin-left: 15px;">
-						<input id = "tel2" class = "phone" type="tel" value = "<%=phone[2]%>"maxlength="4" name="phone3" style="width: 130px;  margin-left: 15px;">
+						<input id = "tel1" class = "phone" type="tel" value = "<%=phone[1]%>"maxlength="4" name="phone2" style="width: 82px;  margin-left: 5px;">
+						<input id = "tel2" class = "phone" type="tel" value = "<%=phone[2]%>"maxlength="4" name="phone3" style="width: 82px;  margin-left: 5px;">
 					</td>
 					<th class = "info"><div id = "checkPhone" class = "checkInfo"></div></th>
 				</tr>
 				<tr>
-					<td> * 이메일 </td>
-					<td id = "emailPt"><input type = "text" name = "emailId" value = "<%=email[0]%>"style="width: 141px; margin-right: 5px;" required="required"><em>@</em>
-					<input type="text" name="email2" value = "<%=email[1]%>" style="width: 220px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
+					<td>이메일</td>
+					<td id = "emailPt"><input type = "text" name = "emailId" value = "<%=email[0]%>"style="width: 100px; margin-right: 5px;" required="required"><em>@</em>
+					<input type="text" name="email2" value = "<%=email[1]%>" style="width: 120px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
 					</td>
 					<th>
-					<select id = "selctEmail" name = "selctEmail" class = "info" style="width: 150px; margin-left: 0px; height: 40px;" onchange="SetEmailTail(selctEmail.options[this.selectedIndex].value)" >
+					<select id = "selctEmail" name = "selctEmail" class = "info" style="width: 150px; margin-left: 0px; height: 30px;" onchange="SetEmailTail(selctEmail.options[this.selectedIndex].value)" >
 						<!-- <option value = "notSelected">====선택====</option> -->
 						<option value = "naver.com">naver.com</option> 
 						<option value = "goole.com">google.com</option>
@@ -202,7 +231,7 @@
 					</th>
 				</tr>
 				<tr>
-					<td> * 주소 </td>
+					<td>주소</td>
 					<td><input type="text" id="address" name = "address" value = "<%=address[0]%>"placeholder="주소" ReadOnly = "true" required="required"></td>
 					<th><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px"></th>
 				</tr>

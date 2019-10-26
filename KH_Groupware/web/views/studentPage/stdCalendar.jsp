@@ -172,18 +172,8 @@
 <body>
 <div id = "outer">
 	<div id = "calendar"></div>
-	<div id = "stdList">sdfsdfsd</div>
+	<div id = "stdList">&nbsp;</div>
 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 
