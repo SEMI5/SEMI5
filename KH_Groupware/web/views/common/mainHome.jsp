@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%--    <%
+    ArrayList blist = (ArrayList)request.getAttribute("blist");
+	ArrayList flist = (ArrayList)request.getAttribute("flist");
+	System.out.print("view blist : " + blist);
+	System.out.print("view flist : " + flist);
+		
+	
+	ArrayList<Thumbnail> list = (ArrayList<Thumbnail>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	%> --%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +19,10 @@
 <title>KH_Groupware</title>
 
 <link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body class="w3-content" style="max-width:100%">
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 * {box-sizing: border-box}
 body {font-family: Verdana, sans-serif; margin:0}
@@ -220,7 +234,8 @@ img {vertical-align: middle;}
 .block-test2{
       display : inline-block;
 }
-           
+/* 메인슬라이더 끝 */
+
            
            
            
@@ -346,244 +361,22 @@ bottom: 0px;
  height: 200px; 
  width: 600px;
  left: 0px;
- 
+} 
 
-}   
+.w3-table tr:hover{
+	background : white;
+	color : black;
+}
         
-/* 갤러리 */
-
-/* 썸네일이미지를올려놓을갤러리스타일*/
-#gallery_area {
-	/* 	border: 1px solid black; /* 굵은테두리*/ */
-		width: 100%; /* 너비*/
-		height: 600px; /* 높이*/
-		margin-left: auto; /* 여백자동*/
-		margin-right: auto;
-		overflow: visible; /* 오버플로일경우visible로*/
-		background: white; /* 배경색*/
-		/* -webkit-box-shadow: #272229 10px 10px 20px; */ /* 박스그림자*/
-		/* -moz-box-shadow: #272229 10px 10px 20px;
-		box-shadow: #272229 10px 10px 20px; */
-}
-
-/* 썸네일목록전체스타일*/
-#gallery_area ul{
-	margin-left: 140px; /* 갤러리가운데에콘텐츠가올수있도록*/
-	margin-top : 20px;
-	
-}
-
-/* 썸네일각항목에대한스타일*/
-#gallery_area ul li {
-		list-style:none; /* 불릿없앰*/
-		display:inline-table; /* 테이블스타일로배치*/
-		padding:10px;/* 안여백은각각10px로*/
-}
-
-/* 평소큰이미지.pic 에대한스타일*/
-#gallery_area ul li .pic{
-		-webkit-transition: all 0.6s ease-in-out; /* 웹킷브라우저에서트랜지션효과가나타나도록*/
-		width:400px; /* 너비*/
-		height:300px; /* 높이*/
-		opacity:0; /* 페이드아웃효과*/
-		visibility:hidden; /* 처음에는보이지않게*/
-		position:absolute; /* 고정위치*/
-		margin-top:10px; /* 상단여백*/
-		margin-left:-20px; /* 왼쪽으로20픽셀이동해서*/
-		border:1px solid black; /* 검은색테두리그림*/
-		-webkit-box-shadow:#272229 2px 2px 10px; /* 박스그림자*/
-		-moz-box-shadow:#272229 2px 2px 10px; /* 박스그림자*/
-		box-shadow:#272229 2px 2px 10px; /* 박스그림자*/
-}
-
-/*마우스 오버 효과주기*/
-#gallery_area ul li .small:hover{
-		cursor:pointer;
-}
-
-/* 썸네일이미지위로마우스오버했을때큰이미지의스타일* */
-#gallery_area ul li:hover .pic {
-		width:400px; /* 너비*/
-		height:300px; /* 높이*/
-		opacity:1; /* 불투명하게*/
-		visibility:visible; /* 화면에보임*/
-		float:right; /* 오른쪽으로플로팅*/
-}
-
-#gallery_textarea{
-	font-size : 2.5em;
-	margin-left : 195px;
-}
-
-  
-.outerblockarea{
-	width : 100%;
-	height : 600px;
-	background : yellow;
-}  
-.blockarea{
-     display : inline-block;
-     float : right;
-}
-
-.plusBtn:hover{
-     opacity: 0.8;
-     cursor : pointer;
-}  
-  
-
-
-
-
-
-
-
-
-/* 타임라인 */
-/* The actual timeline (the vertical ruler) */
-.timeline {
-  position: relative;
-  max-width: 800px;
-  height : 700px;
-  margin: 30 auto;
-}
-
-/* The actual timeline (the vertical ruler) */
-.timeline::after {
-  content: '';
-  position: absolute;
-  width: 6px;
-  background-color: white;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  margin-left: -3px;
-  height : 600px;
-}
-
-/* Container around content */
-.container {
-  padding: 10px 40px;
-  position: relative;
-  background-color: inherit;
-  width: 50%;
-}
-
-/* The circles on the timeline */
-.container::after {
-  content: '';
-  position: absolute;
-  width: 25px;
-  height: 25px;	
-  right: -17px;
-  background-color: white;
-  border: 4px solid #C94F44;
-  top: 15px;
-  border-radius: 50%;
-  z-index: 1;
-}
-
-/* Place the container to the left */
-.left {
-  left: 0;
-}
-
-/* Place the container to the right */
-.right {
-  left: 50%;
-}
-
-/* Add arrows to the left container (pointing right) */
-.left::before {
-  content: " ";
-  height: 0;
-  position: absolute;
-  top: 22px;
-  width: 0;
-  z-index: 1;
-  right: 30px;
-  border: medium solid white;
-  border-width: 10px 0 10px 10px;
-  border-color: transparent transparent transparent white;
-}
-
-/* Add arrows to the right container (pointing left) */
-.right::before {
-  content: " ";
-  height: 0;
-  position: absolute;
-  top: 22px;
-  width: 0;
-  z-index: 1;
-  left: 30px;
-  border: medium solid white;
-  border-width: 10px 10px 10px 0;
-  border-color: transparent white transparent transparent;
-}
-
-/* Fix the circle for containers on the right side */
-.right::after {
-  left: -16px;
-}
-
-/* The actual content */
-.contentmonth {
-  padding: 20px 30px;
-  background-color: white;
-  position: relative;
-  border-radius: 6px;
-}
-.contentmonth:hover {
-  opacity: 0.8;
-   cursor : pointer;
-}
-
-
-
-/* Media queries - Responsive timeline on screens less than 600px wide */
-@media screen and (max-width: 600px) {
-  /* Place the timelime to the left */
-  .timeline::after {
-  left: 31px;
-  }
-  
-  /* Full-width containers */
-  .container {
-  width: 100%;
-  padding-left: 70px;
-  padding-right: 25px;
-  }
-  
-  /* Make sure that all arrows are pointing leftwards */
-  .container::before {
-  left: 60px;
-  border: medium solid white;
-  border-width: 10px 10px 10px 0;
-  border-color: transparent white transparent transparent;
-  }
-
-  /* Make sure all circles are at the same spot */
-  .left::after, .right::after {
-  left: 15px;
-  }
-  
-  /* Make all right containers behave like the left ones */
-  .right {
-  left: 0%;
-}  
-
 
 </style>
 
 </head>
-<header>
-	
-</header>
 <body>
-		<%@ include file = "header.jsp" %>
-<!-- 이미지 슬라이더 부분  -->
+<%@ include file = "header.jsp" %>
+		<!-- 이미지 슬라이더 부분  -->
 
-<div style="height:46px;width:100%"></div>
+<!-- <br><br><br><br><br> -->
 	<div class="slideshow-container">	
 		<div class="mySlides fade">
 		  <div class="numbertext">1 / 3</div>
@@ -610,191 +403,187 @@ bottom: 0px;
 		<span class="dot" onclick="currentSlide(3)"></span> 
 	</div>
 	
-<br><br>
-<hr>
-<br>
-
-<h1> 주요 서비스 </h1>
-<button class="tablink" onclick="openCity('London', this, 'red')" id="defaultOpen"> 주요기능1 </button>
-<button class="tablink" onclick="openCity('Paris', this, 'green')" id="defaultClose" > 주요기능2 </button>
-	<br><br><br><br>
-	<div id="London" class="tabcontent">
-  	<div class = "block block-test2 area1"><img src="../../images/icon/iconmonstr-clipboard-1-240.png" style="width:100%">자유게시판</div>
-    <div class = "block block-test2 area2" onclick = "goThumbnail();"><img src="../../images/icon/iconmonstr-picture-1-240.png" style="width:100%">사진게시판</a></div>
-    <div class = "block block-test2 area3"  onclick = "goShare();"><img src="../../images/icon/iconmonstr-note-37-240.png" style="width:100%">공유자료</div>
-    <div class = "block block-test2 area4"><img src="../../images/icon/iconmonstr-speech-bubble-18-240.png" style="width:100%">채팅</div>
-    <div class = "block block-test2 area5"><img src="../../images/icon/iconmonstr-eat-6-thin-240.png" style="width:100%">맛집</div>
-</div>
-
-<div id="Paris" class="tabcontent">
-  	<div class = "block block-test2 area6"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">공지사항</div>
-    <div class = "block block-test2 area7"><img src="../../images/icon/iconmonstr-user-30-240.png" style="width:100%">학생관리</div>
-    <div class = "block block-test2 area8"><img src="../../images/icon/iconmonstr-window-11-240.png" style="width:100%">자리배치</div>
-    <div class = "block block-test2 area9"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">휴가관리</div>
-    <div class = "block block-test2 area10"><img src="../../images/icon/iconmonstr-clipboard-5-240.png" style="width:100%">퀴즈</div>
-</div>
-
-<div class= "mainOuter">
-	<div style="border: 1px solid red">
-		
-		<div class=previewThumb></div>
-		<iframe width="600px" height="337px" src="https://www.youtube.com/embed/LGJe_ZchraY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		<div class= tableDiv >
-		<table class="previewBoard1"> 
-			<tr>
-				<td>공지사항</td>
-				<td>더보기</td>
-			</tr> 
-			<tr>
-			<td>공지사항 어쩌구 안내 사항1</td>
-			<td>날짜 들어갈자림 </td>
-			</tr>
-			<tr>
-			<td>공지사항 어쩌구 안내 사항2</td>
-			<td>날짜 들어갈자림 </td>
-			</tr>
-			<tr>
-			<td>공지사항 어쩌구 안내 사항3</td>
-			<td>날짜 들어갈자림 </td>
-			</tr>
-		</table>
-		<table class="previewBoard2"> 
-			<tr>
-				<td>공지사항</td>
-				<td>더보기</td>
-			</tr> 
-			<tr>
-			<td>공지사항 어쩌구 안내 사항1</td>
-			<td>날짜 들어갈자림 </td>
-			</tr>
-			<tr>
-			<td>공지사항 어쩌구 안내 사항2</td>
-			<td>날짜 들어갈자림 </td>
-			</tr>
-			<tr>
-			<td>공지사항 어쩌구 안내 사항3</td>
-			<td>날짜 들어갈자림 </td>
-			</tr>
-		</table>
-		</div>
-		
-		<div class= callendarDiv> 
-			callendar		
-		</div>
-	</div>
-	<br><br><br><br>
-</div>
-
-
-
-</body>
-
-	
+<!-- 메인 슬라이더  css  -->
 <script>
 
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
+	var slideIndex = 1;
+	showSlides(slideIndex);
+	
+	function plusSlides(n) {
+	  showSlides(slideIndex += n);
+	}
+	
+	function currentSlide(n) {
+	  showSlides(slideIndex = n);
+	}
+	
+	function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("dot");
+	  if (n > slides.length) {slideIndex = 1}    
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";  
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	      dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  slides[slideIndex-1].style.display = "block";  
+	  dots[slideIndex-1].className += " active";
+	}
 </script>
 
-<br><br>
-<hr>
-<br><br><br><br><br><br>
-<div class = "outerblockarea">
-	<!-- <div class = "blockarea" style="width : 49%; height:600px; background : blue; margin-left : 14px;" > 첫 번째 영역 </div> -->
-		<div class = "blockarea" style="width : 50%; height:600px; background : #dfdfdf;">
-			<div class = "timeArea" style="width : 80%; height:500px; margin-left : 20px; ">
-				<p class = "plusBtn" style = "font-size : 25px; color : black;"> 학 사 일 정 <span style = "float : right;"><i class="fa fa-plus" aria-hidden="true"></i></span></p>
-				<hr style = "border : 2px solid white;">
-					<div class="timeline">
-					  <div class="container left">
-					    <div class="contentmonth">
-					      <h3>2019.07.03</h3>
-					      <p> 프로그래밍 언어활용  </p>
-					    </div>
-					  </div>
-					 
-					  <div class="container right">
-					    <div class="contentmonth">
-					      <h3>2019.07.17</h3>
-					      <p>요구사항 확인 </p>
-					    </div>
-					  </div>
-					  
-					   <div class="container left">
-					    <div class="contentmonth">
-					      <h3>2019.07.24</h3>
-					      <p>자바기반<br> 애플리케이션 개발 </p>
-					    </div>
-					  </div>
-					  
-					  
-					</div>  
-			</div>
-		</div>
-		
-			<div class = "blockarea" style="width : 50%; height:600px; background : #ededed;">
-			<div class = "timeArea" style="width : 80%; height:500px; margin-left : 20px; ">
-				<p class = "plusBtn" style = "font-size : 25px; color : black;"> 공 지 사 항<span style = "float : right;"><i class="fa fa-plus" aria-hidden="true"></i></span></p>
-				<hr style = "border : 2px solid white;">
-				
-				
-				
-				
-			</div>
-	</div>
-	
-	
-	
-</div>
-<br>
 
-<!-- <h1> 주요 서비스 </h1>
-<button class="tablink" onclick="openCity('London', this, 'red')" id="defaultOpen"> 주요기능1 </button>
-<button class="tablink" onclick="openCity('Paris', this, 'green')" id="defaultClose" > 주요기능2 </button>
-	<br><br><br><br>
-	<div id="London" class="tabcontent">
-  	<div class = "block block-test2 area1"><img src="../../images/icon/iconmonstr-clipboard-1-240.png" style="width:100%">자유게시판</div>
-    <div class = "block block-test2 area2" onclick = "goThumbnail();"><img src="../../images/icon/iconmonstr-picture-1-240.png" style="width:100%">사진게시판</a></div>
-    <div class = "block block-test2 area3"  onclick = "goShare();"><img src="../../images/icon/iconmonstr-note-37-240.png" style="width:100%">공유자료</div>
-    <div class = "block block-test2 area4"><img src="../../images/icon/iconmonstr-speech-bubble-18-240.png" style="width:100%">채팅</div>
-    <div class = "block block-test2 area5"><img src="../../images/icon/iconmonstr-eat-6-thin-240.png" style="width:100%">맛집</div>
+<!-- First Grid: Logo & About -->
+<div class="w3-row">
+  <div class="w3-half w3-black w3-container w3-center" style="height:700px">
+    <div class="w3-padding-64">
+      <h1>주요 기능</h1>
+    </div>
+    <div class="w3-padding-64">
+      <a href="#" class="w3-button w3-black w3-block w3-hover-blue-grey w3-padding-16"> 공지사항 </a>
+      <a href="#work" class="w3-button w3-black w3-block w3-hover-teal w3-padding-16"> 자유게시판 </a>
+      <a href="#work" class="w3-button w3-black w3-block w3-hover-dark-grey w3-padding-16"> 사진게시판 </a>
+      <a href="#" class="w3-button w3-black w3-block w3-hover-brown w3-padding-16">자료실</a>
+      <a href="#" class="w3-button w3-black w3-block w3-hover-blue-grey w3-padding-16"> 맛집 </a>
+      <a href="#" class="w3-button w3-black w3-block w3-hover-teal w3-padding-16"> 일정관리 & 휴가관리 </a>
+      
+    </div>
+  </div>
+  <div class="w3-half w3-blue-grey w3-container" style="height:700px">
+    <div id = "teacherInfoArea" class="w3-padding-64 w3-center" onclick = "goPage();" style = "cursor : pointer;">
+      <h1>강사 소개</h1>
+      <img src="../../images/aqwxcc.jpg" class="w3-margin w3-circle" alt="Person" style="width:50%; height : 310px; ">
+      <div class="w3-left-align w3-padding-large">
+        <p align = "center">IT업계 최고의 강사진을 소개합니다.<br>
+      </div>
+    </div>
+  </div>
 </div>
 
+<script>
+	function goPage(){
+		 location.href="teacherInfoPage.jsp";
+		}
+</script>
 
+<!-- Second Grid: Work & Resume -->
+<div class="w3-row">
+  <div class="w3-half w3-light-grey w3-center" style= "width : 100%; min-height:800px" id="work">
+    <div class="w3-padding-64">
+      <h2>교 육 시 설</h2>
+      <p>최고의 교육 환경에서 IT인재를 양성합니다</p>
+    </div>
+    <div class="w3-row">
+      <div class="w3-half">
+        <img src="../../images/104.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+      <div class="w3-half">
+        <img src="../../images/108.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+    </div>
+    <div class="w3-row w3-hide-small">
+      <div class="w3-half">
+        <img src="../../images/105.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+      <div class="w3-half">
+        <img src="../../images/122.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+    </div>
 
+    <div class="w3-row w3-hide-small">
+      <div class="w3-half">
+        <img src="../../images/128.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+      <div class="w3-half">
+        <img src="../../images/123.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+    </div><br>
+<!--     <p>Just call me awesome.</p> -->
+  <!-- </div> -->
+ <!--  <div class="w3-half w3-indigo w3-container" style="min-height:800px ">
+    <div class="w3-padding-64 w3-center">
+      <h2>공 지 사 항</h2><br><br><br>
+      <div class="w3-container w3-responsive">
+        <table class="w3-table" style = "border : 1px solid white; height : 390px;">
+          <tr style = "border : 1px solid white">
+            <th>순 번</th>
+            <th>제 목</th>
+            <th>날 짜</th>
+          </tr>
+          <tr style = "border : 1px solid white">
+            <td>6</td>
+            <td>공지사항1</td>
+            <td>2019/10/26</td>
+          </tr>
+          <tr style = "border : 1px solid white">
+            <td>5</td>
+            <td>공지사항1</td>
+            <td>2019/10/26</td>
+          </tr>
+          <tr style = "border : 1px solid white">
+            <td>4</td>
+            <td>공지사항1</td>
+            <td>2019/10/26</td>
+          </tr>
+          <tr style = "border : 1px solid white">
+            <td>3</td>
+            <td>공지사항1</td>
+            <td>2019/10/26</td>
+          </tr>
+          <tr style = "border : 1px solid white">
+            <td>2</td>
+            <td>공지사항1공지사항1</td>
+            <td>2019/10/26</td>
+          </tr>
+          <tr style = "border : 1px solid white">
+            <td>1</td>
+            <td>공지사항1공지사항1공지사항1</td>
+            <td>2019/10/26</td>
+          </tr>
+        </table>
+      </div> -->
+    </div>
+  </div>
+</div>
 
-
-
-
-<br><br><br><br>
-<hr> -->
-
-
-
+<!-- Third Grid: Swing By & Contact -->
+<div class="w3-row" id="contact">
+  <div class="w3-half w3-dark-grey w3-container w3-center" style="height:700px; font-family : Verdana; font-size:1.4em">
+    <div class="w3-padding-64">
+      <h1> 이거 사조 (5조)</h1>
+    </div>
+    <div class="w3-padding-64">
+      <p> 조 장 - 조 호 관 </p>
+      <p> 조 원 - 강 현 모, 안 상 재, 이 준 배  </p>
+      <p>+00 1515151515</p>
+      <p>kh@kh.com</p>
+      
+    </div>
+  </div>
+  <div class="w3-half w3-teal w3-container" style="height:700px">
+    <div class="w3-padding-64 w3-padding-large">
+      <h1>Contact</h1>
+      <p class="w3-opacity">GET IN TOUCH</p>
+      <form class="w3-container w3-card w3-padding-32 w3-white" action="/action_page.php" target="_blank">
+        <div class="w3-section">
+          <label>Name</label>
+          <input class="w3-input" style="width:100%;" type="text" required name="Name">
+        </div>
+        <div class="w3-section">
+          <label>Email</label>
+          <input class="w3-input" style="width:100%;" type="text" required name="Email">
+        </div>
+        <div class="w3-section">
+          <label>Message</label>
+          <input class="w3-input" style="width:100%;" type="text" required name="Message">
+        </div>
+        <button type="submit" class="w3-button w3-teal w3-right">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 
@@ -827,7 +616,7 @@ function showSlides(n) {
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<p id = "gallery_textarea" ><span>g a l l e r y</span></p>
+<%-- 	<p id = "gallery_textarea" ><span>g a l l e r y</span></p>
   <div id="gallery_area">
 	  <ul>
 		  <li> <img src="<%=request.getContextPath() %>/images/austin.jpg" class="small" width="270" height="200"> <img src="<%=request.getContextPath() %>/images/austin.jpg" class="pic"> 
@@ -848,14 +637,8 @@ function showSlides(n) {
 		  </li>
 	  </ul>
   </div>
-
-
-
-
-
-
-
-
+ --%>
+		
 <script>
 	function openCity(cityName,elmnt,color) {
 	  var i, tabcontent, tablinks;
@@ -879,7 +662,6 @@ function showSlides(n) {
 	
 	
 	
-
    	// 사진 게시판으로 이동
 	function goThumbnail(){
 		location.href="<%=request.getContextPath()%>/list.th";
