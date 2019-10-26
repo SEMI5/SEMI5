@@ -249,7 +249,7 @@
 											},
 										success:function(data){	
 											alert("정상적으로 저장되었습니다.");
-											$(".consultingForm").css("display","none");
+											$("#consulting"+i).toggle(500);
 											}
 										}
 									); 
@@ -295,8 +295,9 @@
 
 	
 	function showConsultingForm(stdNum){
-		
 		$(".consultingForm").css("display","none");
+		
+		$("#consulting"+stdNum).toggle(800);
 		$(".std").css("background","white")
 		$("#consulting"+stdNum).css("display","table");
 		$("#std"+stdNum).css({"background":"whitesmoke"});	
