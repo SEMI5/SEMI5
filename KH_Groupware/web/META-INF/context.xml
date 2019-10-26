@@ -19,10 +19,6 @@
 <Context workDir= "C:\Users\jun\git\semi5_wor\KH_Groupware\web\WEB-INF">
 
 
-<Context workDir= "C:\Users\햄모\git\SEMI5\KH_Groupware\web\META-INF">
-
-
-
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
