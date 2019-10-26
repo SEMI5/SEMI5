@@ -17,25 +17,21 @@
 <meta charset="UTF-8">
 
 <!-- 지워야함 쓰려면 메인홈에서 제이쿼리 적용해서 써야함. -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src = "../js/jquery-3.2.1.min.js" type = "text/javascript"></script> -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
-
-
-
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
 
 <title>KH_Groupware</title>
 
 <!--  모두 파비콘을 가져가서 본인 파일에 삽입해주세요  -->
 <link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- 
 <link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Text|Do+Hyeon|Sunflower:300&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
+
+<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet"> 
+ -->
 
 
 
@@ -152,18 +148,18 @@
 	height: 500px;
 	margin:0px;
 	list-style:none;
-	position: absolute;
+	position: fixed;
 	z-index: 1000;
 	vertical-align:middle;
 	line-height:  60px;
    	box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
    	left:0px;
    	right: 0px;
-   	top: 44px;
+   	top: 65px;
    	background: #fcfaf1;
     border: none;
 	display: none;
-
+   
 }
 
 
@@ -185,7 +181,6 @@
 	position: relative;
 	font-size: 16px;
 	font-weight: bold;
-	
 	z-index: 1000;
 	left: 120px;
 	border: none;
@@ -221,13 +216,13 @@
 	height: 100%;
 	width: 1100px;
 	z-index: 1000;
-	background-image:url(<%=request.getContextPath()%>/images/helloquence-5fNmWej4tAA-unsplash.jpg);
+	background-image:url(<%=request.getContextPath()%>/images/helloquence-5fNmWej4tAA-unsplash.jpg); 
 	background-size: 1100px 500px;
 	background-repeat: no-repeat;
 	background-position: center left;
 	position:absolute;
 	right:0px;
-	
+
 }
 
 .imgArea2{
@@ -235,7 +230,7 @@
 	height: 100%;
 	width: 1100px;
 	z-index: 1000;
-	background-image:url("<%=request.getContextPath()%>/images/damian.jpg");
+ 	background-image:url("<%=request.getContextPath()%>/images/damian.jpg");
 	background-size: 1100px 500px;
 	background-repeat: no-repeat;
 	background-position: center left;
@@ -431,9 +426,6 @@ body{
 	font-family:"Nanum Gothic";
 }
 
-
-.input{}
-
 </style>
 
 </head>
@@ -470,8 +462,8 @@ body{
 	<!-- 마이페이지 서브메뉴 div -->	
 	<div id= "mypageDiv" class="subMenu" data-value = "0">
 	 	<div class= textArea>
-	 		<p style="width:130px;"	onclick = "location.href='<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>'"><span style="width:130px;">내 정보수정<span></p>
-	 		<p style="width:130px;" onclick= "location.href = '<%=request.getContextPath()%>/views/studentPage/stdCalendar.jsp'"><span style="width:130px;" >일정 및 휴가관리<span></p>
+	 	  <p style="width:130px;"><span style="width:130px;"onclick = "location.href='<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>'">내 정보수정<span></p>
+	  	 <p style="width:130px;" onclick= "location.href = '<%=request.getContextPath()%>/views/studentPage/stdCalendar.jsp'"><span style="width:130px;" >일정 및 휴가관리<span></p> 
 	 	</div>
 	 	<div class= imgArea2>
 	 	</div>
@@ -534,11 +526,9 @@ body{
 		</div>
 		<%}%>
 	</div>
-
-	 
-	 
-	 
 </div>
+
+
 <div id="blackOpacity1" class= blackOpacity></div>  <!--  게시판 -->
 <div id="blackOpacity2" class= blackOpacity></div>  <!-- 마이페이지  -->
 <div id="blackOpacity3" class= blackOpacity></div>   <!-- 강사페이지 -->
@@ -672,40 +662,6 @@ function logout(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!--이상없음 -->
 <script>
 
@@ -713,6 +669,7 @@ function logout(){
 // 각각 자기 자신의 sub메뉴를 제외하고 다른 것을 눌렀을때 서브메뉴가 올라가는 메소드
   
  $(function(){
+
 
   $('html').click(function(e){ 
 		  if( $("#boardDiv").data("value") =="1"){ 

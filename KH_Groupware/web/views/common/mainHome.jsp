@@ -354,10 +354,10 @@ bottom: 0px;
 
 </head>
 <header>
-	
+	 <%@ include file = "header.jsp" %>
 </header>
 <body>
-<%@ include file = "header.jsp" %>
+
 
 <!-- 이미지 슬라이더 부분  -->
 
@@ -416,7 +416,7 @@ bottom: 0px;
 	<div style="border: 1px solid red">
 		
 		<div class=previewThumb></div>
-		<iframe width="600px" height="337px" src="https://www.youtube.com/embed/LGJe_ZchraY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<!-- <iframe width="600px" height="337px" src="https://www.youtube.com/embed/LGJe_ZchraY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 		<div class= tableDiv >
 		<table class="previewBoard1"> 
 			<tr>
