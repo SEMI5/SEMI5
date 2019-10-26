@@ -146,8 +146,6 @@ public final class memberhello_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<html>\r\n");
       out.write("<head>\r\n");
       out.write("<meta charset=\"UTF-8\">\r\n");
-      out.write("\r\n");
-      out.write("<!-- 지워야함 쓰려면 메인홈에서 제이쿼리 적용해서 써야함. -->\r\n");
       out.write("<!-- <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n");
       out.write("<script src = \"../js/jquery-3.2.1.min.js\" type = \"text/javascript\"></script> -->\r\n");
       out.write("\r\n");
@@ -298,7 +296,6 @@ public final class memberhello_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("   border: 1px solid lightgray;\r\n");
       out.write("   position:absolute; right:-610px;\r\n");
       out.write("   z-index:10;\r\n");
-      out.write("   display:none;\r\n");
       out.write("}\r\n");
       out.write("\r\n");
       out.write(".login{\r\n");
@@ -868,8 +865,6 @@ if(loginUser == null) {
       out.write("            if($('#myPageBtn').data(\"value\") == \"0\"){\r\n");
       out.write("               $('#myPageBtn').addClass(\"hoverStay\");      \r\n");
       out.write("               \r\n");
-      out.write("               $(\".loginDiv\").css(\"display\",\"block\")\r\n");
-      out.write("               \r\n");
       out.write("               $(\".loginDiv\").children().addClass(\"stay\");\r\n");
       out.write("               $(\".loginDiv\").children().children().addClass(\"stay\");\r\n");
       out.write("               $(\".loginDiv\").children().children().children().addClass(\"stay\");\r\n");
@@ -885,7 +880,6 @@ if(loginUser == null) {
       out.write("   \r\n");
       out.write("      //로그인 div 제거 \r\n");
       out.write("      function removeLoginDiv(){\r\n");
-      out.write("    \t  $(\".loginDiv\").css(\"display\",\"none\")\r\n");
       out.write("         $(\"#blackOpacity2\").fadeOut('2000');\r\n");
       out.write("         $(\".loginDiv\").animate({\"right\":\"-605px\"},'2000',function(){\r\n");
       out.write("            $(\"#myPageBtn\").data(\"value\",\"0\");\r\n");

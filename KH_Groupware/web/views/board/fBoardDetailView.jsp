@@ -111,7 +111,6 @@
 	outline:none;
 }
 
->>>>>>> refs/remotes/origin/master
 
 #tableDiv{
 	  border: none;
@@ -573,7 +572,6 @@ text-decoration: underline;
 				<table id="replySelectTable" >
 				
 					<%if(rlist.isEmpty()) {%>
-						<tr style= "boder-top: 1px solid darkgrqy";><td colspan="3">댓글이 없습니다.</td></tr>
 						<tr style= "boder-top: 1px solid darkgrqy";><td colspan="3"><b>댓글이 없습니다.</b></td></tr>
 					<%}else{ %>
 						<%for(i=0;i<rlist.size();i++){ %>
@@ -790,7 +788,7 @@ if($(text).attr("data-value") == "1") {
 
 $(document).on('click', ".change", function () {
 
-	  var text = $(this).next().val();
+	var text = $(this).next().val();
 	 var rid = $(this).next().next().val();
 	 var content = $("#"+text).val(); 	
 		

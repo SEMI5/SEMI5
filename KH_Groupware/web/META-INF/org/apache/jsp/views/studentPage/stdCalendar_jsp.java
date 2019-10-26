@@ -127,8 +127,6 @@ public final class stdCalendar_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<html>\r\n");
       out.write("<head>\r\n");
       out.write("<meta charset=\"UTF-8\">\r\n");
-      out.write("\r\n");
-      out.write("<!-- 지워야함 쓰려면 메인홈에서 제이쿼리 적용해서 써야함. -->\r\n");
       out.write("<!-- <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n");
       out.write("<script src = \"../js/jquery-3.2.1.min.js\" type = \"text/javascript\"></script> -->\r\n");
       out.write("\r\n");
@@ -279,7 +277,6 @@ public final class stdCalendar_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("   border: 1px solid lightgray;\r\n");
       out.write("   position:absolute; right:-610px;\r\n");
       out.write("   z-index:10;\r\n");
-      out.write("   display:none;\r\n");
       out.write("}\r\n");
       out.write("\r\n");
       out.write(".login{\r\n");
@@ -407,8 +404,20 @@ public final class stdCalendar_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("/views/common/mainHome.jsp'\"style=height:50px;cursor:pointer;margin-right:20px;margin-left:20px;padding:0px;>\r\n");
       out.write("   <button class= navBtn1 id=\"navBtn1\" data-value=\"0\" onclick=\"showSubnav1();\">소개</button>\r\n");
       out.write("   <button class= navBtn1 id=\"navBtn2\" data-value=\"0\" onclick=\"showSubnav2();\">게시판</button>\r\n");
+      out.write("   ");
+if(loginUser == null || loginUser.getUserNo() < 100000){ 
+      out.write("\r\n");
       out.write("   <button class= navBtn1 id=\"navBtn4\" data-value=\"0\" onclick=\"showSubnav4();\">마이페이지</button>\r\n");
+      out.write("   ");
+} 
+      out.write("\r\n");
+      out.write("    ");
+if(loginUser != null && loginUser.getUserNo() >= 100000){ 
+      out.write("\r\n");
       out.write("   <button class= navBtn1 id=\"teacherPage\" data-value=\"0\" onclick=\"showSubnav5();\">강사페이지</button>\r\n");
+      out.write("   ");
+} 
+      out.write("\r\n");
       out.write("   <button class= navBtn1 id=\"navBtn3\" data-value=\"0\" onclick=\"showSubnav3();\">맛집</button>\r\n");
       out.write("   <button class=\"navBtn1\" id= myPageBtn data-value = \"0\" onclick= \"showLoginDiv();\"><img src =\"");
       out.print(request.getContextPath() );
@@ -464,15 +473,13 @@ public final class stdCalendar_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("      </div>\r\n");
       out.write("   </div>\r\n");
       out.write("   \r\n");
-      out.write("\r\n");
+      out.write("\t\r\n");
       out.write("   <div class = \"subNavbar1\" id=\"boardMenu4\">\r\n");
       out.write("      <div class= \"menuList boardMenu\">\r\n");
       out.write("         <h3 style=margin:20px;>마이페이지</h3>\r\n");
       out.write("         <ul>\r\n");
-      out.write("            <li> 내정보수정 </li>\r\n");
-      out.write("            <li onclick= \"location.href = '");
-      out.print(request.getContextPath());
-      out.write("/views/studentPage/stdCalendar.jsp'\"> 일정 및 휴가관리 </li>\r\n");
+      out.write("            <li onclick= \"selectMenu('modify')\"> 내정보수정 </li>\r\n");
+      out.write("            <li onclick= \"selectMenu('vacation')\"> 휴가관리 </li>\r\n");
       out.write("         </ul>\r\n");
       out.write("      </div>\r\n");
       out.write("      <div class = \"btnImg\">\r\n");
@@ -481,6 +488,29 @@ public final class stdCalendar_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("   </div>\r\n");
       out.write("   \r\n");
       out.write("   \r\n");
+      out.write("   <script type=\"text/javascript\">\r\n");
+      out.write("   \t\tfunction selectMenu(type){\r\n");
+      out.write("   \t\t\tif(");
+      out.print(loginUser==null);
+      out.write("){\r\n");
+      out.write("   \t\t\t\t\talert(\"먼저 로그인을 해주세요.\");\r\n");
+      out.write("   \t\t\t}else{\r\n");
+      out.write("  \t \t\t\tif(type == \"modify\"){\r\n");
+      out.write("   \t\t\t\t\tlocation.href = \"");
+      out.print(request.getContextPath());
+      out.write("/views/member/memberView.jsp\"\r\n");
+      out.write("   \t\t\t\t}\r\n");
+      out.write("\t   \t\t\tif(type == \"vacation\"){\r\n");
+      out.write("\t\t   \t\t\tlocation.href = \"");
+      out.print(request.getContextPath());
+      out.write("/views/studentPage/stdCalendar.jsp\"\r\n");
+      out.write("\t   \t\t\t}\r\n");
+      out.write("   \t\t\t}\r\n");
+      out.write("   \t\t}\r\n");
+      out.write("   \r\n");
+      out.write("   </script> \r\n");
+      out.write("   \r\n");
+      out.write("  \r\n");
       out.write("   <div class = \"subNavbar1\" id=\"boardMenu5\">\r\n");
       out.write("      <div class= \"menuList boardMenu\">\r\n");
       out.write("         <h3 style=margin:20px;>강사페이지</h3>\r\n");
@@ -494,6 +524,9 @@ public final class stdCalendar_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <li onclick= \"location.href = '");
       out.print(request.getContextPath());
       out.write("/views/teacherPage/seatView.jsp'\"> 자리배치 </li>\r\n");
+      out.write("            <li onclick= \"location.href = '");
+      out.print(request.getContextPath());
+      out.write("/views/teacherPage/teacherCalendar.jsp'\"> 일정관리 </li>\r\n");
       out.write("         </ul>\r\n");
       out.write("      </div>\r\n");
       out.write("      <div class = \"btnImg\">\r\n");
@@ -849,8 +882,6 @@ if(loginUser == null) {
       out.write("            if($('#myPageBtn').data(\"value\") == \"0\"){\r\n");
       out.write("               $('#myPageBtn').addClass(\"hoverStay\");      \r\n");
       out.write("               \r\n");
-      out.write("               $(\".loginDiv\").css(\"display\",\"block\")\r\n");
-      out.write("               \r\n");
       out.write("               $(\".loginDiv\").children().addClass(\"stay\");\r\n");
       out.write("               $(\".loginDiv\").children().children().addClass(\"stay\");\r\n");
       out.write("               $(\".loginDiv\").children().children().children().addClass(\"stay\");\r\n");
@@ -866,7 +897,6 @@ if(loginUser == null) {
       out.write("   \r\n");
       out.write("      //로그인 div 제거 \r\n");
       out.write("      function removeLoginDiv(){\r\n");
-      out.write("    \t  $(\".loginDiv\").css(\"display\",\"none\")\r\n");
       out.write("         $(\"#blackOpacity2\").fadeOut('2000');\r\n");
       out.write("         $(\".loginDiv\").animate({\"right\":\"-605px\"},'2000',function(){\r\n");
       out.write("            $(\"#myPageBtn\").data(\"value\",\"0\");\r\n");
@@ -1204,7 +1234,7 @@ if(loginUser == null) {
       out.write("<body>\r\n");
       out.write("<div id = \"outer\">\r\n");
       out.write("\t<div id = \"calendar\"></div>\r\n");
-      out.write("\t<div id = \"stdList\">sdfsdfsd</div>\r\n");
+      out.write("\t<div id = \"stdList\">&nbsp;</div>\r\n");
       out.write("</div>\r\n");
       out.write("\r\n");
       out.write("\r\n");
