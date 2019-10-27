@@ -350,7 +350,7 @@ heigh: 500px;
 .teacherMenu{
 	position:absolute; 
 	width: 130px;
-	left: 1030px;
+	left: 900px;
 }
 .memberMenu{ 
 	position: absolute;
@@ -446,8 +446,15 @@ body{
 			<div class= "menu shareMenu" onclick = "gonShareFile();">공유자료</div>
 			<div class= "menu elbumMenu" onclick= "goElbum();">앨범</div>
 			<div class= "menu tastyMenu" onclick = "goTasty();">맛집</div>
+			<%if(loginUser != null && loginUser.getUserNo() <= 100000){ %>
 			<div class= "menu mypageMenu" onclick = "showMypageDiv();">마이페이지</div>
+			<%} %>
+			<%if(loginUser != null && loginUser.getUserNo() > 100000){%>
 			<div class= "menu teacherMenu" onclick = "showTeacherDiv();">강사페이지</div>
+			<script type="text/javascript">
+				$(".mypageMenu").css("width","0px");
+			</script>
+			<%} %>
 			<div class= "menu memberMenu">
 				<span class= "iconSpan icon1" onclick = "showChattingPOPUP();"><i class="fa fa-comments" aria-hidden="true"></i></span>&nbsp;
 				<span class= "iconSpan icon2" onclick = "memberJoin();"><i class="fa fa-sign-in" aria-hidden="true"></i></span>&nbsp;
