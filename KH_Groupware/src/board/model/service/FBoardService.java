@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.dao.FBoardDao;
+import board.model.vo.Answer;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.Good;
@@ -475,6 +476,61 @@ public class FBoardService {
 		
 		return result;
 
+	}
+
+
+	public ArrayList<Answer> insertAnswer(int bid, int rid, String content, String writer) {
+		Connection conn = getConnection();
+		
+		// 우리가 insert 작업을 하면 executeUpdate를 해야 하므로 무조건 int형이 넘어온다.
+		// 그래서 성공하고 나서 다시 화면에 뿌려줄 해당 게시글 댓글 리스트를 한번 더 DB를 가서 자겨오자.
+		FBoardDao bDao = new FBoardDao();
+		
+	
+		int result = bDao.insertAnswer(rid, content, writer, conn);
+		ArrayList<Answer> alist = new ArrayList<Answer>();
+		
+		if(result > 0) {
+			commit(conn);
+			alist = new FBoardDao().selectAnswerList(conn, bid);
+			
+		}else {
+			rollback(conn);
+			close(conn);
+		}
+		
+		return alist;
+	}
+
+
+	public ArrayList<Answer> selectAnswerList(int bid) {
+		Connection conn = getConnection();
+		
+	
+		ArrayList<Answer> alist = new FBoardDao().selectAnswerList(conn, bid);
+		
+		close(conn);
+		
+		return alist;
+		
+	}
+
+
+	public int deleteAnswer(int aid) {
+		Connection conn = getConnection();
+		FBoardDao fbDao =new FBoardDao();
+		
+		int result = fbDao.deleteAnswer(aid, conn);
+		
+		if(result>0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
 	}
 }
 

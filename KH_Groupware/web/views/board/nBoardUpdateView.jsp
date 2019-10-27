@@ -410,7 +410,7 @@ String originName8= flist.get(7).getOriginName();
    <input type = "text" id="originFid8" name = "originFid8" value =<%=flist.get(7).getfId()%> ><br>
 </div>
 
-
+<br><br>
 </body>
 
 <!--  summernote 동작 -->

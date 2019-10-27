@@ -229,6 +229,17 @@ String originName8= flist.get(7).getOriginName();
 		margin-left: 30px;
 	}
    
+   #boardImg1{
+	position: relative;	
+	width:100%;
+	height:300px;
+	margin-left:auto;
+	margin-right:auto;
+	align: center;
+	text-align: center;
+	background: black;
+}
+   
    
    
 </style>
@@ -244,7 +255,7 @@ String originName8= flist.get(7).getOriginName();
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-<br><br>
+
 <div style="height:46px;width:100%;background:#262A2D;"></div>
 <div id= boardImg1>
 		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
@@ -252,6 +263,7 @@ String originName8= flist.get(7).getOriginName();
 </div>
 <form id= updateForm action = "<%=request.getContextPath()%>/Fupdate.bo" method="post" encType="multipart/form-data">
 <div id="outer">
+<br><br><br><br>
    <div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
    <br>
    <div id = "tableDiv">
@@ -405,7 +417,7 @@ String originName8= flist.get(7).getOriginName();
    <input type = "text" id="originFid8" name = "originFid8" value =<%=flist.get(7).getfId()%> ><br>
 </div>
 
-
+<br><br><br><br><br><br>
 </body>
 
 <!--  summernote 동작 -->

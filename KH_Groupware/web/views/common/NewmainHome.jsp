@@ -391,21 +391,20 @@ bottom: 0px;
 		<!-- 이미지 슬라이더 부분  -->
 
 <!-- <br><br><br><br><br> -->
-
 	<div class="slideshow-container">	
 		<div class="mySlides fade">
 		  <div class="numbertext">1 / 3</div>
-		  <img src="../../images/mainBack1.jpg" style="width:100%; height:700px;">
+		  <img src="../../images/main1.jpg" style="width:100%; height:350px;">
 		</div>
 	
 		<div class="mySlides fade">
 		  <div class="numbertext">2 / 3</div>
-		  <img src="../../images/mainBack2.jpg" style="width:100%; height:700px;">
+		  <img src="../../images/main2.jpg" style="width:100%; height:350px;">
 		</div>
 	
 		<div class="mySlides fade">	
 		  <div class="numbertext">3 / 3</div>
-		  <img src="../../images/main3.jpg" style="width:100%; height:700px;">
+		  <img src="../../images/main3.jpg" style="width:100%; height:350px;">
 		</div>
 		
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>

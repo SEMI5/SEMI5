@@ -3,6 +3,7 @@ package board.fController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
@@ -44,14 +45,14 @@ public class DeleteFReplyServlet extends HttpServlet {
 		FBoardService Fbservice = new FBoardService();
 		
 	   ArrayList rlist  = Fbservice.deleteReply(rid,bid);
-	   ArrayList glist = new FBoardService().selectGinfo(bid); 
-			System.out.println("델리트: " + rlist);
-			System.out.println("델리트: " +glist );
+	   ArrayList glist = Fbservice.selectGinfo(bid); 
+	   ArrayList alist = Fbservice.selectAnswerList(bid);
 			
 		
-		  HashMap<String,ArrayList> listMap = new HashMap<String,ArrayList>();
+		  LinkedHashMap<String,ArrayList> listMap = new LinkedHashMap<String,ArrayList>();
 		  listMap.put("rlist",rlist); 
 		  listMap.put("glist",glist);
+		  listMap.put("alist",alist);
 		 
 			
 			

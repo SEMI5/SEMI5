@@ -238,7 +238,7 @@
 </div>
 
 
-<br><br>
+<br><br><br><br>
 <form id= insertForm action = "<%=request.getContextPath()%>/insert.Fbo" method="post" encType="multipart/form-data">
 <div id="outer">
 	<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>

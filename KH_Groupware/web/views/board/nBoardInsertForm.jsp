@@ -300,6 +300,7 @@
 	<input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
 </div>
 </form>
+<br><br>
 </body>
 
 

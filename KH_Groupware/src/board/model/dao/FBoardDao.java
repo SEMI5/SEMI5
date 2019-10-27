@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import board.model.vo.Answer;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.Good;
@@ -1119,6 +1121,85 @@ public class FBoardDao {
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int insertAnswer(int rid, String content, String writer, Connection conn) {
+		
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("insertAnswer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, rid);
+			pstmt.setString(3, writer);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Answer> selectAnswerList(Connection conn, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+
+		
+		String query = prop.getProperty("selectAnswerList");	// board-query.properties에 만들자
+		ArrayList<Answer> alist = new ArrayList<Answer>();
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Answer a= new Answer(rs.getInt("aid"), 
+									rs.getString("acontent"), 
+									rs.getInt("rid"),
+									rs.getString("awriter"),
+									rs.getString("user_name"),
+									rs.getDate("create_date"),
+									rs.getDate("modify_date"),
+									rs.getString("status"));
+					alist.add(a);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+	
+		return alist;
+	}
+
+	public int deleteAnswer(int aid, Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteAnswer");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1,  aid); 
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

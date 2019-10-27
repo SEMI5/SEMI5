@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import board.model.service.FBoardService;
 import board.model.service.NBoardService;
+import board.model.vo.Answer;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.Good;
@@ -67,9 +68,10 @@ public class FBoardDetailServlet extends HttpServlet {
 		 */ 
 		ArrayList<Reply> rlist = new FBoardService().selectReplyList(bid);
 		ArrayList<Good> glist = new FBoardService().selectGinfo(bid); 
+		ArrayList<Answer> alist = new FBoardService().selectAnswerList(bid); 
 		 System.out.println("디테일 서블릿: "+ rlist);
 		 System.out.println("디테일 서블릿: "+ glist);
-		
+		 System.out.println("디테일 서블릿: "+ alist);
 		
 		 
 		 if(board != null) { 
@@ -81,6 +83,7 @@ public class FBoardDetailServlet extends HttpServlet {
 			  // --------------------이 부분은 ajax 기능으로 댓글 기능을 추가하기 위해 작성하는 부분
 			 request.setAttribute("rlist", rlist); 
 			 request.setAttribute("glist", glist);
+			 request.setAttribute("alist", alist);
 			  //boardDetailView.jsp로 가서 댓글리스트가 보여지도록 화면단 작성하자
 			 request.getRequestDispatcher("views/board/fBoardDetailView.jsp").forward(request, response); 
 		  }else { 

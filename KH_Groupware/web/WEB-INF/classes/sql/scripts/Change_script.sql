@@ -8,7 +8,10 @@ REFERENCES N_BOARD(BID) ON DELETE CASCADE;
 
 --필수!!!! 테이블 공지사항에 칼럼 추가 (보드 레벨) -- 
 ALTER TABLE N_BOARD ADD BLEVEL NUMBER DEFAULT 1;
+-------------------------------------------
 
+
+----------밑에는 안해도됨 ----
 UPDATE N_BOARD 
 SET BLEVEL = 4
 WHERE BID BETWEEN 7 AND 14;
@@ -20,7 +23,7 @@ UPDATE F_BOARD
 SET BLEVEL = 4
 WHERE BID BETWEEN 29 AND 34;
 WHERE BID BETWEEN 7 AND 14;
-
+---------------------------
 
 
 
@@ -41,42 +44,42 @@ CREATE TABLE GOOD(
 COMMIT;
 -------------------------------------------------------------
 
+------------------------------대댓글 (답글이라는 의미에서 ANSWER)------------------
+
+DROP TABLE F_ANSWER; 
+
+DROP SEQUENCE SEQ_ANO; 
+
+CREATE SEQUENCE SEQ_ANO; 
+
+CREATE TABLE F_ANSWER(
+  AID NUMBER PRIMARY KEY,
+  ACONTENT VARCHAR2(400),
+  RID NUMBER,
+  AWRITER NUMBER,
+  CREATE_DATE DATE,
+  MODIFY_DATE DATE,
+  STATUS VARCHAR2(1) DEFAULT 'Y' CHECK (STATUS IN ('Y', 'N')),
+  FOREIGN KEY (RID) REFERENCES F_REPLY(RID),
+  FOREIGN KEY (AWRITER) REFERENCES MEMBER(USER_NO)
+);
+
+COMMIT;
+-----------------------------------------
 
 
-------------좋아요에 쓸 쿼리 --------------- 
-INSERT INTO GOOD VALUES(SEQ_GNO.NEXTVAL,183,10, DEFAULT);
+
+CREATE OR REPLACE VIEW A_LIST
+AS
+SELECT AID, ACONTENT, AWRITER, R.REF_BID AS BID, A.RID, A.CREATE_DATE, A.MODIFY_DATE, A.STATUS 
+FROM F_ANSWER A 
+JOIN F_REPLY R ON (A.RID = R.RID);
+
+COMMIT;
 
 
--- 가장 첫번째 쿼리: 좋아요를 누른 적이 있는 지확인 (객체반환)
-SELECT * FROM GOOD WHERE RID =122 AND USER_NO = 100001;
 
--- 반환 값이 NULL이라면 INSERT문 실행 
-INSERT INTO GOOD VALUES(SEQ_GNO.NEXTVAL,183,100001, DEFAULT);
-
--- 반환 값이 NULL이 아닌데 상태가 N이라면 Y로 업데이트 
-UPDATE GOOD SET STATUS = 'Y' WHERE GID=2;
-
--- 반환값이 NULL인데 상태가 Y라면 N으로 업데이트 
-UPDATE GOOD SET STATUS = 'N' WHERE GID=2;
-
--- 해당 리플 좋아요 몇개인지 확인
-SELECT COUNT(*) FROM GOOD WHERE RID = 183;
-
---각 리플별로 좋아요 몇개인지 확인 
-
-SELECT RID, COUNT(*) AS COUNT FROM GOOD GROUP BY RID;
-
--------------------------------------
---한 게시판 리플에 좋아요를 뿌려줄때 
-CREATE OR REPLACE VIEW F_GLIST
-AS 
-SELECT R.RID, R.RCONTENT,REF_BID AS BID, USER_NAME, USER_NO, CREATE_DATE, MODIFY_DATE, R.STATUS AS RSTATUS, NVL(G.COUNT,0) AS COUNT  
-FROM F_RLIST R
-LEFT JOIN (SELECT RID, COUNT(*) AS COUNT FROM GOOD GROUP BY RID) G ON (R.RID = G.RID);
-
---- 여기서 WHERE  WHERE BID =82; 이런식으로 추가하면 된다. 
-
-
+----------------------------------------------------
 
 
 

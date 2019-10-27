@@ -16,10 +16,13 @@
 	/* Ajax이후 */
 	ArrayList<Reply> rlist = null;
 	ArrayList<Good> glist= null; 
+	ArrayList<Answer> alist= null; 
 	if(request.getAttribute("rlist") != null ){
 		
 	 	rlist = (ArrayList<Reply>)request.getAttribute("rlist"); 
 	 	glist = (ArrayList<Good>)request.getAttribute("glist"); 
+	 	alist = (ArrayList<Answer>)request.getAttribute("alist"); 
+	 	
 	}
 	
 
@@ -417,16 +420,85 @@ text-decoration: underline;
 	background: black;
 }
 
-.answer{
+
+.delete{
+ border: 1px solid lightgray;
+   background: white;
+   color: lightblack;
+   padding: 5px;
+
+}
+
+
+.delete:hover{
+	
+cursor:pointer;
+	color: lightgray;
+}
+
+
+
+.answerAdd{
+   position: relative;
+   left:3px;
+   bottom: 5px;
    border: 1px solid lightgray;
    background: white;
    color: lightblack;
    padding: 5px;
 }
 
-.answer:hover{
-	cursor:pointer;
+.answerAdd:hover{
+ cursor:pointer;
 	color: lightgray;
+}
+
+
+.answerDelete{
+   position: relative;
+   left:3px;
+   bottom: 5px;
+   border: 1px solid lightgray;
+   background: white;
+   color: lightblack;
+   padding: 5px;
+}
+
+.answerDelete:hover{
+ cursor:pointer;
+	color: lightgray;
+}
+
+
+
+
+
+.answer{
+ border: 1px solid lightgray;
+   background: white;
+   color: lightblack;
+   padding: 5px;
+}
+
+.answer:hover{
+	
+cursor:pointer;
+	color: lightgray;
+}
+
+.change{
+	border: 1px solid lightgray;
+   background: white;
+   color: lightblack;
+   padding: 5px;
+}
+
+
+.change:hover{
+
+cursor:pointer;
+	color: lightgray;
+
 }
 
 .good{
@@ -476,6 +548,46 @@ text-decoration: underline;
 	cursor:pointer;
 }
 
+.answerText{
+    position: relative; 
+	width: 600px; 
+	height: 50px;
+	outline:none;
+	top: 5px;
+}
+
+.answerTrWrite textArea:focus{
+	border: 2px solid #2478FF;
+}
+
+.answerTrWrite{
+    display:none;
+    height:200px;
+    padding-top:4px;
+}
+
+.answerTr{
+    height:200px;
+    padding-top:4px;
+}
+
+
+
+.answerIcon{
+	position: relative; 
+	left: 24px; 
+	top: -43px;
+}
+
+.answerInfo{
+	width: 200px;
+	font-weight: bold;
+	position: relative; 
+	left: 46px;
+	margin-bottom: 2px;
+	Top: 5px;
+}
+
 </style>
 </head>
 <header>
@@ -492,7 +604,7 @@ text-decoration: underline;
 
 	<div id="outer">
 	
-	<br><br>
+	<br><br><br><br>
 		<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
 		
 		<div id="tableDiv" >
@@ -599,21 +711,54 @@ text-decoration: underline;
 							</tr>
 							<tr style="border:none; border-bottom: 1px solid darkgray;padding:3px;">
 								<td style= "height: 35px;width=200px;pdding-top:0px">&nbsp;
+									<span class= 'answer'>답글</span>
 									<%if (loginUser != null && (loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
-										<%-- <span class= 'answer change' onclick= 'changeReply(text<%=i%>, <%=rlist.get(i).getrId()%>);' >수정</span>&nbsp; --%>
-										<span class= 'answer change'>수정&nbsp;</span>
+										<span class= 'change'>수정&nbsp;</span>
 											<input type = hidden value = 'text<%=i%>'>
 											<input type = hidden value = '<%=rlist.get(i).getrId()%>'>
 									<%}%>									
 									<%if (loginUser != null && (loginUser.getUserNo() > 10000 || loginUser.getUserNo() == b.getUserNo() || loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
-									<span class= "answer" onclick="deleteReply(this);" >삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
+									<span class= "delete" onclick="deleteReply(this);" >삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
 								 	<% }%> 
 										<input id = "rid<%=i%>" type ="hidden" value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
 									</span>
 									<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="border:1px solid <%=color %>; color:<%=color %> " ><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span id="gCount<%=i%>"><%=rlist.get(i).getCount()%></span></span> 
 								</td>
+								
 							</tr>
-						<%}%> <!--  바깥쪽 for문 -->
+							<!-- 여기서 부터 다시 다 입력해야함.. ajax ... -->
+							<tr class="answerTrWrite">
+								<td>
+									<input type ="hidden" value = <%=rlist.get(i).getrId() %>>
+								
+									<div  class = answerInfo><%=loginUser.getUserName() %> &nbsp;</div>	 
+									<span class="answerIcon"><i class="fa fa-angle-right" aria-hidden="true" style="font-size:30px;"></i></span>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<textArea class= "answerText"></textArea><span class= "answerAdd">등록</span>  
+								</td>
+							</tr>
+							
+							<%if( alist != null){ %>					
+								<%for (int k=0; k<alist.size(); k++){%>
+									<% if(rlist.get(i).getrId() == alist.get(k).getRid()){%>
+									<tr class= "answerTr">
+										<td>
+											<input type ="hidden" value = <%=rlist.get(i).getrId() %>>
+											<div  class = answerInfo><%=alist.get(k).getUserName()%> &nbsp;<%=alist.get(k).getCreateDate()%></div>	 
+											<span class="answerIcon"><i class="fa fa-angle-right" aria-hidden="true" style="font-size:30px;"></i></span>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<textArea class= "answerText" readonly><%=alist.get(k).getAcontent() %></textArea>
+											<%if (loginUser != null && loginUser.getUserNo() > 10000 ||loginUser.getUserNo() == Integer.parseInt(alist.get(k).getAwriter())){ %>	
+										     	<span class= "answerDelete">삭제</span> 
+												<input type= "hidden" value = <%=alist.get(k).getAid()%>> 
+											<%}%>
+										</td>
+									</tr>
+									<%}%>
+								<%}%> <!-- alist 관련  for문  -->
+							<%}%>	
+						
+						<%}%> <!--  r리스트 바깥쪽 for문 -->
 					<%} %>
 				</table>
 			</div>		
@@ -677,58 +822,207 @@ $(document).on('click', ".change", function () {
  
 
 
+$(document).on('click', ".answer", function () {
+	
+	var answerBox = $(this).parent().parent().next();
+	var answerText = answerBox.find("textArea")
 
-/* function changeReply(text, rid){
-
-
-if($(text).attr("data-value") == "1") {
-	$(this).parent().find("input").val(); 
 	
 	
-	$(text).attr("data-value", "2");
-	$(text).attr("readonly",false );
-	$(text).css("border", "2px solid #2478FF");
-	$(text).focus();
-}else{
+	if(answerBox.css("display") == "none"){
+		answerBox.css({"display":"block"});
+		answerText.focus();
+		
+	}else{
+		answerBox.css({"display":"none"});
+	}
+});
+
+
+$(document).on('click', ".answerAdd", function () {
 	
-	var count = $(text).val().length;
+	var rid = $(this).parent().find("input").val();
+	var answerBox = $(this).parent().parent();
+	
+	
+	var content = $(this).parent().find("textArea").val();
+
+	var count = content.length;
 	if( count <2){
 		alert("2자 이상 입력해주세요 ")	;	
 		return false;
-	}else if(count > 200){
+	}else if(count > 100){
 		alert("200자 미만으로 입력해주세요 ");
 		return false ;
 	}
 	
-	var content = $(text).val();
-		$.ajax({
-  		url:"/KH_Groupware/update.re",
-  		type:"post",
-  		data:{ rid1: rid,
-  			   content1: content },
-  		success:function(data){
-					if(data == 1){
-					
-					}else{
-					
-					}  		  	
-  		 },
-  		 error : function(request,status,error) {
-				alert("code:"+request.status+"\n"+
-				"message:"+request.responseText+"\n"+"error:"+error);
-				}
-		  });   
 	
-	var content = $(text).val();
+	
+	var writer = <%=loginUser.getUserNo()%>;
+	var bid = <%=b.getbId()%>;
+	
+	
+	
+	$.ajax({
+		url:"/KH_Groupware/insertAnswer.bo",
+		type:"post",
+		data:{rid1:rid, 
+			  bid1: bid,
+			  content1: content,
+			  writer1: writer }, //InsertReplyServlet 만들러 ㄱㄱ씽
+		success:function(data){
+		
+			$replyTable = $("#replySelectTable");
+			$replyTable.html("");	// 기존 테이블 초기화(기존에는 댓글이 없습니다가 적힌 태그가 있었는데 지워지게)
+			
+			
+			// 새로 받아온 갱신된 댓글리스트들을 for문을 통해 다시 table에 추가
+			var result= [];
+			for(var key in data){
+				result.push(data[key]); 
+			}
+			var i = <%= i+1 %>
+			var bestIndex = -1; 
+			
+			console.log(result[0])
+			console.log(result[1])
+			console.log(result[2])
+			
+			
+			
+			
+			for (var index in result[0]){
+				 var i = i+ 1; 
+				 var bestIndex = bestIndex +1;
+				 
+				var rWriter = result[0][index].rWriter;
+				var createDate= result[0][index].createDate;
+				var rUserNo = result[0][index].userNo;
+				var rContent =result[0][index].rContent;
+				var rId = result[0][index].rId;
+				var bWriter = "<%=b.getbWriter()%>"; 
+				var loginUserNo = "<%=loginUser.getUserNo()%>";
+				var loginUserName= "<%=loginUser.getUserName()%>";
+				var bUserNo = "<%=b.getUserNo()%>";
+				var count = result[0][index].count; 
+				var color = "gray"; 
+				for(var index2 in result[1]){
+					if(( rId == result[1][index2].rId) && (loginUserNo== result[1][index2].userNo)){
+   						 color = "#f53f29";
+   						break; 
+   					}else{
+   						 color = "gray"; 
+   					}
+				} 
+				var html = ""; 
+                
+				html += "<tr style='border-top: 1px solid darkgray;'>"; 
+				html += "<td style='width:100px;'>&nbsp;<b>" + rWriter + "<span style='margin-left:10px;'>" + createDate +"</span></b>";
+				html += "</td>";
+				html += "</tr>";
+			
+				html += "<tr><td width='400px'>";
+				if((bestIndex == 0 || bestIndex== 1) && count >= 2){
+					html += "<span class= 'best'>BEST&nbsp;</span>";
+				}
+					html += "<textArea id= 'text"+i+"' class='replyListText' readonly= 'readonly' data-value='1'>" + rContent + "</textArea></td>";
+				
+				html += "</tr>";
+				
+				html += "<tr style='border:none; border-bottom: 1px solid darkgray;padding:3px'>";
+				html += "<td style= width:'200px;height:35px; padding-top:0px'>&nbsp;";
+				html += "<span class= 'answer'>답글</span>&nbsp;"
+				if (loginUserNo != null && (loginUserNo == rUserNo)){ 	
+					html += "<span class= ' change'>수정</span>&nbsp;";
+					html += "<input type = hidden value = 'text"+i+"'>";
+					html += "<input type = hidden value = '"+ rId + "'>";
+					
+				}
+				if( loginUserNo != null && ( loginUserNo > 10000  || loginUserNo==  bUserNo|| loginUserNo ==rUserNo )){
+					html +=  "<span class= 'delete' onclick='deleteReply(this);'>삭제";	
+					html +=   "<input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
+				}
+				html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='color:"+color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
+				html += "</td>";
+				html += "</tr>";
 
-	$(text).attr("data-value", "1");
-	$(text).attr("readonly",true );
-	$(text).css("border", "none");
-}
+			
+				/* result[2][index3] alist]  */
+
+				
+				
+		 	html += "<tr class='answerTrWrite'>";
+			html += "<td>";
+			html +=	"<input type ='hidden' value =" + result[0][index].rId +">";
+			html +=	"<div  class = answerInfo>" + loginUserName +"&nbsp;</div>";	 
+			html +=	"<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
+			html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textArea class= 'answerText'></textArea>";
+			html += "<span class= 'answerAdd'>등록</span></td></tr>";
+			 
+			
+			    if(result[2] != null){ 					
+				for (var index3 in result[2]){
+					 if(result[0][index].rId == result[2][index3].rid){
+						html += "<tr class= 'answerTr'>";
+						html += "<td>";
+						html += "<input type ='hidden' value ='" + result[0][index].rId + "'>";
+						html += "<div class = 'answerInfo'>" + result[2][index3].userName + "&nbsp;" + result[2][index3].createDate + "</div>"; 
+						html += "<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
+						html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+						html += "<textArea class= 'answerText' readonly>" + result[2][index3].acontent + "</textArea>";
+						  if (loginUserNo > 10000 ||loginUserNo == parseInt(result[2][index3].awriter)){ 
+						   html +=  "<span class= 'answerDelete'>삭제</span>";
+						   html += "<input type= 'hidden' value ='" + result[2][index3].aid + "'>";
+						 } 
+							  
+						html += "</td></tr>";
+					}
+				 } <!-- alist 관련  for문  -->
+			  }	 
+				
+				
+				
+				
+				
+					$("#replySelectTable").append(html); 
+			
+			} // 바깥쪽 for문 끝
+			
+			$(this).parent().find("textArea").val(""); 
+			answerBox.css({"display":"none"}); 
+			
+			
+			
+		}
+	});
+
+});
 
 
 
-};  */
+$(document).on('click', ".answerDelete", function () {
+	
+	if(confirm("답글을을 정말로 삭제하시겠습니까?")) {
+        $(this).parent().click();
+	
+		var aid = $(this).next().val(); 
+		var answerBox = $(this).parent().parent();
+		
+		answerBox.css({"display":"none"});
+		
+	 	$.ajax({
+			url:"/KH_Groupware/deleteAnswer.bo",
+			type:"post",
+			data:{aid1: aid},
+			success:function(data){
+			}
+		});
+	}else{
+			
+		return false;
+	}
+ 
+});
 
 
 
@@ -809,6 +1103,13 @@ $(function(){
 				var i = <%= i+1 %>
 				var bestIndex = -1; 
 				
+				console.log(result[0])
+				console.log(result[1])
+				console.log(result[2])
+				
+				
+				
+				
 				for (var index in result[0]){
 					 var i = i+ 1; 
 					 var bestIndex = bestIndex +1;
@@ -820,6 +1121,7 @@ $(function(){
 					var rId = result[0][index].rId;
 					var bWriter = "<%=b.getbWriter()%>"; 
 					var loginUserNo = "<%=loginUser.getUserNo()%>";
+					var loginUserName= "<%=loginUser.getUserName()%>";
 					var bUserNo = "<%=b.getUserNo()%>";
 					var count = result[0][index].count; 
 					var color = "gray"; 
@@ -848,23 +1150,62 @@ $(function(){
 					
 					html += "<tr style='border:none; border-bottom: 1px solid darkgray;padding:3px'>";
 					html += "<td style= width:'200px;height:35px; padding-top:0px'>&nbsp;";
+					html += "<span class= 'answer'>답글</span>&nbsp;"
 					if (loginUserNo != null && (loginUserNo == rUserNo)){ 	
-						html += "<span class= 'answer change'>수정</span>&nbsp;";
+						html += "<span class= ' change'>수정</span>&nbsp;";
 						html += "<input type = hidden value = 'text"+i+"'>";
 						html += "<input type = hidden value = '"+ rId + "'>";
 						
 					}
-					if( loginUserNo != null &&( loginUserNo > 10000  || loginUserNo==  bUserNo|| loginUserNo ==rUserNo )){
-						html +=  "<span class= 'answer' onclick='deleteReply(this);'>삭제";	
+					if( loginUserNo != null && ( loginUserNo > 10000  || loginUserNo==  bUserNo|| loginUserNo ==rUserNo )){
+						html +=  "<span class= 'delete' onclick='deleteReply(this);'>삭제";	
 						html +=   "<input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
 					}
 					html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='color:"+color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
 					html += "</td>";
 					html += "</tr>";
 
-					$("#replySelectTable").append(html); 
+				
+					/* result[2][index3] alist]  */
 
-				} //for문 끝
+					
+					
+			 	html += "<tr class='answerTrWrite'>";
+				html += "<td>";
+				html +=	"<input type ='hidden' value =" + result[0][index].rId +">";
+				html +=	"<div  class = answerInfo>" + loginUserName +"&nbsp;</div>";	 
+				html +=	"<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
+				html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textArea class= 'answerText'>";
+				html += "</textArea><span class= 'answerAdd'>등록</span></td></tr>";
+				 
+				
+				    if(result[2] != null){ 					
+					for (var index3 in result[2]){
+						 if(result[0][index].rId == result[2][index3].rid){
+							html += "<tr class= 'answerTr'>";
+							html += "<td>";
+							html += "<input type ='hidden' value ='" + result[0][index].rId + "'>";
+							html += "<div class = 'answerInfo'>" + result[2][index3].userName + "&nbsp;" + result[2][index3].createDate + "</div>"; 
+							html += "<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
+							html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+							html += "<textArea class= 'answerText' readonly>" + result[2][index3].acontent + "</textArea>";
+								  if (loginUserNo > 10000 ||loginUserNo == parseInt(result[2][index3].awriter)){ 
+								   html +=  "<span class= 'answerDelete'>삭제</span>";
+								   html += "<input type= 'hidden' value ='" + result[2][index3].aid + "'>";
+								 } 
+								  
+							html += "</td></tr>";
+						}
+					 } <!-- alist 관련  for문  -->
+				  }	 
+					
+					
+					
+					
+					
+						$("#replySelectTable").append(html); 
+				
+				} // 바깥쪽 for문 끝
 				
 				$("#replyContent").val(""); 
 			
@@ -907,6 +1248,13 @@ $(function(){
 						var i = <%= i+1 %>
 						var bestIndex = -1; 
 						
+						console.log(result[0])
+						console.log(result[1])
+						console.log(result[2])
+						
+						
+						
+						
 						for (var index in result[0]){
 							 var i = i+ 1; 
 							 var bestIndex = bestIndex +1;
@@ -918,6 +1266,7 @@ $(function(){
 							var rId = result[0][index].rId;
 							var bWriter = "<%=b.getbWriter()%>"; 
 							var loginUserNo = "<%=loginUser.getUserNo()%>";
+							var loginUserName= "<%=loginUser.getUserName()%>";
 							var bUserNo = "<%=b.getUserNo()%>";
 							var count = result[0][index].count; 
 							var color = "gray"; 
@@ -946,21 +1295,60 @@ $(function(){
 							
 							html += "<tr style='border:none; border-bottom: 1px solid darkgray;padding:3px'>";
 							html += "<td style= width:'200px;height:35px; padding-top:0px'>&nbsp;";
+							html += "<span class= 'answer'>답글</span>&nbsp;"
 							if (loginUserNo != null && (loginUserNo == rUserNo)){ 	
-								html += "<span class= 'answer change'>수정</span>&nbsp;";
+								html += "<span class= ' change'>수정</span>&nbsp;";
 								html += "<input type = hidden value = 'text"+i+"'>";
 								html += "<input type = hidden value = '"+ rId + "'>";
 								
 							}
-							if( loginUserNo != null &&( loginUserNo > 10000  || loginUserNo==  bUserNo|| loginUserNo ==rUserNo )){
-								html +=  "<span class= 'answer' onclick='deleteReply(this);'>삭제";	
+							if( loginUserNo != null && ( loginUserNo > 10000  || loginUserNo==  bUserNo|| loginUserNo ==rUserNo )){
+								html +=  "<span class= 'delete' onclick='deleteReply(this);'>삭제";	
 								html +=   "<input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
 							}
 							html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='color:"+color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
 							html += "</td>";
 							html += "</tr>";
 
-							$("#replySelectTable").append(html); 
+						
+							/* result[2][index3] alist]  */
+
+							
+							
+					 	html += "<tr class='answerTrWrite'>";
+						html += "<td>";
+						html +=	"<input type ='hidden' value =" + result[0][index].rId +">";
+						html +=	"<div  class = answerInfo>" + loginUserName +"&nbsp;</div>";	 
+						html +=	"<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
+						html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+						html += "<textArea class= 'answerText'></textArea><span class= 'answerAdd'>등록</span></td></tr>";
+						 
+						
+						    if(result[2] != null){ 					
+							for (var index3 in result[2]){
+								 if(result[0][index].rId == result[2][index3].rid){
+									html += "<tr class= 'answerTr'>";
+									html += "<td>";
+									html += "<input type ='hidden' value ='" + result[0][index].rId + "'>";
+									html += "<div class = 'answerInfo'>" + result[2][index3].userName + "&nbsp;" + result[2][index3].createDate + "</div>"; 
+									html += "<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
+									html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+									html += "<textArea class= 'answerText' readonly>" + result[2][index3].acontent + "</textArea>";
+									  if (loginUserNo > 10000 ||loginUserNo == parseInt(result[2][index3].awriter)){ 
+									   html +=  "<span class= 'answerDelete'>삭제</span>";
+									   html += "<input type= 'hidden' value ='" + result[2][index3].aid + "'>";
+									 } 
+										  
+									html += "</td></tr>";
+								}
+							 } 
+						  }	 
+							
+							
+							
+							
+							
+								$("#replySelectTable").append(html); 
   
 						} //for문 끝
 					
@@ -1021,7 +1409,7 @@ $(function(){
 		 	 $.ajax({
 	  		url:"/KH_Groupware/insert.go",
 	  		type:"post",
-	  		data:{userNo:<%=loginUser.getUserNo()%>,
+	  		data:{userNo: <%=loginUser.getUserNo()%>,
 		 	          rid1: rId },
 	  		success:function(data){
 						if(data == 1){
