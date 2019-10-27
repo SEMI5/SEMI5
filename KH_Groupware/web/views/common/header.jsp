@@ -475,8 +475,9 @@ body{
 	<!-- 마이페이지 서브메뉴 div -->	
 	<div id= "mypageDiv" class="subMenu" data-value = "0">
 	 	<div class= textArea>
-		<p style="width:130px;"><span style="width:130px;" onclick = "goMyInfo();">내 정보수정<span></p>  
-	  	 <p style="width:130px;" onclick= "location.href = '<%=request.getContextPath()%>/views/studentPage/stdCalendar.jsp'"><span style="width:130px;" >일정 및 휴가관리<span></p> 
+		<p style="width:150px;"><span style="width:150px;" onclick = "goMyInfo();">내 정보수정<span></p>  
+	  	 <p style="width:150px;" onclick= "location.href = '<%=request.getContextPath()%>/views/studentPage/stdCalendar.jsp'"><span style="width:150px;" >일정 및 휴가관리<span></p> 
+	  	 <p style="width:150px;" onclick= "location.href = '<%=request.getContextPath()%>/views/studentPage/study.jsp'"><span style="width:150px;" >스터디 개설 및 신청<span></p> 
 	 	</div>
 	 	<div class= imgArea2>
 	 	</div>
@@ -486,9 +487,10 @@ body{
 	<!-- 강사페이지 서브메뉴 div -->	
 	<div id= "teacherDiv" class="subMenu" data-value = "0">
 	 	<div class= textArea>
-	 		<p onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/approvalJoin.jsp'"><span>가입승인</span></p>
-	 		<p onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/managementStd.jsp'"><span>학생관리</span></p>
-	 		<p onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/seatView.jsp'"><span>자리배치</span></p>
+	 		<p style="width:150px;" onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/approvalJoin.jsp'"><span>가입승인</span></p>
+	 		<p style="width:150px;" onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/managementStd.jsp'"><span>학생관리</span></p>
+	 		<p style="width:150px;" onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/seatView.jsp'"><span>자리배치</span></p>
+	 		<p style="width:150px;" onclick= "location.href = '<%=request.getContextPath()%>/views/teacherPage/teacherCalendar.jsp'"><span>일정 및 휴가관리</span></p>
 	 	</div>
 	 	<div class= imgArea3>
 	 	</div>
@@ -506,7 +508,7 @@ body{
 				<label id ="saveIDLabel" for ="saveId"  style="position:absolute; left:80px; font-size: 13px"><b>아이디 저장하기</b></label>
 				<br>
 				<input type = "checkbox" name = "saveID" id = "saveId" style="height:15px;width:16px">
-				<span style="font-weight:550;margin-top: 10px";>PW:</span>&nbsp;<input id = "userPwd" type="text"  name = "userPwd" id = "userPwd" placeholder="Enter Password" style="margin-top: 10px"><br> <br>
+				<span style="font-weight:550;margin-top: 10px";>PW:</span>&nbsp;<input id = "userPwd" type="password"  name = "userPwd" id = "userPwd" placeholder="Enter Password" style="margin-top: 10px"><br> <br>
 				</div>
 				<br>
 				
@@ -615,12 +617,9 @@ function goTasty(){
 
 
 	function goMyInfo(){
-		
-		alert("내정보수정 뭔가 이상함. 실행하면안됨")
-		
-		<%-- if(<%=userNo%> != 0){	
-			location.href="<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId()%>";  
-		}   --%>
+	
+			location.href="<%=request.getContextPath()%>/views/member/memberView.jsp";  
+		  
 	}
 
 
@@ -840,6 +839,62 @@ function logout(){
        $("#loginDiv").data("value","0");
        $("#loginIcon").removeClass("hoverStay")
     }
+	  
+	  
+	  
+	  
+    $(document).ready(function(){
+        // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+        var key = getCookie("key");
+        $("#userId").val(key); 
+         
+        if($("#userId").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+            $("#savId").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+        }
+         
+        $("#savId").change(function(){ // 체크박스에 변화가 있다면,
+            if($("#savId").is(":checked")){ // ID 저장하기 체크했을 때,
+                setCookie("key", $("#userId").val(), 30); // 7일 동안 쿠키 보관
+            }else{ // ID 저장하기 체크 해제 시,
+                deleteCookie("key");
+            }
+        });
+         
+        // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+        $("#userId").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+            if($("#savId").is(":checked")){ // ID 저장하기를 체크한 상태라면,
+                setCookie("key", $("#userId").val(), 7); // 7일 동안 쿠키 보관
+            }
+        });
+    });
+     
+    function setCookie(cookieName, value, exdays){
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+        document.cookie = cookieName + "=" + cookieValue;
+    }
+     
+    function deleteCookie(cookieName){
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() - 1);
+        document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+    }
+     
+    function getCookie(cookieName) {
+        cookieName = cookieName + '=';
+        var cookieData = document.cookie;
+        var start = cookieData.indexOf(cookieName);
+        var cookieValue = '';
+        if(start != -1){
+            start += cookieName.length;
+            var end = cookieData.indexOf(';', start);
+            if(end == -1)end = cookieData.length;
+            cookieValue = cookieData.substring(start, end);
+        }
+        return unescape(cookieValue);
+    }
+    
 	  
 	
 </script>

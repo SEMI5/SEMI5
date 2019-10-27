@@ -124,14 +124,20 @@
 							else{
 								if(data[key].type == "V_N"){
 									info += "<tr>"
-									info += "<td style = 'background: red; color: white'>"+data[key].start+"</td>";
-									info += "<td style = 'background: red; color: white'>"+data[key].title+"</td>";
+									info += "<td style = 'background: #FE7773; color: white'>"+data[key].start+"</td>";
+									info += "<td style = 'background: #FE7773; color: white'>"+data[key].title+"</td>";
 									info += "</tr>";
 								}
-								else{
+								if(data[key].type == "V_W"){
 									info += "<tr>"
-									info += "<td style = 'background: blue; color: white'>"+data[key].start+"</td>";
-									info += "<td style = 'background: blue; color: white'>"+data[key].title+"</td>";
+									info += "<td style = 'background: #E7E3E3; color: white'>"+data[key].start+"</td>";
+									info += "<td style = 'background: #E7E3E3; color: white'>"+data[key].title+"</td>";
+									info += "</tr>";
+								}
+								if(data[key].type == "V_Y"){
+									info += "<tr>"
+									info += "<td style = 'background: #1D6A96; color: white'>"+data[key].start+"</td>";
+									info += "<td style = 'background: #1D6A96; color: white'>"+data[key].title+"</td>";
 									info += "</tr>";
 								}
 							}
@@ -302,9 +308,8 @@
 	#calendar {
 		max-width: 50%;
 		display: inline-block;
-		margin: 2%;
-		margin-left : 20%;
-		
+		margin-left : 25%;
+		margin-right : 25%;
 		padding: 2%;
 		height: 600px;
 	}
@@ -370,20 +375,45 @@
 	.fc-sat { color:blue;  }
 	.fc-day:hover{background: whitesmoke; cursor: pointer;}
 
+#banner{
+	width: 100%;
+	height: 350px;
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
+
+#banner img{
+	width: 100%;
+	height: 250px;
+	
+}
+
+#mainTitle{
+	margin: auto;
+	font-size: 45px;
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+	border-bottom: 1px solid grey;
+	height: 50px;
+	text-align: center;
+	margin-top: 50px;
+	padding-bottom: 30px;
+	}
+
 </style>
-
-
-
 </head>
 
-<header>	
+<header>
+	<%@ include file = "/views/common/header.jsp" %>
 </header>
 
 <body>
-
-
+	<div id = "banner">	
+		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">일정 및 휴가 관리</b></div>
+	</div>
 <div id = "outer">
-	
 	<div id = "calendar"></div>
 	
 	<div id = "stdList">

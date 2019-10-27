@@ -11,7 +11,7 @@
 </head>
 <body>
 	
-				
+			
 	<%-- <%@ include file = "views/common/mainHome.jsp" %>  --%>
 	<!-- 위에 꺼롤 실행하면, 이미지 파일이 상대경로라 제대로 안나옴 (단순히 페이지를 포함한다는 의미이니까 -->
 </body>

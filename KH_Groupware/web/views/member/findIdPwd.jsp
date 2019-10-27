@@ -16,23 +16,25 @@
 	}
 	
 	#findId{
-		/* border: 3px solid black; */
-		background: whitesmoke;
+		border: 3px solid lightgrey;
 		display: inline-block;
 		width: 40%;
 		margin: 4%;
 		margin-left: 5%;
 		margin: 5%;
 		margin-top: 30px;
+		margin-right:1%;
+		padding: 20px;
 	}
 
 	#findPwd{
-		/* border: 3px solid black; */
-		background: whitesmoke;
+		border: 3px solid lightgrey; 
 		display: inline-block;
 		width: 40%;
 		margin: 4%;
 		margin-top: 30px;
+		margin-left: 1%;
+		padding: 20px;
 	}
 
 	.btn{
@@ -55,7 +57,7 @@
 	
 	.label{
 		width: 200px;
-		font-size: 20px;
+		font-size: 17px;
 		text-align: right;
 		padding-right: 15px;
 	}
@@ -65,15 +67,49 @@
 	}
 	
 	input, select{
-		border: 0px solid whitesmoke;
+		border: 0.5px solid lightgrey;
 		font-size: 15px;
 	}
 
+#banner{
+	width: 100%;
+	height: 350px;
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
+
+#banner img{
+	width: 100%;
+	height: 250px;
+	
+}
+
+#mainTitle{
+	margin: auto;
+	font-size: 45px;
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+	border-bottom: 1px solid grey;
+	height: 50px;
+	text-align: center;
+	margin-top: 50px;
+	padding-bottom: 30px;
+	}
 </style>
 </head>
+
+<header>
+	<%@ include file = "/views/common/header.jsp" %>
+</header>
+
 <body>
+	<div id = "banner">	
+		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">아이디/비밀번호 찾기</b></div>
+	</div>
 	<div id = "outer">
-		<h1 style = "font-size: 40px;"><em>아이디/비밀번호 찾기</em></h1><br><br><br><br><br>
+		
 		<div id = "findId">
 			<h2 style = "margin-left: 15px;">아이디 찾기</h2>
 			<table id = "idTable" align = "center">

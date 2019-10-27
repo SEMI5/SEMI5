@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/views/common/header.jsp"%>
-<%@ include file="/views/common/footer.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,27 +139,43 @@
 </script>
 <style type="text/css">
 	#outer{
-		margin: 5%;
-		margin-top: 3%;
-		border: 5px solid black;
+		width:100%;
 	}
-	
- 	#stdList{
-		display: inline-block;
-		margin: 2%;
-		border: 5px solid black;
-		width: 10%;
-		height: 830px;
-		padding: 2%;
-	} 
+
 	
 	#calendar {
 		max-width: 50%;
 		display: inline-block;
-		margin: 2%;
-		border: 5px solid black;
+		margin-left: 25%;
+		margin-right: 25%;
 		padding: 2%;
 		height: 830px;
+	}
+	
+	#banner{
+	width: 100%;
+	height: 350px;
+	margin-top: 40px;
+	margin-bottom: 50px;
+	}
+	
+	#banner img{
+		width: 100%;
+		height: 250px;
+		
+	}
+	
+	#mainTitle{
+	margin: auto;
+	font-size: 45px;
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+	border-bottom: 1px solid grey;
+	height: 50px;
+	text-align: center;
+	margin-top: 50px;
+	padding-bottom: 30px;
 	}
 	
 	.fc-sun { color:red; }
@@ -169,10 +184,17 @@
 </style>
 
 </head>
+
+<header>
+	<%@ include file = "/views/common/header.jsp" %>
+</header>
 <body>
+<div id = "banner">	
+		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">일정 및 휴가관리</b></div>
+</div>
 <div id = "outer">
 	<div id = "calendar"></div>
-	<div id = "stdList">&nbsp;</div>
 </div>
 
 

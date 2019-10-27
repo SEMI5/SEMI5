@@ -165,32 +165,32 @@
 			<table align = "center">
 				<tr>
 					<td width ="200px"> * 아이디 </td>
-					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" required></td>  <!--required 미입력시 값을 입력하세요 문구뜸  -->
+					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" requi#f53f29></td>  <!--requi#f53f29 미입력시 값을 입력하세요 문구뜸  -->
 					<th class = "info"><div id = "checkId" class = "checkInfo"></div></th>
 					<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
 				</tr>
 				<tr>
 					<td> * 비밀번호 </td>
-					<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd" required></td>
+					<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd" requi#f53f29></td>
 					<th class = "info"><div id = "checkPwd" class = "checkInfo"></div></th>
 				</tr>
 				<tr>
 					<td>* 비밀번호 확인</td>
-					<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2" required></td>
+					<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2" requi#f53f29></td>
 					<th class = "info"><div id = "checkPwd2" class = "checkInfo"></div></th>
 				</tr>
 				<tr>
 					<td> * 이름 </td>
-					<td><input id = "userName" type = "text" maxlength="5" name="userName" required></td>
+					<td><input id = "userName" type = "text" maxlength="5" name="userName" requi#f53f29></td>
 					<th class = "info"><div id = "checkName" class = "checkInfo"></div></th>
 				</tr>
 				<tr>
 					<td> * 생년월일 </td>
 					<td>
-						<input type = "text" id = "RRN" maxlength="8" name="userRRN" style="width: 159px; margin-left: 0px;" required>
-						<input id = "genderM" type = "radio"  name="userGender" value = "1" style="width: 20px; height: 20px;" required>
+						<input type = "text" id = "RRN" maxlength="8" name="userRRN" style="width: 159px; margin-left: 0px;" requi#f53f29>
+						<input id = "genderM" type = "radio"  name="userGender" value = "1" style="width: 20px; height: 20px;" requi#f53f29>
 						<label for = "genderM" >남</label>
-						<input id = "genderY" type = "radio"  name="userGender" value = "2" style="width: 20px; height: 20px;" required>
+						<input id = "genderY" type = "radio"  name="userGender" value = "2" style="width: 20px; height: 20px;" requi#f53f29>
 						<label for = "genderY" >여</label>
 					</td>
 					<th class = "info"><div id = "checkRRN" class = "checkInfo"></div></th>
@@ -212,7 +212,7 @@
 				</tr>
 				<tr>
 					<td> * 이메일 </td>
-					<td id = "emailPt"><input type = "text" name = "emailId" style="width: 141px; margin-right: 5px;" required="required"><em>@</em>
+					<td id = "emailPt"><input type = "text" name = "emailId" style="width: 141px; margin-right: 5px;" requi#f53f29="requi#f53f29"><em>@</em>
 					<input type="text" name="email2" value="naver.com" style="width: 220px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
 					</td>
 					<th>
@@ -231,7 +231,7 @@
 				</tr>
 				<tr>
 					<td> * 주소 </td>
-					<td><input type="text" id="address" name = "address" placeholder="주소" ReadOnly = "true" required="required"></td>
+					<td><input type="text" id="address" name = "address" placeholder="주소" ReadOnly = "true" requi#f53f29="requi#f53f29"></td>
 					<th><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px"></th>
 				</tr>
 				<tr>
@@ -251,11 +251,11 @@
 			</table>
 			
 			<div align = "center">
-				<!-- submit 방법 1 (함수활용해서 submit하기 )(required동작 안함) -->
-				<div class = "btns" id = "joinBtn" onclick = "insertMember();">가입하기</div> <!--함수방식은 required 적용이안됨-->
+				<!-- submit 방법 1 (함수활용해서 submit하기 )(requi#f53f29동작 안함) -->
+				<div class = "btns" id = "joinBtn" onclick = "insertMember();">가입하기</div> <!--함수방식은 requi#f53f29 적용이안됨-->
 				
 				<!-- submit 방법 2 -->
-				<!-- <input id = "joinBtn" type="submit" value ="가입하기">	 -->			<!-- submit버튼으로 만들어서 실행해야 input태그들의 required이 발동함 -->
+				<!-- <input id = "joinBtn" type="submit" value ="가입하기">	 -->			<!-- submit버튼으로 만들어서 실행해야 input태그들의 requi#f53f29이 발동함 -->
 				
 				<!-- InsertMemberServlet 만들러 감 -->
 				<div class = "btns" id = "goMain" onclick = "goMain();">메인으로</div>
@@ -318,18 +318,18 @@
 				},
 				success : function(data) {
 					if (userId == "") {
-						$("#checkId").css("color", "red");
-						$("#userId").css("border", "3px solid red");
+						$("#checkId").css("color", "#f53f29");
+						$("#userId").css("border", "3px solid #f53f29");
 						$("#checkId").text("아이디를 입력하세요.");
 						idCheck = false;
 					} else if (!idRe.test(userId)) {
-						$("#checkId").css("color", "red");
-						$("#userId").css("border", "3px solid red");
+						$("#checkId").css("color", "#f53f29");
+						$("#userId").css("border", "3px solid #f53f29");
 						$("#checkId").text("4-12의 영문자,숫자만 입력가능합니다.");
 						idCheck = false;
 					} else if (data > 0) {
-						$("#checkId").css("color", "red");
-						$("#userId").css("border", "3px solid red");
+						$("#checkId").css("color", "#f53f29");
+						$("#userId").css("border", "3px solid #f53f29");
 						$("#checkId").text("중복된 아이디입니다.");
 						idCheck = false;
 					} else {
@@ -347,13 +347,13 @@
 			var pwdRe = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 
 			if (userPwd == "") {
-				$("#checkPwd").css("color", "red");
-				$("#userPwd").css("border", "3px solid red");
+				$("#checkPwd").css("color", "#f53f29");
+				$("#userPwd").css("border", "3px solid #f53f29");
 				$("#checkPwd").text("비밀번호를 입력하세요.");
 				pwdCheck = false;
 			} else if (!pwdRe.test(userPwd)) {
-				$("#checkPwd").css("color", "red");
-				$("#userPwd").css("border", "3px solid red");
+				$("#checkPwd").css("color", "#f53f29");
+				$("#userPwd").css("border", "3px solid #f53f29");
 				$("#checkPwd").text("문자,숫자,특수문자를 포함한 8-20자");
 				pwdCheck = false;
 			} else {
@@ -368,22 +368,22 @@
 			var userPwd2 = $("#userPwd2").val();
 
 			if ($("#userPwd1") == "") {
-				$("#checkPwd2").css("color", "red");
-				$("#userPwd2").css("border", "3px solid red");
+				$("#checkPwd2").css("color", "#f53f29");
+				$("#userPwd2").css("border", "3px solid #f53f29");
 				$("#checkPwd2").text("비밀번호를 먼저 입력하세요.");
 				$("#userPwd2").val("");
 				pwdCheck2 = false;
 				$("#userPwd").focus();
 			} else if (pwdCheck == false) {
-				$("#checkPwd2").css("color", "red");
-				$("#userPwd2").css("border", "3px solid red");
+				$("#checkPwd2").css("color", "#f53f29");
+				$("#userPwd2").css("border", "3px solid #f53f29");
 				$("#userPwd2").val("");
 				$("#checkPwd2").text("비밀번호 조건을 먼저 만족시켜야합니다.");
 				pwdCheck2 = false;
 				$("#userPwd").focus();
 			} else if ($("#userPwd").val() != userPwd2) {
-				$("#checkPwd2").css("color", "red");
-				$("#userPwd2").css("border", "3px solid red");
+				$("#checkPwd2").css("color", "#f53f29");
+				$("#userPwd2").css("border", "3px solid #f53f29");
 				$("#checkPwd2").text("비밀번호가 일치하지 않습니다.");
 				pwdCheck2 = false;
 			} else {
@@ -400,13 +400,13 @@
 			var userName = $("#userName").val();
 
 			if (userName == "") {
-				$("#checkName").css("color", "red");
-				$("#userName").css("border", "3px solid red");
+				$("#checkName").css("color", "#f53f29");
+				$("#userName").css("border", "3px solid #f53f29");
 				$("#checkName").text("이름을 입력하세요.");
 				nameCheck = false;
 			} else if (!nameRe.test(userName)) {
-				$("#checkName").css("color", "red");
-				$("#userName").css("border", "3px solid red");
+				$("#checkName").css("color", "#f53f29");
+				$("#userName").css("border", "3px solid #f53f29");
 				$("#checkName").text("2~6자의 한글");
 				nameCheck = false;
 			} else {
@@ -423,15 +423,15 @@
 			var tel2 = $("#tel2").val();
 			
 			if (tel1 == ""  && tel2 == "" ) {
-				$("#checkPhone").css("color", "red");
-				$("#tel1").css("border", "3px solid red");
-				$("#tel2").css("border", "3px solid red");
+				$("#checkPhone").css("color", "#f53f29");
+				$("#tel1").css("border", "3px solid #f53f29");
+				$("#tel2").css("border", "3px solid #f53f29");
 				$("#checkPhone").text("번호을 입력하세요.");
 				phoneCheck = false;
 			} else if (!phoneRe.test(tel1) || !phoneRe.test(tel2) ) {
-				$("#checkPhone").css("color", "red");
-				$("#tel1").css("border", "3px solid red");
-				$("#tel2").css("border", "3px solid red");
+				$("#checkPhone").css("color", "#f53f29");
+				$("#tel1").css("border", "3px solid #f53f29");
+				$("#tel2").css("border", "3px solid #f53f29");
 				$("#checkPhone").text("3~4자의 숫자");
 				phoneCheck = false;
 			} else {
@@ -450,13 +450,13 @@
 
 			
 			if (rrn == ""  ) {
-				$("#checkRRN").css("color", "red");
-				$("#RRN").css("border", "3px solid red");
+				$("#checkRRN").css("color", "#f53f29");
+				$("#RRN").css("border", "3px solid #f53f29");
 				$("#checkRRN").text("번호을 입력하세요.");
 				rrnCheck  = false;
 			} else if (!RRNre.test(rrn)) {
-				$("#checkRRN").css("color", "red");
-				$("#RRN").css("border", "3px solid red");
+				$("#checkRRN").css("color", "#f53f29");
+				$("#RRN").css("border", "3px solid #f53f29");
 				$("#checkRRN").text("정확한 생년월일 8자리");
 				rrnCheck  = false;
 			} else {

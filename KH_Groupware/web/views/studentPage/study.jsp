@@ -139,11 +139,45 @@ input{
 
 }
 
+#banner{
+	width: 100%;
+	height: 350px;
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
+
+#banner img{
+	width: 100%;
+	height: 250px;
+	
+}
+
+#mainTitle{
+	margin: auto;
+	font-size: 45px;
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+	border-bottom: 1px solid grey;
+	height: 50px;
+	text-align: center;
+	margin-top: 50px;
+	padding-bottom: 30px;
+	}
+
 
 </style>
 </head>
-<body>
 
+<header>
+	<%@ include file = "/views/common/header.jsp" %>
+</header>
+
+<body>
+	<div id = "banner">	
+			<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+			<div  id = "mainTitle"><b style="margin-bottom: 3000px;">스터디 개설 및 신청</b></div>
+	</div>
 	<div id="outer">
 		<div id="mySlide">
 			<h2 style = "text-align: center; margin-bottom: 0px; color:#262A2D; ">내 스터디</h2>
