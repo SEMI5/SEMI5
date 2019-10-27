@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import studentPage.model.service.sPageService;
-import studentPage.model.vo.Study;
+import studentPage.model.vo.AppStudy;
 
 /**
  * Servlet implementation class ShowAppStudyServlet
@@ -37,11 +37,10 @@ public class ShowAppStudyServlet extends HttpServlet {
 		
 		int cid = Integer.valueOf(request.getParameter("cid"));
 		
-		ArrayList<Study> asList = new sPageService().showAppStudy(cid);
+		ArrayList<AppStudy> asList = new sPageService().showAppStudy(cid);
 		
-		if(asList != null) {
-			new Gson().toJson(asList, response.getWriter());
-		}
+		new Gson().toJson(asList, response.getWriter());
+
 	}
 
 	/**

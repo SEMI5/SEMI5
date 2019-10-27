@@ -17,10 +17,30 @@ public class Study implements Serializable{
     private String time;
     private Date openDate;
     private String status;
-
+    private String userName;
+    
     public Study() {}
     
-    public Study(int stNo, int userNo, String stName, String location, String time, Date openDate, String status) {
+    
+    
+    
+    public Study(int stNo, int userNo, String stName, String location, String time, Date openDate, String status,
+			String userName) {
+		super();
+		this.stNo = stNo;
+		this.userNo = userNo;
+		this.stName = stName;
+		this.location = location;
+		this.time = time;
+		this.openDate = openDate;
+		this.status = status;
+		this.userName = userName;
+	}
+
+
+
+
+	public Study(int stNo, int userNo, String stName, String location, String time, Date openDate, String status) {
     	super();
     	this.stNo = stNo;
     	this.userNo = userNo;
@@ -40,6 +60,28 @@ public class Study implements Serializable{
 		this.location = location;
 		this.time = time;
 		this.openDate = openDate;
+	}
+
+	
+	
+	
+	public Study(int stNo, String stName, String location, String time) {
+		super();
+		this.stNo = stNo;
+		this.stName = stName;
+		this.location = location;
+		this.time = time;
+	}
+
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public int getStNo() {

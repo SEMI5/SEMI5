@@ -71,7 +71,7 @@ public class sPageDao {
 			while (rs.next()) {
 				stList.add(new Study(rs.getInt("stid"), rs.getInt("user_no"), rs.getString("st_name"),
 						rs.getString("st_location"), rs.getString("st_time"), rs.getDate("create_date"),
-						rs.getString("status")));
+						rs.getString("status"), rs.getString("user_name")));
 
 			}
 		} catch (SQLException e) {
@@ -84,7 +84,7 @@ public class sPageDao {
 		return stList;
 	}
 
-	public ArrayList<Study> showAppStudy(Connection conn, int cid) {
+	public ArrayList<AppStudy> showAppStudy(Connection conn, int cid) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<AppStudy> asList = new ArrayList<AppStudy>();
@@ -93,15 +93,20 @@ public class sPageDao {
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			/*
-			 * pstmt.setInt(1, cid);
-			 * 
-			 * rs=pstmt.executeQuery();
-			 * 
-			 * while(rs.next()) { asList.add();
-			 * 
-			 * }
-			 */
+			
+			  pstmt.setInt(1, cid);
+			  
+			  rs=pstmt.executeQuery();
+			  
+			  while(rs.next()) { 
+				  asList.add(new AppStudy(rs.getInt("user_no"),
+						  					rs.getInt("stid"),
+						  					rs.getDate("app_date"),
+						  					rs.getString("user_name"),
+						  					rs.getString("phone"),
+						  					rs.getString("address")));
+			  }
+			 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -109,7 +114,103 @@ public class sPageDao {
 			close(pstmt);
 		}
 
-		return null;
+		return asList;
+	}
+
+	
+	
+	public int appStudy(Connection conn, AppStudy as) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("appStudy");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, as.getStNo());
+			pstmt.setInt(2, as.getUserNo());
+			pstmt.setDate(3, as.getAppDate());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int delAS(Connection conn, int userNo, int stNo) {
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		
+		String query = prop.getProperty("deleteAppStudy");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, stNo);
+
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		
+		return result;
+	}
+
+	public int delStudy(Connection conn, int stNo) {
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		
+		String query = prop.getProperty("deleteStudy");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, stNo);
+
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		
+		return result;
+	}
+
+	public int modStudy(Connection conn, Study st) {
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		
+		String query = prop.getProperty("modifyStudy");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, st.getStName());
+			pstmt.setString(2, st.getLocation());
+			pstmt.setString(3, st.getTime());
+			pstmt.setInt(4, st.getStNo());
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		
+		return result;
 	}
 
 }
