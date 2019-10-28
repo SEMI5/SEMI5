@@ -271,34 +271,34 @@ th{
 			<table align = "center">
 				<tr>
 					<th width ="200px;"> * 아이디 </th>
-					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" required>
+					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" requi#f53f29>
 					<div id = "checkId" class = "checkInfo" style = "font-size : 0.7em"></div></td>
-					  							<!--required 미입력시 값을 입력하세요 문구뜸  -->
+					  							<!--requi#f53f29 미입력시 값을 입력하세요 문구뜸  -->
 					<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
 				</tr>
 				<tr>
 					<th> * 비밀번호 </th>
-					<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd" required>
+					<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd" requi#f53f29>
 					<div id = "checkPwd" class = "checkInfo" style = "font-size : 0.7em"></div></td>
 				</tr>
 				<tr>
 					<th>* 비밀번호 확인</th>
-					<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2" required>
+					<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2" requi#f53f29>
 					<div id = "checkPwd2" class = "checkInfo" style = "font-size : 0.7em"></div></td>
 				</tr>
 				<tr>
 					<th> * 이름 </th>
-					<td><input id = "userName" type = "text" maxlength="5" name="userName" required>
+					<td><input id = "userName" type = "text" maxlength="5" name="userName" requi#f53f29>
 					<div id = "checkName" class = "checkInfo" style = "font-size : 0.7em"></div></td>
 				</tr>
 				<tr>
 					<th> * 생년월일 </th>
 					<td>
 						<div id ="joinTdbirth">
-						<input type = "text" id = "RRN" maxlength="8" name="userRRN" style="width: 159px; margin-left: 0px;" required>
-						<input id = "genderM" type = "radio"  name="userGender" value = "1" style="width: 20px; height: 20px;" required>
+						<input type = "text" id = "RRN" maxlength="8" name="userRRN" style="width: 159px; margin-left: 0px;" requi#f53f29>
+						<input id = "genderM" type = "radio"  name="userGender" value = "1" style="width: 20px; height: 20px;" requi#f53f29>
 						<label for = "genderM" >남</label>
-						<input id = "genderY" type = "radio"  name="userGender" value = "2" style="width: 20px; height: 20px;" required>
+						<input id = "genderY" type = "radio"  name="userGender" value = "2" style="width: 20px; height: 20px;" requi#f53f29>
 						<label for = "genderY" >여</label>
 						</div>
 						<div id = "checkRRN" class = "checkInfo" style = "font-size : 0.7em"></div>
@@ -321,7 +321,7 @@ th{
 				</tr>
 				<tr>
 					<th> * 이메일 </th>
-					<td id = "emailPt"><input type = "text" name = "emailId" style="width: 141px; margin-right: 5px;" required="required"><em>@</em>
+					<td id = "emailPt"><input type = "text" name = "emailId" style="width: 141px; margin-right: 5px;" requi#f53f29="requi#f53f29"><em>@</em>
 					<input type="text" name="email2" value="naver.com" style="width: 220px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
 					</td>
 					<td>
@@ -340,7 +340,7 @@ th{
 				</tr>
 				<tr>
 					<th> * 주소 </th>
-					<td><input type="text" id="address" name = "address" placeholder="주소" ReadOnly = "true" required="required"></td>
+					<td><input type="text" id="address" name = "address" placeholder="주소" ReadOnly = "true" requi#f53f29="requi#f53f29"></td>
 					<td><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px"></td>
 				</tr>
 				<tr>

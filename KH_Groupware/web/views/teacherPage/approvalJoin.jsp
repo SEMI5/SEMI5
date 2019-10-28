@@ -22,9 +22,9 @@
 <title>Insert title here</title>
 <style type="text/css">
 #outer {
-	width: 100%;
+	width: 98%;
 	height: 100%;
-	border: 3px solid red;
+
 	padding: 20px;
 }
 

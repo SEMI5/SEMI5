@@ -5,23 +5,23 @@
     pageEncoding="UTF-8"%>
     
 <%
-	Member loginUser = (Member)session.getAttribute("loginUser");
+	Member user = (Member)session.getAttribute("loginUser");
 	String cls = (String)session.getAttribute("className");
 
 	
-	String userId = loginUser.getUserId();
+	String userId = user.getUserId();
 	String cName = cls;
-	String userName = loginUser.getUserName();
-	String userBorn = loginUser.getRRN().substring(0, 7);
-	String userGender = loginUser.getRRN().substring(6);
+	String userName = user.getUserName();
+	String userBorn = user.getRRN().substring(0, 7);
+	String userGender = user.getRRN().substring(6);
 		if(userGender.equals("1")){
 			userGender = "남";
 		}else{
 			userGender = "여";
 		}
-	String[] email = loginUser.geteMail().split("@");
-	String[] phone = loginUser.getPhone().split("-");
-	String[] address = loginUser.getAddress().split("@");
+	String[] email = user.geteMail().split("@");
+	String[] phone = user.getPhone().split("-");
+	String[] address = user.getAddress().split("@");
 	
 	
 	
@@ -162,28 +162,57 @@
 		padding-left: 10px;
 		font-size: 10px;
 	}
+	
+	#banner{
+	width: 100%;
+	height: 350px;
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
+
+#banner img{
+	width: 100%;
+	height: 250px;
+	
+}
+
+#mainTitle{
+	margin: auto;
+	font-size: 45px;
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+	border-bottom: 1px solid grey;
+	height: 50px;
+	text-align: center;
+	margin-top: 50px;
+	padding-bottom: 30px;
+	}
 
 
 
 </style>
 </head>
 <header>
-	
+	<%@ include file = "/views/common/header.jsp" %>
 </header>
 <body>
 <%-- <%@ include file = "/views/common/header.jsp" %>--%>
 <!-- menubar.jsp를 찾아서 그 페이지를 내 페이지에 include(포함)시켜라 // 페이지에서 사용한 스크립트,css 모두다 가져옴-->
+<div id = "banner">	
+		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">내 정보 수정</b></div>
+	</div>
 
 <div class = "outer">
 		<br>
 		<form id = "updateForm" action = "<%=request.getContextPath() %>/update.me" method ="post" >
-				<h1 align="left" style="font-size : 40px;"><em>정보수정</em></h1>
-				<p style = "font-size: 20px; margin: 1px;"><%=cName %>반</p>
-				<p style = "font-size: 18px;  margin: 1px; margin-bottom: 20px;"><%= userName %> (<%=userBorn %>, <%=userGender %>)</p> 
+				<p style = "font-size: 20px; margin: 1px; margin-top: 30px; margin-bottom: 10px;" ><em><%=cName %>반</em></p>
+				<p style = "font-size: 25px;  margin: 1px; margin-bottom: 20px;"><em><%= userName %> (<%=userBorn %>, <%=userGender %>)</em></p> 
 			<table align = "center">
 				<tr>
 					<td width ="200px">아이디</td>
-					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" value = "<%=userId%>"readonly="readonly"></td>  <!--required 미입력시 값을 입력하세요 문구뜸  -->
+					<td><input id = "userId" type = "text" placeholder = "<%=userId%>" maxlength ="13" name = "userId"  readonly="readonly"></td>  <!--required 미입력시 값을 입력하세요 문구뜸  -->
 					<th class = "info"><div id = "checkId" class = "checkInfo"></div></th>
 					<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
 				</tr>
