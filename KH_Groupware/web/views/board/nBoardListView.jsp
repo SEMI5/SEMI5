@@ -465,6 +465,7 @@ option{
       	<input id= "prevBid" type=hidden value="" name="prevBid"> 	
       </form>
 </div>
+<br><br><br>
 </div>
 <script> 
   $(function(){
@@ -548,7 +549,7 @@ $(function(){
  
 </script>
 
-
+<br><br><br>
 </body>
 
 

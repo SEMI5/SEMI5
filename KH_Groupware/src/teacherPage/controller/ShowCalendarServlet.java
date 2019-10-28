@@ -72,15 +72,15 @@ public class ShowCalendarServlet extends HttpServlet {
 			resultHM.put("userNum", userNum);
 			resultHM.put("type", type);
 
-			for(int j = 0 ; j < stdList.size() ; j++) {
-				if(stdList.get(j).getUserNo() == scdList.get(i).getUserNum()) {
-					userName = loginUser.getUserName();
-					resultHM.put("userName", userName);
-				}
-			}
 			
 
 			if (loginUser.getUserNo() > 100000) {
+				for(int j = 0 ; j < stdList.size() ; j++) {
+					if(stdList.get(j).getUserNo() == scdList.get(i).getUserNum()) {
+						userName = loginUser.getUserName();
+						resultHM.put("userName", userName);
+					}
+				}
 
 				if (type.equals("SCD")) {
 					resultHM.put("title", scdList.get(i).getScdName());

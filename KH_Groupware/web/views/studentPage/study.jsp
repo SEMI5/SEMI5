@@ -4,7 +4,6 @@
     
 <% 
 	Member loginuser =  (Member)session.getAttribute("loginUser");
-	int stcount = 1;
 %>    
     
 <!DOCTYPE html>
@@ -139,13 +138,18 @@ input{
 	height: 30px;
 
 }
+
+
 </style>
 </head>
 <body>
 
 	<div id="outer">
 		<div id="mySlide">
-			<h2 style = "text-align: center; margin-bottom: 35px; color:#262A2D; ">내 스터디</h2>
+			<h2 style = "text-align: center; margin-bottom: 0px; color:#262A2D; ">내 스터디</h2>
+			<div style = "height: 30px; width: 6.85%; margin-left: 66%; margin-bottom: 5px;">
+				<button id = "openStBtn" onclick = "openStudy();" style = "width: 100%; height: 100%; background: #262A2D; color: #F6F6F6">스터디 개설</button>
+			</div>
 			<div id = "myStudy" class="main-carousel" style="width: 50%;">
 				
 			</div>
@@ -154,80 +158,20 @@ input{
 
 
 	<div id="allSlide" style = "margin-top: 100px;">
-		<h2 style = "text-align: center; margin-bottom: 0px; color:#262A2D;">모든 스터디</h2>
-		<div style = "height: 30px; width: 6.85%; margin-left: 80%; margin-bottom: 5px;">
-			<button id = "openStBtn" onclick = "openStudy();" style = "width: 100%; height: 100%; background: #262A2D; color: #F6F6F6">스터디 개설</button>
-		</div>
+		<h2 style = "text-align: center; margin-bottom: 35px; color:#262A2D;">모든 스터디</h2>
 		<div id = "allStudy" class="main-carousel">
-			<div class="carousel-cell">
-					<div>
-						<div id="study0" class="change" choose="study"
-							onclick="toggleTrsf(0);">
-							<div class="front" style = "margin: auto;">
-								<table id = "studyInfo">
-									<tr>
-										<th colspan="2">sdfsfsfsfsdfsfsds</th>
-									</tr>
-									<tr>
-										<td style = "width: 30%;">스터디장</td>
-										<td>dfsssfsf</td>
-									</tr>
-									<tr>
-										<td>장소</td>
-										<td></td>
-									</tr>
-									<tr>
-										<td>시간</td>
-										<td></td>
-									</tr>
-									<tr>
-										<td>dd</td>
-										<td></td>
-									</tr>
-								</table>
-							</div>
-							
-							<div class="back" style = "margin: auto;">
-								<table id = "attendance">
-									<tr>
-										<th style = "width: 30%; text-align: left; padding-left: 10px;">참여인원</th>
-										<th style = "text-align: right; padding-right: 20px;">5/5</th>
-									</tr>
-									<tr>
-										<td>강현모</td>
-										<td>ㄴㅇㄹㄴㅇㄹㄴㅇ</td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
+			
 		</div>
 	</div>
 	</div>
 
-	<div id = "openForm" style="display: none;">
+
+	<div id = "openForm" style="display: none; ">
 		<table id = "openFormTable" style = "margin: auto; margin-top: 2%;">
 			<h2 style = "text-align: center; margin-bottom: 20px; color:#262A2D; ">스터디 개설</h2>
 			<tr>
 				<td>제목</td>
-				<td><input type = "text" id = "title" maxlength="15" required="required" placeholder="주제와 간단한 소개"></td>
+				<td><input type = "text" id = "title" maxlength="15" required="required" placeholder="스터디 주제"></td>
 			</tr>
 			<tr>
 				<td>장소</td>
@@ -243,6 +187,28 @@ input{
 		</table>
 	</div>
 
+	<div id = "modifyForm" style="display: none; background:  #F6F6F6; width: 400px; height: 230px; ">
+			<table id = "openFormTable" style = "margin: auto; margin-top: 2%;">
+				<h2 style = "text-align: center; margin-bottom: 20px; color:#262A2D; ">스터디 개설</h2>
+				<tr>
+					<td>제목</td>
+					<td><input type = "text" id = "mtitle" maxlength="15" required="required" placeholder="스터디 주제"></td>
+				</tr>
+				<tr>
+					<td>장소</td>
+					<td><input type = "text" id = "mlocation" maxlength="15" required="required" placeholder="ex)학원앞 까페"></td>
+				</tr>
+				<tr>
+					<td>시간</td>
+					<td><input type = "text" id = "mtime" maxlength="15" required="required" placeholder="ex)매주 수요일 13시"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button id = "mBtn" style = "width: 50%; margin-left: 20%; margin-right: 30%; margin-top: 5px;  background: #262A2D; color: #F6F6F6;">수정하기</button>
+					<button id = "dBtn" style = "width: 50%; margin-left: 20%; margin-right: 30%; margin-top: 5px;  background: #262A2D; color: #F6F6F6;;">삭제하기</button></td>
+				</tr>
+			</table>
+		</div>
 
 
 
@@ -279,45 +245,87 @@ input{
 		
 		var stcount = 1;
 		var studyList;
-		var appStudyList;
+		var asl;
+		var myApp;
+		
+		
+		// 스터디 불러오기
 		$.ajax({
 			 url:"/KH_Groupware/showStudy.st",
+			 async:false,
 	         data:{cid : <%=loginuser.getcId()%>
 	         }, 
 	         success:function(data){   
-	        	 
-	        	 studyList = data;
 	        	 $.ajax({
 	    			 url:"/KH_Groupware/showAppStudy.st",
+	    			 async:false,
 	    	         data:{cid : <%=loginuser.getcId()%>
 	    	         }, 
 	    	         success:function(data){   
+	    	        	 asl = data;
 	    	        	 
-	    	        	 appStudyList = data;
-	    	        	
+	    	        	 myApp = new Array();
+	    	        	 for(var i in asl){
+	    	        		 if(<%=loginuser.getUserNo()%> == asl[i].userNo){
+	    	        			 myApp.push(asl[i].stNo);
+	    	        		 }
+	    	        	 }
 	    	            }
-	    	         });  
+	    	         });
+
 	        	 
+	        	 var app = myApp;
+	        	 studyList = data;
+	        	
+		        
+
 	        	 for(var i in studyList){
-		        	var title = studyList[i].stName;
-		        	var location = studyList[i].location;
-		        	var time = studyList[i].time;
-		        	var openDate = studyList[i].openDate;
-		        	
-		        	var $study = $(makeMyStudy(stcount, title, location, time, openDate));
-							        
-		        	stcount++;
-		        	
-		        	if(<%=loginuser.getUserNo()%>==data[i].userNo){
-	        	  		$myStudy.flickity('append', $study);
-		        	}else{
-	        	  		$allStudy.flickity('append', $study);	
-		        		}
-		        	}
+		        		var stNo = studyList[i].stNo;
+		        		var userNo = studyList[i].userNo;
+			        	var title = studyList[i].stName;
+			        	var location = studyList[i].location;
+			        	var time = studyList[i].time;
+			        	var openDate = studyList[i].openDate;
+			        	var userName = studyList[i].userName;
+			        	
+			        	
+
+			        	if(<%=loginuser.getUserNo()%>==userNo || app.includes(stNo)){
+			        		if(<%=loginuser.getUserNo()%>==userNo){
+			        			var $study = $(makeMyStudy(stNo, title, location, time, openDate, userNo, userName, "mine"));
+		        	  			$myStudy.flickity('append', $study);
+			        		}else{
+			        			var $study = $(makeMyStudy(stNo, title, location, time, openDate, userNo, userName, "app"));
+			        			$myStudy.flickity('append', $study);
+			        		}
+			        	}else{
+			        		if(studyList[i].status == "ING")
+			        		var $study = $(makeMyStudy(stNo, title, location, time, openDate, userNo, userName, "ing"));
+		        	  		$allStudy.flickity('append', $study);	
+			        	}
+			        	
+			        }
+	        	 
+	        	 var appStudyList = asl;
+	        	
+	        	 
+	        	 for(var i in appStudyList){
+	        		 if($("#study"+appStudyList[i].stNo).parent().parent().parent().parent().parent("div").attr("id")=="myStudy"){
+	        			 $("#study"+appStudyList[i].stNo+" #attendance tbody:first").append("<tr><td>"+appStudyList[i].userName+"</td><td>"+appStudyList[i].phone+"</td></tr>");
+	        		 }else{
+	        			 $("#study"+appStudyList[i].stNo+" #attendance tbody:first").append("<tr><td>"+appStudyList[i].userName+"</td><td>"+appStudyList[i].appDate+"</td></tr>");
+	        		 }
+	        		}
+	 				
+	        	 for(var i in studyList){
+	        		 
+	        		 $("#"+studyList[i].stNo+"count").text($("#study"+studyList[i].stNo+" #attendance tbody tr").length-1+"/5");
+	        	 }
+
 	            }
 	         });  
 
-		
+		// 스터디 개설
 		$("#openBtn").click(function(){
 			if(!confirm("정말로 스터디를 개설하시겠습니까?")){
 				$("#title").val("");
@@ -341,8 +349,7 @@ input{
 		        	var openDate = data.openDate;
 		        	 
 		        	 
-		        	 var $study = $(makeMyStudy(<%=stcount%>, title, location, time, openDate));
-		        	  $myStudy.flickity('append', $study);
+		        	window.location.reload();
 		            alert("저장이 완료되었습니다."); 
 		            }
 		         });  
@@ -371,8 +378,21 @@ input{
 
 		}
 
-		function makeMyStudy(stNo, title, location, time, openDate){
-			var count = 1;
+		function makeMyStudy(stNo, title, location, time, openDate, userNo, userName, type){
+			
+			
+			var button;
+			
+			
+			if(type == "mine"){
+				button = "<button id = 'appBtn' onclick = 'openMfApp("+stNo+");' style = 'width:40%; height:80%; margin-left:50%; background:#262A2D; color:#F6F6F6'>수정하기</button>"
+			}
+			if(type == "app"){
+				button = "<button id = 'appBtn' onclick = 'cancelApp("+stNo+");' style = 'width:40%; height:80%; margin-left:50%; background:#262A2D; color:#F6F6F6'>신청취소</button>";
+			}
+			if(type == "ing"){
+				button = "<button id = 'appBtn' onclick = 'appStudy("+stNo+");' style = 'width:40%; height:80%; margin-left:50%; background:#262A2D; color:#F6F6F6'>신청하기</button>";
+			}
 			
 			return "<div class='carousel-cell'>"+	
 			"<div>"+
@@ -385,7 +405,8 @@ input{
 							"</tr>"+
 							"<tr>"+
 								"<td style = 'width: 30%;'>스터디장</td>"+
-								"<td><%=loginuser.getUserName()%></td>"+
+								"<td>"+userName+"</td>"+
+								"<td class = 'userNo' style = 'display:none;'>userNo</td>"+
 							"</tr>"+
 							"<tr>"+
 								"<td>장소</td>"+
@@ -397,7 +418,7 @@ input{
 							"</tr>"+
 							"<tr>"+
 								"<td>"+openDate+"</td>"+
-								"<td class = 'btnTd'><button id = 'appBtn' onclick = 'appStudy("+stcount+");' style = 'width:40%; height:80%; margin-left:50%; background:#262A2D; color:#F6F6F6'>신청하기</button></td>"+
+								"<td id ='"+userNo+"Btn' class = 'btnTd'>"+button+"</td>"+
 							"</tr>"+
 						"</table>"+
 					"</div>"+
@@ -405,12 +426,12 @@ input{
 						"<table id = 'attendance'>"+
 							"<tr>"+
 								"<th class = 'backTh' style = 'width: 30%; text-align: left; padding-left: 10px;'>참여인원</th>"+
-								"<th class = 'backTh' style = 'text-align: right; padding-right: 20px;'>"+count+"/5</th>"+
+								"<th id = '"+stNo+"count' style = 'text-align: right; padding-right: 20px;'></th>"+
 							"</tr>"+
 							"<tr>"+
-								"<td><%=loginuser.getUserName()%></td>"+
-								"<td><%=loginuser.getPhone()%></td>"+
-							"</tr>"+
+								"<td>"+userName+"</td>"+
+								"<td>(스터디장)</td>"+
+						"</tr>"+
 						"</table>"+
 					"</div>"+
 				"</div>"+
@@ -418,25 +439,114 @@ input{
 		"</div>";
 		}
 		
+
+		
+		
+		// 스터디 신청
 		function appStudy(stNo){
 			if(!confirm("스터디에 참여하시겠습니까?")){
 				 return false;
 			}
+			if($("#study"+stNo+" #attendance tbody tr").length == 5){
+				alert("참여인원이 초과되었습니다");
+				return false;
+			}else{
+			
+				$.ajax({
+			         url:"/KH_Groupware/appStudy.st",
+			         data:{userNo : <%=loginuser.getUserNo()%>,
+			        	 stNo : stNo,
+			        	 appDate : date_to_str(new Date())
+			         }, 
+			         success:function(data){   
+			        	 window.location.reload();
+			            alert("저장이 완료되었습니다."); 
+			            }
+			         });  
+			}
+			
+		}
+
+
+		function cancelApp(stNo){
+			if(!confirm("신청을 취소하시겠습니까?")){
+				return false;
+			}
 			$.ajax({
-		         url:"/KH_Groupware/appStudy.st",
+		         url:"/KH_Groupware/delAppStudy.st",
 		         data:{userNo : <%=loginuser.getUserNo()%>,
 		        	 stNo : stNo
 		         }, 
 		         success:function(data){   
-		        	$("#study"+stNo+" #attendance").append("<tr>"+
-							"<td>추</td>"+
-							"<td>가</td>"+
-						"</tr>")
-		            alert("저장이 완료되었습니다."); 
+		        	 window.location.reload();
+		            alert("삭제되었습니다."); 
+		            }
+		         }); 
+		}
+		
+		function openMfApp(stNo){
+			$("#modifyForm").bPopup();
+			
+			$("#mBtn").on('click', function(){
+				modifyApp(stNo);
+			});
+			
+			$("#dBtn").on('click', function(){
+				deleteApp(stNo);
+			});
+			
+			
+		}
+		
+		
+		function modifyApp(stNo){
+			if(!confirm("수정하시겠습니까?")){
+				$("#mtitle").val("");
+				$("#mlocation").val("");
+				$("#mtime").val("");
+				$("#modifyForm").bPopup().close();
+				return false;
+			}
+			$.ajax({
+		         url:"/KH_Groupware/modStudy.st",
+		         data:{stNo : stNo,
+		        	 title : $("#mtitle").val(),
+		        	 location : $("#mlocation").val(),
+		        	 time : $("#mtime").val()
+		         }, 
+		         success:function(data){   
+		        	
+		        	window.location.reload();
+		            alert("정보가 수정되었습니다."); 
 		            }
 		         });  
+			$("#mtitle").val("");
+			$("#mlocation").val("");
+			$("#mtime").val("");
+			$("#mopenForm").bPopup().close();
 		}
+		
+		
+		
+		function deleteApp(stNo){
+			if(!confirm("삭제하시겠습니까?")){
+				return false;
+			}
+			alert(stNo);
+			$.ajax({
+		         url:"/KH_Groupware/delStudy.st",
+		         data:{ stNo : stNo
+		         }, 
+		         success:function(data){   
+		        	 window.location.reload();
+		            alert("삭제되었습니다."); 
+		            }
+		         }); 
+		}
+		
 
+		
+		
 		
 	</script>
 

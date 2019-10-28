@@ -21,7 +21,7 @@
 <link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<body class="w3-content" style="max-width:100%">
+<body class="w3-content" style="max-width:2000px;">
 
 <style>
 
@@ -38,8 +38,7 @@ img {vertical-align: middle;}
 /* Slideshow container */
 
 .slideshow-container {
-  /* max-width: 1000px; */
-  max-width: 100%;
+   max-width: 2000px;
   position: relative;
   margin: auto; 
   margin-top:1px;
@@ -382,6 +381,39 @@ bottom: 0px;
 }
 
 
+.circle{
+	position: absolute; 
+	z-index: 1;
+	left: 12%;
+	bottom: 30%;
+	height: 100px;
+	text-align: center; 
+	vertical-align: middle;
+ 	width: 100px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    background: #fcfaf1;
+    font-weight: bold;
+    padding-top: 12px;
+}
+
+.circle:hover{
+	cursor:pointer;
+	background: darkgray;
+	color: white;
+	transition-duration: 0.5s;
+}
+
+body{
+	background: #fcfaf1;
+
+}
+
+.teacherInfo{
+
+	cusrsor: pointer;
+}
 
 </style>
 
@@ -389,41 +421,30 @@ bottom: 0px;
 <body>
 <%@ include file = "header.jsp" %>
 		<!-- 이미지 슬라이더 부분  -->
-
-<!-- <br><br><br><br><br> -->
-
+<div style="height:40px;width:100%"></div>
 	<div class="slideshow-container">	
 		<div class="mySlides fade">
 		  <div class="numbertext">1 / 3</div>
-		  <img src="../../images/mainBack1.jpg" style="width:100%; height:700px;">
+		  <div class= "circle"><br>click here!</div>
+		  <img src="../../images/mainBack5.jpg" style="width:100%; height:800px; ">
 		</div>
-	
 		<div class="mySlides fade">
 		  <div class="numbertext">2 / 3</div>
-		  <img src="../../images/mainBack2.jpg" style="width:100%; height:700px;">
+		  <img src="../../images/mainBack4.jpg" style="width:100%; height:800px;">
 		</div>
-	
 		<div class="mySlides fade">	
 		  <div class="numbertext">3 / 3</div>
-		  <img src="../../images/main3.jpg" style="width:100%; height:700px;">
+		  <img src="../../images/mainBack2.jpg" style="width:100%; height:800px;">
 		</div>
-		
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 		<a class="next" onclick="plusSlides(1)">&#10095;</a>
 	</div>
-	
-	<div style="text-align:center">
+	<div style="text-align:center; background:#fcfaf1; padding-top: 10px; margin-bottom:10px;">
 		<span class="dot" onclick="currentSlide(1)"></span> 
 		<span class="dot" onclick="currentSlide(2)"></span> 
 		<span class="dot" onclick="currentSlide(3)"></span> 
 	</div>
-	
 <!-- 메인 슬라이더  css  -->
-<br><br>
-
-
-
-	
 <script>
 
 	var slideIndex = 1;
@@ -454,14 +475,13 @@ bottom: 0px;
 	}
 </script>
 
-
+<br>
 <!-- First Grid: Logo & About -->
 <div class="w3-row">
-  <div class="w3-half w3-black w3-container w3-center" style="height:700px">
+  <div class="w3-half w3-black w3-container w3-center" style="height:600px">
     <div class="w3-padding-64">
       <h1>주요 기능</h1>
-    </div>
-    <div class="w3-padding-64">
+      <br>
       <a href="#" class="w3-button w3-black w3-block w3-hover-blue-grey w3-padding-16"> 공지사항 </a>
       <a href="#work" class="w3-button w3-black w3-block w3-hover-teal w3-padding-16"> 자유게시판 </a>
       <a href="#work" class="w3-button w3-black w3-block w3-hover-dark-grey w3-padding-16"> 사진게시판 </a>
@@ -470,11 +490,13 @@ bottom: 0px;
       <a href="#" class="w3-button w3-black w3-block w3-hover-teal w3-padding-16"> 일정관리 & 휴가관리 </a>
       
     </div>
+    <div class="w3-padding-64">
+    </div>
   </div>
-  <div class="w3-half w3-blue-grey w3-container" style="height:700px">
+  <div class="w3-half w3-blue-grey w3-container" style="height:600px">
     <div id = "teacherInfoArea" class="w3-padding-64 w3-center" onclick = "goPage();" style = "cursor : pointer;">
       <h1>강사 소개</h1>
-      <img src="../../images/aqwxcc.jpg" class="w3-margin w3-circle" alt="Person" style="width:50%; height : 310px; ">
+      <img src="../../images/austin.jpg" class="w3-margin w3-circle teacherInfo" alt="Person" style="width:50%; height : 310px; ">
       <div class="w3-left-align w3-padding-large">
         <p align = "center">IT업계 최고의 강사진을 소개합니다.<br>
       </div>
@@ -488,101 +510,23 @@ bottom: 0px;
 		}
 </script>
 
-<!-- Second Grid: Work & Resume -->
-<div class="w3-row">
-  <div class="w3-half w3-light-grey w3-center" style= "width : 100%; min-height:800px" id="work">
-    <div class="w3-padding-64">
-      <h2>교 육 시 설</h2>
-      <p>최고의 교육 환경에서 IT인재를 양성합니다</p>
-    </div>
-    <div class="w3-row">
-      <div class="w3-half">
-        <img src="../../images/104.jpg" style="width:100%; height:300px; padding : 5px;">
-      </div>
-      <div class="w3-half">
-        <img src="../../images/108.jpg" style="width:100%; height:300px; padding : 5px;">
-      </div>
-    </div>
-    <div class="w3-row w3-hide-small">
-      <div class="w3-half">
-        <img src="../../images/105.jpg" style="width:100%; height:300px; padding : 5px;">
-      </div>
-      <div class="w3-half">
-        <img src="../../images/122.jpg" style="width:100%; height:300px; padding : 5px;">
-      </div>
-    </div>
-
-    <div class="w3-row w3-hide-small">
-      <div class="w3-half">
-        <img src="../../images/128.jpg" style="width:100%; height:300px; padding : 5px;">
-      </div>
-      <div class="w3-half">
-        <img src="../../images/123.jpg" style="width:100%; height:300px; padding : 5px;">
-      </div>
-    </div><br>
-<!--     <p>Just call me awesome.</p> -->
-  <!-- </div> -->
- <!--  <div class="w3-half w3-indigo w3-container" style="min-height:800px ">
-    <div class="w3-padding-64 w3-center">
-      <h2>공 지 사 항</h2><br><br><br>
-      <div class="w3-container w3-responsive">
-        <table class="w3-table" style = "border : 1px solid white; height : 390px;">
-          <tr style = "border : 1px solid white">
-            <th>순 번</th>
-            <th>제 목</th>
-            <th>날 짜</th>
-          </tr>
-          <tr style = "border : 1px solid white">
-            <td>6</td>
-            <td>공지사항1</td>
-            <td>2019/10/26</td>
-          </tr>
-          <tr style = "border : 1px solid white">
-            <td>5</td>
-            <td>공지사항1</td>
-            <td>2019/10/26</td>
-          </tr>
-          <tr style = "border : 1px solid white">
-            <td>4</td>
-            <td>공지사항1</td>
-            <td>2019/10/26</td>
-          </tr>
-          <tr style = "border : 1px solid white">
-            <td>3</td>
-            <td>공지사항1</td>
-            <td>2019/10/26</td>
-          </tr>
-          <tr style = "border : 1px solid white">
-            <td>2</td>
-            <td>공지사항1공지사항1</td>
-            <td>2019/10/26</td>
-          </tr>
-          <tr style = "border : 1px solid white">
-            <td>1</td>
-            <td>공지사항1공지사항1공지사항1</td>
-            <td>2019/10/26</td>
-          </tr>
-        </table>
-      </div> -->
-    </div>
-  </div>
-
 
 <!-- Third Grid: Swing By & Contact -->
 <div class="w3-row" id="contact">
-  <div class="w3-half w3-dark-grey w3-container w3-center" style="height:700px; font-family : Verdana; font-size:1.4em">
-    <div class="w3-padding-64">
+  <div class="w3-half w3-dark-grey w3-container w3-center" style="height:600px; font-family : Verdana; font-size:1.4em">
+    <div class="w3-padding-64" style= "padding-bottom: 0px";>
       <h1> 이거 사조 (5조)</h1>
-    </div>
-    <div class="w3-padding-64">
       <p> 조 장 - 조 호 관 </p>
       <p> 조 원 - 강 현 모, 안 상 재, 이 준 배  </p>
       <p>+00 1515151515</p>
       <p>kh@kh.com</p>
+    </div>
+    <div class="w3-padding-64">
+      
       
     </div>
   </div>
-  <div class="w3-half w3-teal w3-container" style="height:700px">
+  <div class="w3-half w3-teal w3-container" style="height:600px">
     <div class="w3-padding-64 w3-padding-large">
       <h1>Contact</h1>
       <p class="w3-opacity">GET IN TOUCH</p>
