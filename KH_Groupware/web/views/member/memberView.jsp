@@ -13,7 +13,7 @@
 	String cName = cls;
 	String userName = user.getUserName();
 	String userBorn = user.getRRN().substring(0, 7);
-	String userGender = user.getRRN().substring(6);
+	String userGender = user.getRRN().substring(8);
 		if(userGender.equals("1")){
 			userGender = "남";
 		}else{

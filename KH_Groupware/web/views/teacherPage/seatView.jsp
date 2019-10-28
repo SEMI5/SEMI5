@@ -15,6 +15,7 @@
    }
 
    
+   
    int count = 1;
    int countSize = stdList.size();
 %>
@@ -380,8 +381,8 @@ var setSeat = $(function(){
                $("#list<%=count%>").html("<div id = 'std<%=(i*3+j+1)%>' class='std' draggable='true' ondragstart='drag(event)'>"
                                      +"<table id='stdInfo<%=(i*3+j+1)%>'>"
                                        +"<tr>"
-                                          +"<td><%=stdList.get(i*3+j).getUserName()%></td>"
-                                          +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
+                                          +"<td style =''><%=stdList.get(i*3+j).getUserName()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getRRN().substring(2,8)%></td>"
                                        +"</tr>"
                                        +"<tr>"
                                           +"<td>수준 : <%=stdList.get(i*3+j).getStdLv()%></td>"
@@ -402,7 +403,7 @@ var setSeat = $(function(){
                                      +"<table id='stdInfo<%=(i*3+j+1)%>'>"
                                        +"<tr>"
                                           +"<td><%=stdList.get(i*3+j).getUserName()%></td>"
-                                          +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
+                                          +"<td><%=stdList.get(i*3+j).getRRN().substring(2,8)%></td>"
                                        +"</tr>"
                                        +"<tr>"
                                           +"<td>수준 : <%=stdList.get(i*3+j).getStdLv()%></td>"
@@ -447,7 +448,7 @@ function resetSeat(){
 	                                   +"<table id='stdInfo<%=(i*3+j+1)%>'>"
 	                                     +"<tr>"
 	                                        +"<td class = 'test'><%=stdList.get(i*3+j).getUserName()%></td>"
-	                                        +"<td><%=stdList.get(i*3+j).getRRN()%></td>"
+	                                        +"<td><%=stdList.get(i*3+j).getRRN().substring(2,8)%></td>"
 	                                     +"</tr>"
 	                                     +"<tr>"
 	                                        +"<td>수준 : <%=stdList.get(i*3+j).getStdLv()%></td>"
