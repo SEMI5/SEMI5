@@ -308,9 +308,8 @@
 	#calendar {
 		max-width: 50%;
 		display: inline-block;
-		margin: 2%;
-		margin-left : 20%;
-		
+		margin-left : 25%;
+		margin-right : 25%;
 		padding: 2%;
 		height: 600px;
 	}

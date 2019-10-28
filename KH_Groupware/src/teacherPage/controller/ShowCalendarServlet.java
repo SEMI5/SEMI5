@@ -77,7 +77,7 @@ public class ShowCalendarServlet extends HttpServlet {
 			if (loginUser.getUserNo() > 100000) {
 				for(int j = 0 ; j < stdList.size() ; j++) {
 					if(stdList.get(j).getUserNo() == scdList.get(i).getUserNum()) {
-						userName = loginUser.getUserName();
+						userName = stdList.get(j).getUserName();
 						resultHM.put("userName", userName);
 					}
 				}
@@ -85,23 +85,23 @@ public class ShowCalendarServlet extends HttpServlet {
 				if (type.equals("SCD")) {
 					resultHM.put("title", scdList.get(i).getScdName());
 					resultHM.put("editable", "true");
-					resultHM.put("color", "black");
-					resultHM.put("textColor", "white");
+					resultHM.put("color", "#514644");
+					resultHM.put("textColor", "#F6F6F6");
 				}
 
 				if (type.equals("V_Y")) {
 					resultHM.put("title", userName + " : 휴가승인");
-					resultHM.put("color", "blue");
+					resultHM.put("color", "#1D6A96");
 				}
 
 				if (type.equals("V_W")) {
 					resultHM.put("title", userName + " : 승인대기중");
-					resultHM.put("color", "grey");
+					resultHM.put("color", "#E7E3E3");
 				}
 
 				if (type.equals("V_N")) {
 					resultHM.put("title", userName + " : 휴가불승인");
-					resultHM.put("color", "red");
+					resultHM.put("color", "#FE7773");
 				}
 
 				result.add(resultHM);
@@ -109,20 +109,20 @@ public class ShowCalendarServlet extends HttpServlet {
 
 				if (type.equals("SCD")) {
 					resultHM.put("title", scdList.get(i).getScdName());
-					resultHM.put("color", "black");
-					resultHM.put("textColor", "white");
+					resultHM.put("color", "#514644");
+					resultHM.put("textColor", "#F6F6F6");
 					result.add(resultHM);
 				}
 
 				if (type.equals("V_Y") && loginUser.getUserNo() == scdList.get(i).getUserNum()) {
 					resultHM.put("title", "휴가 승인");
-					resultHM.put("color", "blue");
+					resultHM.put("color", "#1D6A96");
 					result.add(resultHM);
 				}
 
 				if (type.equals("V_W") && loginUser.getUserNo() == scdList.get(i).getUserNum()) {
 					resultHM.put("title", "승인 대기중");
-					resultHM.put("color", "grey");
+					resultHM.put("color", "#E7E3E3");
 					resultHM.put("editable", "true");
 
 					result.add(resultHM);
@@ -130,7 +130,7 @@ public class ShowCalendarServlet extends HttpServlet {
 
 				if (type.equals("V_N") && loginUser.getUserNo() == scdList.get(i).getUserNum()) {
 					resultHM.put("title", "휴가 불승인");
-					resultHM.put("color", "red");
+					resultHM.put("color", "#FE7773");
 					result.add(resultHM);
 				}
 			}

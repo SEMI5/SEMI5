@@ -104,6 +104,32 @@
 	font-size: 12px;
 }
 
+#banner{
+	width: 100%;
+	height: 350px;
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
+
+#banner img{
+	width: 100%;
+	height: 250px;
+	
+}
+
+#mainTitle{
+	margin: auto;
+	font-size: 45px;
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+	border-bottom: 1px solid grey;
+	height: 50px;
+	text-align: center;
+	margin-top: 50px;
+	padding-bottom: 30px;
+	}
+
 </style>
 
 
@@ -119,7 +145,10 @@
 
 
 <body>
-
+	<div id = "banner">	
+		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">학생 관리</b></div>
+	</div>
 
 <div id = "outer">
 	<div id="content">
@@ -133,12 +162,12 @@
 				</tr>
 				<%for(int i = 0; i < stdList.size() ; i++){ %>
 				<tr id="std<%=i%>" class="std" onclick = "showConsultingForm(<%=i%>);">
-					<td><%=stdList.get(i).getUserNo() %></td>
+					<td><%=count %></td>
 					<td><%=stdList.get(i).getUserName() %></td>
 					<td><%=stdList.get(i).getRRN()%></td>
 					<td><%=i%></td>
 				</tr>
-				<%} %>
+				<% count ++;} %>
 			</table>
 		</div>
 
