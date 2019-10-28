@@ -637,6 +637,11 @@ bottom: 0px;
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		
 <script>
+
+
+
+
+
 	function openCity(cityName,elmnt,color) {
 	  var i, tabcontent, tablinks;
 	  tabcontent = document.getElementsByClassName("tabcontent");

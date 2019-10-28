@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 				String userId = request.getParameter("userId");
 				String userPwd = request.getParameter("userPwd");
 				
+				
 				Member member = new Member(userId, userPwd);	
 				
 				// 3. 서비스 클래스의 해당 메소드를 실행하고, 그 처리 결과를  받음

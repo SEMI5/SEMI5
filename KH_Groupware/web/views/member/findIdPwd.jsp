@@ -13,6 +13,7 @@
 	#outer{
 		/* border: 3px solid black; */
 		width: 100%;
+		margin-top: 100px;
 	}
 	
 	#findId{
@@ -111,7 +112,7 @@
 	<div id = "outer">
 		
 		<div id = "findId">
-			<h2 style = "margin-left: 15px;">아이디 찾기</h2>
+			<h2 style = "margin-left: 15px; margin-bottom: 78px;">아이디 찾기</h2>
 			<table id = "idTable" align = "center">
 				<tr>
 					<td class = "label">이름</td>

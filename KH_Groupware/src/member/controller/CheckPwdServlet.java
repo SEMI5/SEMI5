@@ -10,18 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
- * Servlet implementation class CheckIdServlet
+ * Servlet implementation class CheckPwdServlet
  */
-@WebServlet("/checkId.me")
-public class CheckIdServlet extends HttpServlet {
+@WebServlet("/checkPwd.me")
+public class CheckPwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckIdServlet() {
+    public CheckPwdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +32,22 @@ public class CheckIdServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
+		
+		System.out.println("sdfsadfdsafgsagsdaasgsagsadasdg");
 		String userId = request.getParameter("userId");
-		
-	
-		
-		int result = new MemberService().checkOl(userId);
+		String userPwd = request.getParameter("userPwd");
 		
 		
-		new Gson().toJson(result, response.getWriter());
+		Member member = new Member(userId, userPwd);	
+		
+		
+		Member loginUser = new MemberService().loginMember(member);
+		
+		if(loginUser != null) {
+			new Gson().toJson(1, response.getWriter());
+		}else {
+			new Gson().toJson(0, response.getWriter());
+		}
 	}
 
 	/**

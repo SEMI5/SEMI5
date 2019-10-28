@@ -13,7 +13,7 @@
 	String cName = cls;
 	String userName = user.getUserName();
 	String userBorn = user.getRRN().substring(0, 7);
-	String userGender = user.getRRN().substring(6);
+	String userGender = user.getRRN().substring(8);
 		if(userGender.equals("1")){
 			userGender = "남";
 		}else{
@@ -262,7 +262,7 @@
 				<tr>
 					<td>주소</td>
 					<td><input type="text" id="address" name = "address" value = "<%=address[0]%>"placeholder="주소" ReadOnly = "true" required="required"></td>
-					<th><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px"></th>
+					<th><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px; border: none;"></th>
 				</tr>
 				<tr>
 					<td></td>
