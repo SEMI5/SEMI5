@@ -555,7 +555,7 @@ body{
 			<br><br>
 			<%if(loginUser == null) {%>	
 			<span style="font-weight:700; font-size:18px ">회원이시면 로그인해주세요</span><br><br>
-			<form id = "loginForm" action ="<%=request.getContextPath()%>/login.me" onsubmit="return validate();" method = "post">
+			<form id = "loginForm" action ="<%=request.getContextPath()%>/login.me"  method = "post">
 				<div style= "width:440px; align:cetner; ">
 				<span style="font-weight:550";>&nbsp;ID:</span>&nbsp;<input id = "userId" type="text" name = "userId" id = "userId"  placeholder="Enter UserId"><br>
 				
@@ -567,9 +567,9 @@ body{
 				<br>
 				
 				<!-- 버튼 디포트값 서브밋 -->
-				<button class = " blackBtn blackBtn1">로그인</button><br><br><br> 
-				<button class = "blackBtn blackBtn2"  type = "button" onclick="">아이디 / 비밀번호 찾기</button>
 			</form>
+				<button class = " blackBtn blackBtn1" onclick = "validate();">로그인</button><br><br><br> 
+				<button class = "blackBtn blackBtn2"  type = "button" onclick="findIdPwd();">아이디 / 비밀번호 찾기</button>
 			<% }else{%>
 				<span style="font-weight:700; font-size:18px "><%=loginUser.getUserName() %>님의 방문을 환영합니다.</span><br><br>
 			   
@@ -624,6 +624,10 @@ body{
 <script>
 // closeBtn
 
+
+function findIdPwd(){
+	location.href = "<%=request.getContextPath()%>/views/member/findIdPwd.jsp";
+}
 
 
 //공지사항 바로가기 
@@ -771,8 +775,36 @@ function validate(){
 		return false;
 	}
 	
-	return true; // submit실행
-	
+	$.ajax({
+		url : "/KH_Groupware/checkId.me",
+		type : "get",
+		data : {
+			userId : $("#userId").val()
+		},
+		success : function(data) {
+			if(data == 1){
+				$.ajax({
+					url : "/KH_Groupware/checkPwd.me",
+					type : "get",
+					data : {
+						userId : $("#userId").val(),
+						userPwd : $("#userPwd").val()
+					},
+					success : function(data) {
+						if(data == '1'){
+							$("#loginForm").submit();
+						}else{
+							alert("비밀번호를 확인해주세요.");
+							return false;
+						}
+					}
+				});
+			}else{
+				alert("아이디를 확인해주세요.");
+				return false;
+			}
+		}
+	});
 }
 
 

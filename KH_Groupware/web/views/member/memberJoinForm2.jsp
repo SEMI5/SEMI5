@@ -147,6 +147,11 @@
 
 </style>
 </head>
+
+<header>
+	<%@ include file = "/views/common/header.jsp" %>
+</header>
+
 <body>
 <header>
 	<%@ include file = "/views/common/header.jsp" %>
