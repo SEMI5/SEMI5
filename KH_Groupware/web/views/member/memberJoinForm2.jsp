@@ -148,127 +148,138 @@
 </style>
 </head>
 <body>
+<header>
+	<%@ include file = "/views/common/header.jsp" %>
+</header>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 
 
-<div class="scrollheader">
-  <h2>Scroll Indicator</h2>
-  <div class="progress-container">
-    <div class="progress-bar" id="myBar"></div>
-  </div>  
-</div>
 
- <div class = "memberjoinForm">
-		<br>
-		<h1 align="left" style="font-size : 50px;"><em>회원가입</em></h1>
-		
-		<form id = "joinForm" action = "<%=request.getContextPath() %>/insert.me" method ="post" >
-			<table align = "center">
-				<tr>
-					<td width ="200px"> * 아이디 </td>
-					<td><input id = "userId" type = "text" maxlength ="13" name = "userId" requi#f53f29></td>  <!--requi#f53f29 미입력시 값을 입력하세요 문구뜸  -->
-					<th class = "info"><div id = "checkId" class = "checkInfo"></div></th>
-					<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
-				</tr>
-				<tr>
-					<td> * 비밀번호 </td>
-					<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd" requi#f53f29></td>
-					<th class = "info"><div id = "checkPwd" class = "checkInfo"></div></th>
-				</tr>
-				<tr>
-					<td>* 비밀번호 확인</td>
-					<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2" requi#f53f29></td>
-					<th class = "info"><div id = "checkPwd2" class = "checkInfo"></div></th>
-				</tr>
-				<tr>
-					<td> * 이름 </td>
-					<td><input id = "userName" type = "text" maxlength="5" name="userName" requi#f53f29></td>
-					<th class = "info"><div id = "checkName" class = "checkInfo"></div></th>
-				</tr>
-				<tr>
-					<td> * 생년월일 </td>
-					<td>
-						<input type = "text" id = "RRN" maxlength="8" name="userRRN" style="width: 159px; margin-left: 0px;" requi#f53f29>
-						<input id = "genderM" type = "radio"  name="userGender" value = "1" style="width: 20px; height: 20px;" requi#f53f29>
-						<label for = "genderM" >남</label>
-						<input id = "genderY" type = "radio"  name="userGender" value = "2" style="width: 20px; height: 20px;" requi#f53f29>
-						<label for = "genderY" >여</label>
-					</td>
-					<th class = "info"><div id = "checkRRN" class = "checkInfo"></div></th>
-				</tr>
+				<div class="scrollheader">
+				  <h2>Scroll Indicator</h2>
+				  <div class="progress-container">
+				    <div class="progress-bar" id="myBar"></div>
+				  </div>  
+				</div>
 				
-				<tr>
-					<td> * 연락처 </td>
-					<td>
-						<select id = "tel0" class = "phone" name = "phone1" style="width: 90px; margin-left: 10px; height: 48px;">
-							<option value = "010">010</option>
-							<option value = "011">011</option>
-							<option value = "016">016</option>
-							<option value = "019">019</option>
-						</select>
-						<input id = "tel1" class = "phone" type="tel" maxlength="4" name="phone2" style="width: 130px;  margin-left: 15px;">
-						<input id = "tel2" class = "phone" type="tel" maxlength="4" name="phone3" style="width: 130px;  margin-left: 15px;">
-					</td>
-					<th class = "info"><div id = "checkPhone" class = "checkInfo"></div></th>
-				</tr>
-				<tr>
-					<td> * 이메일 </td>
-					<td id = "emailPt"><input type = "text" name = "emailId" style="width: 141px; margin-right: 5px;" requi#f53f29="requi#f53f29"><em>@</em>
-					<input type="text" name="email2" value="naver.com" style="width: 220px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
-					</td>
-					<th>
-					<select id = "selctEmail" name = "selctEmail" class = "info" style="width: 150px; margin-left: 0px; height: 40px;" onchange="SetEmailTail(selctEmail.options[this.selectedIndex].value)" >
-						<!-- <option value = "notSelected">====선택====</option> -->
-						<option value = "naver.com">naver.com</option> 
-						<option value = "goole.com">google.com</option>
-						<option value = "hanmail.net">hanmail.net</option>
-						<option value = "yahoo.com">yahoo.com</option>
-						<option value = "nate.com">nate.com</option>
-						<option value = "hotmail.com">hotmail.com</option>
-						<option value = "daum.net">daum.net</option>
-						<option value = "etc">직접입력</option>
-					</select>
-					</th>
-				</tr>
-				<tr>
-					<td> * 주소 </td>
-					<td><input type="text" id="address" name = "address" placeholder="주소" ReadOnly = "true" requi#f53f29="requi#f53f29"></td>
-					<th><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px"></th>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="text" id="detailAddress" name = "detailAdd" placeholder="상세주소"></td>
-				</tr>
-				<tr>
-					<td> * 반 </td>
-					<td><select name = "class" style="width:404px;">
-					<%for(int i = 0 ; i < cList.size(); i++ ){ %>
-						<option value = "<%=cList.get(i).getcId()%>"><%=cList.get(i).getcName() %></option>
-					<% }%> 
-					</select></td>
-					<td></td>
-				</tr>
-	
-			</table>
-			
-			<div align = "center">
-				<!-- submit 방법 1 (함수활용해서 submit하기 )(requi#f53f29동작 안함) -->
-				<div class = "btns" id = "joinBtn" onclick = "insertMember();">가입하기</div> <!--함수방식은 requi#f53f29 적용이안됨-->
-				
-				<!-- submit 방법 2 -->
-				<!-- <input id = "joinBtn" type="submit" value ="가입하기">	 -->			<!-- submit버튼으로 만들어서 실행해야 input태그들의 requi#f53f29이 발동함 -->
-				
-				<!-- InsertMemberServlet 만들러 감 -->
-				<div class = "btns" id = "goMain" onclick = "goMain();">메인으로</div>
-				
-			</div>
-		</form>
-	</div>
-	
-	
-	
-	<!-- 중복체크 팝업창 -->
-	<div id = "idCheckPop">
-			<h1>test</h1>
+				 <div class = "memberjoinForm">
+						<br>
+						<h1 align="left" style="font-size : 50px;"><em>회원가입</em></h1>
+						
+						<form id = "joinForm" action = "<%=request.getContextPath() %>/insert.me" method ="post" >
+							<table align = "center">
+								<tr>
+									<td width ="200px"> * 아이디 </td>
+									<td><input id = "userId" type = "text" maxlength ="13" name = "userId" requi#f53f29></td>  <!--requi#f53f29 미입력시 값을 입력하세요 문구뜸  -->
+									<th class = "info"><div id = "checkId" class = "checkInfo"></div></th>
+									<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
+								</tr>
+								<tr>
+									<td> * 비밀번호 </td>
+									<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd" requi#f53f29></td>
+									<th class = "info"><div id = "checkPwd" class = "checkInfo"></div></th>
+								</tr>
+								<tr>
+									<td>* 비밀번호 확인</td>
+									<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2" requi#f53f29></td>
+									<th class = "info"><div id = "checkPwd2" class = "checkInfo"></div></th>
+								</tr>
+								<tr>
+									<td> * 이름 </td>
+									<td><input id = "userName" type = "text" maxlength="5" name="userName" requi#f53f29></td>
+									<th class = "info"><div id = "checkName" class = "checkInfo"></div></th>
+								</tr>
+								<tr>
+									<td> * 생년월일 </td>
+									<td>
+										<input type = "text" id = "RRN" maxlength="8" name="userRRN" style="width: 159px; margin-left: 0px;" requi#f53f29>
+										<input id = "genderM" type = "radio"  name="userGender" value = "1" style="width: 20px; height: 20px;" requi#f53f29>
+										<label for = "genderM" >남</label>
+										<input id = "genderY" type = "radio"  name="userGender" value = "2" style="width: 20px; height: 20px;" requi#f53f29>
+										<label for = "genderY" >여</label>
+									</td>
+									<th class = "info"><div id = "checkRRN" class = "checkInfo"></div></th>
+								</tr>
+								
+								<tr>
+									<td> * 연락처 </td>
+									<td>
+										<select id = "tel0" class = "phone" name = "phone1" style="width: 90px; margin-left: 10px; height: 48px;">
+											<option value = "010">010</option>
+											<option value = "011">011</option>
+											<option value = "016">016</option>
+											<option value = "019">019</option>
+										</select>
+										<input id = "tel1" class = "phone" type="tel" maxlength="4" name="phone2" style="width: 130px;  margin-left: 15px;">
+										<input id = "tel2" class = "phone" type="tel" maxlength="4" name="phone3" style="width: 130px;  margin-left: 15px;">
+									</td>
+									<th class = "info"><div id = "checkPhone" class = "checkInfo"></div></th>
+								</tr>
+								<tr>
+									<td> * 이메일 </td>
+									<td id = "emailPt"><input type = "text" name = "emailId" style="width: 141px; margin-right: 5px;" requi#f53f29="requi#f53f29"><em>@</em>
+									<input type="text" name="email2" value="naver.com" style="width: 220px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
+									</td>
+									<th>
+									<select id = "selctEmail" name = "selctEmail" class = "info" style="width: 150px; margin-left: 0px; height: 40px;" onchange="SetEmailTail(selctEmail.options[this.selectedIndex].value)" >
+										<!-- <option value = "notSelected">====선택====</option> -->
+										<option value = "naver.com">naver.com</option> 
+										<option value = "goole.com">google.com</option>
+										<option value = "hanmail.net">hanmail.net</option>
+										<option value = "yahoo.com">yahoo.com</option>
+										<option value = "nate.com">nate.com</option>
+										<option value = "hotmail.com">hotmail.com</option>
+										<option value = "daum.net">daum.net</option>
+										<option value = "etc">직접입력</option>
+									</select>
+									</th>
+								</tr>
+								<tr>
+									<td> * 주소 </td>
+									<td><input type="text" id="address" name = "address" placeholder="주소" ReadOnly = "true" requi#f53f29="requi#f53f29"></td>
+									<th><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px"></th>
+								</tr>
+								<tr>
+									<td></td>
+									<td><input type="text" id="detailAddress" name = "detailAdd" placeholder="상세주소"></td>
+								</tr>
+								<tr>
+									<td> * 반 </td>
+									<td><select name = "class" style="width:404px;">
+									<%for(int i = 0 ; i < cList.size(); i++ ){ %>
+										<option value = "<%=cList.get(i).getcId()%>"><%=cList.get(i).getcName() %></option>
+									<% }%> 
+									</select></td>
+									<td></td>
+								</tr>
+					
+							</table>
+							
+							<div align = "center">
+								<!-- submit 방법 1 (함수활용해서 submit하기 )(requi#f53f29동작 안함) -->
+								<div class = "btns" id = "joinBtn" onclick = "insertMember();">가입하기</div> <!--함수방식은 requi#f53f29 적용이안됨-->
+								
+								<!-- submit 방법 2 -->
+								<!-- <input id = "joinBtn" type="submit" value ="가입하기">	 -->			<!-- submit버튼으로 만들어서 실행해야 input태그들의 requi#f53f29이 발동함 -->
+								
+								<!-- InsertMemberServlet 만들러 감 -->
+								<div class = "btns" id = "goMain" onclick = "goMain();">메인으로</div>
+								
+							</div>
+						</form>
+					</div>
+					
+					
+					
+					<!-- 중복체크 팝업창 -->
+					<div id = "idCheckPop">
+							<h1>test</h1>
+							
+							
+		</div><!-- container -->
+</div><!-- mainContent -->
+<%@ include file = "/views/common/footer.jsp" %>							
 	</div>
 	
 	
