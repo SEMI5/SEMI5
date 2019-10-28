@@ -37,6 +37,8 @@ public class MemberDao {
 
 	public Member loginMember(Connection conn, Member member) {
 		
+		System.out.println(member);
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
