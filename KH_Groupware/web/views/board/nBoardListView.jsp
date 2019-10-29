@@ -27,7 +27,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Text|Do+Hyeon|Sunflower:300&display=swap" rel="stylesheet">
 <title>KH_Groupware</title>
@@ -228,7 +229,7 @@ cursor: pointer;
 #saveId{
 	position: absolute;
 	left:174px;
-	top:161px;
+	top:159px;
 	margin: 0px;
 	padding: 0px;
 }
@@ -332,7 +333,14 @@ option{
 <div id="container" style="overflow: auto; height: 1335px;"><!-- container -->
    <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 
+
+
+
 <div style="height:46px;width:100%;background:#262A2D;"></div>
+	
+	
+	
+	
 	<div id= boardImg1>
 		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back4.jpg" style="height: 234px;">
 		<div style="width:100%; height:60px;"></div>
@@ -382,14 +390,14 @@ option{
             <%}else{ %>
                <% for(Board b : list){ %>
                		<% if(b.getBlevl() == 4){%>
-                  	<tr class= superTr style="background: #F2FFED">
+                  	<tr class= superTr style="background: #FFEBEE">
                  	<%}else{%>
                     <tr class= normalTr>
                     <%}%>
                      <td align="center"><%=b.getbId() %></td>
                      <input type="hidden" value="<%=b.getbId() %>">
                      
-             	      <%if(  ((todaySec - b.getCreateDate().getTime()) /1000)/(60*60*24) <= 2){%>   
+             	      <%if(  ((todaySec - b.getCreateDate().getTime()) /1000)/(60*60*24) <= 1){%>   
                      <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%><span id=new style="font-weight: bold">NEW</span></td>
                       <%}else{%> 
                      <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
@@ -495,7 +503,7 @@ $(function(){
            $("#formTag").submit(); 
        });
     }).mouseout(function(){
-    	$(this).parent().css({"background":"#F2FFED"});
+    	$(this).parent().css({"background":"#FFEBEE"});
     });
  });
  

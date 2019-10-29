@@ -25,9 +25,14 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 
+
+
 <style>
-
-
+	
+::-webkit-scrollbar{
+	display:none; 
+}
+-ms-overflow-style:none;
 
 
 * {box-sizing: border-box}
@@ -38,6 +43,9 @@ img {vertical-align: middle;}
 
 /* 슬라이드배너  */
 /* Slideshow container */
+
+
+
 
 .slideshow-container {
    max-width: 2000px;
@@ -376,7 +384,7 @@ bottom: 0px;
 
 #saveId {
     position: absolute;
-    top: 171px;
+    top: 170px;
     left: 174px;
     margin: 0px;
     padding: 0px;
@@ -516,6 +524,41 @@ body{
 		}
 </script>
 
+<!-- Second Grid: Work & Resume -->
+<div class="w3-row">
+  <div class="w3-half w3-light-grey w3-center" style= "width : 100%; min-height:800px" id="work">
+    <div class="w3-padding-64">
+      <h2>교 육 시 설</h2>
+      <p>최고의 교육 환경에서 IT인재를 양성합니다</p>
+    </div>
+    <div class="w3-row" >
+    
+      <div class="w3-half" id = "imgArea1"">
+        <img src="../../images/104.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+      <div class="w3-half" id = "imgArea2">
+        <img src="../../images/108.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+    </div>
+    <div class="w3-row w3-hide-small">
+      <div class="w3-half" id = "imgArea3">
+        <img src="../../images/105.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+      <div class="w3-half" id = "imgArea4">
+        <img src="../../images/122.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+    </div>
+
+    <div class="w3-row w3-hide-small">
+      <div class="w3-half" id = "imgArea5">
+        <img src="../../images/128.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+      <div class="w3-half" id = "imgArea6">
+        <img src="../../images/123.jpg" style="width:100%; height:300px; padding : 5px;">
+      </div>
+    </div><br>
+
+
 
 <!-- Third Grid: Swing By & Contact -->
 <div class="w3-row" id="contact">
@@ -574,6 +617,34 @@ body{
 			src="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-server/master/form-submission-handler.js"></script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 	function openCity(cityName,elmnt,color) {
 	  var i, tabcontent, tablinks;
@@ -607,28 +678,21 @@ body{
    		location.href="<%=request.getContextPath()%>/list.sh";
    	}
    	
-   	
-   	
-   	function sendEmail(){
-   		
-   		
-   		
-   	}
-   	
 </script>
 
+<br><br><br><br><br><br><br><br><br><br><br>
+	<div>
+		<img src="<%=request.getContextPath() %>/images/suit.jpg" style="width:100%; height:100%;"> 
+	</div>
 
 
 		
 	
 	
-		
-		</div><!-- container -->
-</div><!-- mainContent -->
 
-		
+</div><!-- container -->
+   </div><!-- mainContent -->
+			<%@ include file = "footer.jsp" %>
 </body>
-<footer>
-<%@ include file = "/views/common/footer.jsp" %> 
-</footer>
+
 </html>

@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
@@ -26,7 +26,7 @@
    #outer{
        width: 100%;
        position: absolute;
-       padding: 10px;
+       padding:0px;
    	   border:none;
   	} 
    
@@ -183,7 +183,7 @@
 		font-size: 15px;
 		width: 100px;
 		height: 40px;	
-		margin-left: 182px; 
+		margin-left: 183px; 
 	}
 	
 	#resetBtn:hover{
@@ -218,6 +218,14 @@
 	text-align: center;
 	background: black;
 	}
+	
+	
+	.modal-dialog {
+	    width: 600px;
+	    margin: 30px auto;
+	    margin-top: 300px;
+	}
+	
 </style>
    
 <title>KH_Groupware</title>
@@ -313,6 +321,7 @@
 				<input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
 			</div>
 			</form>
+			<br><br>
 		</div><!-- container -->
 </div><!-- mainContent -->
 <%@ include file = "/views/common/footer.jsp" %>

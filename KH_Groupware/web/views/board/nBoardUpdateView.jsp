@@ -6,7 +6,8 @@
 <html>
 <head>
 <!-- include libraries(jQuery, bootstrap) -->
-<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
+
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
@@ -213,7 +214,7 @@ String originName8= flist.get(7).getOriginName();
       padding-top: 30px;
    }
    #resetBtn{
-      margin-left: 173px;
+      margin-left: 183px;
    }
    
    #superCheck{
@@ -240,6 +241,13 @@ String originName8= flist.get(7).getOriginName();
 	text-align: center;
 	background: black;
 }   
+   
+   	.modal-dialog {
+	    width: 600px;
+	    margin: 30px auto;
+	    margin-top: 300px;
+	}
+   
    
 </style>
    

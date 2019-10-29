@@ -18,7 +18,7 @@
 <style>
 .outer {
       width:1000px;
-      height:650px;
+      height:100%;
       color:black;
       margin-left:auto;
       margin-right:auto;
@@ -244,10 +244,6 @@ td{
 }
 
 
-
-
-
-
 .hoverBlack{	/* 호버블랙 공통 설정 */
 	background: black;
 	opacity: 0.8;
@@ -279,7 +275,6 @@ td{
 	border: none;
 	z-index: 10;
 	font-weight: bold;
- 	
 } 
 
 
@@ -309,12 +304,21 @@ td{
 	font-size: 15px;
 	cursor: pointer;
 	display : inline-block;
-
 }
 
 .resetBtn:hover{
-background-color: #666;
+	background-color: #666;
 	color: white;
+}	
+
+
+	
+::-webkit-scrollbar {
+
+	display:none;
+
+}
+-ms-overflow-style: none; 
 }
 </style>
 
@@ -322,149 +326,157 @@ background-color: #666;
 	<%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-<div id="container" style="overflow: auto;"><!-- container -->
-   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
-				<div class = "outer">
+<div id="container"><!-- container -->
+   <div id="mainContent"><!-- mainContent -->
+
+<div class = "outer">
+
+		<form id ="updateForm" method ="post" encType="multipart/form-data" action="<%=request.getContextPath()%>/update.th"> 
+				<input type = "hidden" name = "bid" value = "<%= b.getbId() %>">
+			<h2 align="center">사진게시글 수정하기</h2>
+		<div class="tableArea">
+			<table class = "detail" align="center">
+			<tr>
+				<th width = "90px" height = "40px">제목</th>
+				<td colspan = "5"> <%-- <label><%=b.getbTitle() %></label></td> --%>
+				<input type="text" size="50" name="title" value="<%= b.getbTitle() %>"></td>
 				
-						<%-- <form id ="updateForm" method ="post" encType="multipart/form-data" action="<%=request.getContextPath()%>/update.th"> --%>	<!-- table부터 아래버튼까지 포함하는 form태그  -->	
-							<form id ="updateForm" method ="post" action="<%=request.getContextPath()%>/update.th">
-								<input type = "hidden" name = "bid" value = "<%= b.getbId() %>">
-							<h2 align="center">자료실 수정하기</h2>
-						<div class="tableArea">
-							<table class = "detail" align="center">
-							<tr>
-								<th width = "90px" height = "40px">제목</th>
-								<td colspan = "5"> <%-- <label><%=b.getbTitle() %></label></td> --%>
-								<input type="text" size="50" name="title" value="<%= b.getbTitle() %>"></td>
-								
-							</tr>
-							<tr>
-								<th height = "40px"> 작성자 </th>
-								<td colspan = "5">	<%-- <label><%=b.getbWriter() %></label></td> --%>
-								<input type="text" name="writer" value="<%= b.getbWriter() %>" readonly></td>
-							</tr>
-							<tr>
-								<th height = "40px"> 조회수 </th>
-								<td colspan = "5"><label><%=b.getbCount() %></label></td>
-							</tr>	
-								<th height = "40px"> 작성일 </th>
-								<td colspan = "5"><label><%=b.getModifyDate() %></label></td>
-							</tr>		
-							<tr>
-								<th> 대표사진 </th>
-								<td id = "titleTd" colspan="4">
-									<div id="titleImgArea" align="center">
-										<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
-										<div class = " hoverBlack hoverBlack0"></div>
-										<button  class= "deleteBtn deleteBtn0" type= "button" onclick= "delTitleImg();">삭제 </button>
-										<button class= "addBtn addBtn0" onclick = "addTitleImg();" type= "button" >다른사진추가</button>
-									</div>
-								</td>
-								<td>
-									<button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
-										<i class="fa fa-download"></i> Download
-									</button>
-								</td>
-							</tr>
-							<tr>
-								<th> 사진메모 </th>
-								<td colspan = "6">
-									<textarea name="content" cols="60" rows="15" style="resize:none"><%= b.getbContent() %></textarea>
-								</td>
-							</tr>
-						</table>
-					
-						<div class = "detail_other" style="align:center">
-							<P align = "center">추가 이미지 </P>  
-							<hr>
-								<% for(int i=1; i<fileList.size(); i++){ %>
-									<div class = "detailImgArea<%=i%> detailImgArea">
-										<img id="contentImg<%=i+1%>" class="detailImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=fileList.get(i).getChangeName() %>">
-										<button class="deleteBtn deleteBtn9" type= "button" onclick= "delContentImg(<%=i+1%>, <%=fileList.get(i).getfId()%>);">삭제</button>
-										<button class ="addBtn addBtn9"  type= "button" onclick = "addContentImg(<%=i+1%>, <%=fileList.get(i).getfId()%>);">다른 사진추가</button>
-										<div class="hoverBlack hoverBlack9"></div>
-										<div class ="down-area" style="align:center">
-										<%-- <button  class="down-btn2" onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
-											<i class="fa fa-download"></i> Download
-										</button> --%>				
-										</div>
-									</div>
-								<%} %>
-								<br><br>
-						</div>	
-						<br><br><br>
-						
-								<div class="btnArea"  align ="center">
-									
-									<button id = "goList-btn" onclick="location.href='<%=request.getContextPath()%>/detail.th'">뒤로가기</button>
-									<button id="update-btn" type= "button" onclick="update();">수정</button>	
-									 <button id="delete-btn" onclick="nDelete();">삭제</button>
-									<button class= "resetBtn" type = "button" onClick="window.location.href=window.location.href"> 리셋 </button>
-								</div>
-							</div>
-					</form>		
-					
-					
-								<script>
-				 					//공지사항 수정하기 작업 먼저하기
-									function update(){
-										<%-- $("#updateForm").attr("action","'<%=request.getContextPath()%>/update.th'"); --%>
-										$("#updateForm").submit();
-										// ThumbnailUpdateServlet 만들러 ㄱㄱ!
-									}
-									
-									//공지사항 삭제하기
-									function nDelete(){
-										$("#updateForm").attr("action","<%=request.getContextPath()%>/tDelete.th");
-										// ThumbnailDeleteServlet 만들러 ㄱㄱ!
-										
-									} 
-								
-								</script>
-					
-						
-						
-						<br><br><br>
-						
-						   <!--  현재 이 게시글에 있는  맨 처음 사진들 fid-->
-				
-							<input  id= "presentTitlefid" type = "text"  value=   <%=titleImg.getfId() %> readonly ><br>
-							
-							<% for(int i=1; i<fileList.size(); i++){ %>
-								<input id= "presentContentfid<%=i+1%>" type = "text"  value=   <%=fileList.get(i).getfId()%> readonly ><br>
-							<%} %>
-							
-							
-						   <!--  삭제해야할 fid 목록  -->
-							<br> 
-								<input id="delImg1" type = "text" readonly> 
-								<input id="delImg2" type = "text" readonly> 
-								<input id="delImg3" type = "text" readonly> 
-								<input id="delImg4" v type = "text" readonly> 
-								<input id="delImg5" type = "text" readonly> 
-							<br>
-				
-					       <!--  새롭게 업로드 시켜야하는 fid 목록  -->		
-						
-				 			<!-- 파일 업로드 하는 부분(file 타입형 input태그들) -->
-				
-								<br>
-								<div id ="fileArea">							
-									<input type="file" id ="thumbnailImg1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)"><br>
-									<input type="file" id ="thumbnailImg2" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,2)"><br>
-									<input type="file" id ="thumbnailImg3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)"><br>
-									<input type="file" id ="thumbnailImg4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)"><br>
-									<input type="file" id ="thumbnailImg5" multiple="multiple" name="thumbnailImg5" onchange="LoadImg(this,5)"><br>
-								</div>
-						
-						
-						<br><br>
-						
+			</tr>
+			<tr>
+				<th height = "40px"> 작성자 </th>
+				<td colspan = "5">	<%-- <label><%=b.getbWriter() %></label></td> --%>
+				<input type="text" name="writer" value="<%= b.getbWriter() %>" readonly></td>
+			</tr>
+			<tr>
+				<th height = "40px"> 조회수 </th>
+				<td colspan = "5"><label><%=b.getbCount() %></label></td>
+			</tr>	
+				<th height = "40px"> 작성일 </th>
+				<td colspan = "5"><label><%=b.getModifyDate() %></label></td>
+			</tr>		
+			<tr>
+				<th> 대표사진 </th>
+				<td id = "titleTd" colspan="4">
+					<div id="titleImgArea" align="center">
+						<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
+						<div class = " hoverBlack hoverBlack0"></div>
+						<button  class= "deleteBtn deleteBtn0" type= "button" onclick= "delTitleImg();">삭제 </button>
+						<button class= "addBtn addBtn0" onclick = "addTitleImg();" type= "button" >다른사진추가</button>
 					</div>
-</div><!-- container -->
-</div><!-- mainContent -->
-<%@ include file = "/views/common/footer.jsp" %>					
-</body>
+				</td>
+				<td>
+					<button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
+						<i class="fa fa-download"></i> Download
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<th> 사진메모 </th>
+				<td colspan = "6">
+					<textarea name="content" cols="60" rows="15" style="resize:none"><%= b.getbContent() %></textarea>
+				</td>
+			</tr>
+		</table>
+	
+		<div class = "detail_other" style="align:center">
+			<P align = "center">추가 이미지 </P>  
+			<hr>
+				<% for(int i=1; i<fileList.size(); i++){ %>
+					<div class = "detailImgArea<%=i%> detailImgArea">
+						<img id ="contentImg<%=i+1%>" class="detailImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=fileList.get(i).getChangeName() %>">
+						<button class="deleteBtn deleteBtn9" type= "button" onclick= "delContentImg(<%=i+1%>, <%=fileList.get(i).getfId()%>);">삭제</button>
+						<button class ="addBtn addBtn9"  type= "button" onclick = "addContentImg(<%=i+1%>, <%=fileList.get(i).getfId()%>);">다른 사진추가</button>
+						<div class="hoverBlack hoverBlack9"></div>
+						<div class ="down-area" style="align:center">
+						<%-- <button  class="down-btn2" onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
+							<i class="fa fa-download"></i> Download
+						</button> --%>				
+						</div>
+					</div>
+				<%} %>
+				<br><br>
+		</div>	
+		<br><br><br>
+		
+				<div class="btnArea"  align ="center">
+					
+					<button id = "goList-btn" onclick="location.href='<%=request.getContextPath()%>/detail.th'">뒤로가기</button>
+					<button id="update-btn" type= "button" onclick="update();">수정</button>	
+					 <button id="delete-btn" onclick="nDelete();">삭제</button>
+					<button class= "resetBtn" type = "button" onClick="window.location.href=window.location.href"> 리셋 </button>
+				</div>
+			</div>
+			
+	
+	
+				<script>
+ 					//공지사항 수정하기 작업 먼저하기
+					function update(){
+						$("#updateForm").submit();
+					}
+					
+					//공지사항 삭제하기
+					function nDelete(){
+						$("#updateForm").attr("action","<%=request.getContextPath()%>/tDelete.th");
+						// ThumbnailDeleteServlet 만들러 ㄱㄱ!
+						
+					} 
+				
+				</script>
+	
+		
+		
+		<br><br><br>
+		
+		   <!--  현재 이 게시글에 있는  맨 처음 사진들 fid-->
+			<div id = "presentTitlefidArea">
+				<input  id= "presentTitlefid" type = "text"  value=   <%=titleImg.getfId() %> readonly ><br>
+				<% for(int i=1; i<fileList.size(); i++){ %>
+					<input id= "presentContentfid<%=i+1%>" type = "text"  value=   <%=fileList.get(i).getfId()%> readonly ><br>
+				<%} %>
+			</div>	
+			
+		   <!--  삭제해야할 fid 목록  -->
+			<br> 
+				<div id = "delImgArea">
+					<input id="delImg1" name="delImg1"  value= "0"  type = "text" readonly> 
+					<input id="delImg2" name="delImg2"  value= "0"  type = "text" readonly> 
+					<input id="delImg3" name="delImg3"  value= "0"  type = "text" readonly> 
+					<input id="delImg4" name="delImg4"  value= "0" type = "text" readonly> 
+					<input id="delImg5" name="delImg5"  value= "0"  type = "text" readonly> 
+				</div>
+			<br>
+
+
+			<!--  fid를 삭제하지 않고, fid의 내용만 변경할 목록 -->
+			<br> 
+				<div id = "updateImgArea">
+					<input id="updateImg1" name ="updateImg1" type= "text" value= "0" readonly> 
+					<input id="updateImg2" name ="updateImg2" type= "text" value= "0" readonly> 
+					<input id="updateImg3" name ="updateImg3" type= "text" value= "0" readonly> 
+					<input id="updateImg4" name ="updateImg4" type= "text" value= "0" readonly> 
+					<input id="updateImg5" name ="updateImg5" type= "text" value= "0" readonly> 
+				</div>
+			<br>
+				
+
+		
+ 			<!-- 파일 업로드 하는 부분(file 타입형 input태그들) -->
+
+				<br>
+				<div id ="fileArea">							
+					<input type="file" id ="thumbnailImg1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)"><br>
+					<input type="file" id ="thumbnailImg2" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,2)"><br>
+					<input type="file" id ="thumbnailImg3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)"><br>
+					<input type="file" id ="thumbnailImg4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)"><br>
+					<input type="file" id ="thumbnailImg5" multiple="multiple" name="thumbnailImg5" onchange="LoadImg(this,5)"><br>
+				</div>
+		
+		</form>
+		<br><br>
+		
+	</div>
+	
 
 	<script> 
 		// 각각의 영역에 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 부분(함수 - onchange="LoadImg(this,1)")
@@ -478,18 +490,23 @@ background-color: #666;
 							switch(num){
 							case 1:
 								$("#titleImg").attr("src",e.target.result);	//이미지 변환작업
+								$("#updateImg1").val($("#presentTitlefid").val());
 								break;
 							case 2:
 								$("#contentImg2").attr("src",e.target.result);
+								$("#updateImg2").val($("#presentContentfid2").val());
 								break;
 							case 3:
 								$("#contentImg3").attr("src",e.target.result);
+								$("#updateImg3").val($("#presentContentfid3").val());
 								break;
 							case 4:
 								$("#contentImg4").attr("src",e.target.result);
+								$("#updateImg4").val($("#presentContentfid4").val());
 								break;
 							case 5:
 								$("#contentImg5").attr("src",e.target.result);
+								$("#updateImg5").val($("#presentContentfid5").val());
 								break;
 							}
 						}
@@ -499,6 +516,10 @@ background-color: #666;
 			
 		
 			  	$(function(){
+			  		$("#presentTitlefidArea").hide();
+			  		$("#fileArea").hide();
+			  		$("#delImgArea").hide();
+			  		$("#updateImgArea").hide();
 				      $("#titleImgArea").mouseover(function(){
 				         $(".hoverBlack0").css({"display":"block"});
 				         $(".addBtn0").css({"display":"block"});
@@ -539,14 +560,13 @@ background-color: #666;
 			
 				$("#titleImg").attr("src"," ");
 				$("#delImg1").val($("#presentTitlefid").val())
+				$("#thumbnailImg1").val("");
 			}
 				
 			
 			function addTitleImg(){
-				$("#titleImg").attr("src"," ");
 				$("#thumbnailImg1").click();
 				
-				$("#delImg1").val($("#presentTitlefid").val())
 			}
 			
 			
@@ -554,17 +574,21 @@ background-color: #666;
 			function delContentImg(index, fid ){
 				$("#contentImg"+index).attr("src"," ");
 				$("#delImg"+ index).val(fid) 
+				$("#thumbnailImg"+index).val("");
 			}
 			
 			function addContentImg(index, fid){
-				$("#contentImg"+index).attr("src"," ");
 				$("#thumbnailImg"+index).click();
-				$("#delImg"+ index).val(fid) 
 			}
 			
 		
 	</script>	
 
-
+ </div><!-- id="mainContent" -->
+</div><!-- container -->
+	
+   <%@ include file = "/views/common/footer.jsp" %>
+   
+</body>
 
 </html>

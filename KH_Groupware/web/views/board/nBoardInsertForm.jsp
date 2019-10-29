@@ -12,7 +12,8 @@
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
+
 <!-- include summernote css/js-->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
@@ -181,7 +182,7 @@
 		font-size: 15px;
 		width: 100px;
 		height: 40px;	
-		margin-left: 182px; 
+		margin-left: 183px; 
 	}
 	
 	#resetBtn:hover{
@@ -215,6 +216,13 @@
 	text-align: center;
 	background: black;
 }
+	
+		.modal-dialog {
+	    width: 600px;
+	    margin: 30px auto;
+	    margin-top: 300px;
+	}
+	
 	
 </style>
    

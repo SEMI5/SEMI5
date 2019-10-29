@@ -13,7 +13,8 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
-<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
+
 <%
 Board b = (Board)request.getAttribute("board");
 java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy.MM.dd.");
@@ -48,7 +49,7 @@ String originName8= flist.get(7).getOriginName();
    #outer{
        width: 100%;
        position: absolute;
-       padding: 10px;
+       padding: 0px;
          border:none;
      } 
    
@@ -212,7 +213,7 @@ String originName8= flist.get(7).getOriginName();
       padding-top: 30px;
    }
    #resetBtn{
-      margin-left: 173px;
+      margin-left: 183px;
    }
    
    #superCheck{
@@ -240,7 +241,11 @@ String originName8= flist.get(7).getOriginName();
 	background: black;
 }
    
-   
+   	.modal-dialog {
+	    width: 600px;
+	    margin: 30px auto;
+	    margin-top: 300px;
+	}
    
 </style>
    
@@ -279,8 +284,9 @@ String originName8= flist.get(7).getOriginName();
 									<%} else{%>
 									<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();" checked>
 									<%} %>
+									<label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
 								 <%} %>
-								<label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+								
 								<input id = noCheck type= "hidden" name="blevel" value="1">
 				            					 <input type="hidden" name = "btype" value="<%=b.getBtype() %>">
 				            					 <input type="hidden" name = "bid" value="<%=b.getbId() %>">

@@ -29,7 +29,7 @@
 <title>KH_Groupware</title>
 
 <!--  모두 파비콘을 가져가서 본인 파일에 삽입해주세요  -->
-<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
 <!-- 
 <link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Text|Do+Hyeon|Sunflower:300&display=swap" rel="stylesheet">
 
@@ -40,63 +40,7 @@
 
 
 <style>
-	body {font-family: Arial, Helvetica, sans-serif;}
 	
-	/* 모달 관련 */
-	/* The Modal (background) */
-	.modal {
-	  display: none; /* Hidden by default */
-	  position: fixed; /* Stay in place */
-	  z-index: 1; /* Sit on top */
-	  padding-top: 100px; /* Location of the box */
-	  left: 0;
-	  top: 0;
-	  width: 100%; /* Full width */
-	  height: 100%; /* Full height */
-	  overflow: auto; /* Enable scroll if needed */
-	  background-color: rgb(0,0,0); /* Fallback color */
-	  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-	}
-	
-	/* Modal Content */
-	.modal-content {
-	 
-	  margin: auto;
-	  padding: 20px;
-	  border: 1px solid #888;
-	  width: 24%;
-	  z-index: 9999;
-	}
-	
-	/* The Close Button */
-	.close {
-	  color: #aaaaaa;
-	  float: right;
-	  font-size: 28px;
-	  font-weight: bold;
-	}
-	
-	.close:hover,
-	.close:focus {
-	  color: #000;
-	  text-decoration: none;
-	  cursor: pointer;
-	}
-	#inputMessage{
-		padding: 9px;
-	    margin: 4px;
-	    width: 285px;
-	}
-	#enter{
-		margin:-3px;
-		padding: 10px;
-		border: 1px solid blue; 
-		background: white;
-	}
-	#chattingBtn{
-		float: right;
-	}
-	/* 채팅---------------------------------------------------------------------- */
 
    /* place holder 감추기*/
    input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { /* WebKit browsers */ color:transparent; } 
@@ -562,7 +506,7 @@ body{
 				<label id ="saveIDLabel" for ="saveId"  style="position:absolute; left:80px; font-size: 13px"><b>아이디 저장하기</b></label>
 				<br>
 				<input type = "checkbox" name = "saveID" id = "saveId" style="height:15px;width:16px">
-				<span style="font-weight:550;margin-top: 10px";>PW:</span>&nbsp;<input id = "userPwd" type="password"  name = "userPwd" id = "userPwd" placeholder="Enter Password" style="margin-top: 10px"><br> <br>
+				<span style="font-weight:550;margin-top: 10px";>PW:</span>&nbsp;<input id = "userPwd" type="password"  name = "userPwd" id = "userPwd" placeholder="Enter Password" style="margin-top: 10px" onkeyup="enterLogin();"  ><br> <br>
 				</div>
 				<br>
 				
@@ -607,24 +551,8 @@ body{
 <input id= userNo type= hidden value= <%=userNo%>> 
 
 
- <!-- 모달채팅 DIV -->
-	    <div id="myModal" class="modal">
-	 
-	  <div class="modal-content" style="background: #F6F6F6;">
-		    <span id="closeBtn" class="close">&times;</span>
-			<div id="div0" align="center" style="padding: 15px; font-weight: 900;">
-				KH Chatting Room
-			</div>
-		        	<textarea id="messageWindow" rows="10" cols="40" readonly="true" style="height: 481px; width: -webkit-fill-available; resize: none"></textarea>
-				    <input id="inputMessage" type="text"/>
-		    		<button id="enter" type="submit" value="s" onclick="send();">send</button>
-	  </div>  
-	  </div>
- 
+
 <script>
-// closeBtn
-
-
 function findIdPwd(){
 	location.href = "<%=request.getContextPath()%>/views/member/findIdPwd.jsp";
 }
@@ -684,69 +612,6 @@ function goTasty(){
 		location.href = "<%=request.getContextPath()%>/views/common/infoPage.jsp";
 	}
 	
-	// 채팅바로가기 
-	   function showChattingPOPUP() {
-		   //window.open("../chatting/chattingModal.jsp", "", "width=400, height=600, left=100, top=50");
-		  	// Get the modal
-			var modal = document.getElementById("myModal");
-			// Get the button that opens the modal
-			var btn = document.getElementById("chattingBtn");
-			// Get the <span> element that closes the modal
-			var span = document.getElementsByClassName("close")[0];
-			
-			// When the user clicks the button, open the modal 
-			btn.onclick = function() {
-			  modal.style.display = "block";
-			}
-			
-			// When the user clicks on <span> (x), close the modal
-			span.onclick = function() {
-			  modal.style.display = "none";
-			}
-			
-			// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function(event) {
-			  if (event.target == modal) {
-			    modal.style.display = "none";
-			  }
-			}
-
-			/* 채팅 로직 */
-			var textarea = document.getElementById("messageWindow");
-			var webSocket = new WebSocket('ws://localhost:8888/KH_Groupware/broadcasting');
-			var inputMessage = document.getElementById('inputMessage');
-			webSocket.onerror = function(event) {
-			onError(event)
-			};
-			webSocket.onopen = function(event) {
-			onOpen(event)
-			};
-			webSocket.onmessage = function(event) {
-			onMessage(event)
-			};
-			function onMessage(event) {
-			textarea.value += "상대 : " + event.data + "\n";
-			}
-			function onOpen(event) {
-			textarea.value += "connected..\n";
-			}
-			function onError(event) {
-			alert(event.data);
-			}
-			function send() {
-			    textarea.value += "나 : " + inputMessage.value + "\n";
-			    webSocket.send(inputMessage.value);
-			    inputMessage.value = "";
-			}
-			// 채팅 엔터키 입력
-			$("#inputMessage").keypress(function(e) {
-				if (e.keyCode == 13) {
-					send();
-					return false;
-				}
-			});
-	}
-	/* ------------------------------------------채팅 종료------------------------------------------ */  	
 
 
 	function goMyInfo(){
@@ -808,13 +673,6 @@ function validate(){
 }
 
 
-//로그인 sumbmit
-/* function login(){
-	alert("최신버전확인!")
-	$("#loginBtn").submit;
-}
- */
-
 // 회원가입 버튼 
 function memberJoin(){
 	if(<%=userNo%> != 0){
@@ -837,6 +695,15 @@ function logout(){
 	location.href = '<%= request.getContextPath() %>/logout.me';
 	
 	
+}
+
+
+//엔터로그인
+function enterLogin() {
+    if (window.event.keyCode == 13) {
+		
+    	$("#loginForm").submit();
+    }
 }
 
 

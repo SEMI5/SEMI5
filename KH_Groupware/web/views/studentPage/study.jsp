@@ -17,6 +17,7 @@
 <style>
 
 
+
 ::-webkit-scrollbar {
 
 display:none;
@@ -197,10 +198,10 @@ input{
    
    
 	<div id = "banner">	
-			<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+			<img src="https://i.ibb.co/kXbgcM4/image.jpg" alt="image" border="0">
 			<div  id = "mainTitle"><b style="margin-bottom: 3000px;">스터디 개설 및 신청</b></div>
 	</div>
-	<div id="outer">
+	<div id="outer" style = "margin-bottom: 150px;">
 		<div id="mySlide">
 			<h2 style = "text-align: center; margin-bottom: 0px; color:#262A2D; ">내 스터디</h2>
 			<div style = "height: 30px; width: 6.85%; margin-left: 66%; margin-bottom: 5px;">

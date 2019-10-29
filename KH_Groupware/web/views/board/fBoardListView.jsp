@@ -25,7 +25,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Text|Do+Hyeon|Sunflower:300&display=swap" rel="stylesheet">
@@ -310,6 +310,7 @@ input{
 
 
 
+
 </style>
 
 </head>
@@ -377,7 +378,7 @@ input{
 				                     <td align="center"><%=b.getbId() %></td>
 				                     <input type="hidden" value="<%=b.getbId() %>">
 				                     
-				             	      <%if(  ((todaySec - b.getCreateDate().getTime()) /1000)/(60*60*24) <= 2){%>   
+				             	      <%if(  ((todaySec - b.getCreateDate().getTime()) /1000)/(60*60*24) <= 1){%>   
 				                     <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%><span id=new style="font-weight: bold">NEW</span></td>
 				                      <%}else{%> 
 				                     <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
