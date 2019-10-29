@@ -27,6 +27,13 @@
 <script   src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <style>
+
+::-webkit-scrollbar {
+
+display:none;
+
+}
+-ms-overflow-style: none; 
 #outer {
 	width: 100%;
 	height: 100%;
@@ -199,8 +206,12 @@
 </header>
 
 <body>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->	
+
+
 	<div id = "banner">	
-		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+		<img src="https://i.ibb.co/QK4j3ZT/image.jpg" alt="image" border="0">
 		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">자리 배치</b></div>
 	</div>
 
@@ -248,6 +259,8 @@
          </div>
       </div>
    </div>
+		</div><!-- container -->
+</div><!-- mainContent -->
 
    <script>
    
@@ -478,7 +491,7 @@ function resetSeat(){
 
 
 </script>
-
+<%@ include file = "/views/common/footer.jsp" %>
  
  
  

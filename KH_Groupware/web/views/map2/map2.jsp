@@ -392,8 +392,10 @@
 									var strListSplit = strList.split(".");
 
 									for(var i = 1; i<strListSplit.length; i++){
-												if(title == strListSplit[i])
+											console.log("check 인덱스: " + strListSplit[i]);
+												if(title == strListSplit[i]){
 													$("#likeTd"+i).trigger('click');	// #trg에 선언된 click이벤트의 이벤트 핸들러 함수를 호출
+									}
 									}
 								}else {
 								//아니오 눌렀을 때,

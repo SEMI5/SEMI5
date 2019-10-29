@@ -181,99 +181,101 @@
 	<%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-	<div>
-	<img src="<%=request.getContextPath() %>/images/photos.jpg" style="width:100%; height:300px;">
-		<div id = "thum1" style="width:100%; height:60px">
-		</div>
-	</div>
- 	<div class = "outer">
-		<h2 align = "center"> 사진 게시판 </h2>
-		<hr>
-		<br>
-		<div id = listcountDiv><b>총 <span class=lisCountSpan><%=listCount%></span>건,(<span class=lisCountSpan><%=currentPage%></span>/<%=maxPage%>)</b></div>
-
-		<div class = "thumbnailArea">
-		<%if(loginUser != null) {%>	 
-			 <% if(blist.isEmpty())	{%>
-				<p>조회된 결과가 없습니다.</p>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+					<div>
+					<img src="<%=request.getContextPath() %>/images/photos.jpg" style="width:100%; height:300px;">
+						<div id = "thum1" style="width:100%; height:60px">
+						</div>
+					</div>
+				 	<div class = "outer">
+						<h2 align = "center"> 사진 게시판 </h2>
+						<hr>
+						<br>
+						<div id = listcountDiv><b>총 <span class=lisCountSpan><%=listCount%></span>건,(<span class=lisCountSpan><%=currentPage%></span>/<%=maxPage%>)</b></div>
 				
-			<%} else  {%> 
-				
-			<% for(Thumbnail b : list){%>
-					
-			<div class = "thumb-list" align ="center">
-				<div class = "thumb-img">
-						<input type ="hidden" value ="<%=b.getbId() %>">
-						<% for(int j=0; j < flist.size(); j++){		// flist.size()
-							Attachment a = (Attachment)flist.get(j); %>
-						
-							<% if(b.getbId() == a.getbId()) {%>	  <!-- 체인지된 이름이 thumbnail_uploadFiles 경로로 업로드 됨  -->
-								<img src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=a.getChangeName() %>"
-												width = "150px" height ="150px" class ="trans">
+						<div class = "thumbnailArea">
+						<%if(loginUser != null) {%>	 
+							 <% if(blist.isEmpty())	{%>
+								<p>조회된 결과가 없습니다.</p>
+								
+							<%} else  {%> 
+								
+							<% for(Thumbnail b : list){%>
+									
+							<div class = "thumb-list" align ="center">
+								<div class = "thumb-img">
+										<input type ="hidden" value ="<%=b.getbId() %>">
+										<% for(int j=0; j < flist.size(); j++){		// flist.size()
+											Attachment a = (Attachment)flist.get(j); %>
+										
+											<% if(b.getbId() == a.getbId()) {%>	  <!-- 체인지된 이름이 thumbnail_uploadFiles 경로로 업로드 됨  -->
+												<img src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=a.getChangeName() %>"
+																width = "150px" height ="150px" class ="trans">
+											<% } %>
+										<% } %>
+									<div id ="thuminfo-list">
+									 <%=b.getbTitle() %><br>
+									<p>No. <%= b.getbId() %><br> 
+										조회수: <%= b.getbCount() %><br>
+									</p>
+									</div>
+								</div>
+									<%-- <button id = "like_btn">
+										<img src="<%=request.getContextPath() %>/images/icon/like30.png" width="30px">
+									</button> --%>
+							</div>
 							<% } %>
 						<% } %>
-					<div id ="thuminfo-list">
-					 <%=b.getbTitle() %><br>
-					<p>No. <%= b.getbId() %><br> 
-						조회수: <%= b.getbCount() %><br>
-					</p>
-					</div>
-				</div>
-					<%-- <button id = "like_btn">
-						<img src="<%=request.getContextPath() %>/images/icon/like30.png" width="30px">
-					</button> --%>
-			</div>
-			<% } %>
-		<% } %>
-	<%} %>
-			<!-- 로그인 아닐시 안보임  -->
-			<div class = "writeArea">
-			<%if(loginUser != null) {%>
-				<button id = "writeBtn" onclick ="location.href='views/thumbnail/thumbnailIsertForm.jsp'">작성하기</button>
-			<%} %>
-			<!-- thumbnailInsertForm.jsp 만들러가기 !! -->
-			</div>
-		</div>
-		
-		<!-- 페이징 처리 시작 -->
-		<div class = "pagingArea" align = "center">
-			<!-- 맨 처음으로 (<<)  -->				<!-- 쿼리스트링 (url주소 적고 form태그의 get방식으로 넘기면 currentPage에 1을 담아서 넘어간다 -->	
-			<button onclick ="location.href='<%=request.getContextPath() %>/list.th?currentPage=1'"> << </button>
-																	<!-- currentPage에 1을 담아 list.th페이지로 넘어간다. -->
-		
-			<!-- 이전 페이지로 (<)  -->
-			<%if(currentPage <= 1) {%>
-				<button disabled> < </button>	<!-- <버튼이 안눌리게 -->
-			<%} else { %>
-				<button onclick = "location.href='<%=request.getContextPath() %>/list.th?currentPage=<%=currentPage -1 %>'"> < </button>
-				
-			<%} %>
-			
-			<!-- 10개의 페이지 목록 -->
-			<%for(int p = startPage; p <= endPage; p++) {%>
-				<% if(p == currentPage){%>
-					<button disabled><%=p %></button>
-				<%} else { %>
-					<button onclick = "location.href='<%=request.getContextPath() %>/list.th?currentPage=<%=p %>'"><%=p %></button>
-				<%} %>
-			
-			<%} %>
-			
-			<!-- 다음 페이지로(>) -->
-			<%if(currentPage >= maxPage){ %>
-				<button disabled> > </button>
-			<%} else { %>
-				<button onclick = "location.href='<%=request.getContextPath() %>/list.th?currentPage=<%=currentPage +1 %>'"> > </button>			
-			<%} %>
-				
-				
-			<!-- 맨 끝으로(>>) -->	
-				<button onclick ="location.href='<%=request.getContextPath() %>/list.th?currentPage=<%=maxPage %>'"> >> </button>
-				
-		</div>	
+					<%} %>
+							<!-- 로그인 아닐시 안보임  -->
+							<div class = "writeArea">
+							<%if(loginUser != null) {%>
+								<button id = "writeBtn" onclick ="location.href='views/thumbnail/thumbnailIsertForm.jsp'">작성하기</button>
+							<%} %>
+							<!-- thumbnailInsertForm.jsp 만들러가기 !! -->
+							</div>
+						</div>
+						
+						<!-- 페이징 처리 시작 -->
+						<div class = "pagingArea" align = "center">
+							<!-- 맨 처음으로 (<<)  -->				<!-- 쿼리스트링 (url주소 적고 form태그의 get방식으로 넘기면 currentPage에 1을 담아서 넘어간다 -->	
+							<button onclick ="location.href='<%=request.getContextPath() %>/list.th?currentPage=1'"> << </button>
+																					<!-- currentPage에 1을 담아 list.th페이지로 넘어간다. -->
+						
+							<!-- 이전 페이지로 (<)  -->
+							<%if(currentPage <= 1) {%>
+								<button disabled> < </button>	<!-- <버튼이 안눌리게 -->
+							<%} else { %>
+								<button onclick = "location.href='<%=request.getContextPath() %>/list.th?currentPage=<%=currentPage -1 %>'"> < </button>
+								
+							<%} %>
+							
+							<!-- 10개의 페이지 목록 -->
+							<%for(int p = startPage; p <= endPage; p++) {%>
+								<% if(p == currentPage){%>
+									<button disabled><%=p %></button>
+								<%} else { %>
+									<button onclick = "location.href='<%=request.getContextPath() %>/list.th?currentPage=<%=p %>'"><%=p %></button>
+								<%} %>
+							
+							<%} %>
+							
+							<!-- 다음 페이지로(>) -->
+							<%if(currentPage >= maxPage){ %>
+								<button disabled> > </button>
+							<%} else { %>
+								<button onclick = "location.href='<%=request.getContextPath() %>/list.th?currentPage=<%=currentPage +1 %>'"> > </button>			
+							<%} %>
+								
+								
+							<!-- 맨 끝으로(>>) -->	
+								<button onclick ="location.href='<%=request.getContextPath() %>/list.th?currentPage=<%=maxPage %>'"> >> </button>
+								
+						</div>	
 		
 
-	</div>
+						</div>
 
 	  
 	<script>
@@ -291,7 +293,8 @@
 		
 	</script>
 
-	
+</div><!-- container -->
+</div><!-- mainContent -->	
  <%@ include file = "../common/footer.jsp" %> 
 </body>
 </html>

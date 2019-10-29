@@ -271,77 +271,84 @@ td span{
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-<div style="height:46px;width:100%;background:#262A2D;"></div>
-	<div id= boardImg1>
-		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back4.jpg" style="height: 234px;">
-		<div style="width:100%; height:60px;"></div>
-	</div>
-<br><br>
-	<div id="outer">
-		<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
-	
-		<div id="tableDiv" align>
-			<table align="center" width="1230px">
-				<thead>
-					<tr><td style="text-align:center;font-size: 20px;padding:none"><b><%=b.getbTitle()%></b></td></tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td style="font-size: 16px">
-					<b>등록일:</b>&nbsp;&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-					<b>조회수:</b><%=b.getbCount()%></td>
-				</tr>
-				<tr>
-				<td>
-				 <% if(b.getBtype().equals("2")){ %>
-                   	 
-                   		<div class= "clipDiv">
-                  			<span id= "clip" ><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=24px style="padding-bottom:3px">
-                  			&nbsp;<b style="font-size:14px">첨부파일(<font class= attachmentCount><%=attachments.size()%></font>)</b></span>
-               			</div>
-						<div class="balloon">
-							<%for(int i = 0;  i<attachments.size(); i++){ %>
-                           			<%Attachment f = attachments.get(i);%>
-                            		<%if(f.getbId() == b.getbId()){%> 
-			                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
-                             	 	<%}%>                     
-                            <%}%> 
-                         <br>
-                         <div class= "balloonClose">닫기</div>
-                        </div>
-               			<br>
-					 <%} %>
-					<%=b.getbContent() %></td>
-				</tr>
-				<tr style="font-size:16px">
-					<%if(bPrev != null){%>
-						<td><b style="margin-right:30px;">이전글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bPrev.getbId()%>');"><%=bPrev.getbTitle()%></span></td>
-					<%}else{%>
-						<td><b style="margin-right:30px">이전글</b>이전글이 없습니다.</td>
-					<%}%>
-					
-				</tr>
-				<tr style="font-size:16px">
-					<%if(bNext != null){%>
-						<td><b style="margin-right:30px">다음글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bNext.getbId()%>');"><%=bNext.getbTitle()%></span></td>
-					<%}else{%>
-						<td><b style="margin-right:30px">다음글</b>다음글이 없습니다.
-					<%}%>
-				</tr>
-				</tbody>
-			</table>
-			<br><br><br><br>
-				<%if(loginUser != null && loginUser.getUserNo() > 10000){ %>
-				<button id = deleteBtn onclick = "deleteBoard();"><b>삭제</b></button>
-				<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/NupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
-				<%}%>
-				<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
-					
-		</div>
-		
-		<br><br>
 
-	</div>
+
+
+
+<div id="container" style="overflow: auto; height: 1335px;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+
+					<div style="height:46px;width:100%;background:#262A2D;"></div>
+						<div id= boardImg1>
+							<img id= boardImg src="<%=request.getContextPath() %>/images/board_back4.jpg" style="height: 234px;">
+							<div style="width:100%; height:60px;"></div>
+						</div>
+					<br><br>
+					<div id="outer">
+						<div class="titleDiv1"><div class= "titleDiv2"><b>공&nbsp;지&nbsp;사&nbsp;항</b></div></div>
+					
+						<div id="tableDiv" align>
+							<table align="center" width="1230px">
+								<thead>
+									<tr><td style="text-align:center;font-size: 20px;padding:none"><b><%=b.getbTitle()%></b></td></tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td style="font-size: 16px">
+									<b>등록일:</b>&nbsp;&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+									<b>조회수:</b><%=b.getbCount()%></td>
+								</tr>
+								<tr>
+								<td>
+								 <% if(b.getBtype().equals("2")){ %>
+				                   	 
+				                   		<div class= "clipDiv">
+				                  			<span id= "clip" ><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=24px style="padding-bottom:3px">
+				                  			&nbsp;<b style="font-size:14px">첨부파일(<font class= attachmentCount><%=attachments.size()%></font>)</b></span>
+				               			</div>
+										<div class="balloon">
+											<%for(int i = 0;  i<attachments.size(); i++){ %>
+				                           			<%Attachment f = attachments.get(i);%>
+				                            		<%if(f.getbId() == b.getbId()){%> 
+							                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
+				                             	 	<%}%>                     
+				                            <%}%> 
+				                         <br>
+				                         <div class= "balloonClose">닫기</div>
+				                        </div>
+				               			<br>
+									 <%} %>
+									<%=b.getbContent() %></td>
+								</tr>
+								<tr style="font-size:16px">
+									<%if(bPrev != null){%>
+										<td><b style="margin-right:30px;">이전글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bPrev.getbId()%>');"><%=bPrev.getbTitle()%></span></td>
+									<%}else{%>
+										<td><b style="margin-right:30px">이전글</b>이전글이 없습니다.</td>
+									<%}%>
+									
+								</tr>
+								<tr style="font-size:16px">
+									<%if(bNext != null){%>
+										<td><b style="margin-right:30px">다음글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bNext.getbId()%>');"><%=bNext.getbTitle()%></span></td>
+									<%}else{%>
+										<td><b style="margin-right:30px">다음글</b>다음글이 없습니다.
+									<%}%>
+								</tr>
+								</tbody>
+							</table>
+							<br><br><br><br>
+								<%if(loginUser != null && loginUser.getUserNo() > 10000){ %>
+								<button id = deleteBtn onclick = "deleteBoard();"><b>삭제</b></button>
+								<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/NupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
+								<%}%>
+								<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'" style="display:inline-block"><b>목록</b></button>
+									
+						</div>
+						
+						<br><br>
+
+				</div>
 	<%-- <div align="center">
 			<button onclick="location.href='<%=request.getContextPath() %>/Nlist.bo'">메뉴로 돌아가기</button>
 			<button>수정하기</button>
@@ -421,7 +428,9 @@ td span{
 			});
 		});
 	</script> --%>
-	<br><br><br><br><br><br><br><br><br><br><br>
+			</div><!-- container -->
+</div><!-- mainContent -->
+<%@ include file = "/views/common/footer.jsp" %>
 </body>
 <script>
 $(function(){

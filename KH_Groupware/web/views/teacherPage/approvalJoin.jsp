@@ -21,6 +21,13 @@
 	src='https://cdnjs.cloudflare.com/ajax/libs/bPopup/0.11.0/jquery.bpopup.min.js'></script>
 <title>Insert title here</title>
 <style type="text/css">
+
+::-webkit-scrollbar {
+
+display:none;
+
+}
+-ms-overflow-style: none; 
 #outer {
 	width: 98%;
 	height: 100%;
@@ -105,6 +112,10 @@
 	<%@ include file = "/views/common/header.jsp" %>
 </header>
 <body>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+
+
 	<div id = "banner">	
 		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
 		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">가입 승인</b></div>
@@ -160,28 +171,9 @@
 								});
 							});
 						<%}%>
+
 						</script>
 
-
-					<div id="popUp<%=i%>">
-						<div id="app<%=i%>" onclick = "appJoin(<%=stdList.get(i).getUserNo()%>, '<%=stdList.get(i).getUserId()%>', <%=i%>);" style = "background: whitesmoke; color: grey">
-							<div>
-								<p>가입승인
-								<p>
-							</div>
-						</div>
-						
-						<div id="hol<%=i%>" style="background: grey; color: white">
-							<div>
-								<p>보류
-								<p>
-							</div>
-						</div>
-						<div id="msg"
-							style="background-color: none; color: white; font-size: 35px; display: block; width: 700px; height: 100px;">
-							<em> 승인된 학생은 <br>승인을 취소할 수 없습니다.</em>
-						</div>
-					</div>
 					<%
 					}
 					if(count == 0){
@@ -192,6 +184,9 @@
 			</div>
 		</div>
 	</div>
+	</div><!-- container -->
+</div><!-- mainContent -->
+
 	<script>
 		$("[id*=app], [id*=hol]").hover(function() {
 			$(this).css({
@@ -232,6 +227,6 @@
 	
 </script>
 </body>
-
+<%@ include file = "/views/common/footer.jsp" %>
 
 </html>

@@ -16,6 +16,14 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 <style>
 
+
+
+::-webkit-scrollbar {
+
+display:none;
+
+}
+-ms-overflow-style: none; 
 #outer{
 	width: 100%;
 }
@@ -184,11 +192,16 @@ input{
 </header>
 
 <body>
+
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+   
+   
 	<div id = "banner">	
-			<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+			<img src="https://i.ibb.co/kXbgcM4/image.jpg" alt="image" border="0">
 			<div  id = "mainTitle"><b style="margin-bottom: 3000px;">스터디 개설 및 신청</b></div>
 	</div>
-	<div id="outer">
+	<div id="outer" style = "margin-bottom: 150px;">
 		<div id="mySlide">
 			<h2 style = "text-align: center; margin-bottom: 0px; color:#262A2D; ">내 스터디</h2>
 			<div style = "height: 30px; width: 6.85%; margin-left: 66%; margin-bottom: 5px;">
@@ -254,6 +267,9 @@ input{
 			</table>
 		</div>
 
+
+		</div><!-- container -->
+</div><!-- mainContent -->
 
 
 	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
@@ -611,6 +627,8 @@ input{
 		
 		
 	</script>
-
+	
+	
+<%@ include file = "/views/common/footer.jsp" %>
 </body>
 </html>

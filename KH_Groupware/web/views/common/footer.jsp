@@ -2,6 +2,7 @@
 <!DOCTYPE>
 <html>
 <head>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <style>
    #page-container {
      position: relative;
@@ -21,6 +22,7 @@
       background: #262A2D;
       color: #F6F6F6;
       display: inline-block;
+      border: none;
    }
    
    .footerDiv li{
@@ -36,7 +38,28 @@
       /* background: grey; */
       color: #F6F6F6;
       font-size: 12px;
+      position: absolute;
+      bottom: 40px;
+      left: 0px; 
+      border: none;
+      
    }
+    
+    .footerDiv2 li{
+       list-style: none;
+    }
+    
+    .footerDiv2{
+    
+      background: #262A2D; 
+      /* background: grey; */
+      color: #F6F6F6;
+      font-size: 12px;
+      position: absolute;
+      right: 0px;
+      bottom:60px; 
+   }
+   
    #img1{
       width: 50px;
    }
@@ -74,22 +97,26 @@
          <!-- <div style="height: 5px"></div> -->
          &nbsp;&nbsp;
          <div class=footerDiv style="width: 1480px; height:180px; display: inline-block;">
+            　
             <ul>
                <li><h1 style="text-align: left;height: 77px;">KH Groupware</h1></li>
                <li class="li1">| SEMI-5조 | 이거사조 | 강현모, 안상재, 이준배, 조호관 |</li>
                <li class="li1">  주소: 서울특별시 강남구 테헤란로14길 6 남도빌딩 5F S반 </li>
                <li class="li1">Copyright 2019. 이거사조. ALL RIGHTS RESERVED</li>
             </ul>
+            
+             
          </div>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div class=footerDiv style="width: 355px; height:180px;display: inline-block;">
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="footerDiv2" style="width: 355px; height:180px;display: inline-block;">
+            　
              <ul style="font-size: 20px;">
                <li><h3 style="text-align-last: center;">CLICK BUTTON!</h3></li>
                <li style="text-align: center; height: 50px;">-----------------</li>
                <li style="text-align: center; height: 50px;">Alliance With</li>
                <li target="_blank" style="text-align-last: center;">
-                  <img id="img1" src ="<%=request.getContextPath() %>/images/icon/KH.png"  onclick="location.href='https://iei.or.kr/main/main.kh'">
-                  <img id="img2" src ="<%=request.getContextPath() %>/images/icon/HRD.png" onclick="location.href='http://hrd.go.kr/hrdp/ma/pmmao/indexNew.do'">
+                  <img id="img1" src ="<%=request.getContextPath() %>/images/icon/kh.png"  onclick="location.href='https://iei.or.kr/main/main.kh'">
+                  <img id="img2" src ="<%=request.getContextPath() %>/images/icon/hrd.png" onclick="location.href='http://hrd.go.kr/hrdp/ma/pmmao/indexNew.do'">
                </li>
             </ul>
          </div>

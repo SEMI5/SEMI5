@@ -409,38 +409,45 @@
 </header>
 
 <body>
-	<div id = "banner">	
-		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
-		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">일정 및 휴가 관리</b></div>
-	</div>
-<div id = "outer">
-	<div id = "calendar"></div>
-	
-	<div id = "stdList">
-		<div id = "stdListTable">
-			<div id = "scdContentsDiv">
-			<table id = "scdContents">
 
-			</table>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+
+		<div id = "banner">	
+			<img src="https://i.ibb.co/vPGg9Qf/image.jpg" alt="image" border="0">
+			<div  id = "mainTitle"><b style="margin-bottom: 3000px;">일정 및 휴가 관리</b></div>
+		</div>
+		<div id = "outer">
+			<div id = "calendar"></div>
+			
+			<div id = "stdList">
+				<div id = "stdListTable">
+					<div id = "scdContentsDiv">
+					<table id = "scdContents">
+		
+					</table>
+					</div>
+					<div class = "buttons" align="center">
+						<button id = "appBtn" style = " border: none;" onclick = "appVac();">휴가승인</button>
+						<button id = "rejBtn" style = " border: 1px soild black;" onclick = "recVac();">휴가불승인</button>
+					</div>
+				</div>
 			</div>
-			<div class = "buttons" align="center">
-				<button id = "appBtn" style = " border: none;" onclick = "appVac();">휴가승인</button>
-				<button id = "rejBtn" style = " border: 1px soild black;" onclick = "recVac();">휴가불승인</button>
+			
+		</div>
+		
+		
+		<div class = "box" style = "width:500px; display:none; background:white;" id ="boxAlert">
+			<div class = "boxHead" style = "background:white; paddin-left:15px">
+				<h3 class ="boxTitle" id = "subject" style = "background:white"></h3>
+			</div>
+			<div class = "boxBody" id = "contents" style = "font-size:15px; background:white;">
 			</div>
 		</div>
-	</div>
-	
-</div>
 
 
-<div class = "box" style = "width:500px; display:none; background:white;" id ="boxAlert">
-	<div class = "boxHead" style = "background:white; paddin-left:15px">
-		<h3 class ="boxTitle" id = "subject" style = "background:white"></h3>
-	</div>
-	<div class = "boxBody" id = "contents" style = "font-size:15px; background:white;">
-	</div>
-</div>
-
+		</div><!-- container -->
+</div><!-- mainContent -->
 
 
 <script type="text/javascript">
@@ -498,10 +505,6 @@
 
 </script>
 
+	<%@ include file = "/views/common/footer.jsp" %>
 </body>
-
-
-<footer>
-</footer>
-
 </html>
