@@ -595,6 +595,12 @@ cursor:pointer;
 
 }
 
+textArea{
+	resize:none;
+}
+
+
+
 </style>
 </head>
 <header>
