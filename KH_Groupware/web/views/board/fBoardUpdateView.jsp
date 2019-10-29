@@ -255,169 +255,174 @@ String originName8= flist.get(7).getOriginName();
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+				<div style="height:46px;width:100%;background:#262A2D;"></div>
+				<div id= boardImg1>
+						<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
+						<div style="width:100%; height:60px;background:black;"></div>
+				</div>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 
-<div style="height:46px;width:100%;background:#262A2D;"></div>
-<div id= boardImg1>
-		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
-		<div style="width:100%; height:60px;background:black;"></div>
-</div>
-<form id= updateForm action = "<%=request.getContextPath()%>/Fupdate.bo" method="post" encType="multipart/form-data">
-<div id="outer">
-<br><br><br><br>
-   <div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
-   <br>
-   <div id = "tableDiv">
-      <table align="center" id="listArea">
-         <tr>
-            <td class= "titleTd tableTd"><b>제목</b></td>
-            <td class ="tableTd"><input type="text" name= "btitle" class="inputTd" value="<%=b.getbTitle()%>">&nbsp;&nbsp;
-				<%if(loginUser.getUserNo() >10000){%>
-					<%if(b.getBlevl() <4){ %>
-					<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();">
-					<%} else{%>
-					<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();" checked>
-					<%} %>
-				 <%} %>
-				<label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
-				<input id = noCheck type= "hidden" name="blevel" value="1">
-            					 <input type="hidden" name = "btype" value="<%=b.getBtype() %>">
-            					 <input type="hidden" name = "bid" value="<%=b.getbId() %>">
-			</td>
-         </tr>
-            <td class= "titleTd tableTd"><b>작성자</b></td>
-            <td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
-         <tr>
-            <td class= "titleTd tableTd"><b>작성일</b></td>
-            <td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=today%></span></td>
-         </tr>
-      </table>
-      <div id="textareaDiv"><textArea id= summernote rows=30 name = "bcontent" placeholder="내용을 입력해주세요"><%=b.getbContent()%></textArea><div>
-      
-      <%if(loginUser != null &&loginUser.getUserNo() > 10000){ %>
-      <table id = "attachTable">
-         <tr>
-            <td rowspan=9 class= "titleTd" style= "border-right: 1px solid #dbdbdb">
-               <b>첨부파일</b>
-            </td>
-            <td  style= "border:none; height:30px; color:gray; padding:12px;padding-left:15px">
-               <select id= attachCount onchange="changeSelect();" style="color:darkgray" disabled>
-                   <option name= aCount value=1>1</option>
-                   <option name= aCount value=2>2</option>
-                   <option name= aCount value=3>3</option>
-                   <option name= aCount value=4>4</option>
-                   <option name= aCount value=5>5</option>
-                   <option name= aCount value=6>6</option>
-                   <option name= aCount value=7>7</option>
-                   <option name= aCount value=8 selected>8</option>
-               </select>
-               &nbsp;<span style="font-size: 15px">파일 갯수를 지정해주세요</span>
-               <button type="button" id= "resetBtn" class="delAttachBtn" onclick="selectReset();"><b>리셋</b></button>
-            </td>
-         </tr> 
-         <tr class= attachTr>
-            <td class= attachTd>
-               <input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName1%>" >&nbsp;
-               <button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>&nbsp;
-               <button type="button" id= "delAttachBtn1" class="delAttachBtn" onclick="delAttach1();"><b>삭제</b></button>
-            </td>
-         </tr>
-            <tr class= attachTr>
-            <td class= attachTd>
-               <input id = "attachInput2" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName2%>" >&nbsp;
-               <button type="button" id= "attachBtn2" class="attachBtn" onclick="fileInputClick2();"><b>찾아보기</b></button>&nbsp;
-               <button type="button" id= "delAttachBtn2" class="delAttachBtn" onclick="delAttach2();"><b>삭제</b></button>
-            </td>
-         </tr>
-            <tr class= attachTr>
-            <td class= attachTd>
-               <input id = "attachInput3" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName3%>" >&nbsp;
-               <button type="button" id= "attachBtn3" class="attachBtn" onclick="fileInputClick3();"><b>찾아보기</b></button>&nbsp;
-               <button type="button" id= "delAttachBtn3" class="delAttachBtn" onclick="delAttach3();"><b>삭제</b></button>
-            </td>
-         </tr>
-            <tr class= attachTr>
-            <td class= attachTd>
-               <input id = "attachInput4" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName4%>" >&nbsp;
-               <button type="button" id= "attachBtn4" class="attachBtn" onclick="fileInputClick4();"><b>찾아보기</b></button>&nbsp;
-               <button type="button" id= "delAttachBtn4" class="delAttachBtn" onclick="delAttach4();"><b>삭제</b></button>
-            </td>
-         </tr>
-            <tr class= attachTr>
-            <td class= attachTd>
-               <input id = "attachInput5" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName5%>" >&nbsp;
-               <button type="button" id= "attachBtn5" class="attachBtn" onclick="fileInputClick5();"><b>찾아보기</b></button>&nbsp;
-               <button type="button" id= "delAttachBtn5" class="delAttachBtn" onclick="delAttach5();"><b>삭제</b></button>
-            </td>
-         </tr>
-            <tr class= attachTr>
-            <td class= attachTd>
-               <input id = "attachInput6" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName6%>" >&nbsp;
-               <button type="button" id= "attachBtn6" class="attachBtn" onclick="fileInputClick6();"><b>찾아보기</b></button>&nbsp;
-               <button type="button" id= "delAttachBtn6" class="delAttachBtn" onclick="delAttach6();"><b>삭제</b></button>
-            </td>
-         </tr>
-            <tr class= attachTr>
-            <td class= attachTd >
-               <input id = "attachInput7" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName7%>" >&nbsp;
-               <button type="button" id= "attachBtn7" class="attachBtn" onclick="fileInputClick7();"><b>찾아보기</b></button>&nbsp;
-               <button type="button" id= "delAttachBtn7" class="delAttachBtn" onclick="delAttach7();"><b>삭제</b></button>
-            </td>
-            <tr class= attachTr style="border-bottom: 1px solid #dbdbdb">
-            <td class= attachTd>
-               <input id = "attachInput8" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName8%>" >&nbsp;
-               <button type="button" id= "attachBtn8" class="attachBtn" onclick="fileInputClick8();"><b>찾아보기</b></button>&nbsp;
-               <button type="button" id= "delAttachBtn8" class="delAttachBtn" onclick="delAttach8();"><b>삭제</b></button>
-            </td>
-         </tr>
-      </table>
-      <%}%>
-      
-      <br><br>
-      <div class= btnDiv>
-            <button type='button'id="listBtn" onclick="location.href='<%=request.getContextPath() %>/Fdetail.bo?bid=<%=b.getbId()%>'"><b>뒤로가기</b></button>&nbsp;&nbsp;
-            <button id="updateBtn" type = "button" onclick="updateSubmit();"><b>수정</b></button>
-      </div>
-   </div>
-<div style="display:none">
-   <input type="file" id="fileInput1" name = "file1" onchange="loadAttachName(this,1);">
-   <input type="file" id="fileInput2" name = "file2" onchange="loadAttachName(this,2);">
-   <input type="file" id="fileInput3" name = "file3" onchange="loadAttachName(this,3);">
-   <input type="file" id="fileInput4" name = "file4" onchange="loadAttachName(this,4);">
-   <input type="file" id="fileInput5" name = "file5" onchange="loadAttachName(this,5);">
-   <input type="file" id="fileInput6" name = "file6" onchange="loadAttachName(this,6);">
-   <input type="file" id="fileInput7" name = "file7" onchange="loadAttachName(this,7);">
-   <input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
-</div>
-
-<div style="display:none">
-   <br>
-   
-   <input type = "text" id="delFid1" name = "delFid1" value = "0" ><br>
-   <input type = "text" id="delFid2" name = "delFid2" value = "0"><br>
-   <input type = "text" id="delFid3" name = "delFid3" value = "0"><br>
-   <input type = "text" id="delFid4" name = "delFid4" value = "0"><br>
-   <input type = "text" id="delFid5" name = "delFid5" value = "0"><br>
-   <input type = "text" id="delFid6" name = "delFid6" value = "0"><br>
-   <input type = "text" id="delFid7" name = "delFid7" value = "0"><br>
-   <input type = "text" id="delFid8" name = "delFid8" value = "0"><br>
-   
-</div>
-</form>
-
-
-<div style="display:none">
-	<br>
-   <input type = "text" id="originFid1" name = "originFid1" value =<%=flist.get(0).getfId()%> ><br>
-   <input type = "text" id="originFid2" name = "originFid2" value =<%=flist.get(1).getfId()%> ><br>
-   <input type = "text" id="originFid3" name = "originFid3" value =<%=flist.get(2).getfId()%> ><br>
-   <input type = "text" id="originFid4" name = "originFid4" value =<%=flist.get(3).getfId()%> ><br>
-   <input type = "text" id="originFid5" name = "originFid5" value =<%=flist.get(4).getfId()%> ><br>
-   <input type = "text" id="originFid6" name = "originFid6" value =<%=flist.get(5).getfId()%> ><br>
-   <input type = "text" id="originFid7" name = "originFid7" value =<%=flist.get(6).getfId()%> ><br>
-   <input type = "text" id="originFid8" name = "originFid8" value =<%=flist.get(7).getfId()%> ><br>
-</div>
-
-<br><br><br><br><br><br>
+				<form id= updateForm action = "<%=request.getContextPath()%>/Fupdate.bo" method="post" encType="multipart/form-data">
+				<div id="outer">
+				<br><br><br><br>
+				   <div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
+				   <br>
+				   <div id = "tableDiv">
+				      <table align="center" id="listArea">
+				         <tr>
+				            <td class= "titleTd tableTd"><b>제목</b></td>
+				            <td class ="tableTd"><input type="text" name= "btitle" class="inputTd" value="<%=b.getbTitle()%>">&nbsp;&nbsp;
+								<%if(loginUser.getUserNo() >10000){%>
+									<%if(b.getBlevl() <4){ %>
+									<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();">
+									<%} else{%>
+									<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();" checked>
+									<%} %>
+								 <%} %>
+								<label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+								<input id = noCheck type= "hidden" name="blevel" value="1">
+				            					 <input type="hidden" name = "btype" value="<%=b.getBtype() %>">
+				            					 <input type="hidden" name = "bid" value="<%=b.getbId() %>">
+							</td>
+				         </tr>
+				            <td class= "titleTd tableTd"><b>작성자</b></td>
+				            <td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
+				         <tr>
+				            <td class= "titleTd tableTd"><b>작성일</b></td>
+				            <td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=today%></span></td>
+				         </tr>
+				      </table>
+				      <div id="textareaDiv"><textArea id= summernote rows=30 name = "bcontent" placeholder="내용을 입력해주세요"><%=b.getbContent()%></textArea><div>
+				      
+				      <%if(loginUser != null &&loginUser.getUserNo() > 10000){ %>
+				      <table id = "attachTable">
+				         <tr>
+				            <td rowspan=9 class= "titleTd" style= "border-right: 1px solid #dbdbdb">
+				               <b>첨부파일</b>
+				            </td>
+				            <td  style= "border:none; height:30px; color:gray; padding:12px;padding-left:15px">
+				               <select id= attachCount onchange="changeSelect();" style="color:darkgray" disabled>
+				                   <option name= aCount value=1>1</option>
+				                   <option name= aCount value=2>2</option>
+				                   <option name= aCount value=3>3</option>
+				                   <option name= aCount value=4>4</option>
+				                   <option name= aCount value=5>5</option>
+				                   <option name= aCount value=6>6</option>
+				                   <option name= aCount value=7>7</option>
+				                   <option name= aCount value=8 selected>8</option>
+				               </select>
+				               &nbsp;<span style="font-size: 15px">파일 갯수를 지정해주세요</span>
+				               <button type="button" id= "resetBtn" class="delAttachBtn" onclick="selectReset();"><b>리셋</b></button>
+				            </td>
+				         </tr> 
+				         <tr class= attachTr>
+				            <td class= attachTd>
+				               <input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName1%>" >&nbsp;
+				               <button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>&nbsp;
+				               <button type="button" id= "delAttachBtn1" class="delAttachBtn" onclick="delAttach1();"><b>삭제</b></button>
+				            </td>
+				         </tr>
+				            <tr class= attachTr>
+				            <td class= attachTd>
+				               <input id = "attachInput2" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName2%>" >&nbsp;
+				               <button type="button" id= "attachBtn2" class="attachBtn" onclick="fileInputClick2();"><b>찾아보기</b></button>&nbsp;
+				               <button type="button" id= "delAttachBtn2" class="delAttachBtn" onclick="delAttach2();"><b>삭제</b></button>
+				            </td>
+				         </tr>
+				            <tr class= attachTr>
+				            <td class= attachTd>
+				               <input id = "attachInput3" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName3%>" >&nbsp;
+				               <button type="button" id= "attachBtn3" class="attachBtn" onclick="fileInputClick3();"><b>찾아보기</b></button>&nbsp;
+				               <button type="button" id= "delAttachBtn3" class="delAttachBtn" onclick="delAttach3();"><b>삭제</b></button>
+				            </td>
+				         </tr>
+				            <tr class= attachTr>
+				            <td class= attachTd>
+				               <input id = "attachInput4" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName4%>" >&nbsp;
+				               <button type="button" id= "attachBtn4" class="attachBtn" onclick="fileInputClick4();"><b>찾아보기</b></button>&nbsp;
+				               <button type="button" id= "delAttachBtn4" class="delAttachBtn" onclick="delAttach4();"><b>삭제</b></button>
+				            </td>
+				         </tr>
+				            <tr class= attachTr>
+				            <td class= attachTd>
+				               <input id = "attachInput5" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName5%>" >&nbsp;
+				               <button type="button" id= "attachBtn5" class="attachBtn" onclick="fileInputClick5();"><b>찾아보기</b></button>&nbsp;
+				               <button type="button" id= "delAttachBtn5" class="delAttachBtn" onclick="delAttach5();"><b>삭제</b></button>
+				            </td>
+				         </tr>
+				            <tr class= attachTr>
+				            <td class= attachTd>
+				               <input id = "attachInput6" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName6%>" >&nbsp;
+				               <button type="button" id= "attachBtn6" class="attachBtn" onclick="fileInputClick6();"><b>찾아보기</b></button>&nbsp;
+				               <button type="button" id= "delAttachBtn6" class="delAttachBtn" onclick="delAttach6();"><b>삭제</b></button>
+				            </td>
+				         </tr>
+				            <tr class= attachTr>
+				            <td class= attachTd >
+				               <input id = "attachInput7" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName7%>" >&nbsp;
+				               <button type="button" id= "attachBtn7" class="attachBtn" onclick="fileInputClick7();"><b>찾아보기</b></button>&nbsp;
+				               <button type="button" id= "delAttachBtn7" class="delAttachBtn" onclick="delAttach7();"><b>삭제</b></button>
+				            </td>
+				            <tr class= attachTr style="border-bottom: 1px solid #dbdbdb">
+				            <td class= attachTd>
+				               <input id = "attachInput8" type="text" placeholder="첨부파일을 등록하세요" readonly value ="<%=originName8%>" >&nbsp;
+				               <button type="button" id= "attachBtn8" class="attachBtn" onclick="fileInputClick8();"><b>찾아보기</b></button>&nbsp;
+				               <button type="button" id= "delAttachBtn8" class="delAttachBtn" onclick="delAttach8();"><b>삭제</b></button>
+				            </td>
+				         </tr>
+				      </table>
+				      <%}%>
+				      
+				      <br><br>
+				      <div class= btnDiv>
+				            <button type='button'id="listBtn" onclick="location.href='<%=request.getContextPath() %>/Fdetail.bo?bid=<%=b.getbId()%>'"><b>뒤로가기</b></button>&nbsp;&nbsp;
+				            <button id="updateBtn" type = "button" onclick="updateSubmit();"><b>수정</b></button>
+				      </div>
+				   </div>
+				<div style="display:none">
+				   <input type="file" id="fileInput1" name = "file1" onchange="loadAttachName(this,1);">
+				   <input type="file" id="fileInput2" name = "file2" onchange="loadAttachName(this,2);">
+				   <input type="file" id="fileInput3" name = "file3" onchange="loadAttachName(this,3);">
+				   <input type="file" id="fileInput4" name = "file4" onchange="loadAttachName(this,4);">
+				   <input type="file" id="fileInput5" name = "file5" onchange="loadAttachName(this,5);">
+				   <input type="file" id="fileInput6" name = "file6" onchange="loadAttachName(this,6);">
+				   <input type="file" id="fileInput7" name = "file7" onchange="loadAttachName(this,7);">
+				   <input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
+				</div>
+				
+				<div style="display:none">
+				   <br>
+				   
+				   <input type = "text" id="delFid1" name = "delFid1" value = "0" ><br>
+				   <input type = "text" id="delFid2" name = "delFid2" value = "0"><br>
+				   <input type = "text" id="delFid3" name = "delFid3" value = "0"><br>
+				   <input type = "text" id="delFid4" name = "delFid4" value = "0"><br>
+				   <input type = "text" id="delFid5" name = "delFid5" value = "0"><br>
+				   <input type = "text" id="delFid6" name = "delFid6" value = "0"><br>
+				   <input type = "text" id="delFid7" name = "delFid7" value = "0"><br>
+				   <input type = "text" id="delFid8" name = "delFid8" value = "0"><br>
+				   
+				</div>
+				</form>
+				
+				
+				<div style="display:none">
+					<br>
+				   <input type = "text" id="originFid1" name = "originFid1" value =<%=flist.get(0).getfId()%> ><br>
+				   <input type = "text" id="originFid2" name = "originFid2" value =<%=flist.get(1).getfId()%> ><br>
+				   <input type = "text" id="originFid3" name = "originFid3" value =<%=flist.get(2).getfId()%> ><br>
+				   <input type = "text" id="originFid4" name = "originFid4" value =<%=flist.get(3).getfId()%> ><br>
+				   <input type = "text" id="originFid5" name = "originFid5" value =<%=flist.get(4).getfId()%> ><br>
+				   <input type = "text" id="originFid6" name = "originFid6" value =<%=flist.get(5).getfId()%> ><br>
+				   <input type = "text" id="originFid7" name = "originFid7" value =<%=flist.get(6).getfId()%> ><br>
+				   <input type = "text" id="originFid8" name = "originFid8" value =<%=flist.get(7).getfId()%> ><br>
+				</div>
+				
+				<br><br><br><br><br><br>
+	</div><!-- container -->
+</div><!-- mainContent -->
+<%@ include file = "/views/common/footer.jsp" %>
 </body>
 
 <!--  summernote 동작 -->

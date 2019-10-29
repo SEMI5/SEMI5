@@ -588,19 +588,20 @@ cursor:pointer;
 	Top: 5px;
 }
 
+
+#container{
+	height: 100px;
+
+
+}
 </style>
 </head>
 <header>
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-<a name="top"></a>
-<div style="height:46px;width:100%;background:#262A2D;"></div>
-<div id= boardImg1>
-		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
-		<div style="width:100%; height:60px;background:black;"></div>
-</div>
 
+<<<<<<< HEAD
 
 	<div id="outer">
 	
@@ -682,96 +683,196 @@ cursor:pointer;
 			<div id="replySelectArea">
 				<br>
 				<table id="replySelectTable" >
+=======
+<div id="container" style="overflow: auto; height: 1458px;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+			<a name="top"></a>
+			<div style="height:46px;width:100%;background:#262A2D;"></div>
+			<div id= boardImg1>
+					<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
+					<div style="width:100%; height:60px;background:black;"></div>
+			</div>
+			
+			
+				<div id="outer">
+>>>>>>> refs/remotes/origin/master
 				
-					<%if(rlist.isEmpty()) {%>
-						<tr style= "boder-top: 1px solid darkgrqy";><td colspan="3"><b>댓글이 없습니다.</b></td></tr>
-					<%}else{ %>
-						<%for(i=0;i<rlist.size();i++){ %>
-							<%for (int j=0; j<glist.size(); j++){
-									if((rlist.get(i).getrId() == glist.get(j).getrId()) && (loginUser.getUserNo() == glist.get(j).getUserNo())){
-										 color = "#f53f29";
-										 break;
-									}else{
-										color = "gray"; 
-									}
-							}%> <!-- 안쪽 for문 -->	
-				
-							<tr style= "border-top: 1px solid darkgray;">
-								<td style="width:100px;">&nbsp;
-									<b><%=rlist.get(i).getrWriter() %><span style="margin-left:10px;"><%=rlist.get(i).getCreateDate()%></span></b>
-								</td>
+				<br><br><br><br>
+					<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
+					
+					<div id="tableDiv" >
+						<table align="center" width="1230px">
+							<thead>
+								<tr><td style="text-align:center;font-size: 20px;padding:none;height:50px;"><b><%=b.getbTitle()%></b></td></tr>
+							</thead>
+							<tbody id= "boardTbody">
+							<tr>
+								<td style="font-size: 16px">
+								
+								<b>작성자:</b>&nbsp;&nbsp;<%=b.getbWriter()%>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+								<b>등록일:</b>&nbsp;&nbsp;<%=b.getModifyDate()%>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+								<b>조회수:</b>&nbsp; <%=b.getbCount()%></td>
 							</tr>
 							<tr>
-								<td width="400px">
-								<%if((i == 0 || i== 1) && rlist.get(i).getCount() >= 2){ %>
-									<span class= "best">BEST</span>
+							<td>
+							 <% if(b.getBtype().equals("2")){ %>
+			                   	 
+			                   		<div class= "clipDiv">
+			                  			<span id= "clip" ><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=24px style="padding-bottom:3px">
+			                  			&nbsp;<b style="font-size:14px">첨부파일(<font class= attachmentCount><%=attachments.size()%></font>)</b></span>
+			               			</div>
+									<div class="balloon">
+										<%for( i = 0; i<attachments.size(); i++){ %>
+			                           			<%Attachment f = attachments.get(i);%>
+			                            		<%if(f.getbId() == b.getbId()){%> 
+						                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
+			                             	 	<%}%>                     
+			                            <%}%> 
+			                         <br>
+			                         <div class= "balloonClose">닫기</div>
+			                        </div>
+			               			<br>
+								 <%} %>
+								<%=b.getbContent() %></td>
+							</tr>
+							<tr style="font-size:16px">
+								<%if(bPrev != null){%>
+									<td><b style="margin-right:30px;">이전글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bPrev.getbId()%>');"><%=bPrev.getbTitle()%></span></td>
+								<%}else{%>
+									<td><b style="margin-right:30px">이전글</b>이전글이 없습니다.</td>
 								<%}%>
-									&nbsp;<textArea id="text<%=i%>" class="replyListText" readonly= readonly data-value="1"><%=rlist.get(i).getrContent() %></textArea>
-								</td>
-							</tr>
-							<tr style="border:none; border-bottom: 1px solid darkgray;padding:3px;">
-								<td style= "height: 35px;width=200px;pdding-top:0px">&nbsp;
-									<span class= 'answer'>답글</span>
-									<%if (loginUser != null && (loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
-										<span class= 'change'>수정&nbsp;</span>
-											<input type = hidden value = 'text<%=i%>'>
-											<input type = hidden value = '<%=rlist.get(i).getrId()%>'>
-									<%}%>									
-									<%if (loginUser != null && (loginUser.getUserNo() > 10000 || loginUser.getUserNo() == b.getUserNo() || loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
-									<span class= "delete" onclick="deleteReply(this);" >삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
-								 	<% }%> 
-										<input id = "rid<%=i%>" type ="hidden" value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
-									</span>
-									<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="border:1px solid <%=color %>; color:<%=color %> " ><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span id="gCount<%=i%>"><%=rlist.get(i).getCount()%></span></span> 
-								</td>
 								
 							</tr>
-							<!-- 여기서 부터 다시 다 입력해야함.. ajax ... -->
-							<tr class="answerTrWrite">
-								<td>
-									<input type ="hidden" value = <%=rlist.get(i).getrId() %>>
-								
-									<div  class = answerInfo><%=loginUser.getUserName() %> &nbsp;</div>	 
-									<span class="answerIcon"><i class="fa fa-angle-right" aria-hidden="true" style="font-size:30px;"></i></span>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<textArea class= "answerText"></textArea><span class= "answerAdd">등록</span>  
-								</td>
+							<tr style="font-size:16px">
+								<%if(bNext != null){%>
+									<td><b style="margin-right:30px">다음글</b><span id = "preNextBoard" onclick = "goBoardDetail('<%=bNext.getbId()%>');"><%=bNext.getbTitle()%></span></td>
+								<%}else{%>
+									<td><b style="margin-right:30px">다음글</b>다음글이 없습니다.
+								<%}%>
 							</tr>
+							</tbody>
+						</table>
+						<br><br><br><br>
+							<%if(loginUser != null && (loginUser.getUserNo() > 10000 || (loginUser.getUserNo() == b.getUserNo()))){ %>
+							<button id = deleteBtn onclick = "delBoard();"><b>삭제</b></button>
+							<button id = reWriteBtn onclick ="location.href='<%=request.getContextPath()%>/FupdateView.bo?bid=<%=b.getbId()%>'" style="display:inline-block"><b>수정</b></button>
+							<%}%>
+							<button id = listBtn onclick="location.href='<%=request.getContextPath() %>/Flist.bo'" style="display:inline-block"><b>목록</b></button>
+						<br>
+						</div>	<!--tableDiv 끝 -->
+						<div class="replyArea">
+							<br>
+							<div class="replyWriterArea">
+								<div style="border:none;margin-bottom:8px;"><span style="font-weight:bold;font-size:18px;">댓글작성</span>&nbsp;&nbsp;&nbsp;<span onclick = "refreshClick();" class = "refresh"><i class="fa fa-refresh" aria-hidden="true" style="font-size:20px; "></i></span></div>
+								<div style="width:802px;border:1px solid darkgray;">
+								<textArea rows="3" cols="119" id="replyContent" placeholder="댓글을 입력해주세요" style="font-weight:normal;border:none"></textArea>
+								<br><span style="margin-left:680px;color:darkgray;">글자 수 &nbsp;<span id="counter">0</span>&nbsp;/&nbsp;200&nbsp; </span>
+								<div style="height: 40px;width:800px;border:none; border-top:1px solid lightgray"><button id="addReplyBtn" type="button">등록</button></div>
+								</div>
+							</div>	
+						</div> <!-- replyArea 끝 -->
+							 <%if(rlist !=null){ %>	 
+						<div id="replySelectArea">
+							<br>
+							<table id="replySelectTable" >
 							
-							<%if( alist != null){ %>					
-								<%for (int k=0; k<alist.size(); k++){%>
-									<% if(rlist.get(i).getrId() == alist.get(k).getRid()){%>
-									<tr class= "answerTr">
-										<td>
-											<input type ="hidden" value = <%=rlist.get(i).getrId() %>>
-											<div  class = answerInfo><%=alist.get(k).getUserName()%> &nbsp;<%=alist.get(k).getCreateDate()%></div>	 
-											<span class="answerIcon"><i class="fa fa-angle-right" aria-hidden="true" style="font-size:30px;"></i></span>
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<textArea class= "answerText" readonly><%=alist.get(k).getAcontent() %></textArea>
-											<%if (loginUser != null && loginUser.getUserNo() > 10000 ||loginUser.getUserNo() == Integer.parseInt(alist.get(k).getAwriter())){ %>	
-										     	<span class= "answerDelete">삭제</span> 
-												<input type= "hidden" value = <%=alist.get(k).getAid()%>> 
+								<%if(rlist.isEmpty()) {%>
+									<tr style= "boder-top: 1px solid darkgrqy";><td colspan="3"><b>댓글이 없습니다.</b></td></tr>
+								<%}else{ %>
+									<%for(i=0;i<rlist.size();i++){ %>
+										<%for (int j=0; j<glist.size(); j++){
+												if((rlist.get(i).getrId() == glist.get(j).getrId()) && (loginUser.getUserNo() == glist.get(j).getUserNo())){
+													 color = "#f53f29";
+													 break;
+												}else{
+													color = "gray"; 
+												}
+										}%> <!-- 안쪽 for문 -->	
+							
+										<tr style= "border-top: 1px solid darkgray;">
+											<td style="width:100px;">&nbsp;
+												<b><%=rlist.get(i).getrWriter() %><span style="margin-left:10px;"><%=rlist.get(i).getCreateDate()%></span></b>
+											</td>
+										</tr>
+										<tr>
+											<td width="400px">
+											<%if((i == 0 || i== 1) && rlist.get(i).getCount() >= 2){ %>
+												<span class= "best">BEST</span>
 											<%}%>
-										</td>
-									</tr>
-									<%}%>
-								<%}%> <!-- alist 관련  for문  -->
-							<%}%>	
+												&nbsp;<textArea id="text<%=i%>" class="replyListText" readonly= readonly data-value="1"><%=rlist.get(i).getrContent() %></textArea>
+											</td>
+										</tr>
+										<tr style="border:none; border-bottom: 1px solid darkgray;padding:3px;">
+											<td style= "height: 35px;width=200px;pdding-top:0px">&nbsp;
+												<span class= 'answer'>답글</span>
+												<%if (loginUser != null && (loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
+													<span class= 'change'>수정&nbsp;</span>
+														<input type = hidden value = 'text<%=i%>'>
+														<input type = hidden value = '<%=rlist.get(i).getrId()%>'>
+												<%}%>									
+												<%if (loginUser != null && (loginUser.getUserNo() > 10000 || loginUser.getUserNo() == b.getUserNo() || loginUser.getUserNo() == rlist.get(i).getUserNo())){ %>	
+												<span class= "delete" onclick="deleteReply(this);" >삭제 <!-- 리플 아이디 (삭제할때 쓸것임) -->
+											 	<% }%> 
+													<input id = "rid<%=i%>" type ="hidden" value = <%=rlist.get(i).getrId() %>> <!-- 리플 아이디 (삭제할때 쓸것임) -->	
+												</span>
+												<span class= "good" onclick="goodClick(this, rid<%=i%>);" style="border:1px solid <%=color %>; color:<%=color %> " ><i class="fa fa-thumbs-up" style="font-size:15px; "></i>&nbsp;<span id="gCount<%=i%>"><%=rlist.get(i).getCount()%></span></span> 
+											</td>
+											
+										</tr>
+										<!-- 여기서 부터 다시 다 입력해야함.. ajax ... -->
+										<tr class="answerTrWrite">
+											<td>
+												<input type ="hidden" value = <%=rlist.get(i).getrId() %>>
+											
+												<div  class = answerInfo><%=loginUser.getUserName() %> &nbsp;</div>	 
+												<span class="answerIcon"><i class="fa fa-angle-right" aria-hidden="true" style="font-size:30px;"></i></span>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<textArea class= "answerText"></textArea><span class= "answerAdd">등록</span>  
+											</td>
+										</tr>
+										
+										<%if( alist != null){ %>					
+											<%for (int k=0; k<alist.size(); k++){%>
+												<% if(rlist.get(i).getrId() == alist.get(k).getRid()){%>
+												<tr class= "answerTr">
+													<td>
+														<input type ="hidden" value = <%=rlist.get(i).getrId() %>>
+														<div  class = answerInfo><%=alist.get(k).getUserName()%> &nbsp;<%=alist.get(k).getCreateDate()%></div>	 
+														<span class="answerIcon"><i class="fa fa-angle-right" aria-hidden="true" style="font-size:30px;"></i></span>
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<textArea class= "answerText" readonly><%=alist.get(k).getAcontent() %></textArea>
+														<%if (loginUser != null && loginUser.getUserNo() > 10000 ||loginUser.getUserNo() == Integer.parseInt(alist.get(k).getAwriter())){ %>	
+													     	<span class= "answerDelete">삭제</span> 
+															<input type= "hidden" value = <%=alist.get(k).getAid()%>> 
+														<%}%>
+													</td>
+												</tr>
+												<%}%>
+											<%}%> <!-- alist 관련  for문  -->
+										<%}%>	
+									
+									<%}%> <!--  r리스트 바깥쪽 for문 -->
+								<%} %>
+							</table>
+						</div>		
+						<%} %>
+								<br><br><br><br>
+								<br><br>
+								
+								<div style="width: 100%; text-align:center;"><a href="#top"><button class= topBtn>TOP</button></a></div>
 						
-						<%}%> <!--  r리스트 바깥쪽 for문 -->
-					<%} %>
-				</table>
-			</div>		
-			<%} %>
-					<br><br><br><br>
-					<br><br>
+							<br><br><br>
+						
+					</div><!--outer끝 -->
 					
-					<div style="width: 100%; text-align:center;"><a href="#top"><button class= topBtn>TOP</button></a></div>
-			
-				<br><br><br>
-			
-		</div><!--outer끝 -->
+					
+	</div><!-- container -->
+</div><!-- mainContent -->
 </body>
+<footer>
+	<%@ include file = "/views/common/footer.jsp" %>
+</footer>
+
 <script>
 
 $(document).on('click', ".change", function () {

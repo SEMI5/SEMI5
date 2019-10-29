@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member" %>
-
-
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 
@@ -42,6 +40,63 @@
 
 
 <style>
+	body {font-family: Arial, Helvetica, sans-serif;}
+	
+	/* 모달 관련 */
+	/* The Modal (background) */
+	.modal {
+	  display: none; /* Hidden by default */
+	  position: fixed; /* Stay in place */
+	  z-index: 1; /* Sit on top */
+	  padding-top: 100px; /* Location of the box */
+	  left: 0;
+	  top: 0;
+	  width: 100%; /* Full width */
+	  height: 100%; /* Full height */
+	  overflow: auto; /* Enable scroll if needed */
+	  background-color: rgb(0,0,0); /* Fallback color */
+	  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+	
+	/* Modal Content */
+	.modal-content {
+	 
+	  margin: auto;
+	  padding: 20px;
+	  border: 1px solid #888;
+	  width: 24%;
+	  z-index: 9999;
+	}
+	
+	/* The Close Button */
+	.close {
+	  color: #aaaaaa;
+	  float: right;
+	  font-size: 28px;
+	  font-weight: bold;
+	}
+	
+	.close:hover,
+	.close:focus {
+	  color: #000;
+	  text-decoration: none;
+	  cursor: pointer;
+	}
+	#inputMessage{
+		padding: 9px;
+	    margin: 4px;
+	    width: 285px;
+	}
+	#enter{
+		margin:-3px;
+		padding: 10px;
+		border: 1px solid blue; 
+		background: white;
+	}
+	#chattingBtn{
+		float: right;
+	}
+	/* 채팅---------------------------------------------------------------------- */
 
    /* place holder 감추기*/
    input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { /* WebKit browsers */ color:transparent; } 
@@ -72,7 +127,7 @@
    background-color: #262A2D; /*#353535*/
    border-bottom: 0;
    box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
-   z-index: 9999;
+   z-index: 9998;
    margin:0;
    list-style:none;
    left:0;
@@ -440,7 +495,7 @@ body{
 <div id= outerDiv>;  
 	<div id= "menuBar" >
 			<div class =" logoImg" style="line-height:50px;" "><img  id =logoImg src="<%=request.getContextPath()%>/images/logoImg.png" onclick= "location.href = '<%=request.getContextPath()%>/views/common/mainHome.jsp'""></div>
-			<div class= "menu introMenu">소개</div>
+			<div class= "menu introMenu" onclick="goIntro();">소개</div>
 			<div class= "menu boardMenu" onclick = "showBoardDiv();">게시판</div>
 			<div class= "menu shareMenu" onclick = "gonShareFile();">공유자료</div>
 			<div class= "menu elbumMenu" onclick= "goElbum();">앨범</div>
@@ -455,7 +510,7 @@ body{
 			</script>
 			<%} %>
 			<div class= "menu memberMenu">
-				<span class= "iconSpan icon1" onclick = "showChattingPOPUP();"><i class="fa fa-comments" aria-hidden="true"></i></span>&nbsp;
+				<span id="chattingBtn" class= "iconSpan icon1" onclick = "showChattingPOPUP();"><i class="fa fa-comments" aria-hidden="true"></i></span>&nbsp;
 				<span class= "iconSpan icon2" onclick = "memberJoin();"><i class="fa fa-sign-in" aria-hidden="true"></i></span>&nbsp;
 				<span id= "loginIcon" class= "iconSpan icon3" onclick= "loginDivShow();"><i class="fa fa-user" aria-hidden="true" ></i></span>
 			</div>
@@ -552,11 +607,22 @@ body{
 <input id= userNo type= hidden value= <%=userNo%>> 
 
 
-
-
-
-
+ <!-- 모달채팅 DIV -->
+	    <div id="myModal" class="modal">
+	 
+	  <div class="modal-content" style="background: #F6F6F6;">
+		    <span id="closeBtn" class="close">&times;</span>
+			<div id="div0" align="center" style="padding: 15px; font-weight: 900;">
+				KH Chatting Room
+			</div>
+		        	<textarea id="messageWindow" rows="10" cols="40" readonly="true" style="height: 481px; width: -webkit-fill-available; resize: none"></textarea>
+				    <input id="inputMessage" type="text"/>
+		    		<button id="enter" type="submit" value="s" onclick="send();">send</button>
+	  </div>  
+	  </div>
+ 
 <script>
+// closeBtn
 
 
 function findIdPwd(){
@@ -613,16 +679,78 @@ function goTasty(){
 }
 
 
-// 채팅바로가기 
-   function showChattingPOPUP() {
-		  window.open("../chatting/chattingPopup.jsp", "", "width=400, height=600, left=100, top=50");
-	  }
+//소개바로가기
+	function goIntro() {
+		location.href = "<%=request.getContextPath()%>/views/common/infoPage.jsp";
+	}
+	
+	// 채팅바로가기 
+	   function showChattingPOPUP() {
+		   //window.open("../chatting/chattingModal.jsp", "", "width=400, height=600, left=100, top=50");
+		  	// Get the modal
+			var modal = document.getElementById("myModal");
+			// Get the button that opens the modal
+			var btn = document.getElementById("chattingBtn");
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+			
+			// When the user clicks the button, open the modal 
+			btn.onclick = function() {
+			  modal.style.display = "block";
+			}
+			
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			  modal.style.display = "none";
+			}
+			
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			  if (event.target == modal) {
+			    modal.style.display = "none";
+			  }
+			}
+
+			/* 채팅 로직 */
+			var textarea = document.getElementById("messageWindow");
+			var webSocket = new WebSocket('ws://localhost:8888/KH_Groupware/broadcasting');
+			var inputMessage = document.getElementById('inputMessage');
+			webSocket.onerror = function(event) {
+			onError(event)
+			};
+			webSocket.onopen = function(event) {
+			onOpen(event)
+			};
+			webSocket.onmessage = function(event) {
+			onMessage(event)
+			};
+			function onMessage(event) {
+			textarea.value += "상대 : " + event.data + "\n";
+			}
+			function onOpen(event) {
+			textarea.value += "connected..\n";
+			}
+			function onError(event) {
+			alert(event.data);
+			}
+			function send() {
+			    textarea.value += "나 : " + inputMessage.value + "\n";
+			    webSocket.send(inputMessage.value);
+			    inputMessage.value = "";
+			}
+			// 채팅 엔터키 입력
+			$("#inputMessage").keypress(function(e) {
+				if (e.keyCode == 13) {
+					send();
+					return false;
+				}
+			});
+	}
+	/* ------------------------------------------채팅 종료------------------------------------------ */  	
 
 
 	function goMyInfo(){
-	
 			location.href="<%=request.getContextPath()%>/views/member/memberView.jsp";  
-		  
 	}
 
 

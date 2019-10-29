@@ -422,30 +422,34 @@ body{
 </head>
 <body class="w3-content" style="max-width:2000px;">
 <%@ include file = "header.jsp" %>
+
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+	
 		<!-- 이미지 슬라이더 부분  -->
-<div style="height:40px;width:100%"></div>
-	<div class="slideshow-container">	
-		<div class="mySlides fade">
-		  <div class="numbertext">1 / 3</div>
-		  <div class= "circle"><br>click here!</div>
-		  <img src="../../images/mainBack5.jpg" style="width:100%; height:800px; ">
-		</div>
-		<div class="mySlides fade">
-		  <div class="numbertext">2 / 3</div>
-		  <img src="../../images/mainBack4.jpg" style="width:100%; height:800px;">
-		</div>
-		<div class="mySlides fade">	
-		  <div class="numbertext">3 / 3</div>
-		  <img src="../../images/mainBack2.jpg" style="width:100%; height:800px;">
-		</div>
-		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-		<a class="next" onclick="plusSlides(1)">&#10095;</a>
-	</div>
-	<div style="text-align:center; background:#fcfaf1; padding-top: 10px; margin-bottom:10px;">
-		<span class="dot" onclick="currentSlide(1)"></span> 
-		<span class="dot" onclick="currentSlide(2)"></span> 
-		<span class="dot" onclick="currentSlide(3)"></span> 
-	</div>
+		<div style="height:40px;width:100%"></div>
+			<div class="slideshow-container">	
+				<div class="mySlides fade">
+				  <div class="numbertext">1 / 3</div>
+				  <div class= "circle" onclick="location.href='infoPage.jsp'"><br>click here!</div>
+				  <img src="../../images/mainBack5.jpg" style="width:100%; height:800px; ">
+				</div>
+				<div class="mySlides fade">
+				  <div class="numbertext">2 / 3</div>
+				  <img src="../../images/mainBack4.jpg" style="width:100%; height:800px;">
+				</div>
+				<div class="mySlides fade">	
+				  <div class="numbertext">3 / 3</div>
+				  <img src="../../images/mainBack2.jpg" style="width:100%; height:800px;">
+				</div>
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="next" onclick="plusSlides(1)">&#10095;</a>
+			</div>
+			<div style="text-align:center; background:#fcfaf1; padding-top: 10px; margin-bottom:10px;">
+				<span class="dot" onclick="currentSlide(1)"></span> 
+				<span class="dot" onclick="currentSlide(2)"></span> 
+				<span class="dot" onclick="currentSlide(3)"></span> 
+			</div>
 <!-- 메인 슬라이더  css  -->
 <script>
 
@@ -570,32 +574,6 @@ body{
 			src="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-server/master/form-submission-handler.js"></script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-		
 <script>
 	function openCity(cityName,elmnt,color) {
 	  var i, tabcontent, tablinks;
@@ -645,8 +623,12 @@ body{
 	
 	
 		
+		</div><!-- container -->
+</div><!-- mainContent -->
 
 		
 </body>
-
+<footer>
+<%@ include file = "/views/common/footer.jsp" %> 
+</footer>
 </html>

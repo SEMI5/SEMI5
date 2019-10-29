@@ -316,147 +316,156 @@ input{
 <body>
 
 <%@ include file = "../common/header.jsp" %>
+<div id="container" style="overflow: auto; height: 1326px;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+
+				<div style="height:46px;width:100%;background:#262A2D;"></div>
+				<div id= boardImg1>
+						<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg" style="height: 234px;">
+						<div style="width:100%; height:60px;"></div>
+					</div>
+				
+				
+				<div id ="outer">
+					<br><br>
+					<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
+					<br><br>
+					<div id = "tableDiv">
+					<div id = listcountDiv><b>총 <span class=lisCountSpan><%=listCount%></span>건,(<span class=lisCountSpan><%=currentPage%></span>/<%=maxPage%>)</b></div>
+				   <div id =searchDiv>
+				   	  
+				   	  <form id = "searchForm" action = "<%=request.getContextPath() %>/FSlist.bo" method ="post" >
+				      <select name= "type" style="height: 46px;margin:0px">
+				        <option value="all">전체</option>
+				        <option value="btitle">제목</option>
+				        <option value="bcontent">내용</option>
+				        <option value= "user_name">작성자</option>
+				       </select>
+				        <input name=searchWord type = "text" placeholder="검색어를 입력해주세요" style="background:white;padding-left:6px;vertical-align:0px">
+				        <button onclick = "searchList();" style="outline:none;border:none;padding:0px;margin:0px" class = "searchBtn"><i class="fa fa-search searchBtn" style="color:white;width:40px;height:39px;font-size:25px;padding-top:7px"> </i></button>
+				        </form>
+				   </div>
+				   
+				
+				
+				
+				
+				<table align="center" id="listArea">
+				   <thead>
+				      <tr >
+				         <th width="100px">번 호</th>
+				         <th width="600px">제 목</th>
+				         <th width="150px">작성자</th>
+				         <th width= "100px">첨부</th>
+				         <th width="100px">조회수</th>
+				         <th width="180px">작성일</th>
+				      </tr>
+				
+				   <tbody>
+				    
+				      <% if(list.isEmpty()){ %>
+				            <tr>
+				               <td colspan="6" align="center" style="cursor:default">조회된 리스트가 없습니다.</td>
+				            </tr>
+				            <%}else{ %>
+				               <% for(Board b : list){ %>
+				               		<% if(b.getBlevl() == 4){%>
+				                  	<tr class= superTr style="background: #FFEBEE">
+				                 	<%}else{%>
+				                    <tr class= normalTr>
+				                    <%}%>
+				                     <td align="center"><%=b.getbId() %></td>
+				                     <input type="hidden" value="<%=b.getbId() %>">
+				                     
+				             	      <%if(  ((todaySec - b.getCreateDate().getTime()) /1000)/(60*60*24) <= 2){%>   
+				                     <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%><span id=new style="font-weight: bold">NEW</span></td>
+				                      <%}else{%> 
+				                     <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
+				                     <%} %> 
+				                     <td align="center"><%=b.getbWriter()%></td>
+				                      <% if(b.getBtype().equals("2")){ %>
+				                         	
+				                         	<td align="center" class = "attachment">
+				                           	<div class="balloon" style="font-weight:normal">
+				                           		<%for(int i = flist.size()-1; i>-1 ; i--){ %>
+				                           			<%Attachment f = flist.get(i);%>
+				                            		<%if(f.getbId() == b.getbId()){%> 
+							                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
+				                             	 	<%}%>                     
+				                            <%}%> 
+				   	 						<br>
+				                            <div class= "balloonClose">닫기</div>
+				                            </div>
+				                            <div class= "clip clipDiv"><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=18px></div>
+				                         	</td>
+				                      <%}else{%>
+				                         <td align="center"></td>
+				                      <%}%>
+				                     <td align="center"><%=b.getbCount()%></td>
+				                     <td align="center"><%=b.getModifyDate()%></td>
+				                  </tr>
+				               <%} %>
+				            <%} %>
+				      
+				   </tbody>
+				</table>
+				
+				<br>
+				<br>
+				
+				
+				<button id = writerBtn onclick = "goBoardInsertForm();"><b>글쓰기</b></button>
+				
+				
+				   <!-- 페이징 처리 시작 -->
+				   <br>
+				      <div class="pagingArea" align="center">
+				         <!-- 맨 처음으로(<<) -->
+				         <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=1'"> << </button>
+				         
+				         <!-- 이전 페이지로(<) -->
+				         <%if(currentPage <= 1) {%>
+				            <button disabled> < </button>
+				         <%} else{ %>
+				            <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=currentPage-1 %>'"> < </button>
+				         <%} %>
+				         
+				         <!-- 10개의 페이지 목록 -->
+				         <%for(int p = startPage; p<=endPage; p++){ %>
+				            <% if(p == currentPage){ %>
+				               <button disabled><%=p %></button>
+				            <%} else{%>
+				               <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=p %>'"><%=p %></button>
+				            <%} %>
+				         <%} %>
+				         
+				         <%if(currentPage >= maxPage){ %>
+				            <button disabled> > </button>
+				         <%}else{ %>
+				            <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=currentPage+1 %>'"> > </button>
+				         <%} %>
+				         
+				         <!-- 맨 끝으로(>>) -->
+				         <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=maxPage %>'"> >> </button>
+				      </div>
+				      
+				      <form id= "formTag" action="<%=request.getContextPath()%>/Fdetail.bo" method="post">
+				      	
+				      	<input id= "bid" type= hidden value="" name = bid >
+				      	<input id= "nextBid" type=hidden value="" name="nextBid">
+				      	<input id= "prevBid" type=hidden value="" name="prevBid"> 	
+				      </form>
+				</div>
+				<br><br><br>
+				</div>
 
 
-<div style="height:46px;width:100%;background:#262A2D;"></div>
-<div id= boardImg1>
-		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg" style="height: 234px;">
-		<div style="width:100%; height:60px;"></div>
-	</div>
 
 
-<div id ="outer">
-	<br><br>
-	<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
-	<br><br>
-	<div id = "tableDiv">
-	<div id = listcountDiv><b>총 <span class=lisCountSpan><%=listCount%></span>건,(<span class=lisCountSpan><%=currentPage%></span>/<%=maxPage%>)</b></div>
-   <div id =searchDiv>
-   	  
-   	  <form id = "searchForm" action = "<%=request.getContextPath() %>/FSlist.bo" method ="post" >
-      <select name= "type" style="height: 46px;margin:0px">
-        <option value="all">전체</option>
-        <option value="btitle">제목</option>
-        <option value="bcontent">내용</option>
-        <option value= "user_name">작성자</option>
-       </select>
-        <input name=searchWord type = "text" placeholder="검색어를 입력해주세요" style="background:white;padding-left:6px;vertical-align:0px">
-        <button onclick = "searchList();" style="outline:none;border:none;padding:0px;margin:0px" class = "searchBtn"><i class="fa fa-search searchBtn" style="color:white;width:40px;height:39px;font-size:25px;padding-top:7px"> </i></button>
-        </form>
-   </div>
-   
+		</div><!-- container -->
+</div><!-- mainContent -->
+<%@ include file = "/views/common/footer.jsp" %>
 
-
-
-
-<table align="center" id="listArea">
-   <thead>
-      <tr >
-         <th width="100px">번 호</th>
-         <th width="600px">제 목</th>
-         <th width="150px">작성자</th>
-         <th width= "100px">첨부</th>
-         <th width="100px">조회수</th>
-         <th width="180px">작성일</th>
-      </tr>
-
-   <tbody>
-    
-      <% if(list.isEmpty()){ %>
-            <tr>
-               <td colspan="6" align="center" style="cursor:default">조회된 리스트가 없습니다.</td>
-            </tr>
-            <%}else{ %>
-               <% for(Board b : list){ %>
-               		<% if(b.getBlevl() == 4){%>
-                  	<tr class= superTr style="background: #FFEBEE">
-                 	<%}else{%>
-                    <tr class= normalTr>
-                    <%}%>
-                     <td align="center"><%=b.getbId() %></td>
-                     <input type="hidden" value="<%=b.getbId() %>">
-                     
-             	      <%if(  ((todaySec - b.getCreateDate().getTime()) /1000)/(60*60*24) <= 2){%>   
-                     <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%><span id=new style="font-weight: bold">NEW</span></td>
-                      <%}else{%> 
-                     <td align="left" style="padding-left: 60px;"><%=b.getbTitle()%></td>
-                     <%} %> 
-                     <td align="center"><%=b.getbWriter()%></td>
-                      <% if(b.getBtype().equals("2")){ %>
-                         	
-                         	<td align="center" class = "attachment">
-                           	<div class="balloon" style="font-weight:normal">
-                           		<%for(int i = flist.size()-1; i>-1 ; i--){ %>
-                           			<%Attachment f = flist.get(i);%>
-                            		<%if(f.getbId() == b.getbId()){%> 
-			                        	<p class="attachmentP" onclick='downloadAttach(<%=f.getfId()%>);'><%=f.getOriginName()%></p> 
-                             	 	<%}%>                     
-                            <%}%> 
-   	 						<br>
-                            <div class= "balloonClose">닫기</div>
-                            </div>
-                            <div class= "clip clipDiv"><img class= clip src = "<%=request.getContextPath() %>/images/clip.png" width=20px height=18px></div>
-                         	</td>
-                      <%}else{%>
-                         <td align="center"></td>
-                      <%}%>
-                     <td align="center"><%=b.getbCount()%></td>
-                     <td align="center"><%=b.getModifyDate()%></td>
-                  </tr>
-               <%} %>
-            <%} %>
-      
-   </tbody>
-</table>
-
-<br>
-<br>
-
-
-<button id = writerBtn onclick = "goBoardInsertForm();"><b>글쓰기</b></button>
-
-
-   <!-- 페이징 처리 시작 -->
-   <br>
-      <div class="pagingArea" align="center">
-         <!-- 맨 처음으로(<<) -->
-         <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=1'"> << </button>
-         
-         <!-- 이전 페이지로(<) -->
-         <%if(currentPage <= 1) {%>
-            <button disabled> < </button>
-         <%} else{ %>
-            <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=currentPage-1 %>'"> < </button>
-         <%} %>
-         
-         <!-- 10개의 페이지 목록 -->
-         <%for(int p = startPage; p<=endPage; p++){ %>
-            <% if(p == currentPage){ %>
-               <button disabled><%=p %></button>
-            <%} else{%>
-               <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=p %>'"><%=p %></button>
-            <%} %>
-         <%} %>
-         
-         <%if(currentPage >= maxPage){ %>
-            <button disabled> > </button>
-         <%}else{ %>
-            <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=currentPage+1 %>'"> > </button>
-         <%} %>
-         
-         <!-- 맨 끝으로(>>) -->
-         <button onclick="location.href='<%=request.getContextPath() %>/Flist.bo?currentPage=<%=maxPage %>'"> >> </button>
-      </div>
-      
-      <form id= "formTag" action="<%=request.getContextPath()%>/Fdetail.bo" method="post">
-      	
-      	<input id= "bid" type= hidden value="" name = bid >
-      	<input id= "nextBid" type=hidden value="" name="nextBid">
-      	<input id= "prevBid" type=hidden value="" name="prevBid"> 	
-      </form>
-</div>
-<br><br><br>
-</div>
 </body>
 
 

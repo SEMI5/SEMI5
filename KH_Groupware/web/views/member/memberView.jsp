@@ -37,6 +37,15 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/bPopup/0.11.0/jquery.bpopup.min.js'></script>
 <title>Insert title here</title>
 <style>
+
+::-webkit-scrollbar {
+
+display:none;
+
+}
+-ms-overflow-style: none; 
+
+
 	.outer{
 		/* border: 2px solid black; */ 
 		width : 90%;
@@ -197,13 +206,101 @@
 	<%@ include file = "/views/common/header.jsp" %>
 </header>
 <body>
-<%-- <%@ include file = "/views/common/header.jsp" %>--%>
-<!-- menubar.jsp를 찾아서 그 페이지를 내 페이지에 include(포함)시켜라 // 페이지에서 사용한 스크립트,css 모두다 가져옴-->
-<div id = "banner">	
-		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
-		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">내 정보 수정</b></div>
-	</div>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 
+<<<<<<< HEAD
+				<div id = "banner">	
+						<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+						<div  id = "mainTitle"><b style="margin-bottom: 3000px;">내 정보 수정</b></div>
+					</div>
+				
+				<div class = "outer">
+						<br>
+						<form id = "updateForm" action = "<%=request.getContextPath() %>/update.me" method ="post" >
+								<p style = "font-size: 20px; margin: 1px; margin-top: 30px; margin-bottom: 10px;" ><em><%=cName %>반</em></p>
+								<p style = "font-size: 25px;  margin: 1px; margin-bottom: 20px;"><em><%= userName %> (<%=userBorn %>, <%=userGender %>)</em></p> 
+							<table align = "center">
+								<tr>
+									<td width ="200px">아이디</td>
+									<td><input id = "userId" type = "text" placeholder = "<%=userId%>" maxlength ="13" name = "userId"  readonly="readonly"></td>  <!--required 미입력시 값을 입력하세요 문구뜸  -->
+									<th class = "info"><div id = "checkId" class = "checkInfo"></div></th>
+									<!-- <td width ="200px"><div id="idCheck" class = "btns"">중복확인</div></td> -->
+								</tr>
+								<tr>
+									<td>비밀번호</td>
+									<td><input id = "userPwd" type ="password" maxlength="20" name ="userPwd" required></td>
+									<th class = "info"><div id = "checkPwd" class = "checkInfo"></div></th>
+								</tr>
+								<tr>
+									<td>비밀번호 확인</td>
+									<td><input id = "userPwd2" type="password" maxlength="20" name="userPwd2" required></td>
+									<th class = "info"><div id = "checkPwd2" class = "checkInfo"></div></th>
+								</tr>
+								<tr>
+									<td>연락처</td>
+									<td>
+										<select id = "tel0" class = "phone" name = "phone1" value = "<%=phone[0]%>"style="width: 60px; margin-left: 10px; height: 30px;">
+											<option value = "010">010</option>
+											<option value = "011">011</option>
+											<option value = "016">016</option>
+											<option value = "019">019</option>
+										</select>
+										<input id = "tel1" class = "phone" type="tel" value = "<%=phone[1]%>"maxlength="4" name="phone2" style="width: 82px;  margin-left: 5px;">
+										<input id = "tel2" class = "phone" type="tel" value = "<%=phone[2]%>"maxlength="4" name="phone3" style="width: 82px;  margin-left: 5px;">
+									</td>
+									<th class = "info"><div id = "checkPhone" class = "checkInfo"></div></th>
+								</tr>
+								<tr>
+									<td>이메일</td>
+									<td id = "emailPt"><input type = "text" name = "emailId" value = "<%=email[0]%>"style="width: 100px; margin-right: 5px;" required="required"><em>@</em>
+									<input type="text" name="email2" value = "<%=email[1]%>" style="width: 120px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
+									</td>
+									<th>
+									<select id = "selctEmail" name = "selctEmail" class = "info" style="width: 150px; margin-left: 0px; height: 30px;" onchange="SetEmailTail(selctEmail.options[this.selectedIndex].value)" >
+										<!-- <option value = "notSelected">====선택====</option> -->
+										<option value = "naver.com">naver.com</option> 
+										<option value = "goole.com">google.com</option>
+										<option value = "hanmail.net">hanmail.net</option>
+										<option value = "yahoo.com">yahoo.com</option>
+										<option value = "korea.com">nate.com</option>
+										<option value = "hotmail.com">hotmail.com</option>
+										<option value = "daum.net">daum.net</option>
+										<option value = "etc">직접입력</option>
+									</select>
+									</th>
+								</tr>
+								<tr>
+									<td>주소</td>
+									<td><input type="text" id="address" name = "address" value = "<%=address[0]%>"placeholder="주소" ReadOnly = "true" required="required"></td>
+									<th><input type="button" id = "searchAdd" class = "info" onclick="execDaumPostcode()" value="우편번호 찾기" style = "margin-left: 0px"></th>
+								</tr>
+								<tr>
+									<td></td>
+									<td><input type="text" id="detailAddress" value = "<%=address[1]%>"name = "detailAdd" placeholder="상세주소"></td>
+								</tr>
+				
+							</table>
+							
+							<div align = "center">
+								<div id = "updateBtn" class = "btns"onclick ="updateMember();">수정하기</div>
+								<div id = "deleteBtn" class = "btns"onclick = "deleteMember();">탈퇴하기</div>
+								<div id = "goMain" class = "btns"onclick ="goMain();">메인으로</div>
+					
+							</div>
+						</form>
+					</div>
+					
+					
+					
+					<!-- 중복체크 팝업창 -->
+					<div id = "idCheckPop">
+							<h1>test</h1>
+							
+		</div><!-- container -->
+</div><!-- mainContent -->
+<%@ include file = "/views/common/footer.jsp" %>							
+=======
 <div class = "outer">
 		<br>
 		<form id = "updateForm" action = "<%=request.getContextPath() %>/update.me" method ="post" >
@@ -285,6 +382,7 @@
 	<!-- 중복체크 팝업창 -->
 	<div id = "idCheckPop">
 			<h1>test</h1>
+>>>>>>> refs/remotes/origin/master
 	</div>
 	
 	

@@ -329,6 +329,9 @@ option{
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+<div id="container" style="overflow: auto; height: 1335px;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+
 <div style="height:46px;width:100%;background:#262A2D;"></div>
 	<div id= boardImg1>
 		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back4.jpg" style="height: 234px;">
@@ -550,6 +553,11 @@ $(function(){
 </script>
 
 <br><br><br>
+
+		</div><!-- container -->
+</div><!-- mainContent -->
+<%@ include file = "/views/common/footer.jsp" %>
+
 </body>
 
 
