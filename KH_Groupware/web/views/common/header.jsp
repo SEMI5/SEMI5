@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member" %>
-
-
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 
@@ -42,6 +40,7 @@
 
 
 <style>
+	
 
    /* place holder 감추기*/
    input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { /* WebKit browsers */ color:transparent; } 
@@ -72,7 +71,7 @@
    background-color: #262A2D; /*#353535*/
    border-bottom: 0;
    box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
-   z-index: 9999;
+   z-index: 9998;
    margin:0;
    list-style:none;
    left:0;
@@ -440,7 +439,7 @@ body{
 <div id= outerDiv>;  
 	<div id= "menuBar" >
 			<div class =" logoImg" style="line-height:50px;" "><img  id =logoImg src="<%=request.getContextPath()%>/images/logoImg.png" onclick= "location.href = '<%=request.getContextPath()%>/views/common/mainHome.jsp'""></div>
-			<div class= "menu introMenu">소개</div>
+			<div class= "menu introMenu" onclick="goIntro();">소개</div>
 			<div class= "menu boardMenu" onclick = "showBoardDiv();">게시판</div>
 			<div class= "menu shareMenu" onclick = "gonShareFile();">공유자료</div>
 			<div class= "menu elbumMenu" onclick= "goElbum();">앨범</div>
@@ -455,7 +454,7 @@ body{
 			</script>
 			<%} %>
 			<div class= "menu memberMenu">
-				<span class= "iconSpan icon1" onclick = "showChattingPOPUP();"><i class="fa fa-comments" aria-hidden="true"></i></span>&nbsp;
+				<span id="chattingBtn" class= "iconSpan icon1" onclick = "showChattingPOPUP();"><i class="fa fa-comments" aria-hidden="true"></i></span>&nbsp;
 				<span class= "iconSpan icon2" onclick = "memberJoin();"><i class="fa fa-sign-in" aria-hidden="true"></i></span>&nbsp;
 				<span id= "loginIcon" class= "iconSpan icon3" onclick= "loginDivShow();"><i class="fa fa-user" aria-hidden="true" ></i></span>
 			</div>
@@ -500,21 +499,21 @@ body{
 			<br><br>
 			<%if(loginUser == null) {%>	
 			<span style="font-weight:700; font-size:18px ">회원이시면 로그인해주세요</span><br><br>
-			<form id = "loginForm" action ="<%=request.getContextPath()%>/login.me" onsubmit="return validate();" method = "post">
+			<form id = "loginForm" action ="<%=request.getContextPath()%>/login.me"  method = "post">
 				<div style= "width:440px; align:cetner; ">
 				<span style="font-weight:550";>&nbsp;ID:</span>&nbsp;<input id = "userId" type="text" name = "userId" id = "userId"  placeholder="Enter UserId"><br>
 				
 				<label id ="saveIDLabel" for ="saveId"  style="position:absolute; left:80px; font-size: 13px"><b>아이디 저장하기</b></label>
 				<br>
 				<input type = "checkbox" name = "saveID" id = "saveId" style="height:15px;width:16px">
-				<span style="font-weight:550;margin-top: 10px";>PW:</span>&nbsp;<input id = "userPwd" type="password"  name = "userPwd" id = "userPwd" placeholder="Enter Password" style="margin-top: 10px"><br> <br>
+				<span style="font-weight:550;margin-top: 10px";>PW:</span>&nbsp;<input id = "userPwd" type="password"  name = "userPwd" id = "userPwd" placeholder="Enter Password" style="margin-top: 10px" onkeyup="enterLogin();"  ><br> <br>
 				</div>
 				<br>
 				
 				<!-- 버튼 디포트값 서브밋 -->
-				<button class = " blackBtn blackBtn1">로그인</button><br><br><br> 
-				<button class = "blackBtn blackBtn2"  type = "button" onclick="">아이디 / 비밀번호 찾기</button>
 			</form>
+				<button class = " blackBtn blackBtn1" onclick = "validate();">로그인</button><br><br><br> 
+				<button class = "blackBtn blackBtn2"  type = "button" onclick="findIdPwd();">아이디 / 비밀번호 찾기</button>
 			<% }else{%>
 				<span style="font-weight:700; font-size:18px "><%=loginUser.getUserName() %>님의 방문을 환영합니다.</span><br><br>
 			   
@@ -553,11 +552,10 @@ body{
 
 
 
-
-
-
 <script>
-
+function findIdPwd(){
+	location.href = "<%=request.getContextPath()%>/views/member/findIdPwd.jsp";
+}
 
 
 //공지사항 바로가기 
@@ -609,16 +607,15 @@ function goTasty(){
 }
 
 
-// 채팅바로가기 
-   function showChattingPOPUP() {
-		  window.open("../chatting/chattingPopup.jsp", "", "width=400, height=600, left=100, top=50");
-	  }
+//소개바로가기
+	function goIntro() {
+		location.href = "<%=request.getContextPath()%>/views/common/infoPage.jsp";
+	}
+	
 
 
 	function goMyInfo(){
-	
 			location.href="<%=request.getContextPath()%>/views/member/memberView.jsp";  
-		  
 	}
 
 
@@ -643,17 +640,38 @@ function validate(){
 		return false;
 	}
 	
-	return true; // submit실행
-	
+	$.ajax({
+		url : "/KH_Groupware/checkId.me",
+		type : "get",
+		data : {
+			userId : $("#userId").val()
+		},
+		success : function(data) {
+			if(data == 1){
+				$.ajax({
+					url : "/KH_Groupware/checkPwd.me",
+					type : "get",
+					data : {
+						userId : $("#userId").val(),
+						userPwd : $("#userPwd").val()
+					},
+					success : function(data) {
+						if(data == '1'){
+							$("#loginForm").submit();
+						}else{
+							alert("비밀번호를 확인해주세요.");
+							return false;
+						}
+					}
+				});
+			}else{
+				alert("아이디를 확인해주세요.");
+				return false;
+			}
+		}
+	});
 }
 
-
-//로그인 sumbmit
-/* function login(){
-	alert("최신버전확인!")
-	$("#loginBtn").submit;
-}
- */
 
 // 회원가입 버튼 
 function memberJoin(){
@@ -677,6 +695,15 @@ function logout(){
 	location.href = '<%= request.getContextPath() %>/logout.me';
 	
 	
+}
+
+
+//엔터로그인
+function enterLogin() {
+    if (window.event.keyCode == 13) {
+		
+    	$("#loginForm").submit();
+    }
 }
 
 

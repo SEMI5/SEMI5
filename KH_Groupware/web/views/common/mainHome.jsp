@@ -16,14 +16,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description" content="contact form example">
 <title>KH_Groupware</title>
 
 <link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<body class="w3-content" style="max-width:2000px;">
-
-
 
 
 
@@ -44,6 +43,9 @@ img {vertical-align: middle;}
 
 /* 슬라이드배너  */
 /* Slideshow container */
+
+
+
 
 .slideshow-container {
    max-width: 2000px;
@@ -382,7 +384,7 @@ bottom: 0px;
 
 #saveId {
     position: absolute;
-    top: 171px;
+    top: 170px;
     left: 174px;
     margin: 0px;
     padding: 0px;
@@ -426,35 +428,36 @@ body{
 </style>
 
 </head>
-<body>
+<body class="w3-content" style="max-width:2000px;">
 <%@ include file = "header.jsp" %>
-		<!-- 이미지 슬라이더 부분  -->
-		
+
 <div id="container" style="overflow: auto;"><!-- container -->
    <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
-<div style="height:40px;width:100%"></div>
-	<div class="slideshow-container">	
-		<div class="mySlides fade">
-		  <div class="numbertext">1 / 3</div>
-		  <div class= "circle"><br>click here!</div>
-		  <img src="../../images/mainBack5.jpg" style="width:100%; height:800px; ">
-		</div>
-		<div class="mySlides fade">
-		  <div class="numbertext">2 / 3</div>
-		  <img src="../../images/mainBack4.jpg" style="width:100%; height:800px;">
-		</div>
-		<div class="mySlides fade">	
-		  <div class="numbertext">3 / 3</div>
-		  <img src="../../images/mainBack2.jpg" style="width:100%; height:800px;">
-		</div>
-		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-		<a class="next" onclick="plusSlides(1)">&#10095;</a>
-	</div>
-	<div style="text-align:center; background:#fcfaf1; padding-top: 10px; margin-bottom:10px;">
-		<span class="dot" onclick="currentSlide(1)"></span> 
-		<span class="dot" onclick="currentSlide(2)"></span> 
-		<span class="dot" onclick="currentSlide(3)"></span> 
-	</div>
+	
+		<!-- 이미지 슬라이더 부분  -->
+		<div style="height:40px;width:100%"></div>
+			<div class="slideshow-container">	
+				<div class="mySlides fade">
+				  <div class="numbertext">1 / 3</div>
+				  <div class= "circle" onclick="location.href='infoPage.jsp'"><br>click here!</div>
+				  <img src="../../images/mainBack5.jpg" style="width:100%; height:800px; ">
+				</div>
+				<div class="mySlides fade">
+				  <div class="numbertext">2 / 3</div>
+				  <img src="../../images/mainBack4.jpg" style="width:100%; height:800px;">
+				</div>
+				<div class="mySlides fade">	
+				  <div class="numbertext">3 / 3</div>
+				  <img src="../../images/mainBack2.jpg" style="width:100%; height:800px;">
+				</div>
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="next" onclick="plusSlides(1)">&#10095;</a>
+			</div>
+			<div style="text-align:center; background:#fcfaf1; padding-top: 10px; margin-bottom:10px;">
+				<span class="dot" onclick="currentSlide(1)"></span> 
+				<span class="dot" onclick="currentSlide(2)"></span> 
+				<span class="dot" onclick="currentSlide(3)"></span> 
+			</div>
 <!-- 메인 슬라이더  css  -->
 <script>
 
@@ -537,29 +540,46 @@ body{
       
     </div>
   </div>
+  
+  
+  <!-- 이메일 보내기  -->
+ 
+ 		  
   <div class="w3-half w3-teal w3-container" style="height:600px">
     <div class="w3-padding-64 w3-padding-large">
       <h1>Contact</h1>
       <p class="w3-opacity">GET IN TOUCH</p>
-      <form class="w3-container w3-card w3-padding-32 w3-white" action="/action_page.php" target="_blank">
+		<form class="gform w3-container w3-card w3-padding-32 w3-white" method="POST" data-email="hokwan927423@gmail.com"
+ 		  action="https://script.google.com/macros/s/AKfycbxMnCIbQNqL49LIUdqE85erR2lzc1SsyArIbqosOg/exec">        
         <div class="w3-section">
           <label>Name</label>
-          <input class="w3-input" style="width:100%;" type="text" required name="Name">
+          <input class="w3-input" style="width:100%;" type="text" required name="name">
         </div>
+        
         <div class="w3-section">
           <label>Email</label>
-          <input class="w3-input" style="width:100%;" type="text" required name="Email">
+          <input class="w3-input" style="width:100%;" type="email" required name="email">
         </div>
+        
         <div class="w3-section">
           <label>Message</label>
-          <input class="w3-input" style="width:100%;" type="text" required name="Message">
+          <input class="w3-input" style="width:100%;" type="text" required name="message">
         </div>
-        <button type="submit" class="w3-button w3-teal w3-right">Send</button>
-      </form>
+         <input id="honeypot" type="hidden" name="honeypot" value="">
+         <button type="submit" class="w3-button w3-teal w3-right">Send</button>
+	        <div style="display:none" class="thankyou_message">
+	         <h2><em>감사합니다.</em> 말씀해주신 의견 적극 검토해보겠습니다!
+			 </h2>
+			</div>
+		 </form>
     </div>
   </div>
+	
 </div>
 
+ <script data-cfasync="false" src="form-submission-handler.js"></script>
+<script data-cfasync="false" type="text/javascript"
+			src="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-server/master/form-submission-handler.js"></script>
 
 
 
@@ -628,7 +648,6 @@ body{
 
 
 		
-	<%-- <%@ include file = "bootsFooter.jsp" %>	 --%>
 	
 	
 

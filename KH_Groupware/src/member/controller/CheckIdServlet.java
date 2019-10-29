@@ -33,14 +33,12 @@ public class CheckIdServlet extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		String userId = request.getParameter("userId");
 		
-		System.out.println(userId);
+	
 		
 		int result = new MemberService().checkOl(userId);
 		
-		System.out.println(result);
 		
 		new Gson().toJson(result, response.getWriter());
-		
 	}
 
 	/**

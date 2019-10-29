@@ -2,6 +2,7 @@
 <!DOCTYPE>
 <html>
 <head>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 <style>
    #page-container {
      position: relative;
@@ -45,7 +46,7 @@
    }
     
     .footerDiv2 li{
-    	list-style: none;
+       list-style: none;
     }
     
     .footerDiv2{
@@ -74,7 +75,21 @@
    }
    .li1{
         font-size: 17px;
+   		margin-bottom: 5px;
    }
+   .ul1{
+   		position: relative;
+   		left: 20px; 
+   		bottom: 5px;
+   
+   }
+   
+   #footerTitle{
+   		position: relative; 
+   		bottom: 16px;
+   	
+   }
+   
 </style>
 <script>
    $("#img1").click(function() {
@@ -96,15 +111,15 @@
          <!-- <div style="height: 5px"></div> -->
          &nbsp;&nbsp;
          <div class=footerDiv style="width: 1480px; height:180px; display: inline-block;">
-         	　
-            <ul>
-               <li><h1 style="text-align: left;height: 77px;">KH Groupware</h1></li>
+            　
+            <ul class= "ul1">
+               <li ><h1 id= "footerTitle" style="text-align: left;height: 77px;">KH Groupware</h1></li>
                <li class="li1">| SEMI-5조 | 이거사조 | 강현모, 안상재, 이준배, 조호관 |</li>
                <li class="li1">  주소: 서울특별시 강남구 테헤란로14길 6 남도빌딩 5F S반 </li>
                <li class="li1">Copyright 2019. 이거사조. ALL RIGHTS RESERVED</li>
             </ul>
             
-			    
+             
          </div>
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="footerDiv2" style="width: 355px; height:180px;display: inline-block;">
@@ -114,8 +129,8 @@
                <li style="text-align: center; height: 50px;">-----------------</li>
                <li style="text-align: center; height: 50px;">Alliance With</li>
                <li target="_blank" style="text-align-last: center;">
-                  <img id="img1" src ="<%=request.getContextPath() %>/images/icon/KH.png"  onclick="location.href='https://iei.or.kr/main/main.kh'">
-                  <img id="img2" src ="<%=request.getContextPath() %>/images/icon/HRD.png" onclick="location.href='http://hrd.go.kr/hrdp/ma/pmmao/indexNew.do'">
+                  <img id="img1" src ="<%=request.getContextPath() %>/images/icon/kh.png"  onclick="location.href='https://iei.or.kr/main/main.kh'">
+                  <img id="img2" src ="<%=request.getContextPath() %>/images/icon/hrd.png" onclick="location.href='http://hrd.go.kr/hrdp/ma/pmmao/indexNew.do'">
                </li>
             </ul>
          </div>

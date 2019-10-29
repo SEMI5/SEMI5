@@ -322,6 +322,7 @@ background-color: #666;
 	<%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+<<<<<<< HEAD
 
 <div class = "outer">
 
@@ -334,66 +335,61 @@ background-color: #666;
 				<th width = "90px" height = "40px">제목</th>
 				<td colspan = "5"> <%-- <label><%=b.getbTitle() %></label></td> --%>
 				<input type="text" size="50" name="title" value="<%= b.getbTitle() %>"></td>
+=======
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+				<div class = "outer">
+>>>>>>> refs/remotes/origin/master
 				
-			</tr>
-			<tr>
-				<th height = "40px"> 작성자 </th>
-				<td colspan = "5">	<%-- <label><%=b.getbWriter() %></label></td> --%>
-				<input type="text" name="writer" value="<%= b.getbWriter() %>" readonly></td>
-			</tr>
-			<tr>
-				<th height = "40px"> 조회수 </th>
-				<td colspan = "5"><label><%=b.getbCount() %></label></td>
-			</tr>	
-				<th height = "40px"> 작성일 </th>
-				<td colspan = "5"><label><%=b.getModifyDate() %></label></td>
-			</tr>		
-			<tr>
-				<th> 대표사진 </th>
-				<td id = "titleTd" colspan="4">
-					<div id="titleImgArea" align="center">
-						<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
-						<div class = " hoverBlack hoverBlack0"></div>
-						<button  class= "deleteBtn deleteBtn0" type= "button" onclick= "delTitleImg();">삭제 </button>
-						<button class= "addBtn addBtn0" onclick = "addTitleImg();" type= "button" >다른사진추가</button>
-					</div>
-				</td>
-				<td>
-					<button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
-						<i class="fa fa-download"></i> Download
-					</button>
-				</td>
-			</tr>
-			<tr>
-				<th> 사진메모 </th>
-				<td colspan = "6">
-					<textarea name="content" cols="60" rows="15" style="resize:none"><%= b.getbContent() %></textarea>
-				</td>
-			</tr>
-		</table>
-	
-		<div class = "detail_other" style="align:center">
-			<P align = "center">추가 이미지 </P>  
-			<hr>
-				<% for(int i=1; i<fileList.size(); i++){ %>
-					<div class = "detailImgArea<%=i%> detailImgArea">
-						<img id ="contentImg<%=i+1%>" class="detailImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=fileList.get(i).getChangeName() %>">
-						<button class="deleteBtn deleteBtn9" type= "button" onclick= "delContentImg(<%=i+1%>, <%=fileList.get(i).getfId()%>);">삭제</button>
-						<button class ="addBtn addBtn9"  type= "button" onclick = "addContentImg(<%=i+1%>, <%=fileList.get(i).getfId()%>);">다른 사진추가</button>
-						<div class="hoverBlack hoverBlack9"></div>
-						<div class ="down-area" style="align:center">
-						<%-- <button  class="down-btn2" onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
-							<i class="fa fa-download"></i> Download
-						</button> --%>				
-						</div>
-					</div>
-				<%} %>
-				<br><br>
-		</div>	
-		<br><br><br>
-		
-				<div class="btnArea"  align ="center">
+						<%-- <form id ="updateForm" method ="post" encType="multipart/form-data" action="<%=request.getContextPath()%>/update.th"> --%>	<!-- table부터 아래버튼까지 포함하는 form태그  -->	
+							<form id ="updateForm" method ="post" action="<%=request.getContextPath()%>/update.th">
+								<input type = "hidden" name = "bid" value = "<%= b.getbId() %>">
+							<h2 align="center">자료실 수정하기</h2>
+						<div class="tableArea">
+							<table class = "detail" align="center">
+							<tr>
+								<th width = "90px" height = "40px">제목</th>
+								<td colspan = "5"> <%-- <label><%=b.getbTitle() %></label></td> --%>
+								<input type="text" size="50" name="title" value="<%= b.getbTitle() %>"></td>
+								
+							</tr>
+							<tr>
+								<th height = "40px"> 작성자 </th>
+								<td colspan = "5">	<%-- <label><%=b.getbWriter() %></label></td> --%>
+								<input type="text" name="writer" value="<%= b.getbWriter() %>" readonly></td>
+							</tr>
+							<tr>
+								<th height = "40px"> 조회수 </th>
+								<td colspan = "5"><label><%=b.getbCount() %></label></td>
+							</tr>	
+								<th height = "40px"> 작성일 </th>
+								<td colspan = "5"><label><%=b.getModifyDate() %></label></td>
+							</tr>		
+							<tr>
+								<th> 대표사진 </th>
+								<td id = "titleTd" colspan="4">
+									<div id="titleImgArea" align="center">
+										<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
+										<div class = " hoverBlack hoverBlack0"></div>
+										<button  class= "deleteBtn deleteBtn0" type= "button" onclick= "delTitleImg();">삭제 </button>
+										<button class= "addBtn addBtn0" onclick = "addTitleImg();" type= "button" >다른사진추가</button>
+									</div>
+								</td>
+								<td>
+									<button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
+										<i class="fa fa-download"></i> Download
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<th> 사진메모 </th>
+								<td colspan = "6">
+									<textarea name="content" cols="60" rows="15" style="resize:none"><%= b.getbContent() %></textarea>
+								</td>
+							</tr>
+						</table>
 					
+<<<<<<< HEAD
 					<button id = "goList-btn" onclick="location.href='<%=request.getContextPath()%>/detail.th'">뒤로가기</button>
 					<button id="update-btn" type= "button" onclick="update();">수정</button>	
 					 <button id="delete-btn" onclick="nDelete();">삭제</button>
@@ -413,9 +409,63 @@ background-color: #666;
 					function nDelete(){
 						$("#updateForm").attr("action","<%=request.getContextPath()%>/tDelete.th");
 						// ThumbnailDeleteServlet 만들러 ㄱㄱ!
+=======
+						<div class = "detail_other" style="align:center">
+							<P align = "center">추가 이미지 </P>  
+							<hr>
+								<% for(int i=1; i<fileList.size(); i++){ %>
+									<div class = "detailImgArea<%=i%> detailImgArea">
+										<img id="contentImg<%=i+1%>" class="detailImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=fileList.get(i).getChangeName() %>">
+										<button class="deleteBtn deleteBtn9" type= "button" onclick= "delContentImg(<%=i+1%>, <%=fileList.get(i).getfId()%>);">삭제</button>
+										<button class ="addBtn addBtn9"  type= "button" onclick = "addContentImg(<%=i+1%>, <%=fileList.get(i).getfId()%>);">다른 사진추가</button>
+										<div class="hoverBlack hoverBlack9"></div>
+										<div class ="down-area" style="align:center">
+										<%-- <button  class="down-btn2" onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
+											<i class="fa fa-download"></i> Download
+										</button> --%>				
+										</div>
+									</div>
+								<%} %>
+								<br><br>
+						</div>	
+						<br><br><br>
+>>>>>>> refs/remotes/origin/master
 						
-					} 
+								<div class="btnArea"  align ="center">
+									
+									<button id = "goList-btn" onclick="location.href='<%=request.getContextPath()%>/detail.th'">뒤로가기</button>
+									<button id="update-btn" type= "button" onclick="update();">수정</button>	
+									 <button id="delete-btn" onclick="nDelete();">삭제</button>
+									<button class= "resetBtn" type = "button" onClick="window.location.href=window.location.href"> 리셋 </button>
+								</div>
+							</div>
+					</form>		
+					
+					
+								<script>
+				 					//공지사항 수정하기 작업 먼저하기
+									function update(){
+										<%-- $("#updateForm").attr("action","'<%=request.getContextPath()%>/update.th'"); --%>
+										$("#updateForm").submit();
+										// ThumbnailUpdateServlet 만들러 ㄱㄱ!
+									}
+									
+									//공지사항 삭제하기
+									function nDelete(){
+										$("#updateForm").attr("action","<%=request.getContextPath()%>/tDelete.th");
+										// ThumbnailDeleteServlet 만들러 ㄱㄱ!
+										
+									} 
+								
+								</script>
+					
+						
+						
+						<br><br><br>
+						
+						   <!--  현재 이 게시글에 있는  맨 처음 사진들 fid-->
 				
+<<<<<<< HEAD
 				</script>
 	
 		
@@ -466,6 +516,44 @@ background-color: #666;
 		<br><br>
 		
 	</div>
+=======
+							<input  id= "presentTitlefid" type = "text"  value=   <%=titleImg.getfId() %> readonly ><br>
+							
+							<% for(int i=1; i<fileList.size(); i++){ %>
+								<input id= "presentContentfid<%=i+1%>" type = "text"  value=   <%=fileList.get(i).getfId()%> readonly ><br>
+							<%} %>
+							
+							
+						   <!--  삭제해야할 fid 목록  -->
+							<br> 
+								<input id="delImg1" type = "text" readonly> 
+								<input id="delImg2" type = "text" readonly> 
+								<input id="delImg3" type = "text" readonly> 
+								<input id="delImg4" v type = "text" readonly> 
+								<input id="delImg5" type = "text" readonly> 
+							<br>
+				
+					       <!--  새롭게 업로드 시켜야하는 fid 목록  -->		
+						
+				 			<!-- 파일 업로드 하는 부분(file 타입형 input태그들) -->
+				
+								<br>
+								<div id ="fileArea">							
+									<input type="file" id ="thumbnailImg1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)"><br>
+									<input type="file" id ="thumbnailImg2" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,2)"><br>
+									<input type="file" id ="thumbnailImg3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)"><br>
+									<input type="file" id ="thumbnailImg4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)"><br>
+									<input type="file" id ="thumbnailImg5" multiple="multiple" name="thumbnailImg5" onchange="LoadImg(this,5)"><br>
+								</div>
+						
+						
+						<br><br>
+						
+					</div>
+</div><!-- container -->
+</div><!-- mainContent -->
+<%@ include file = "/views/common/footer.jsp" %>					
+>>>>>>> refs/remotes/origin/master
 </body>
 
 	<script> 

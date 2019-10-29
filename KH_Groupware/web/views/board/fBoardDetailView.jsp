@@ -38,7 +38,7 @@
 
 
 
-<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
+<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
@@ -53,7 +53,7 @@
    #outer{
        	
        width: 100%;
-       position: absolute;
+       position: relative;
        border:1px solid black;
        padding: 10px;
    }
@@ -99,7 +99,7 @@
 	 border: none;
 	 width: 700px;
 	 resize:none;
-	 height: 30px;
+	 height: 63px;
 	 postion: absolute;
 	 outline: none;
 	 
@@ -338,7 +338,7 @@ text-decoration: underline;
 }
 
 .replyArea{
-	  border-top:  1px solid darkgray;
+	  border-top:  1px solid black;
       position: relative;
       width: 1230px;
       padding:auto;
@@ -368,10 +368,10 @@ text-decoration: underline;
 
 
 #replySelectTable tr {
-	height:30px;
 	border: none;
+	height: 30px;
 }
-#replySelectTable td{
+#replySelectTable tr td{
 	border: none; 
 }
 
@@ -380,7 +380,6 @@ text-decoration: underline;
 	word-break:break-all; 
 	wrap:hard;
 	border: none;
-	height: 30px;
 	padding: 2px;
 	margin: 0px; 
 }
@@ -537,8 +536,9 @@ cursor:pointer;
 	font-weight: bold;
 	border-radius: 5px;
 	margin-left: 3px;
+	margin-right: 5px;
 	position: relative;
-	bottom: 11px;
+	bottom: 45px;
 
 }
 
@@ -562,12 +562,12 @@ cursor:pointer;
 
 .answerTrWrite{
     display:none;
-    height:200px;
+    height:110px;
     padding-top:4px;
 }
 
 .answerTr{
-    height:200px;
+    height:90px;
     padding-top:4px;
 }
 
@@ -588,12 +588,22 @@ cursor:pointer;
 	Top: 5px;
 }
 
+
+#container{
+	height: 100%;
+
+
+}
+
 </style>
 </head>
 <header>
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+
 <a name="top"></a>
 <div style="height:46px;width:100%;background:#262A2D;"></div>
 <div id= boardImg1>
@@ -673,7 +683,7 @@ cursor:pointer;
 					<div style="border:none;margin-bottom:8px;"><span style="font-weight:bold;font-size:18px;">댓글작성</span>&nbsp;&nbsp;&nbsp;<span onclick = "refreshClick();" class = "refresh"><i class="fa fa-refresh" aria-hidden="true" style="font-size:20px; "></i></span></div>
 					<div style="width:802px;border:1px solid darkgray;">
 					<textArea rows="3" cols="119" id="replyContent" placeholder="댓글을 입력해주세요" style="font-weight:normal;border:none"></textArea>
-					<br><span style="margin-left:680px;color:darkgray;">글자 수 &nbsp;<span id="counter">0</span>&nbsp;/&nbsp;200&nbsp; </span>
+					<br><span style="margin-left:680px;color:darkgray;">글자 수 &nbsp;<span id="counter">0</span>&nbsp;/&nbsp;100&nbsp; </span>
 					<div style="height: 40px;width:800px;border:none; border-top:1px solid lightgray"><button id="addReplyBtn" type="button">등록</button></div>
 					</div>
 				</div>	
@@ -771,6 +781,10 @@ cursor:pointer;
 				<br><br><br>
 			
 		</div><!--outer끝 -->
+	</div><!-- mainContent -->	
+</div><!-- container -->
+   
+<%@ include file = "/views/common/footer.jsp" %>
 </body>
 <script>
 
@@ -791,8 +805,8 @@ $(document).on('click', ".change", function () {
  		if( count <2){
  			alert("2자 이상 입력해주세요 ")	;	
  			return false;
- 		}else if(count > 200){
- 			alert("200자 미만으로 입력해주세요 ");
+ 		}else if(count > 100){
+ 			alert("100자 미만으로 입력해주세요 ");
  			return false ;
  		} 
  		
@@ -852,7 +866,7 @@ $(document).on('click', ".answerAdd", function () {
 		alert("2자 이상 입력해주세요 ")	;	
 		return false;
 	}else if(count > 100){
-		alert("200자 미만으로 입력해주세요 ");
+		alert("100자 미만으로 입력해주세요 ");
 		return false ;
 	}
 	
@@ -980,10 +994,6 @@ $(document).on('click', ".answerAdd", function () {
 				 } <!-- alist 관련  for문  -->
 			  }	 
 				
-				
-				
-				
-				
 					$("#replySelectTable").append(html); 
 			
 			} // 바깥쪽 for문 끝
@@ -1052,7 +1062,7 @@ $(function(){
 
 		$("#counter").text(inputLength);
 		
-		var remain = 200- inputLength; 
+		var remain = 100- inputLength; 
 		
 		if(remain >= 0){
 			$("#counter").css("color", "darkgray");
@@ -1072,12 +1082,12 @@ $(function(){
 		// addReply 버튼을 클릭 시 댓글 달기 기능을 실행했을 때 비동기적으로 새로 갱신된 리스트들을 테이블에 적용 시키자
 	$("#addReplyBtn").click(function(){
 		
-		var count = $("textArea").val().length;
+		var count = $("#replyContent").val().length;
 		if( count <2){
 			alert("2자 이상 입력해주세요 ")	;	
 			return false;
-		}else if(count > 200){
-			alert("200자 미만으로 입력해주세요 ");
+		}else if(count > 100){
+			alert("100자 미만으로 입력해주세요 ");
 			return false ;
 		}
 		

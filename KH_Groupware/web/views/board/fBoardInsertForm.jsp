@@ -26,7 +26,7 @@
    #outer{
        width: 100%;
        position: absolute;
-       padding: 10px;
+       padding:0px;
    	   border:none;
   	} 
    
@@ -183,7 +183,7 @@
 		font-size: 15px;
 		width: 100px;
 		height: 40px;	
-		margin-left: 182px; 
+		margin-left: 183px; 
 	}
 	
 	#resetBtn:hover{
@@ -218,6 +218,14 @@
 	text-align: center;
 	background: black;
 	}
+	
+	
+	.modal-dialog {
+	    width: 600px;
+	    margin: 30px auto;
+	    margin-top: 300px;
+	}
+	
 </style>
    
 <title>KH_Groupware</title>
@@ -231,85 +239,92 @@
 <%@ include file = "../common/header.jsp" %>
 </header>
 <body>
-<div style="height:46px;width:100%;background:#262A2D;"></div>
-<div id= boardImg1>
-		<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
-		<div style="width:100%; height:60px;background:black;"></div>
-</div>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 
-
-<br><br><br><br>
-<form id= insertForm action = "<%=request.getContextPath()%>/insert.Fbo" method="post" encType="multipart/form-data">
-<div id="outer">
-	<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
-	<br>
-	<div id = "tableDiv">
-		<table align="center" id="listArea">
-			<tr>
-				<td class= "titleTd tableTd"><b>제목</b></td>
-				<td class ="tableTd"><input type="text" name= "btitle" class="inputTd">&nbsp;&nbsp;
-
-				<%if(loginUser.getUserNo() >10000){%>
-				<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();"><label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
-				<%}%>
-				<input id = noCheck type= "hidden" name="blevel" value="1">
-				</td> 
-			</tr>
-				<td class= "titleTd tableTd"><b>작성자</b></td>
-				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
-			<tr>
-				<td class= "titleTd tableTd"><b>작성일</b></td>
-				<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=today%></span></td>
-			</tr>
-		</table>
-		<div id="textareaDiv"><textArea id= summernote rows=30 col=100 name = "bcontent" placeholder="내용을 입력해주세요"></textArea><div>
-		
-		<% if (loginUser!= null && loginUser.getUserNo() > 10000){ %>
-		<table id = "attachTable">
-			<tr>
-				<td rowspan=9 class= "titleTd" style= "border-right: 1px solid #dbdbdb">
-					<b>첨부파일</b>
-				</td>
-				<td  style= "border:none; height:30px; color:gray; padding:12px;padding-left:15px">
-					<select id= attachCount onchange="changeSelect();" style="color:black">
-						 <option>1</option>
-						 <option>2</option>
-						 <option>3</option>
-						 <option>4</option>
-						 <option>5</option>
-						 <option>6</option>
-						 <option>7</option>
-						 <option>8</option>
-					</select>
-					&nbsp;<span style="font-size: 15px">파일 갯수를 지정해주세요</span>
-					<button type="button" id= "resetBtn" class="attachBtn" onclick="selectReset();"><b>리셋</b></button>
-				</td>
-			</tr> 
-			<tr class= attachTr>
-				<td class= attachTd style="border-bottom: 1px solid #dbdbdb">
-					<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요" readonly>&nbsp;
-					<button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>
-			</tr>
-				
-		</table>
-		<% }%>
-		<br><br>
-		<div class= btnDiv>
-				<button type='button'id=listBtn onclick="goBoardListView();"><b>목록</b></button>&nbsp;&nbsp;
-				<button id=insertBtn type="button" onclick="insertSubmit();"><b>등록</b></button>
-		</div>
-	</div>
-<div style="display:none">
-	<input type="file" id="fileInput1" name = "file1" onchange="loadAttachName(this,1);">
-	<input type="file" id="fileInput2" name = "file2" onchange="loadAttachName(this,2);">
-	<input type="file" id="fileInput3" name = "file3" onchange="loadAttachName(this,3);">
-	<input type="file" id="fileInput4" name = "file4" onchange="loadAttachName(this,4);">
-	<input type="file" id="fileInput5" name = "file5" onchange="loadAttachName(this,5);">
-	<input type="file" id="fileInput6" name = "file6" onchange="loadAttachName(this,6);">
-	<input type="file" id="fileInput7" name = "file7" onchange="loadAttachName(this,7);">
-	<input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
-</div>
-</form>
+			<div style="height:46px;width:100%;background:#262A2D;"></div>
+			<div id= boardImg1>
+					<img id= boardImg src="<%=request.getContextPath() %>/images/board_back2.jpg">
+					<div style="width:100%; height:60px;background:black;"></div>
+			</div>
+			
+			
+			<br><br><br><br>
+			<form id= insertForm action = "<%=request.getContextPath()%>/insert.Fbo" method="post" encType="multipart/form-data">
+			<div id="outer">
+				<div class="titleDiv1"><div class= "titleDiv2"><b>자&nbsp;유&nbsp;게&nbsp;시&nbsp;판</b></div></div>
+				<br>
+				<div id = "tableDiv">
+					<table align="center" id="listArea">
+						<tr>
+							<td class= "titleTd tableTd"><b>제목</b></td>
+							<td class ="tableTd"><input type="text" name= "btitle" class="inputTd">&nbsp;&nbsp;
+			
+							<%if(loginUser.getUserNo() >10000){%>
+							<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();"><label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+							<%}%>
+							<input id = noCheck type= "hidden" name="blevel" value="1">
+							</td> 
+						</tr>
+							<td class= "titleTd tableTd"><b>작성자</b></td>
+							<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=loginUser.getUserName()%></span></td>
+						<tr>
+							<td class= "titleTd tableTd"><b>작성일</b></td>
+							<td  class ="tableTd"><span style="padding-left: 17px; font-size: 16px;"><%=today%></span></td>
+						</tr>
+					</table>
+					<div id="textareaDiv"><textArea id= summernote rows=30 col=100 name = "bcontent" placeholder="내용을 입력해주세요"></textArea><div>
+					
+					<% if (loginUser!= null && loginUser.getUserNo() > 10000){ %>
+					<table id = "attachTable">
+						<tr>
+							<td rowspan=9 class= "titleTd" style= "border-right: 1px solid #dbdbdb">
+								<b>첨부파일</b>
+							</td>
+							<td  style= "border:none; height:30px; color:gray; padding:12px;padding-left:15px">
+								<select id= attachCount onchange="changeSelect();" style="color:black">
+									 <option>1</option>
+									 <option>2</option>
+									 <option>3</option>
+									 <option>4</option>
+									 <option>5</option>
+									 <option>6</option>
+									 <option>7</option>
+									 <option>8</option>
+								</select>
+								&nbsp;<span style="font-size: 15px">파일 갯수를 지정해주세요</span>
+								<button type="button" id= "resetBtn" class="attachBtn" onclick="selectReset();"><b>리셋</b></button>
+							</td>
+						</tr> 
+						<tr class= attachTr>
+							<td class= attachTd style="border-bottom: 1px solid #dbdbdb">
+								<input id = "attachInput1" type="text" placeholder="첨부파일을 등록하세요" readonly>&nbsp;
+								<button type="button" id= "attachBtn1" class="attachBtn" onclick="fileInputClick1();"><b>찾아보기</b></button>
+						</tr>
+							
+					</table>
+					<% }%>
+					<br><br>
+					<div class= btnDiv>
+							<button type='button'id=listBtn onclick="goBoardListView();"><b>목록</b></button>&nbsp;&nbsp;
+							<button id=insertBtn type="button" onclick="insertSubmit();"><b>등록</b></button>
+					</div>
+				</div>
+			<div style="display:none">
+				<input type="file" id="fileInput1" name = "file1" onchange="loadAttachName(this,1);">
+				<input type="file" id="fileInput2" name = "file2" onchange="loadAttachName(this,2);">
+				<input type="file" id="fileInput3" name = "file3" onchange="loadAttachName(this,3);">
+				<input type="file" id="fileInput4" name = "file4" onchange="loadAttachName(this,4);">
+				<input type="file" id="fileInput5" name = "file5" onchange="loadAttachName(this,5);">
+				<input type="file" id="fileInput6" name = "file6" onchange="loadAttachName(this,6);">
+				<input type="file" id="fileInput7" name = "file7" onchange="loadAttachName(this,7);">
+				<input type="file" id="fileInput8" multiple="multiple" name = "file8" onchange="loadAttachName(this,8)">
+			</div>
+			</form>
+			<br><br>
+		</div><!-- container -->
+</div><!-- mainContent -->
+<%@ include file = "/views/common/footer.jsp" %>
 </body>
 
 

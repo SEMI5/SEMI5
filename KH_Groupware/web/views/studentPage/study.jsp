@@ -16,6 +16,13 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 <style>
 
+
+::-webkit-scrollbar {
+
+display:none;
+
+}
+-ms-overflow-style: none; 
 #outer{
 	width: 100%;
 }
@@ -25,7 +32,7 @@
   height: 150px;
 	margin-left:31.5%;
   margin-right:31.5%;
-  cursor: pointer;
+
   transform-style: preserve-3d;
   transform-origin: center right;
   transition: transform 1s;
@@ -38,7 +45,7 @@
   height: 150px;
   margin-left:15%;
   margin-right:15%;
-  cursor: pointer;
+
   transform-style: preserve-3d;
   transform-origin: center right;
   transition: transform 1s;
@@ -164,8 +171,18 @@ input{
 	margin-top: 50px;
 	padding-bottom: 30px;
 	}
-
-
+	
+.btn{
+ 	background: #262A2D;
+ 	color: #F6F6F6;
+ 	font-size: 12px;
+}
+.btn:hover{
+	cursor:pointer;
+	background: #E7E3E3;
+	color: #262A2D;
+	font-size: 12px;
+	}
 </style>
 </head>
 
@@ -174,6 +191,11 @@ input{
 </header>
 
 <body>
+
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+   
+   
 	<div id = "banner">	
 			<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
 			<div  id = "mainTitle"><b style="margin-bottom: 3000px;">스터디 개설 및 신청</b></div>
@@ -182,7 +204,7 @@ input{
 		<div id="mySlide">
 			<h2 style = "text-align: center; margin-bottom: 0px; color:#262A2D; ">내 스터디</h2>
 			<div style = "height: 30px; width: 6.85%; margin-left: 66%; margin-bottom: 5px;">
-				<button id = "openStBtn" onclick = "openStudy();" style = "width: 100%; height: 100%; background: #262A2D; color: #F6F6F6">스터디 개설</button>
+				<button class = "btn" id = "openStBtn" onclick = "openStudy();" style = "width: 100%; height: 100%;">스터디 개설</button>
 			</div>
 			<div id = "myStudy" class="main-carousel" style="width: 50%;">
 				
@@ -216,7 +238,7 @@ input{
 				<td><input type = "text" id = "time" maxlength="15" required="required" placeholder="ex)매주 수요일 13시"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button id = "openBtn" style = "width: 33%; margin-left: 33%; margin-right: 33%; margin-top: 20px;  background: #262A2D; color: #F6F6F6">개설하기</button></td>
+				<td colspan="2"><button class = "btn" id = "openBtn" style = "width: 33%; margin-left: 33%; margin-right: 33%; margin-top: 20px;  ">개설하기</button></td>
 			</tr>
 		</table>
 	</div>
@@ -238,12 +260,15 @@ input{
 				</tr>
 				<tr>
 					<td></td>
-					<td><button id = "mBtn" style = "width: 50%; margin-left: 20%; margin-right: 30%; margin-top: 5px;  background: #262A2D; color: #F6F6F6;">수정하기</button>
-					<button id = "dBtn" style = "width: 50%; margin-left: 20%; margin-right: 30%; margin-top: 5px;  background: #262A2D; color: #F6F6F6;;">삭제하기</button></td>
+					<td><button class = "btn" id = "mBtn" style = "width: 50%; margin-left: 20%; margin-right: 30%; margin-top: 5px;  ">수정하기</button>
+					<button  class = "btn" id = "dBtn" style = "width: 50%; margin-left: 20%; margin-right: 30%; margin-top: 5px;  ">삭제하기</button></td>
 				</tr>
 			</table>
 		</div>
 
+
+		</div><!-- container -->
+</div><!-- mainContent -->
 
 
 	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
@@ -340,6 +365,7 @@ input{
 			        	
 			        }
 	        	 
+	        	 	console.log($('#allStudy').flickity("cells.length"));
 	        	 var appStudyList = asl;
 	        	
 	        	 
@@ -354,9 +380,14 @@ input{
 	        	 for(var i in studyList){
 	        		 
 	        		 $("#"+studyList[i].stNo+"count").text($("#study"+studyList[i].stNo+" #attendance tbody tr").length-1+"/5");
+	        		 if($("#study"+studyList[i].stNo+" #attendance tbody tr").length-1 == 5){
+	        			 $("#study"+studyList[i].stNo+" th").css({"background":"#FE7773","color":"#F6F6F6"});
+	        		 }
 	        	 }
 
 	            }
+	         
+	         	
 	         });  
 
 		// 스터디 개설
@@ -366,6 +397,10 @@ input{
 				$("#location").val("");
 				$("#time").val("");
 				$("#openForm").bPopup().close();
+				return false;
+			}
+			if($("#title").val() == "" || $("#location").val() == "" || $("#time").val() == ""){
+				alert("모든 정보를 입력해주세요.");
 				return false;
 			}
 			$.ajax({
@@ -416,16 +451,18 @@ input{
 			
 			
 			var button;
-			
+			var bG;
 			
 			if(type == "mine"){
-				button = "<button id = 'appBtn' onclick = 'openMfApp("+stNo+");' style = 'width:40%; height:80%; margin-left:50%; background:#262A2D; color:#F6F6F6'>수정하기</button>"
+				button = "<button class = 'btn' id = 'appBtn' onclick = 'openMfApp("+stNo+",event);' style = 'width:40%; height:80%; margin-left:50%;'>수정하기</button>"
+				bG = "background:#262A2D; color:#F6F6F6";
 			}
 			if(type == "app"){
-				button = "<button id = 'appBtn' onclick = 'cancelApp("+stNo+");' style = 'width:40%; height:80%; margin-left:50%; background:#262A2D; color:#F6F6F6'>신청취소</button>";
+				button = "<button class = 'btn' id = 'appBtn' onclick = 'cancelApp("+stNo+",event);' style = 'width:40%; height:80%; margin-left:50%;' >신청취소</button>";
+				bG = "background:#1D6A96; color:#F6F6F6";
 			}
 			if(type == "ing"){
-				button = "<button id = 'appBtn' onclick = 'appStudy("+stNo+");' style = 'width:40%; height:80%; margin-left:50%; background:#262A2D; color:#F6F6F6'>신청하기</button>";
+				button = "<button class = 'btn' id = 'appBtn' onclick = 'appStudy("+stNo+",event);' style = 'width:40%; height:80%; margin-left:50%;' >신청하기</button>";
 			}
 			
 			return "<div class='carousel-cell'>"+	
@@ -435,7 +472,7 @@ input{
 					"<div class='front' style = 'margin: auto;'>"+
 						"<table id = 'studyInfo'>"+
 							"<tr>"+
-								"<th class = 'frontTh' colspan='2'>"+title+"</th>"+
+								"<th class = 'frontTh' colspan='2' style ='"+bG+"'>"+title+"</th>"+
 							"</tr>"+
 							"<tr>"+
 								"<td style = 'width: 30%;'>스터디장</td>"+
@@ -459,8 +496,8 @@ input{
 					"<div class='back' style = 'margin: auto;'>"+
 						"<table id = 'attendance'>"+
 							"<tr>"+
-								"<th class = 'backTh' style = 'width: 30%; text-align: left; padding-left: 10px;'>참여인원</th>"+
-								"<th id = '"+stNo+"count' style = 'text-align: right; padding-right: 20px;'></th>"+
+								"<th class = 'backTh' style = 'width: 30%; text-align: left; padding-left: 10px;"+bG+"'>참여인원</th>"+
+								"<th id = '"+stNo+"count' style = 'text-align: right; padding-right: 20px;"+bG+"'></th>"+
 							"</tr>"+
 							"<tr>"+
 								"<td>"+userName+"</td>"+
@@ -473,15 +510,16 @@ input{
 		"</div>";
 		}
 		
-
+		
 		
 		
 		// 스터디 신청
-		function appStudy(stNo){
+		function appStudy(stNo, event){
+			event.stopPropagation();
 			if(!confirm("스터디에 참여하시겠습니까?")){
 				 return false;
 			}
-			if($("#study"+stNo+" #attendance tbody tr").length == 5){
+			if($("#study"+stNo+" #attendance tbody tr").length == 6){
 				alert("참여인원이 초과되었습니다");
 				return false;
 			}else{
@@ -502,7 +540,8 @@ input{
 		}
 
 
-		function cancelApp(stNo){
+		function cancelApp(stNo,event){
+			event.stopPropagation();
 			if(!confirm("신청을 취소하시겠습니까?")){
 				return false;
 			}
@@ -518,7 +557,7 @@ input{
 		         }); 
 		}
 		
-		function openMfApp(stNo){
+		function openMfApp(stNo,event){
 			$("#modifyForm").bPopup();
 			
 			$("#mBtn").on('click', function(){
@@ -529,7 +568,7 @@ input{
 				deleteApp(stNo);
 			});
 			
-			
+			event.stopPropagation();
 		}
 		
 		
@@ -539,6 +578,10 @@ input{
 				$("#mlocation").val("");
 				$("#mtime").val("");
 				$("#modifyForm").bPopup().close();
+				return false;
+			}
+			if($("#title").val() == "" || $("#location").val() == "" || $("#time").val() == ""){
+				alert("모든 정보를 입력해주세요.");
 				return false;
 			}
 			$.ajax({
@@ -583,6 +626,8 @@ input{
 		
 		
 	</script>
-
+	
+	
+<%@ include file = "/views/common/footer.jsp" %>
 </body>
 </html>

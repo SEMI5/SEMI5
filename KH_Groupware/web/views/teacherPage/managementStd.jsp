@@ -129,7 +129,6 @@
 	margin-top: 50px;
 	padding-bottom: 30px;
 	}
-
 </style>
 
 
@@ -138,9 +137,6 @@
 <header>
 	<%@ include file="/views/common/header.jsp"%>
 </header>
-
-
-
 
 
 

@@ -23,10 +23,16 @@
 	<%@ include file = "header.jsp" %>
 </header>
 <body>
-	<img id = "sorry" src ="<%=request.getContextPath() %>/images/sorry.png">
-	<h1 align = "center"><%= msg %></h1>
-	<a href = "<%=request.getContextPath() %>/index.jsp" align = "center"><h1>메인으로 돌아가기</h1></a>
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+		
+		<img id = "sorry" src ="<%=request.getContextPath() %>/images/sorry.png">
+		<h1 align = "center"><%= msg %></h1>
+		<a href = "<%=request.getContextPath() %>/index.jsp" align = "center"><h1>메인으로 돌아가기</h1></a>
 
+	</div><!-- container -->
+</div><!-- mainContent -->
+<%@ include file = "/views/common/footer.jsp" %>
 
 </body>
 </html>
