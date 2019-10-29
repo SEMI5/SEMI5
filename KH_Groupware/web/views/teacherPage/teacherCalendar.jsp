@@ -413,6 +413,7 @@
 <div id="container" style="overflow: auto;"><!-- container -->
    <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 
+
 		<div id = "banner">	
 			<img src="https://i.ibb.co/vPGg9Qf/image.jpg" alt="image" border="0">
 			<div  id = "mainTitle"><b style="margin-bottom: 3000px;">일정 및 휴가 관리</b></div>
