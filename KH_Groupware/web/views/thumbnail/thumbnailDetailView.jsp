@@ -189,6 +189,14 @@ td{
    border-radius: 16px;
 }
 
+::-webkit-scrollbar {
+
+display:none;
+
+}
+-ms-overflow-style: none; 
+
+
 </style>
 
 
@@ -200,86 +208,87 @@ td{
 <div id="container" style="overflow: auto;"><!-- container -->
    <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 
-				<div class = "outer">
-				<br>
-						<h2 align = "center"> 사진 게시판 디테일 보기 </h2>
-							
-						<div class = "detail">
-										
-						<table class = "detail" align="center">
-							<tr>
-								<th width = "90px" height = "40px">제목</th>
-								<td colspan = "5"> <%-- <label><%=b.getbTitle() %></label></td> --%>
-								<input type="text" size="50" name="title" value="<%= b.getbTitle() %>" readonly></td>
-								
-							</tr>
-							<tr>
-								<th height = "40px"> 작성자 </th>
-								<td colspan = "5">	<%-- <label><%=b.getbWriter() %></label></td> --%>
-								<input type="text" name="writer" value="<%= b.getbWriter() %>" readonly></td>
-							</tr>
-							<tr>
-								<th height = "40px"> 조회수 </th>
-								<td colspan = "5"><label><%=b.getbCount() %></label></td>
-							</tr>	
-							<tr>
-								<th height = "40px"> 작성일 </th>
-								<td colspan = "5"><label><%=b.getModifyDate() %></label></td>
-							</tr>		
-							<tr>
-								<th> 대표사진 </th>
-								<td colspan="4">
-									<div id="titleImgArea" align="center">
-										<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
-									</div>
-								</td>
-								<td>
-									<button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
-										<i class="fa fa-download"></i> Download
-									</button>
-								</td>
-							</tr>
-							<tr>
-								<th> 사진메모 </th>
-								<td colspan = "6">
-									<textarea name="content" cols="60" rows="15" style="resize:none" readonly><%= b.getbContent() %></textarea>
-								</td>
-							</tr>
-						</table>
-					
-						<div class = "detail_other" style="align:center">
-							<P align = "center"> 추가 이미지 </P>
-							<hr>
-								<% for(int i=1; i<fileList.size(); i++){ %>
-									<div class = "detailImgArea">
-										<img id ="detailImg" class="detailImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=fileList.get(i).getChangeName() %>">
-										<div class ="down-area" style="align:center">
-										<button  class="down-btn2" onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
-											<i class="fa fa-download"></i> Download
-										</button>				
-										</div>
-									</div>
-								<%} %>
-								<br><br>
-						</div>	
-						<br><br><br>
-						<!-- 이제 파일을 다운로드 할 수 있도록 ThumbnailDownloadServlet 만들러 !!  -->
+<div class = "outer">
+<br>
+		<h2 align = "center"> 사진 게시글 디테일 보기 </h2>
+			
+		<div class = "detail">
 						
-						<div class = "btnArea" align ="center">
-							<button id = "goList-btn" onclick="location.href='<%=request.getContextPath()%>/list.th'">목록으로</button>	
-							<%if(loginUser != null && loginUser.getUserId().equals("admin")) {%>
-									<button id = "update-btn" type="submit" onclick="location.href='<%=request.getContextPath()%>/updateView.th?bid=<%=b.getbId()%>'">수정하기</button>				
-							<%} %>	
-									
-						<!-- 	<button id  = "updateBtn" onclick ="updateTthumbnail();">수정하기</button> -->
-							<!-- <button id  = "deleteBtn" onclick = "deleteThumbnail();">삭제하기</button> -->
-						</div>
-						<br><br><br>
-					</div>
-				</div>
+		<table class = "detail" align="center">
+			<tr>
+				<th width = "90px" height = "40px">제목</th>
+				<td colspan = "5"> <%-- <label><%=b.getbTitle() %></label></td> --%>
+				<input type="text" size="50" name="title" value="<%= b.getbTitle() %>" readonly></td>
 				
-	</div><!-- container -->
-</div><!-- mainContent -->
-<%@ include file = "/views/common/footer.jsp" %>				
+			</tr>
+			<tr>
+				<th height = "40px"> 작성자 </th>
+				<td colspan = "5">	<%-- <label><%=b.getbWriter() %></label></td> --%>
+				<input type="text" name="writer" value="<%= b.getbWriter() %>" readonly></td>
+			</tr>
+			<tr>
+				<th height = "40px"> 조회수 </th>
+				<td colspan = "5"><label><%=b.getbCount() %></label></td>
+			</tr>	
+			<tr>
+				<th height = "40px"> 작성일 </th>
+				<td colspan = "5"><label><%=b.getModifyDate() %></label></td>
+			</tr>		
+			<tr>
+				<th> 대표사진 </th>
+				<td colspan="4">
+					<div id="titleImgArea" align="center">
+						<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
+					</div>
+				</td>
+				<td>
+					<button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
+						<i class="fa fa-download"></i> Download
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<th> 사진메모 </th>
+				<td colspan = "6">
+					<textarea name="content" cols="60" rows="15" style="resize:none" readonly><%= b.getbContent() %></textarea>
+				</td>
+			</tr>
+		</table>
+	
+		<div class = "detail_other" style="align:center">
+			<P align = "center"> 추가 이미지 </P>
+			<hr>
+				<% for(int i=1; i<fileList.size(); i++){ %>
+					<div class = "detailImgArea">
+						<img id ="detailImg" class="detailImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=fileList.get(i).getChangeName() %>">
+						<div class ="down-area" style="align:center">
+						<button  class="down-btn2" onclick="location.href='<%=request.getContextPath() %>/download.th?fid=<%=fileList.get(i).getfId() %>'" >
+							<i class="fa fa-download"></i> Download
+						</button>				
+						</div>
+					</div>
+				<%} %>
+				<br><br>
+		</div>	
+		<br><br><br>
+		<!-- 이제 파일을 다운로드 할 수 있도록 ThumbnailDownloadServlet 만들러 !!  -->
+		
+		<div class = "btnArea" align ="center">
+			<button id = "goList-btn" onclick="location.href='<%=request.getContextPath()%>/list.th'">목록으로</button>	
+			<%if(loginUser != null && (loginUser.getUserNo() > 10000 || loginUser.getUserName().equals(b.getbWriter()))) {%>
+					<button id = "update-btn" type="submit" onclick="location.href='<%=request.getContextPath()%>/updateView.th?bid=<%=b.getbId()%>'">수정하기</button>				
+			<%} %>
+					
+		</div>
+		<br><br><br>
+	</div>
+</div>
+
+
+  
+   </div><!-- id="mainContent" -->
+</div><!-- container -->
+
+ <%@ include file = "/views/common/footer.jsp" %>
 </body>
 </html>
