@@ -1410,35 +1410,33 @@ $(function(){
 
 	 function goodClick(thing, rid){
 	
-	/* 	 alert(rid);
-		 alert(rid.value); */
-		 
-	 	 var rId = rid.value 
-		/*  alert(rId); */
-	 	  if( thing.style.color == "gray"){ 
-				thing.style.color = "#f53f29";
+	 	 var rId = rid.value  
+	 	 
+	 	  if( thing.style.color == "gray"){  // if문, 좋아요가 회색이라면 (좋아요가 회색 = 좋아요를 안누른상태)
+				thing.style.color = "#f53f29"; // 좋아요를  빨간색으로 변화시킴
 			 	thing.style.border = "1px solid #f53f29";
 			 	 var count =  thing.lastChild.innerHTML
-			 	 countAdd = parseInt(count) +1 ;
+			 	 countAdd = parseInt(count) +1 ;  // 좋아요 횟수 1 증가 
 			  	
-			 	thing.lastChild.innerHTML= countAdd
+			 	thing.lastChild.innerHTML= countAdd // 화면에서 값을 바꿔줌 
 				 	 
-		  }else{
-				thing.style.color = "gray";
+		  }else{ 							  // else문, 좋아요가 회색이 아니라면, 
+				thing.style.color = "gray";  // 좋아요를 회색으로 바꾸고 
 				thing.style.border = "1px solid gray";
-				 var count =  thing.lastChild.innerHTML
-			 	 countSub = parseInt(count) -1 ;
-			 	 thing.lastChild.innerHTML= countSub; 
+				 var count =  thing.lastChild.innerHTML  
+			 	 countSub = parseInt(count) -1 ;    // 좋아요 횟수를 1 차감 
+			 	 thing.lastChild.innerHTML= countSub;  // 화면에서 값을 바꿔줌 
 			};   	 	 
 
-		 	 $.ajax({
-	  		url:"/KH_Groupware/insert.go",
-	  		type:"post",
-	  		data:{userNo: <%=loginUser.getUserNo()%>,
-		 	          rid1: rId },
-	  		success:function(data){
-						if(data == 1){
-							
+		 	 $.ajax({							
+	  		url:"/KH_Groupware/insert.go",		// 에이작스를 통해 실제 디비값을 변화시킴. 
+	  		type:"post",							
+	  		data:{userNo: <%=loginUser.getUserNo()%>, // 넘기는 값: 유저넘버, 리플번호  
+		 	          rid1: rId },					  
+	  		success:function(data){					 // Dao에서 좋아요 테이블을 검색해서,  
+	  			 									 // 리플번호에 해당 유저넘버가 없다면 해당유저를 추가.  
+						if(data == 1){				//  리플번호에 해당 유저넘버가 있다면 해당 유저를 삭제. 
+													//  해당 리플에 좋아요 총 횟수는 리플번호를 Group by 후  count(*)로 알아냄.    
 							/*  alert("성공");  */
 						}else{
 							
