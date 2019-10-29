@@ -457,38 +457,29 @@ public class ThumbnailDao {
 	}
 
 	//Attach 수정
-	public int updateAttachment(int bid, Connection conn, ArrayList<Attachment> fileList) {
+	public int updateAttachment(Connection conn, int fid, Attachment attachment) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("updateTAttachment");
+		String query = prop.getProperty("updateAttachment");
 		
 		try {
-			for(int i=0; i<fileList.size();i++) {
-				Attachment at = fileList.get(i);
-				
-				pstmt=conn.prepareStatement(query);
-				pstmt.setInt(1, bid);
-				pstmt.setString(2, at.getOriginName());
-				pstmt.setString(3, at.getChangeName());
-				pstmt.setString(4, at.getFilePath());
-				pstmt.setInt(5, at.getFileLevel());
-				
-				result += pstmt.executeUpdate();
-				
-				System.out.println("att : " + result);
-			}
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, attachment.getOriginName());
+			pstmt.setString(2, attachment.getChangeName());
+			pstmt.setString(3, attachment.getFilePath());
+			pstmt.setDate(4, attachment.getUploadDate());
+			pstmt.setInt(5, fid);
+	
+			result = pstmt.executeUpdate();
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-		
-		// fileList가 가진 파일 갯수만큼의 행이 모두 insert가 되었다면
-		if(result == fileList.size())
-			return result;
-		else
-			return 0;
+		return result; 
 
 	}
 
@@ -541,7 +532,31 @@ public class ThumbnailDao {
 	}
 
 
-
+	public int deleteAttachAsFid(Connection conn, int fid) {
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;  
+		int result =0; 
+		
+		String query = prop.getProperty("deleteAttachAsFid");
+	
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, fid);
+			result =pstmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return result;
+	}
 
 
 }

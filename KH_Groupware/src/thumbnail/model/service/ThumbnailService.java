@@ -156,29 +156,7 @@ public class ThumbnailService {
 		return at;
 	}
 	
-	//수정하기
-	public int updateThumbnail(Thumbnail t, ArrayList<Attachment> fileList) {
-		Connection conn = getConnection();
-		
-		ThumbnailDao tDao = new ThumbnailDao();
-		
-		
-		int result1 = tDao.updateThumbnail(conn, t);
-		int result2 = tDao.updateAttachment(t.getbId(), conn, fileList);
-		
-		int result = 0;
-		
-		if(result1>0 && result2>0) {
-			commit(conn);
-			result =1;
-		}else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		
-		return result;
-	}
+
 	//quest
 	public int updateThumbnail(Thumbnail t) {
 		Connection conn = getConnection();
@@ -223,6 +201,37 @@ public class ThumbnailService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int deleteAttachAsFid(int fid) {
+		Connection conn = getConnection();
+		int result = new ThumbnailDao().deleteAttachAsFid(conn, fid);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result; 
+	}
+
+	public int updateAttachment(int fid, Attachment attachment) {
+		Connection conn = getConnection();
+		int result = new ThumbnailDao().updateAttachment(conn, fid, attachment);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result; 
+		
+		
+		
 	}
 
 	

@@ -31,7 +31,7 @@
 <title>KH_Groupware</title>
 
 <!--  모두 파비콘을 가져가서 본인 파일에 삽입해주세요  -->
-<link rel="shortcut icon" type="image⁄x-icon" href="../../images/KH_favicon.ico">
+<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
 <!-- 
 <link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Text|Do+Hyeon|Sunflower:300&display=swap" rel="stylesheet">
 

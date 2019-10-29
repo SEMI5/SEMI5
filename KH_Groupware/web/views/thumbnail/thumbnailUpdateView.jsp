@@ -325,8 +325,7 @@ background-color: #666;
 
 <div class = "outer">
 
-		<%-- <form id ="updateForm" method ="post" encType="multipart/form-data" action="<%=request.getContextPath()%>/update.th"> --%>	<!-- table부터 아래버튼까지 포함하는 form태그  -->	
-			<form id ="updateForm" method ="post" action="<%=request.getContextPath()%>/update.th">
+		<form id ="updateForm" method ="post" encType="multipart/form-data" action="<%=request.getContextPath()%>/update.th"> 
 				<input type = "hidden" name = "bid" value = "<%= b.getbId() %>">
 			<h2 align="center">자료실 수정하기</h2>
 		<div class="tableArea">
@@ -401,15 +400,13 @@ background-color: #666;
 					<button class= "resetBtn" type = "button" onClick="window.location.href=window.location.href"> 리셋 </button>
 				</div>
 			</div>
-	</form>		
+			
 	
 	
 				<script>
  					//공지사항 수정하기 작업 먼저하기
 					function update(){
-						<%-- $("#updateForm").attr("action","'<%=request.getContextPath()%>/update.th'"); --%>
 						$("#updateForm").submit();
-						// ThumbnailUpdateServlet 만들러 ㄱㄱ!
 					}
 					
 					//공지사항 삭제하기
@@ -428,7 +425,6 @@ background-color: #666;
 		   <!--  현재 이 게시글에 있는  맨 처음 사진들 fid-->
 
 			<input  id= "presentTitlefid" type = "text"  value=   <%=titleImg.getfId() %> readonly ><br>
-			
 			<% for(int i=1; i<fileList.size(); i++){ %>
 				<input id= "presentContentfid<%=i+1%>" type = "text"  value=   <%=fileList.get(i).getfId()%> readonly ><br>
 			<%} %>
@@ -436,14 +432,24 @@ background-color: #666;
 			
 		   <!--  삭제해야할 fid 목록  -->
 			<br> 
-				<input id="delImg1" type = "text" readonly> 
-				<input id="delImg2" type = "text" readonly> 
-				<input id="delImg3" type = "text" readonly> 
-				<input id="delImg4" v type = "text" readonly> 
-				<input id="delImg5" type = "text" readonly> 
+				<input id="delImg1" name="delImg1"  value= "0"  type = "text" readonly> 
+				<input id="delImg2" name="delImg2"  value= "0"  type = "text" readonly> 
+				<input id="delImg3" name="delImg3"  value= "0"  type = "text" readonly> 
+				<input id="delImg4" name="delImg4"  value= "0" type = "text" readonly> 
+				<input id="delImg5" name="delImg5"  value= "0"  type = "text" readonly> 
 			<br>
 
-	       <!--  새롭게 업로드 시켜야하는 fid 목록  -->		
+
+			<!--  fid를 삭제하지 않고, fid의 내용만 변경할 목록 -->
+			<br> 
+				<input id="updateImg1" name ="updateImg1" type= "text" value= "0" readonly> 
+				<input id="updateImg2" name ="updateImg2" type= "text" value= "0" readonly> 
+				<input id="updateImg3" name ="updateImg3" type= "text" value= "0" readonly> 
+				<input id="updateImg4" name ="updateImg4" type= "text" value= "0" readonly> 
+				<input id="updateImg5" name ="updateImg5" type= "text" value= "0" readonly> 
+			<br>
+				
+
 		
  			<!-- 파일 업로드 하는 부분(file 타입형 input태그들) -->
 
@@ -456,7 +462,7 @@ background-color: #666;
 					<input type="file" id ="thumbnailImg5" multiple="multiple" name="thumbnailImg5" onchange="LoadImg(this,5)"><br>
 				</div>
 		
-		
+		</form>
 		<br><br>
 		
 	</div>
@@ -474,18 +480,23 @@ background-color: #666;
 							switch(num){
 							case 1:
 								$("#titleImg").attr("src",e.target.result);	//이미지 변환작업
+								$("#updateImg1").val($("#presentTitlefid").val());
 								break;
 							case 2:
 								$("#contentImg2").attr("src",e.target.result);
+								$("#updateImg2").val($("#presentContentfid2").val());
 								break;
 							case 3:
 								$("#contentImg3").attr("src",e.target.result);
+								$("#updateImg3").val($("#presentContentfid3").val());
 								break;
 							case 4:
 								$("#contentImg4").attr("src",e.target.result);
+								$("#updateImg4").val($("#presentContentfid4").val());
 								break;
 							case 5:
 								$("#contentImg5").attr("src",e.target.result);
+								$("#updateImg5").val($("#presentContentfid5").val());
 								break;
 							}
 						}
@@ -535,14 +546,13 @@ background-color: #666;
 			
 				$("#titleImg").attr("src"," ");
 				$("#delImg1").val($("#presentTitlefid").val())
+				$("#thumbnailImg1").val("");
 			}
 				
 			
 			function addTitleImg(){
-				$("#titleImg").attr("src"," ");
 				$("#thumbnailImg1").click();
 				
-				$("#delImg1").val($("#presentTitlefid").val())
 			}
 			
 			
@@ -550,12 +560,11 @@ background-color: #666;
 			function delContentImg(index, fid ){
 				$("#contentImg"+index).attr("src"," ");
 				$("#delImg"+ index).val(fid) 
+				$("#thumbnailImg"+index).val("");
 			}
 			
 			function addContentImg(index, fid){
-				$("#contentImg"+index).attr("src"," ");
 				$("#thumbnailImg"+index).click();
-				$("#delImg"+ index).val(fid) 
 			}
 			
 		

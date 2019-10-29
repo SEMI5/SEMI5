@@ -23,9 +23,17 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body class="w3-content" style="max-width:2000px;">
 
+
+
+
+
+
 <style>
-
-
+	
+::-webkit-scrollbar{
+	display:none; 
+}
+-ms-overflow-style:none;
 
 
 * {box-sizing: border-box}
@@ -421,6 +429,9 @@ body{
 <body>
 <%@ include file = "header.jsp" %>
 		<!-- 이미지 슬라이더 부분  -->
+		
+<div id="container" style="overflow: auto;"><!-- container -->
+   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 <div style="height:40px;width:100%"></div>
 	<div class="slideshow-container">	
 		<div class="mySlides fade">
@@ -579,8 +590,6 @@ body{
 
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-		
 <script>
 	function openCity(cityName,elmnt,color) {
 	  var i, tabcontent, tablinks;
@@ -621,9 +630,11 @@ body{
 		
 	<%-- <%@ include file = "bootsFooter.jsp" %>	 --%>
 	
-		
+	
 
-		
+</div><!-- container -->
+   </div><!-- mainContent -->
+			<%@ include file = "footer.jsp" %>
 </body>
 
 </html>
