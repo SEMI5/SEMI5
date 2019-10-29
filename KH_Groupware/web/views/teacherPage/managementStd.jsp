@@ -142,7 +142,7 @@
 
 <body>
 	<div id = "banner">	
-		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+		<img src="https://i.ibb.co/gPCfgQX/image.jpg" alt="image" border="0">
 		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">학생 관리</b></div>
 	</div>
 

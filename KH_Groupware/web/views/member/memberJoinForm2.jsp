@@ -153,9 +153,6 @@
 </header>
 
 <body>
-<header>
-	<%@ include file = "/views/common/header.jsp" %>
-</header>
 <div id="container" style="overflow: auto;"><!-- container -->
    <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 

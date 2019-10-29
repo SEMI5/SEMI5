@@ -75,7 +75,7 @@
 #banner{
 	width: 100%;
 	height: 350px;
-	margin-top: 40px;
+	margin-top: 0px;
 	margin-bottom: 50px;
 }
 
@@ -108,79 +108,11 @@
 <<<<<<< HEAD
 <div id="container" style="overflow: auto;"><!-- container -->
    <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
-
 			<div id = "banner">	
-				<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
+				<img src="https://i.ibb.co/Lg3db1M/image.jpg" alt="image" border="0">
 				<div  id = "mainTitle"><b style="margin-bottom: 3000px;">아이디/비밀번호 찾기</b></div>
 			</div>
 			<div id = "outer">
-=======
-	<div id = "banner">	
-		<img src="https://images2.imgbox.com/16/2a/21JdCHzj_o.jpg" alt="image host"/>
-		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">아이디/비밀번호 찾기</b></div>
-	</div>
-	<div id = "outer">
-		
-		<div id = "findId">
-			<h2 style = "margin-left: 15px; margin-bottom: 78px;">아이디 찾기</h2>
-			<table id = "idTable" align = "center">
-				<tr>
-					<td class = "label">이름</td>
-					<td><input type = "text" id = "nameI" style = "width: 100px; height: 30px;"></td>
-				</tr>
-				<tr>
-					<td class = "label">이메일</td>
-					<td><input type = "text" id = "emailPtI" name = "emailId" style="width: 100px; height: 30px; margin-right: 5px;" required="required"><em>@</em>
-					<input type="text" id = "email2I" name="email2I" value="naver.com" style="width: 130px; height: 30px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
-					</td>
-					<th>
-					<select id = "selctEmailI" name = "selctEmail" class = "info" style="width: 110px; margin-left: 3px; height: 36px;" onchange="SetEmailTailI(selctEmailI.options[this.selectedIndex].value)" >
-						<!-- <option value = "notSelected">====선택====</option> -->
-						<option value = "naver.com">naver.com</option> 
-						<option value = "goole.com">google.com</option>
-						<option value = "hanmail.net">hanmail.net</option>
-						<option value = "yahoo.com">yahoo.com</option>
-						<option value = "nate">nate.com</option>
-						<option value = "hotmail.com">hotmail.com</option>
-						<option value = "daum.net">daum.net</option>
-						<option value = "etc">직접입력</option>
-					</select>
-					</th>
-				</tr>
-				<tr>
-					<td></td>
-					<td id = "infoI"></td>
-				</tr>
-			</table>
-			<button id = "idBtn" class = "btn" onclick="sendEmail('id')">확인하기</button>
-		</div>
-		
-		
-		<div id = "findPwd">
-			<h2 style = "margin-left: 15px;">비밀번호 찾기</h2>
-			<table id = "pwdTable" align = "center" >
-				<tr>
-					<td class = "label">아이디</td>
-					<td><input type = "text" id = "idP" style = "width: 100px; height: 30px;"></td>
-				</tr>
-				<tr>
-					<td class = "label">이메일</td>
-					<td><input type = "text" id = "emailPtP" name = "emailId" style="width: 100px; height: 30px; margin-right: 5px;" required="required"><em>@</em>
-					<input type="text" id="email2P" name="email2P" value="naver.com" style="width: 130px; height: 30px; margin-left: 0px;" ReadOnly="true" placeholder = "naver.com">
-					<select id = "selctEmailP" name = "selctEmail" class = "info" style="width: 110px; margin-left: 3px; height: 36px;" onchange="SetEmailTailP(selctEmailP.options[this.selectedIndex].value)" >
-						<!-- <option value = "notSelected">====선택====</option> -->
-						<option value = "naver.com">naver.com</option> 
-						<option value = "goole.com">google.com</option>
-						<option value = "hanmail.net">hanmail.net</option>
-						<option value = "yahoo.com">yahoo.com</option>
-						<option value = "nate">nate.com</option>
-						<option value = "hotmail.com">hotmail.com</option>
-						<option value = "daum.net">daum.net</option>
-						<option value = "etc">직접입력</option>
-					</select>
-					</td>
->>>>>>> refs/remotes/origin/master
-				
 				<div id = "findId">
 					<h2 style = "margin-left: 15px;">아이디 찾기</h2>
 					<table id = "idTable" align = "center">

@@ -171,28 +171,9 @@ display:none;
 								});
 							});
 						<%}%>
+
 						</script>
 
-
-					<div id="popUp<%=i%>">
-						<div id="app<%=i%>" onclick = "appJoin(<%=stdList.get(i).getUserNo()%>, '<%=stdList.get(i).getUserId()%>', <%=i%>);" style = "background: whitesmoke; color: grey">
-							<div>
-								<p>가입승인
-								<p>
-							</div>
-						</div>
-						
-						<div id="hol<%=i%>" style="background: grey; color: white">
-							<div>
-								<p>보류
-								<p>
-							</div>
-						</div>
-						<div id="msg"
-							style="background-color: none; color: white; font-size: 35px; display: block; width: 700px; height: 100px;">
-							<em> 승인된 학생은 <br>승인을 취소할 수 없습니다.</em>
-						</div>
-					</div>
 					<%
 					}
 					if(count == 0){
@@ -205,6 +186,7 @@ display:none;
 	</div>
 	</div><!-- container -->
 </div><!-- mainContent -->
+
 	<script>
 		$("[id*=app], [id*=hol]").hover(function() {
 			$(this).css({

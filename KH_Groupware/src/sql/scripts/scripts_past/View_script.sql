@@ -73,15 +73,6 @@ select g.gid, g.rid,  g.user_no, g.status, r.ref_bid
 from good g 
 join f_reply r on(g.rid=r.rid);
 
-CREATE OR REPLACE VIEW F_ALIST
-AS
-SELECT AID, ACONTENT, AWRITER, m.user_name, R.REF_BID AS BID, A.RID, A.CREATE_DATE, A.MODIFY_DATE, A.STATUS 
-FROM F_ANSWER A 
-JOIN F_REPLY R ON (A.RID = R.RID)
-join member m on ( a.awriter = m.user_no);
-
-
-
 
 
 
