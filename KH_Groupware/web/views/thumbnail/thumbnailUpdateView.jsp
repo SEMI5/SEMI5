@@ -330,7 +330,7 @@ td{
    <div id="mainContent"><!-- mainContent -->
 
 <div class = "outer">
-
+<br><br><br>
 		<form id ="updateForm" method ="post" encType="multipart/form-data" action="<%=request.getContextPath()%>/update.th"> 
 				<input type = "hidden" name = "bid" value = "<%= b.getbId() %>">
 			<h2 align="center">사진게시글 수정하기</h2>
@@ -365,9 +365,9 @@ td{
 					</div>
 				</td>
 				<td>
-					<button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
+					<%-- <button class="down-btn1" onclick ="location.href='<%=request.getContextPath() %>/download.th?fid=<%=titleImg.getfId() %>'">
 						<i class="fa fa-download"></i> Download
-					</button>
+					</button> --%>
 				</td>
 			</tr>
 			<tr>
@@ -421,7 +421,6 @@ td{
 						// ThumbnailDeleteServlet 만들러 ㄱㄱ!
 						
 					} 
-				
 				</script>
 	
 		
@@ -430,9 +429,9 @@ td{
 		
 		   <!--  현재 이 게시글에 있는  맨 처음 사진들 fid-->
 			<div id = "presentTitlefidArea">
-				<input  id= "presentTitlefid" type = "text"  value=   <%=titleImg.getfId() %> readonly ><br>
+				<input  id= "presentTitlefid" type = "text" value= <%=titleImg.getfId() %> readonly ><br>
 				<% for(int i=1; i<fileList.size(); i++){ %>
-					<input id= "presentContentfid<%=i+1%>" type = "text"  value=   <%=fileList.get(i).getfId()%> readonly ><br>
+					<input id= "presentContentfid<%=i+1%>" type = "text" value= <%=fileList.get(i).getfId()%> readonly ><br>
 				<%} %>
 			</div>	
 			
@@ -557,7 +556,6 @@ td{
 			  	
 			  	
 			function delTitleImg(){
-			
 				$("#titleImg").attr("src"," ");
 				$("#delImg1").val($("#presentTitlefid").val())
 				$("#thumbnailImg1").val("");
