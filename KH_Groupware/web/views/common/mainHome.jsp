@@ -586,17 +586,17 @@ body{
       <p class="w3-opacity">GET IN TOUCH</p>
 		<form class="gform w3-container w3-card w3-padding-32 w3-white" method="POST" data-email="hokwan927423@gmail.com"
  		  action="https://script.google.com/macros/s/AKfycbxMnCIbQNqL49LIUdqE85erR2lzc1SsyArIbqosOg/exec">        
-        <div class="w3-section">
-          <label>Name</label>
+        <div class="w3-section" style="text-align: left">
+          <label>Name</label >
           <input class="w3-input" style="width:100%;" type="text" required name="name">
         </div>
         
-        <div class="w3-section">
+        <div class="w3-section" style="text-align: left">
           <label>Email</label>
           <input class="w3-input" style="width:100%;" type="email" required name="email">
         </div>
         
-        <div class="w3-section">
+        <div class="w3-section" style="text-align: left">
           <label>Message</label>
           <input class="w3-input" style="width:100%;" type="text" required name="message">
         </div>
