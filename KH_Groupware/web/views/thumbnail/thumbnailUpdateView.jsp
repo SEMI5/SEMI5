@@ -359,7 +359,7 @@ td{
 				<td id = "titleTd" colspan="4">
 					<div id="titleImgArea" align="center">
 						<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
-						<div class = " hoverBlack hoverBlack0"></div>
+						<div class = "hoverBlack hoverBlack0"></div>
 						<button  class= "deleteBtn deleteBtn0" type= "button" onclick= "delTitleImg();">삭제 </button>
 						<button class= "addBtn addBtn0" onclick = "addTitleImg();" type= "button" >다른사진추가</button>
 					</div>
@@ -399,7 +399,6 @@ td{
 		<br><br><br>
 		
 				<div class="btnArea"  align ="center">
-					
 					<button id = "goList-btn" onclick="location.href='<%=request.getContextPath()%>/detail.th'">뒤로가기</button>
 					<button id="update-btn" type= "button" onclick="update();">수정</button>	
 					 <button id="delete-btn" onclick="nDelete();">삭제</button>
@@ -446,7 +445,6 @@ td{
 				</div>
 			<br>
 
-
 			<!--  fid를 삭제하지 않고, fid의 내용만 변경할 목록 -->
 			<br> 
 				<div id = "updateImgArea">
@@ -457,8 +455,6 @@ td{
 					<input id="updateImg5" name ="updateImg5" type= "text" value= "0" readonly> 
 				</div>
 			<br>
-				
-
 		
  			<!-- 파일 업로드 하는 부분(file 타입형 input태그들) -->
 
@@ -489,7 +485,7 @@ td{
 							switch(num){
 							case 1:
 								$("#titleImg").attr("src",e.target.result);	//이미지 변환작업
-								$("#updateImg1").val($("#presentTitlefid").val());
+								$("#updateImg1").val($("#presentTitlefid").val());	//updateImg1의 value값이 (presentTitlefid는 T_ATTACH의 fid)의 값이 들어옴
 								break;
 							case 2:
 								$("#contentImg2").attr("src",e.target.result);
@@ -516,19 +512,18 @@ td{
 		
 			  	$(function(){
 			  		$("#presentTitlefidArea").hide();
-			  		$("#fileArea").hide();
 			  		$("#delImgArea").hide();
 			  		$("#updateImgArea").hide();
-				      $("#titleImgArea").mouseover(function(){
-				         $(".hoverBlack0").css({"display":"block"});
-				         $(".addBtn0").css({"display":"block"});
-				         $(".deleteBtn0").css({"display":"block"});
-				         
+			  		$("#fileArea").hide();
+				      $("#titleImgArea").mouseover(function(){		//타이틀 이미지 마우스오버시
+				         $(".hoverBlack0").css({"display":"block"});  // 삭제 or 다른사진추가 표시
+				         $(".addBtn0").css({"display":"block"});		
+				         $(".deleteBtn0").css({"display":"block"});		
 				         console.log("1");
 				      })
 				      
-			        $("#titleImgArea").mouseout(function(){
-				    	  $(".hoverBlack0").css({"display":"none"});
+			        $("#titleImgArea").mouseout(function(){			//타이틀 이미지 마우스아웃시
+				    	  $(".hoverBlack0").css({"display":"none"});	// 삭제 or 다른사진추가 표시 해제
 				    	  $(".addBtn0").css({"display":"none"});
 				    	  $(".deleteBtn0").css({"display":"none"});
 				    	  console.log("2");
@@ -537,7 +532,7 @@ td{
 			  	
 
 			  	$(function(){
-				      $(".detailImgArea").mouseover(function(){
+				      $(".detailImgArea").mouseover(function(){		// 추가사진 이미지도 위와 동일
 				         $(".hoverBlack9").css({"display":"block"});
 				         $(".addBtn9").css({"display":"block"})
 				         $(".deleteBtn9").css({"display":"block"});
@@ -553,30 +548,24 @@ td{
 				      })
 				   });  
 			  	
-			  	
-			  	
-			function delTitleImg(){
-				$("#titleImg").attr("src"," ");
-				$("#delImg1").val($("#presentTitlefid").val())
-				$("#thumbnailImg1").val("");
-			}
-				
-			
-			function addTitleImg(){
-				$("#thumbnailImg1").click();
-				
+			function delTitleImg(){					// 이미지 삭제시
+				$("#titleImg").attr("src"," ");					
+				$("#delImg1").val($("#presentTitlefid").val());	// presentTitlefid는 T_ATTACH의 fid 
+				$("#thumbnailImg1").val("");					// input type = file인 값을 초기화됨
 			}
 			
+			function addTitleImg(){					// 다른사진 추가시
+				$("#thumbnailImg1").click();		// input type = file인 값 실행됨
+			}
 			
-			
-			function delContentImg(index, fid ){
-				$("#contentImg"+index).attr("src"," ");
-				$("#delImg"+ index).val(fid) 
+			function delContentImg(index, fid){					
+				$("#contentImg"+index).attr("src"," ");			
+				$("#delImg"+ index).val(fid) 	
 				$("#thumbnailImg"+index).val("");
 			}
 			
 			function addContentImg(index, fid){
-				$("#thumbnailImg"+index).click();
+				$("#thumbnailImg"+index).click();	
 			}
 			
 		
