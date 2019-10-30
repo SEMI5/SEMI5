@@ -51,7 +51,7 @@
 }
 
 .detailImgArea {
-      width:235px;
+      width:220px;
       height:210px;
       margin-left:auto;
       margin-right:auto;
