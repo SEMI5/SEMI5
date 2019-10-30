@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+qqqqqq<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, share.model.vo.*, java.util.ArrayList"%>
     
 
@@ -364,10 +364,8 @@ input{
 			url : "/KH_Groupware/ajaxDown.sh",
 			type : "post",
 			data: { fid1: fid
-				
 			},
 			success : function(data){
-				
 			 	$(count).text(data.downloadCount+1); 
 			},
 			error : function(data){

@@ -217,8 +217,10 @@ body, html {
 		        <h2>KH정보교육원 강남 1관</h2>
 		      </header>
 		      <div class="w3-container">
-					<div id="map" style="width:100%;height:500px;"></div>
-								<script>
+					<div id="map" style="width:100%;height:500px;">
+						<img src="../../images/howtoGo.gif" style="width:100%;height:500px;">
+					</div>
+								<!-- <script>
 									var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 									    mapOption = {
 									        center: new kakao.maps.LatLng(37.4990000,127.0328800), // 지도의 중심좌표
@@ -244,7 +246,7 @@ body, html {
 									        });				
 									        map.setCenter(coords);
 									}); */
-								</script>
+								</script> -->
 		      </div>
 		      <footer class="w3-container w3-teal">
 		        <p>서울특별시 강남구 역삼동 강남구 테헤란로14길 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전화번호 : (02) 1544-9970</p>

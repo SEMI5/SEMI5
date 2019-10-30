@@ -284,8 +284,9 @@ String originName8= flist.get(7).getOriginName();
 									<%} else{%>
 									<input id = superCheck type="checkbox" name="blevel" value="4" onclick="checkBox();" checked>
 									<%} %>
+									<label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
 								 <%} %>
-								<label for="superCheck" id=checkLabel><span style="position: absolute; top:27px"><b>상단위치</b></span></label>
+								
 								<input id = noCheck type= "hidden" name="blevel" value="1">
 				            					 <input type="hidden" name = "btype" value="<%=b.getBtype() %>">
 				            					 <input type="hidden" name = "bid" value="<%=b.getbId() %>">
