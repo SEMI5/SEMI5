@@ -203,11 +203,25 @@
 			cursor: default;
 			color: #777;
 		}
-		.info{
-			
+		#searchBtn{
+			background: gainsboro; border: 0px solid black; color: black;
+			width: 30px;
+		    height: 20px;
+		    margin: 7px;
+		    font-weight: bolder;
+		}
+		#registBtn{
+			 background: gainsboro; border: 0px solid black; color: black;
+			 width: 30px;
+		     height: 20px;
+		     margin: 7px;
+		    font-weight: bolder;
+		}
+		#searchBtn:hover, #registBtn:hover{
+			background: white;
+			color: black;
 		}
 	</style>
-
 </head>
 <body>
 
@@ -221,11 +235,11 @@
 			<div class="option">
 				<div>
 					<form onsubmit="searchPlaces(); return false;">
-						키워드 : <input type="text" value="" id="keyword" required><br>
-						<button type="submit">검색</button>
+						가게명 : <input type="text" value="" id="keyword" required><br>
+						<button id="searchBtn" type="submit">검색</button>
 						<!-- 로그인 한 사람만 등록 가능하게함. -->
 						<%if(loginUser2 != null){ %>
-						<button type="button" onclick="popupOpen();">등록</button>
+						<button id="registBtn" type="button" onclick="popupOpen();">등록</button>
 						<%}%>
 					</form>
 				</div>
@@ -240,7 +254,14 @@
 	<script>
 		function popupOpen(){
 		var popUrl = "popup.jsp?A="+A+"&B="+B;	//팝업창에 출력될 페이지 URL
-		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+		var width = '370';
+		var height = '360';
+		
+		// 가운데 정렬용
+		var _left = Math.ceil((window.screen.width - width)/2);
+		var _top = Math.ceil((window.screen.height - height)/2);
+	
+		var popOption = "width=370, height=360, top=" + _top + " ,left=" + _left + ", resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 		window.open(popUrl,"",popOption);
 	}
 	</script>	

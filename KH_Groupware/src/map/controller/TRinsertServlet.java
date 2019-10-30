@@ -53,14 +53,11 @@ public class TRinsertServlet extends HttpServlet {
 			response.sendRedirect("views/common/mapSuccess.jsp");
 			
 		}else {
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp"); 
+			RequestDispatcher view = request.getRequestDispatcher("views/common/mapFail.jsp"); 
 			request.setAttribute("msg", "실패함!");
 			
 			view.forward(request, response);
 		}
-		
-		
-		
 	}
 
 	/**

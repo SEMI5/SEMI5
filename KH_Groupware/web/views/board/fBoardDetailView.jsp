@@ -941,43 +941,64 @@ $(document).on('click', ".answerAdd", function () {
 						html += "</td>";
 						html += "</tr>";
 					
-				}
-				if( loginUserNo != null && ( loginUserNo > 10000  || loginUserNo==  bUserNo|| loginUserNo ==rUserNo )){
-					html +=  "<span class= 'delete' onclick='deleteReply(this);'>삭제";	
-					html +=   "<input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
-				}
-				html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='color:"+color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
-				html += "</td>";
-				html += "</tr>";
+						html += "<tr><td width='400px'>";
+						if((bestIndex == 0 || bestIndex== 1) && count >= 2){
+							html += "<span class= 'best'>BEST&nbsp;</span>";
+						}
+							html += "<textArea id= 'text"+i+"' class='replyListText' readonly= 'readonly' data-value='1'>" + rContent + "</textArea></td>";
+						
+						html += "</tr>";
+						
+						html += "<tr style='border:none; border-bottom: 1px solid darkgray;padding:3px'>";
+						html += "<td style= width:'200px;height:35px; padding-top:0px'>&nbsp;";
+						html += "<span class= 'answer'>답글</span>&nbsp;"
+						if (loginUserNo != null && (loginUserNo == rUserNo)){ 	
+							html += "<span class= ' change'>수정</span>&nbsp;";
+							html += "<input type = hidden value = 'text"+i+"'>";
+							html += "<input type = hidden value = '"+ rId + "'>";
+							
+						}
+						if( loginUserNo != null && ( loginUserNo > 10000  || loginUserNo==  bUserNo|| loginUserNo ==rUserNo )){
+							html +=  "<span class= 'delete' onclick='deleteReply(this);'>삭제";	
+						
+						}
+						html +=   "<input id ='rid"+i+ "' type= 'hidden' value =" +rId+ "></span>";
+						html += "<span class= 'good' onclick='goodClick(this,rid"+i+")' style='color:"+color+"; border:1px solid "+ color +"'><i class='fa fa-thumbs-up' style='font-size:15px;'></i>&nbsp;<span>" +count +"</span></span>";
+						html += "</td>";
+						html += "</tr>";
 
-			
-				/* result[2][index3] alist]  */
+					
+						/* result[2][index3] alist]  */
 
-				
-				
-		 	html += "<tr class='answerTrWrite'>";
-			html += "<td>";
-			html +=	"<input type ='hidden' value =" + result[0][index].rId +">";
-			html +=	"<div  class = answerInfo>" + loginUserName +"&nbsp;</div>";	 
-			html +=	"<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
-			html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textArea class= 'answerText'></textArea>";
-			html += "<span class= 'answerAdd'>등록</span></td></tr>";
-			 
-			
-			    if(result[2] != null){ 					
-				for (var index3 in result[2]){
-					 if(result[0][index].rId == result[2][index3].rid){
-						html += "<tr class= 'answerTr'>";
-						html += "<td>";
-						html += "<input type ='hidden' value ='" + result[0][index].rId + "'>";
-						html += "<div class = 'answerInfo'>" + result[2][index3].userName + "&nbsp;" + result[2][index3].createDate + "</div>"; 
-						html += "<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
-						html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-						html += "<textArea class= 'answerText' readonly>" + result[2][index3].acontent + "</textArea>";
-						  if (loginUserNo > 10000 ||loginUserNo == parseInt(result[2][index3].awriter)){ 
-						   html +=  "<span class= 'answerDelete'>삭제</span>";
-						   html += "<input type= 'hidden' value ='" + result[2][index3].aid + "'>";
-						 } 
+						
+						
+				 	html += "<tr class='answerTrWrite'>";
+					html += "<td>";
+					html +=	"<input type ='hidden' value =" + result[0][index].rId +">";
+					html +=	"<div  class = answerInfo>" + loginUserName +"&nbsp;</div>";	 
+					html +=	"<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
+					html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textArea class= 'answerText'>";
+					html += "</textArea><span class= 'answerAdd'>등록</span></td></tr>";
+					 
+					
+					    if(result[2] != null){ 					
+						for (var index3 in result[2]){
+							 if(result[0][index].rId == result[2][index3].rid){
+								html += "<tr class= 'answerTr'>";
+								html += "<td>";
+								html += "<input type ='hidden' value ='" + result[0][index].rId + "'>";
+								html += "<div class = 'answerInfo'>" + result[2][index3].userName + "&nbsp;" + result[2][index3].createDate + "</div>"; 
+								html += "<span class='answerIcon'><i class='fa fa-angle-right' aria-hidden='true' style='font-size:30px;'></i></span>";
+								html +=	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+								html += "<textArea class= 'answerText' readonly>" + result[2][index3].acontent + "</textArea>";
+									  if (loginUserNo > 10000 ||loginUserNo == parseInt(result[2][index3].awriter)){ 
+									   html +=  "<span class= 'answerDelete'>삭제</span>";
+									   html += "<input type= 'hidden' value ='" + result[2][index3].aid + "'>";
+									 } 
+									  
+								html += "</td></tr>";
+							}
+						 } <!-- alist 관련  for문  -->
 					  }	 
 						
 						
@@ -987,16 +1008,13 @@ $(document).on('click', ".answerAdd", function () {
 							$("#replySelectTable").append(html); 
 					} // 바깥쪽 for문 끝
 					
+
 					$(this).parent().find("textArea").val(""); 
 					answerBox.css({"display":"none"}); 
-					
+										
 				
    			}
-
-			
-		
 	});
-
 });
 
 
@@ -1245,7 +1263,7 @@ $(function(){
 						for(var key in data){
 							result.push(data[key]); 
 						}
-						var i = <%= i+1 %>
+						var i = <%= i %>
 						var bestIndex = -1; 
 						
 						console.log(result[0])

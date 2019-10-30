@@ -28,8 +28,8 @@
 		#list{
 			width: 494px;
 			height: 830px;
-/* 			background: white; */
-			 background: rgb(225,225,225);   
+ 			background: ghostwhite; 
+			 /* background: rgb(225,225,225);  */  
 			display: inline-block;
 			border: 2px solid none;
 			-ms-overflow-style: none; /* ms에서 스크롤바 안보이게 */
@@ -66,8 +66,13 @@
 		#onelist{
 		    text-align-last: center;
 		}
+		#onelist:hover{
+			background: black;		
+			opacity: 0.5;
+		}
 		#likeCountt{
-			vertical-align: -webkit-baseline-middle;
+			vertical-align: super;
+			font-family: fantasy;
 		}
 		li{
 		list-style: none;
