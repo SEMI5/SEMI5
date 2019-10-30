@@ -680,13 +680,13 @@ body{
    	
 </script>
 
-<br><br><br><br><br><br><br><br><br><br><br>
+<%-- <br><br><br><br><br><br><br><br><br><br><br>
 	<div>
 		<img src="<%=request.getContextPath() %>/images/suit.jpg" style="width:100%; height:100%;"> 
 	</div>
 
 
-		
+		 --%>
 	
 	
 

@@ -583,7 +583,6 @@ function gonShareFile(){
 	location.href="<%=request.getContextPath()%>/list.sh";
 }
 
-
 // 앨범 바로가기 
 function goElbum(){
 		var userNo = $("#userNo").val()
@@ -594,9 +593,16 @@ function goElbum(){
 		}  
 }
 
+// 채팅 바로가기
+function showChattingPOPUP() {
+		var width = "400";
+		var height = "600";
+		var _left = Math.ceil((window.screen.width - width)/2);
+		var _top = Math.ceil((window.screen.height - height)/2);
+	   window.open("../chatting/chattingPopup.jsp", "", "width=400, height=600, left=" + _left + ", top=" + _top);
+}
 
-
-//맛집으로 바로가기 
+// 맛집으로 바로가기 
 function goTasty(){
 	var userNo = $("#userNo").val()
   	if( userNo == 0 ){
@@ -607,7 +613,7 @@ function goTasty(){
 }
 
 
-//소개바로가기
+// 소개바로가기
 	function goIntro() {
 		location.href = "<%=request.getContextPath()%>/views/common/infoPage.jsp";
 	}

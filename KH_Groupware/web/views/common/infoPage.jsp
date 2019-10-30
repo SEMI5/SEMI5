@@ -51,6 +51,9 @@ body, html {
   background-color: #555;
   color: white;
 }
+#howtogoImg{
+	cursor: pointer;
+}
 /* img{
    left: -523px;
     top: -411px;
@@ -109,11 +112,15 @@ body, html {
 }
 
 #saveId {
-
     top: 170px;
-
 }
 
+#detailMap{
+	cursor: pointer;
+}
+#detailMap:hover {
+	background: black;
+}
 
 </style>
 
@@ -201,13 +208,7 @@ body, html {
 			
 	</div>
 </div>
-		
-		
-		
-		
-		
-		
-		
+
 		<!-- 버튼 클릭시 나올 div -->
 			<div id="id01" class="w3-modal">
 		    <div class="w3-modal-content">
@@ -218,46 +219,17 @@ body, html {
 		      </header>
 		      <div class="w3-container">
 					<div id="map" style="width:100%;height:500px;">
-						<img src="../../images/howtoGo.gif" style="width:100%;height:500px;">
+						<img id="howtogoImg" src="../../images/howtoGo.gif" style="width:100%;height:500px;" onclick="location.href='https://map.naver.com/v5/directions/14141510.096258987,4509045.3825061675,%EC%97%AD%EC%82%BC%EC%97%AD,,/14141238.309722211,4508888.412917161,KH%EC%A0%95%EB%B3%B4%EA%B5%90%EC%9C%A1%EC%9B%90%20%EA%B0%95%EB%82%A8%EC%A7%80%EC%9B%901%EA%B4%80,11525091,PLACE_POI/-/walk?c=14141237.1952133,4508950.1317392,17,0,0,0,dh'">
 					</div>
-								<!-- <script>
-									var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-									    mapOption = {
-									        center: new kakao.maps.LatLng(37.4990000,127.0328800), // 지도의 중심좌표
-									        level: 4, // 지도의 확대 레벨
-									        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-									    }; 
-									// 지도를 생성한다 
-									var map = new kakao.maps.Map(mapContainer, mapOption); 
-							
-								 	// 지도에 마커를 생성하고 표시한다
-									var marker = new kakao.maps.Marker({
-									    position: new kakao.maps.LatLng(37.4990000,127.0328800), // 마커의 좌표
-									    draggable : true, // 마커를 드래그 가능하도록 설정한다
-									    map: map // 마커를 표시할 지도 객체
-									}); 
-									/* $(function(){
-										 var coords = new kakao.maps.LatLng(37.4990000,127.0328800);
-											
-									        // 결과값으로 받은 위치를 마커로 표시합니다
-									        var marker = new kakao.maps.Marker({
-									            map: map,
-									            position: coords
-									        });				
-									        map.setCenter(coords);
-									}); */
-								</script> -->
 		      </div>
 		      <footer class="w3-container w3-teal">
-		        <p>서울특별시 강남구 역삼동 강남구 테헤란로14길 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전화번호 : (02) 1544-9970</p>
+		        <p>서울특별시 강남구 역삼동 강남구 테헤란로14길 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		        전화번호 : (02) 1544-9970 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ||  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		        <a id="detailMap" style="text-decoration:none" href="https://map.naver.com/v5/directions/14141510.096258987,4509045.3825061675,%EC%97%AD%EC%82%BC%EC%97%AD,,/14141238.309722211,4508888.412917161,KH%EC%A0%95%EB%B3%B4%EA%B5%90%EC%9C%A1%EC%9B%90%20%EA%B0%95%EB%82%A8%EC%A7%80%EC%9B%901%EA%B4%80,11525091,PLACE_POI/-/walk?c=14141237.1952133,4508950.1317392,17,0,0,0,dh" target="_blank">오는 길 자세히 보기</a></p>
 		      </footer>
 		    </div>
 		  </div>
 		<!-- 버튼 클릭시 나올 div -->
-		
-		
-		
-
 
 
 </body>
