@@ -72,11 +72,15 @@
 
     #outer{
        width: 100%;
-       position: absolute;
+       position: relative;
        border:none;
        padding: 10px;
     }
-
+	::-webkit-scrollbar {
+	
+		display:none;
+		
+	}
 
 	#listcountDiv{
 		border:none;

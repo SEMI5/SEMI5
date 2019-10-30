@@ -17,7 +17,9 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/bPopup/0.11.0/jquery.bpopup.min.js'></script>
 <title>Insert title here</title>
 <style>
+
 .outer{
+
 	/* border: 2px solid black; */ 
 	width : 90%;
 	height : 500px;
@@ -26,7 +28,7 @@
 	margin-left : 5%;
 	margin-right : 5%;
 	margin-top : 3%;
-	
+	position: relative;
 }
 
 .outer label, .outer td{
@@ -255,8 +257,8 @@ th{
 
 
 <body>
-<div id="container" style="overflow: auto;"><!-- container -->
-   <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
+<div id="container" style=""><!-- container -->
+   <div id="mainContent" style=""><!-- mainContent -->
 
 
 					<div class="scrollheader">

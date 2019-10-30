@@ -37,7 +37,14 @@ public class NBoardDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		int cid= loginUser.getcId();
+		
+		
+		int cid = 0; 
+		
+		if(loginUser != null) {
+			cid= loginUser.getcId();
+		}
+		
 		
 		
 		int bid = Integer.valueOf(request.getParameter("bid"));

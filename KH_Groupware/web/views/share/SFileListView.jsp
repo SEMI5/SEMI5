@@ -26,6 +26,8 @@ qqqqqq<%@ page language="java" contentType="text/html; charset=UTF-8"
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!--  모두 파비콘을 가져가서 본인 파일에 삽입해주세요  -->
+<link rel="shortcut icon" type="image⁄x-icon" href='<%=request.getContextPath()%>/images/KH_favicon.ico'>
 </head>
 <style>
 

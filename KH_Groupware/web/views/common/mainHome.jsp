@@ -391,6 +391,7 @@ bottom: 0px;
 }
 
 
+
 .circle{
 	position: absolute; 
 	z-index: 1;

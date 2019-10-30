@@ -160,7 +160,7 @@ display:none;
 							
 							$(function() {
 								$('#std<%=i%>').on('click', function(e) {
-									e.preventDefault();
+									
 									$('#popUp<%=i%>').bPopup({
 										modalClose : false
 									});	
@@ -173,14 +173,33 @@ display:none;
 						<%}%>
 
 						</script>
+					<div id="popUp<%=i%>">
+						<div id="app<%=i%>" onclick = "appJoin(<%=stdList.get(i).getUserNo()%>, '<%=stdList.get(i).getUserId()%>', <%=i%>);" style = "background: whitesmoke; color: grey">
+							<div>
+								<p>가입승인
+								<p>
+							</div>
+						</div>
+						
+						<div id="hol<%=i%>" style="background: grey; color: white">
+							<div>
+								<p>보류
+								<p>
+							</div>
+						</div>
+						<div id="msg"
+							style="background-color: none; color: white; font-size: 35px; display: block; width: 700px; height: 100px;">
+							<em> 승인된 학생은 <br>승인을 취소할 수 없습니다.</em>
+						</div>
+					</div>
 
 					<%
 					}
 					if(count == 0){
 					%>
-				</table>
 					<h2>승인 대기 중인 학생이 없습니다.</h2>
 					<%} %>
+				</table>
 			</div>
 		</div>
 	</div>

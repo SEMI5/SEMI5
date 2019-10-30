@@ -106,7 +106,7 @@
   <div id="page-container">
  <!--    <div id="content-wrap">
     </div> -->
-    <footer id="footer">
+    <div id="footer">
    <!--    <div class= footerTitle><h3>KH Groupware</h3></div> -->
          <!-- <div style="height: 5px"></div> -->
          &nbsp;&nbsp;
@@ -134,7 +134,7 @@
                </li>
             </ul>
          </div>
-   </footer>
+   </div>
   </div>
 </body>
 </html>

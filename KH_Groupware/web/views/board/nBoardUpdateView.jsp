@@ -49,9 +49,9 @@ String originName8= flist.get(7).getOriginName();
 <style>
    #outer{
        width: 100%;
-       position: absolute;
        padding: 10px;
          border:none;
+         position: relative;
      } 
    
     #tableDiv{

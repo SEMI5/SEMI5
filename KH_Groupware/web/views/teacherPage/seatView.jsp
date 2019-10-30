@@ -211,7 +211,7 @@ display:none;
 
 
 	<div id = "banner">	
-		<img src="https://i.ibb.co/QK4j3ZT/image.jpg" alt="image" border="0">
+		<img src="<%=request.getContextPath()%>/views/teacherPage/3.jpg" alt="image" border="0">
 		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">자리 배치</b></div>
 	</div>
 

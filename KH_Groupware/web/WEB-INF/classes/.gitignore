@@ -1,9 +1,5 @@
-/map/
-<<<<<<< HEAD
-=======
-/member/
-/share/
-/sql/
 /teacherPage/
+/thumbnail/
 /wrapper/
->>>>>>> refs/remotes/origin/master
+/board/
+/sql/

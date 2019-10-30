@@ -30,7 +30,7 @@ body {font-family: "Lato", sans-serif;}
 /* Style the tab content */
 .tabcontent {
   color: white;
-  display: none;
+/*   display: none; */
   padding: 50px;
   text-align: center;
 }

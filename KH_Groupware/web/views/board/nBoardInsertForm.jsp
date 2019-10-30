@@ -23,9 +23,9 @@
 <meta charset="UTF-8">
 <style>
    #outer{
+  		position: relative;
        width: 100%;
-       position: absolute;
-       padding: 10px;
+       padding: 0px;
    	   border:none;
   	} 
    

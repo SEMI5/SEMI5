@@ -48,7 +48,7 @@ String originName8= flist.get(7).getOriginName();
 <style>
    #outer{
        width: 100%;
-       position: absolute;
+       position: relative;
        padding: 0px;
          border:none;
      } 

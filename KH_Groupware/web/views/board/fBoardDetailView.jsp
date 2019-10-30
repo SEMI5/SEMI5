@@ -49,6 +49,8 @@
 <meta charset="UTF-8">
 <title>KH_Groupware</title>
 <style>
+
+
    #outer{
        	
        width: 100%;

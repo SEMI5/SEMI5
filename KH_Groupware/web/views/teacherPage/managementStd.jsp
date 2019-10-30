@@ -142,7 +142,7 @@
 
 <body>
 	<div id = "banner">	
-		<img src="https://i.ibb.co/gPCfgQX/image.jpg" alt="image" border="0">
+		<img src="<%=request.getContextPath()%>/views/teacherPage/5.jpg" alt="image" border="0">
 		<div  id = "mainTitle"><b style="margin-bottom: 3000px;">학생 관리</b></div>
 	</div>
 

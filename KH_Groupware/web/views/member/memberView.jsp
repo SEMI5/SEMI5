@@ -12,7 +12,7 @@
 	String userId = user.getUserId();
 	String cName = cls;
 	String userName = user.getUserName();
-	String userBorn = user.getRRN().substring(0, 7);
+	String userBorn = user.getRRN().substring(0, 8);
 	String userGender = user.getRRN().substring(8);
 		if(userGender.equals("1")){
 			userGender = "남";
@@ -61,12 +61,12 @@ display:none;
 	}
 	#updateForm{
 		margin: auto;
-		margin-top: 40px;
 		margin-top: 10px;
 		border: 1px solid lightgrey;
 		width: 60%;
 		padding: 50px;
 		padding-top: 0px;
+		margin-bottom: 50px;
 	}
 	
 	input{
@@ -205,6 +205,7 @@ display:none;
 	<%@ include file = "/views/common/header.jsp" %>
 </header>
 <body>
+
 <div id="container" style="overflow: auto;"><!-- container -->
    <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 
@@ -291,12 +292,9 @@ display:none;
 	
 	
 	
-	<!-- 중복체크 팝업창 -->
-	<div id = "idCheckPop">
-			<h1>test</h1>
->>>>>>> refs/remotes/origin/master
+
 	</div>
-	
+	</div>
 	
 	
 	
@@ -522,7 +520,7 @@ display:none;
     }
 	
 </script>
-	
+	<%@ include file = "/views/common/footer.jsp" %>	
 		
 </body>
 </html>

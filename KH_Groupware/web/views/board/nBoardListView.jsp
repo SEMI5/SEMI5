@@ -75,11 +75,18 @@
 
     #outer{
        width: 100%;
-       position: absolute;
        border:none;
        padding: 10px;
+       position: relative;
     }
 
+
+
+	::-webkit-scrollbar {
+	
+		display:none;
+		
+	}
 
 	#listcountDiv{
 		border:none;

@@ -187,8 +187,8 @@ td{
 
 
 .addBtn0{	/* 타이틀 에드버튼 상세 설정 */
-	top: -220px;
-	left: 40px;
+	top: -180px;
+	left: 15px;
 	width: 100px;
 	height: 40px; 
 	background: darkgray;
@@ -360,7 +360,6 @@ td{
 					<div id="titleImgArea" align="center">
 						<img id="titleImg" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/<%=titleImg.getChangeName() %>">
 						<div class = "hoverBlack hoverBlack0"></div>
-						<button  class= "deleteBtn deleteBtn0" type= "button" onclick= "delTitleImg();">삭제 </button>
 						<button class= "addBtn addBtn0" onclick = "addTitleImg();" type= "button" >다른사진추가</button>
 					</div>
 				</td>

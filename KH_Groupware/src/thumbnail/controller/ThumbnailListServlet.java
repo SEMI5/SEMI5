@@ -72,7 +72,7 @@ public class ThumbnailListServlet extends HttpServlet {
 		
 		// * limit - 한 페이지에 보여질 목록 갯수
 				
-		limit = 8;
+		limit = 10;
 		maxPage = (int)((double)listCount/limit + 0.9);
 		startPage = (((int)((double)currentPage/limit + 0.9))-1)*limit + 1;
 		endPage = startPage + limit - 1;

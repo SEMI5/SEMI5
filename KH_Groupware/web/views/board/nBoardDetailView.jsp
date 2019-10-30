@@ -31,9 +31,9 @@
 <style>
    #outer{
        width: 100%;
-       position: absolute;
        border:none;
        padding: 10px;
+       position: relative;
    }
    td {
       border:1px solid white;
@@ -266,6 +266,10 @@ td span{
 	background: black;
 }   
 
+#saveId {
+    top: 162px;
+}
+
 </style>
 </head>
 <header>
@@ -276,7 +280,7 @@ td span{
 
 
 
-<div id="container" style="overflow: auto; height: 1335px;"><!-- container -->
+<div id="container" style="height: 1335px;"><!-- container -->
    <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 
 					<div style="height:46px;width:100%;background:#262A2D;"></div>
