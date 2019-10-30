@@ -12,9 +12,7 @@
 <style>
 
 #hello{
-	margin-top : 50px;
-	margin-left: 370px;
-	width : 50%;
+	width : 100%;
 }
 </style>
 </head>
@@ -25,7 +23,7 @@
 <div id="container" style="overflow: auto;"><!-- container -->
    <div id="mainContent" style="overflow: auto;"><!-- mainContent -->
 	   
-		<img id = "hello" src ="<%=request.getContextPath() %>/images/hello.png">
+		<img id = "hello" src ="<%=request.getContextPath() %>/images/welcome.jpg">
 		<h1 align = "center"><%=msg %></h1>
 		<a href = "<%=request.getContextPath() %>/index.jsp" align = "center"><h1>메인으로 돌아가기</h1></a>
 	
