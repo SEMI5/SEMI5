@@ -52,7 +52,7 @@ public class FBoardDetailServlet extends HttpServlet {
 		Board nextBoard = fBoardService.selectBoardAsRnum(cid, nowRnum-1);
 		
 		ArrayList<Attachment> attachments=null;
-		
+			
 		if( board.getBtype().equals("2")){
 			attachments= fBoardService.selectAttachments(bid);
 			 request.setAttribute("attachments", attachments);
