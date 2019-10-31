@@ -96,7 +96,7 @@ public class ShowCalendarServlet extends HttpServlet {
 
 				if (type.equals("V_W")) {
 					resultHM.put("title", userName + " : 승인대기중");
-					resultHM.put("color", "#E7E3E3");
+					resultHM.put("color", "lightgrey");
 				}
 
 				if (type.equals("V_N")) {
@@ -122,7 +122,7 @@ public class ShowCalendarServlet extends HttpServlet {
 
 				if (type.equals("V_W") && loginUser.getUserNo() == scdList.get(i).getUserNum()) {
 					resultHM.put("title", "승인 대기중");
-					resultHM.put("color", "#E7E3E3");
+					resultHM.put("color", "lightgrey");
 					resultHM.put("editable", "true");
 
 					result.add(resultHM);

@@ -45,6 +45,7 @@
 	margin: 2%;
 	width: 30%;
 	height: 570px;
+	overflow : scroll;
 }
 
 #consulting {
@@ -151,17 +152,17 @@
 		<div id="stdList">
 			<table>
 				<tr>
-					<th width="100px">학생번호</th>
+					<th width="100px" height = "50px">학생번호</th>
 					<th width="200px">학생이름</th>
 					<th width="250px">생년월일</th>
 					<th width="150px">비고</th>
 				</tr>
 				<%for(int i = 0; i < stdList.size() ; i++){ %>
 				<tr id="std<%=i%>" class="std" onclick = "showConsultingForm(<%=i%>);">
-					<td><%=count %></td>
-					<td><%=stdList.get(i).getUserName() %></td>
-					<td><%=stdList.get(i).getRRN()%></td>
-					<td><%=i%></td>
+					<td height = "50px"><%=count %></td>
+					<td height = "50px"><%=stdList.get(i).getUserName() %></td>
+					<td height = "50px"><%=stdList.get(i).getRRN()%></td>
+					<td height = "50px"><%=i%></td>
 				</tr>
 				<% count ++;} %>
 			</table>

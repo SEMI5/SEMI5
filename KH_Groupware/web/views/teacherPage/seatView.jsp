@@ -198,6 +198,65 @@ display:none;
 	padding-bottom: 30px;
 	}
 
+#saveSeat {
+  padding: 15px 25px;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  /* background-color: #f1f1f1; */
+  background-color: black; 
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px #999;
+  margin-right : 80px;
+  float : right;
+  border-radius: 16px;
+  color : white;
+}
+
+#saveSeat:hover {
+	color : white;
+	/* background-color: #666; */
+	background-color: #f53f29; 
+	border-radius: 16px;
+}
+
+#saveSeat:active {
+	color : white;
+/*   background-color: #666; */
+  	background-color: #f53f29; 
+  box-shadow: 0 3px #666;
+  transform: translateY(4px);
+   border-radius: 16px;
+}
+
+#resetSeat{
+	background-color: #f1f1f1;
+	border: none;
+	/* margin-right : 80px; */
+	float : right;
+	padding: 10px 16px;
+	font-size: 15px;
+	cursor: pointer;
+	display : inline-block;
+	border-radius: 16px;
+	box-shadow: 0 5px #999;
+}  
+#resetSeat:hover{
+	background-color: #666;
+	color: white;
+	border-radius: 16px;
+} 
+#resetSeat:active {
+	color : white;
+/*   background-color: #666; */
+  	background-color: #f53f29; 
+  	box-shadow: 0 3px #666;
+  	transform: translateY(4px);
+  	border-radius: 16px;
+}
+
 </style>
 </head>
 

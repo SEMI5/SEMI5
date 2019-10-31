@@ -57,7 +57,7 @@ $(function(){
 </body>	
     <script type="text/javascript">
         var textarea = document.getElementById("messageWindow");
-        var webSocket = new WebSocket('ws://localhost:8888/KH_Groupware/broadcasting');
+        var webSocket = new WebSocket('ws://192.168.30.72:8888/KH_Groupware/broadcasting');
         var inputMessage = document.getElementById('inputMessage');
     webSocket.onerror = function(event) {
       onError(event)

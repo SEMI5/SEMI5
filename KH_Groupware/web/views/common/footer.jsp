@@ -129,8 +129,10 @@
                <li style="text-align: center; height: 50px;">-----------------</li>
                <li style="text-align: center; height: 50px;">Alliance With</li>
                <li target="_blank" style="text-align-last: center;">
-                  <img id="img1" src ="<%=request.getContextPath() %>/images/icon/kh.png"  onclick="location.href='https://iei.or.kr/main/main.kh'">
-                  <img id="img2" src ="<%=request.getContextPath() %>/images/icon/hrd.png" onclick="location.href='http://hrd.go.kr/hrdp/ma/pmmao/indexNew.do'">
+               <%--    <img id="img1" src ="<%=request.getContextPath() %>/images/icon/kh.png"  onclick="location.href='https://iei.or.kr/main/main.kh'">
+                  <img id="img2" src ="<%=request.getContextPath() %>/images/icon/hrd.png" onclick="location.href='http://hrd.go.kr/hrdp/ma/pmmao/indexNew.do'"> --%>
+                  <a href = "https://iei.or.kr/main/main.kh" target ="_blank"><img id="img1" src ="<%=request.getContextPath() %>/images/icon/kh.png" alt =""></a>
+				  <a href = "http://hrd.go.kr/hrdp/ma/pmmao/indexNew.do" target ="_blank"><img id="img1" src ="<%=request.getContextPath() %>/images/icon/hrd.png" alt =""></a>
                </li>
             </ul>
          </div>

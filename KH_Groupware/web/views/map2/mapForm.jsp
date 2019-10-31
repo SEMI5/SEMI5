@@ -20,6 +20,7 @@
 			
 			width: 1400px;
 			height: 830px;
+			/* background: begie; */
 			background: begie;
 			display: inline-block;
 			position: sticky;  /* 헤더가 안씹게 */
@@ -28,7 +29,8 @@
 		#list{
 			width: 494px;
 			height: 830px;
- 			background: ghostwhite; 
+ 			/* background: lightgray; */
+ 			background: #9795A3;
 			 /* background: rgb(225,225,225);  */  
 			display: inline-block;
 			border: 2px solid none;
@@ -65,11 +67,13 @@
 		}
 		#onelist{
 		    text-align-last: center;
+		    color: white;
 		}
-		#onelist:hover{
+ 		#onelist:hover{
 			background: black;		
 			opacity: 0.5;
-		}
+			cursor: pointer;
+		} 
 		#likeCountt{
 			vertical-align: super;
 			font-family: fantasy;
@@ -77,6 +81,12 @@
 		li{
 		list-style: none;
 		}
+		#thumb:hover{
+			color: white;
+			/* background: white; */
+			cursor: pointer;
+		}
+		
 	</style>
 </head>
 <header>
@@ -97,6 +107,7 @@
 		</div>
 	<!-- 자동실행 -->
 	<script type="text/javascript">
+	
     abcd = null;
 	var AjaxData= $(function(){
 					 $.ajax({
@@ -112,7 +123,7 @@
 								             "    <li id=storeMemo> 후기 : "+ data[index].trMemo +"</li><br>"+
 								             "    <input type=hidden id=hiddenAddress value=" + data[index].trLatLng + ">" +
 								             "    <div id=likeTd"+index+">" +
-								             "    	 <img src=../../images/like30px.png>"+				
+								             "    	 <img id=thumb src=../../images/like40.png>"+				
 								             "   	 <a id=likeCountt>like <span id=ctnSpan"+index+">0<span></a>  "+
 								             "    </div>  "+
 								             "</td>" +
@@ -191,7 +202,7 @@
 																		
 															
 																		/* 중복검사 */
-																		alert("중복검사할 trNo = " + data[index].trNo);
+																		//alert("중복검사할 trNo = " + data[index].trNo);
 																		abcd = data[index].trNo;
 																		
 																		$.ajax({
@@ -201,18 +212,18 @@
 																			 success: function(data) {
 																				 
 																				 if(data == "possible"){
-																					alert("possible");
+																					//alert("possible");
 																					
 																					// 클릭시 ajax발동 후 테이블 좋아요 횟수 수정
 																					//alert("ajax발동");	
-																					alert("해당 TRNO" + abcd);
+																					//alert("해당 TRNO" + abcd);
 																					console.log("abcd" + abcd);
 																					$.ajax({
 																						 url:"/KH_Groupware/ajaxLikeInsert.tr",
 																						 type:"get",
 																						 data:{likeCnt:$("#ctnSpan"+index).text(), SameTrNo:abcd},
 																						 success: function(data) {
-																							alert("성공했습니다. 중복 검사를 시작합니다.");
+																							alert("성공했습니다.");
 																							$("#ctnSpan"+index).text(parseInt(likePlus) + 1); // 카운트 늘려주는 라인
 																						 },
 																						 error: function() {

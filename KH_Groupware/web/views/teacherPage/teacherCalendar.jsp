@@ -368,7 +368,7 @@
 	}
 	
 	
- 	.fc-past{ background:whitesmoke}
+ 	/* .fc-past{ background:whitesmoke} */
  		
  	
 	.fc-sun { color:red; }
